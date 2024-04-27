@@ -5,11 +5,8 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
-env:
-  CARGO_TERM_COLOR: always
-
 jobs:
-  Build-Rust:
+  Build:
 
     runs-on: 'windows-latest'
 
@@ -17,11 +14,11 @@ jobs:
     - uses: actions/checkout@v4.1.4
     - uses: actions/checkout@v4.1.4
       with:
-        repository: https://github.com/SMGCommunity/Syati.git
+        repository: SMGCommunity/Syati
         path: Syati
     - uses: actions/checkout@v4.1.4
       with:
-        repository: https://github.com/SMGCommunity/SyatiModuleBuildTool.git
+        repository: SMGCommunity/SyatiModuleBuildTool
         path: SyatiModuleBuildTool
     - uses: actions/setup-dotnet@v4
       with:
