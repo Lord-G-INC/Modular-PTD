@@ -8,9 +8,6 @@ jobs:
   Build:
 
     runs-on: 'windows-latest'
-    strategy:
-        matrix:
-            region: ['USA', 'PAL', 'JPN']
 
     steps:
     - uses: actions/checkout@v4.1.4
@@ -43,7 +40,10 @@ jobs:
        curl -k -L -O https://github.com/Treeki/Kamek/releases/download/2024-04-10_prerelease/kamek_2024-04-10_win-x64.zip
        7z x kamek_2024-04-10_win-x64.zip -oKamek
     - shell: cmd
-      run: SyatiModuleBuildTool.exe ${{matrix.region}} Syati modules out
+      run: |
+         SyatiModuleBuildTool.exe USA Syati modules out
+         SyatiModuleBuildTool.exe PAL Syati modules out
+         SyatiModuleBuildTool.exe JPN Syati modules out
     - uses: actions/upload-artifact@v4.3.3
       with:
         path: out/*.bin
