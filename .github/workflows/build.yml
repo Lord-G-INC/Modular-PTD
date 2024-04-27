@@ -1,4 +1,4 @@
-name: Rust
+name: Build
 
 on:
   push:
@@ -25,3 +25,21 @@ jobs:
         dotnet-version: 8.x.x
     - shell: cmd
       run: DIR
+    - shell: cmd
+      working-directory: SyatiModuleBuildTool
+      run: dotnet build -c Release
+    - shell: cmd
+      run: |
+        mklink SyatiModuleBuildTool.exe SyatiModuleBuildTool\SyatiModuleBuildTool\bin\Release\net8.0\SyatiModuleBuildTool.exe
+        mklink SyatiModuleBuildTool.dll SyatiModuleBuildTool\SyatiModuleBuildTool\bin\Release\net8.0\SyatiModuleBuildTool.dll
+        mklink SyatiModuleBuildTool.runtimeconfig.json SyatiModuleBuildTool\SyatiModuleBuildTool\bin\Release\net8.0\SyatiModuleBuildTool.runtimeconfig.json
+        DIR
+    - shell: cmd
+      working-directory: Syati/deps
+      run: |
+       curl -k -L -O https://github.com/Lord-Giganticus/SyatiSetup/releases/download/Auto/syatisetup.exe
+       syatisetup.exe
+       rd /s Kamek
+       curl -k -L -O https://github.com/Treeki/Kamek/releases/download/2024-04-10_prerelease/kamek_2024-04-10_win-x64.zip
+       7z x kamek_2024-04-10_win-x64.zip -oKamek
+       DIR
