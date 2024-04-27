@@ -3,12 +3,14 @@ name: Build
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:
 
 jobs:
   Build:
 
     runs-on: 'windows-latest'
+    strategy:
+        matrix:
+            region: ['USA', 'PAL', 'JPN']
 
     steps:
     - uses: actions/checkout@v4.1.4
@@ -24,16 +26,14 @@ jobs:
       with:
         dotnet-version: 8.x.x
     - shell: cmd
-      run: DIR
-    - shell: cmd
       working-directory: SyatiModuleBuildTool
       run: dotnet build -c Release
     - shell: cmd
       run: |
+        mkdir out
         mklink SyatiModuleBuildTool.exe SyatiModuleBuildTool\SyatiModuleBuildTool\bin\Release\net8.0\SyatiModuleBuildTool.exe
         mklink SyatiModuleBuildTool.dll SyatiModuleBuildTool\SyatiModuleBuildTool\bin\Release\net8.0\SyatiModuleBuildTool.dll
         mklink SyatiModuleBuildTool.runtimeconfig.json SyatiModuleBuildTool\SyatiModuleBuildTool\bin\Release\net8.0\SyatiModuleBuildTool.runtimeconfig.json
-        DIR
     - shell: cmd
       working-directory: Syati/deps
       run: |
@@ -42,4 +42,9 @@ jobs:
        rd /s /q Kamek
        curl -k -L -O https://github.com/Treeki/Kamek/releases/download/2024-04-10_prerelease/kamek_2024-04-10_win-x64.zip
        7z x kamek_2024-04-10_win-x64.zip -oKamek
-       DIR
+    - shell: cmd
+      run: SyatiModuleBuildTool.exe ${{matrix.region}} Syati modules out
+    - uses: actions/upload-artifact@v4.3.3
+      with:
+        path: out/*.bin
+        name: Build
