@@ -1,0 +1,16 @@
+{
+  "Name": "PowerStarSpawner",
+  "Author": "Evanbowl",
+  "Description": "PTD PSS",
+  "ModuleData" : [
+    {
+      "NameObjFactory": [
+        {
+          "Name" : "PowerStarSpawner",
+          "Function" : "createExtActor<pt::PowerStarSpawner>",
+          "Include" : "PowerStarSpawner.h"
+        }
+      ]
+    }
+  ]
+}

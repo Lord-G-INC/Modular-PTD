@@ -1,0 +1,26 @@
+{
+  "Name": "Red Coin System",
+  "Author": "Evanbowl",
+  "Description": "PTD RCS",
+  "ModuleData" : [
+    {
+      "NameObjFactory": [
+        {
+          "Name" : "RedCoin",
+          "Function" : "createExtActor<RedCoin>",
+          "Include" : "RedCoin.h"
+        },
+        {
+          "Name" : "RedCoinController",
+          "Function" : "createExtActor<RedCoinController>",
+          "Include" : "RedCoinController.h"
+        },
+        {
+          "Name" : "RedCoinSwitch",
+          "Function" : "createExtActor<RedCoinSwitch>",
+          "Include" : "RedCoinSwitch.h"
+        }
+      ]
+    }
+  ]
+}
