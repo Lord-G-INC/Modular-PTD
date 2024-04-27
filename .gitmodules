@@ -1,0 +1,9 @@
+[submodule "Syati_Init"]
+	path = modules/Syati_Init
+	url = https://www.github.com/SMGCommunity/Syati_Init
+[submodule "Syati_CommonFunctionHooks"]
+	path = modules/Syati_CommonFunctionHooks
+	url = https://www.github.com/SMGCommunity/Syati_CommonFunctionHooks
+[submodule "Syati_ObjectFactories"]
+	path = modules/Syati_ObjectFactories
+	url = https://www.github.com/SMGCommunity/Syati_ObjectFactories
