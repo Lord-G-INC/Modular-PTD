@@ -39,7 +39,7 @@ jobs:
       run: |
        curl -k -L -O https://github.com/Lord-Giganticus/SyatiSetup/releases/download/Auto/syatisetup.exe
        syatisetup.exe
-       rd /s Kamek
+       rd /s /q Kamek
        curl -k -L -O https://github.com/Treeki/Kamek/releases/download/2024-04-10_prerelease/kamek_2024-04-10_win-x64.zip
        7z x kamek_2024-04-10_win-x64.zip -oKamek
        DIR
