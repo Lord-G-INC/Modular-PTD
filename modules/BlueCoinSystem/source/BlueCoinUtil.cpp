@@ -7,14 +7,14 @@
 //#include "Util/ActorUtil.h"
 #include "Game/NPC/TalkMessageCtrl.h"
 
-BlueCoinData* gBlueCoinData;
-extern void* gBlueCoinIDRangeTable;
-
 #define BINSIZE 867
 
 #define FLAGS_LOCATION 765
 #define SPENT_LOCATION 861
 #define TEXTBOX_LOCATION 864
+
+BlueCoinData* gBlueCoinData;
+void* gBlueCoinIDRangeTable = pt::loadArcAndFile("SystemData/BlueCoinIDRangeTable.arc", "/BlueCoinIDRangeTable.bcsv");
 
 namespace BlueCoinUtil {
     void loadBlueCoinData() {

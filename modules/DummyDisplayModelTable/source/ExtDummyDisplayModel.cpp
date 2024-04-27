@@ -1,10 +1,13 @@
 #include "syati.h"
 //#include "pt/MapObj/BlueCoinSystem/BlueCoinUtil.h"
-extern void* gDummyDisplayModelTable;
 namespace BlueCoinUtil {
     extern bool isBlueCoinGotCurrentFile(u8);
 };
+
 namespace pt {
+    extern void* loadArcAndFile(const char *pArc, const char *pFile);
+    void* gDummyDisplayModelTable = pt::loadArcAndFile("/SystemData/DummyDisplayModelTable.arc", "/DummyDisplayModelTable.bcsv");
+    
     /*
     * New Dummy items
     *

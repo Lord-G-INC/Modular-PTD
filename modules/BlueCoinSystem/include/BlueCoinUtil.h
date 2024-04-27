@@ -6,6 +6,12 @@
 /// @param flags Blue Coin Flags
 /// @param spentData Spent Blue Coin Amounts
 /// @param hasSeenTextBox Has Seen One-Time Text Box
+
+namespace pt {
+    extern void* loadArcAndFile(const char *pArc, const char *pFile);
+    extern void setTextBoxArgStringNumberFontRecursive(LayoutActor* pLayout, const char* paneName, s32 num, s32 index);
+}
+
 struct BlueCoinData {
     bool** collectionData;
     bool flags[3][32];

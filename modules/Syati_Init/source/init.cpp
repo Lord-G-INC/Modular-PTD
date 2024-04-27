@@ -1,23 +1,16 @@
+
 #pragma once
 
-#include "syati.h"
+#include "revolution.h"
+#include "kamek/hooks.h"
 
 typedef void (*Func)();
 extern Func __ctor_loc;
 extern Func __ctor_end;
 
-namespace pt {
-    extern void* loadArcAndFile(const char *pArc, const char *pFile);
-}
-
 namespace BlueCoinUtil {
     extern void initBlueCoinArray();
 }
-
-void* gDummyDisplayModelTable;
-void* gBlueCoinIDRangeTable;
-void* gBoardDataTable;
-
 
 namespace {
     // ----------------------------------------------------------------------------------------------------------------
@@ -29,10 +22,6 @@ namespace {
             (*f)();
         }
         BlueCoinUtil::initBlueCoinArray();
-
-        gDummyDisplayModelTable = pt::loadArcAndFile("/SystemData/DummyDisplayModelTable.arc", "/DummyDisplayModelTable.bcsv");
-        gBlueCoinIDRangeTable = pt::loadArcAndFile("SystemData/BlueCoinIDRangeTable.arc", "/BlueCoinIDRangeTable.bcsv");
-        gBoardDataTable = pt::loadArcAndFile("SystemData/BlueCoinBoardDataTable.arc", "/BlueCoinBoardDataTable.bcsv");
     }
 
 #if defined(TWN) || defined(KOR)
@@ -40,10 +29,4 @@ namespace {
 #else
     kmBranch(0x804B69F4, init);
 #endif
-
-void loadPTPictureFont() {
-	pt::loadArcAndFile("/SystemData/PictureFont.arc", "/PictureFont.brfnt");
-}
-
-kmCall(0x804B8048, loadPTPictureFont);
 }

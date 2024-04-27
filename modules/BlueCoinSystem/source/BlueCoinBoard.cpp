@@ -1,12 +1,15 @@
 #include "BlueCoinBoard.h"
+#include "BlueCoinUtil.h"
 //#include "pt/Util.h"
 //#include "pt/init.h"
 
-namespace pt {
-    extern void setTextBoxArgStringNumberFontRecursive(LayoutActor* pLayout, const char* paneName, s32 num, s32 index);
+void* gBoardDataTable = pt::loadArcAndFile("SystemData/BlueCoinBoardDataTable.arc", "/BlueCoinBoardDataTable.bcsv");
+
+void loadPTPictureFont() {
+	pt::loadArcAndFile("/SystemData/PictureFont.arc", "/PictureFont.brfnt");
 }
 
-extern void* gBoardDataTable;
+kmCall(0x804B8048, loadPTPictureFont);
 /*
     Super Mario Starshine: Blue Coin Board
 
