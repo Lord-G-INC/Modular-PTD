@@ -1,0 +1,29 @@
+{
+  "Name": "Area Manager Extensions",
+  "Author": "Evanbowl",
+  "Description": "My Syati Module is awesome!",
+
+  "ModuleExtensionDefinition" : [
+    {
+      "Name" : "AreaObjMgr",
+      "CodeGenSource": "GEN_ExtAreaObjMgr.h",
+      "CodeGenDestination": "codebuild/ModuleData_ExtAreaObjMgr.h",
+      "Variables": [
+        "Name",
+        "MaxCount",
+        "Function",
+        "Include"
+      ],
+      "CodeGenData": [
+        {
+          "ReplaceTargetName": "ManagerEntryList",
+          "ReplaceFormatData": "{{ \"{0}\", {1}, {2} }},"
+        },
+        {
+          "ReplaceTargetName": "IncludeList",
+          "ReplaceFormatData": "#include \"{3}\""
+        }
+      ]
+    }
+  ]
+}

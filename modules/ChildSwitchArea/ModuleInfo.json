@@ -1,0 +1,25 @@
+{
+  "Name": "ChildSwitchArea",
+  "Author": "AwesomeTMC",
+  "Description": "My Syati Module is awesome!",
+  "ModuleData" : [
+    {
+      "NameObjFactory": [
+        {
+          "Name" : "ChildSwitchArea",
+          "Function" : "createExtActor<pt::ChildSwitchArea>",
+          "Include" : "ChildSwitchArea.h"
+        }
+      ]
+    },
+    {
+      "AreaObjMgr" : [
+        {
+          "Name" : "ChildSwitchArea",
+          "MaxCount" : "32",
+          "Function" : "AreaObjContainer::createManager<AreaObjMgr>"
+        }
+      ]
+    }
+  ]
+}
