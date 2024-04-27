@@ -1,5 +1,5 @@
 {
   "Name": "Dummy Display Model Table",
-  "Author": "Aurum, Evanbowl",
-  "Description": "My Syati Module is awesome!"
+  "Author": "Aurum and Evanbowl",
+  "Description": "Reads a BCSV table for DummyDisplayModelInfo data."
 }

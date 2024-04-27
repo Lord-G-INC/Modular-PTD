@@ -1,7 +1,7 @@
 {
   "Name": "PowerStarSpawner",
   "Author": "Evanbowl",
-  "Description": "PTD PSS",
+  "Description": "PTD Power Star Spawner",
   "ModuleData" : [
     {
       "NameObjFactory": [

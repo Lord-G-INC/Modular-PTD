@@ -1,7 +1,7 @@
 {
   "Name": "Crystal Box",
   "Author": "Evanbowl",
-  "Description": "My Syati Module is awesome!",
+  "Description": "Custom actor \"CrystalBox\" from PTD.",
     "ModuleData" : [
     {
       "NameObjFactory": [
