@@ -1,0 +1,16 @@
+{
+  "Name": "Crystal Box",
+  "Author": "Evanbowl",
+  "Description": "My Syati Module is awesome!",
+    "ModuleData" : [
+    {
+      "NameObjFactory": [
+        {
+          "Name" : "CrystalBox",
+          "Function" : "createExtActor<CrystalBox>",
+          "Include" : "CrystalBox.h"
+        }
+      ]
+    }
+  ]
+}

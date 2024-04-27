@@ -1,0 +1,21 @@
+{
+  "Name": "SMSS Blue Coin System",
+  "Author": "Evanbowl and Lord-Giganticus",
+  "Description": "SMSS BCS + BCB",
+  "ModuleData" : [
+    {
+      "NameObjFactory": [
+        {
+          "Name" : "BlueCoin",
+          "Function" : "createExtActor<BlueCoin>",
+          "Include" : "BlueCoin.h"
+        },
+        {
+          "Name" : "BlueCoinSign",
+          "Function" : "createExtActor<BlueCoinSign>",
+          "Include" : "BlueCoinBoard.h"
+        }
+      ]
+    }
+  ]
+}

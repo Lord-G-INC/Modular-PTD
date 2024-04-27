@@ -1,7 +1,9 @@
 #include "syati.h"
 //#include "pt/MapObj/BlueCoinSystem/BlueCoinUtil.h"
 extern void* gDummyDisplayModelTable;
-
+namespace BlueCoinUtil {
+    extern bool isBlueCoinGotCurrentFile(u8);
+};
 namespace pt {
     /*
     * New Dummy items
@@ -27,10 +29,8 @@ namespace pt {
             MR::getJMapInfoArg6NoInit(rIter, &colorId);
         }
 
-        #if defined USEBLUECOIN && !defined SM64BLUECOIN
-            if (modelId == 25 && BlueCoinUtil::isBlueCoinGotCurrentFile(colorId))
-                modelId++;
-        #endif
+        if (modelId == 25 && BlueCoinUtil::isBlueCoinGotCurrentFile(colorId))
+            modelId++;
     
         JMapInfo table;
         table.attach(gDummyDisplayModelTable);

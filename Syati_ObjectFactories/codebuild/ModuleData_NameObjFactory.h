@@ -2,6 +2,9 @@
 
 #include "ActorCreation.h"
 
+#include "BlueCoin.h"
+#include "BlueCoinBoard.h"
+#include "CrystalBox.h"
 #include "PowerStarSpawner.h"
 #include "RedCoin.h"
 #include "RedCoinController.h"
@@ -12,6 +15,9 @@
 const CreateActorEntry cModuleCreateNameObjTable[] = {
 	//DUMMY - This is never read
 	{ "1234567890", NULL },
+{ "BlueCoin", createExtActor<BlueCoin> },
+{ "BlueCoinSign", createExtActor<BlueCoinSign> },
+{ "CrystalBox", createExtActor<CrystalBox> },
 { "PowerStarSpawner", createExtActor<pt::PowerStarSpawner> },
 { "RedCoin", createExtActor<RedCoin> },
 { "RedCoinController", createExtActor<RedCoinController> },

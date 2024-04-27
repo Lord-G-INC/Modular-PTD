@@ -6,22 +6,18 @@ typedef void (*Func)();
 extern Func __ctor_loc;
 extern Func __ctor_end;
 
-void* gDummyDisplayModelTable;
-
-void* loadArcAndFile(const char *pArc, const char *pFile) {
-	OSReport("Loading file %s from %s\n", pFile, pArc);
-	JKRArchive* arc = MR::mountArchive(pArc, MR::getStationedHeapNapa(), false);
-	void* file = arc->getResource(pFile);
-
-	if (arc && file) {
-		OSReport("(PTD Archive Loader) Archive %s and file %s both exist!\n", pArc, pFile);
-		return file;
-	}
-	else
-		OSReport("(PTD Archive Loader) %s %s isn't exist!\n", pArc, pFile);
-
-	return 0;
+namespace pt {
+    extern void* loadArcAndFile(const char *pArc, const char *pFile);
 }
+
+namespace BlueCoinUtil {
+    extern void initBlueCoinArray();
+}
+
+void* gDummyDisplayModelTable;
+void* gBlueCoinIDRangeTable;
+void* gBoardDataTable;
+
 
 namespace {
     // ----------------------------------------------------------------------------------------------------------------
@@ -32,8 +28,11 @@ namespace {
         for (Func* f = &__ctor_loc; f < &__ctor_end; f++) {
             (*f)();
         }
+        BlueCoinUtil::initBlueCoinArray();
 
-        gDummyDisplayModelTable = loadArcAndFile("/SystemData/DummyDisplayModelTable.arc", "/DummyDisplayModelTable.bcsv");
+        gDummyDisplayModelTable = pt::loadArcAndFile("/SystemData/DummyDisplayModelTable.arc", "/DummyDisplayModelTable.bcsv");
+        gBlueCoinIDRangeTable = pt::loadArcAndFile("SystemData/BlueCoinIDRangeTable.arc", "/BlueCoinIDRangeTable.bcsv");
+        gBoardDataTable = pt::loadArcAndFile("SystemData/BlueCoinBoardDataTable.arc", "/BlueCoinBoardDataTable.bcsv");
     }
 
 #if defined(TWN) || defined(KOR)
@@ -41,4 +40,10 @@ namespace {
 #else
     kmBranch(0x804B69F4, init);
 #endif
+
+void loadPTPictureFont() {
+	pt::loadArcAndFile("/SystemData/PictureFont.arc", "/PictureFont.brfnt");
+}
+
+kmCall(0x804B8048, loadPTPictureFont);
 }

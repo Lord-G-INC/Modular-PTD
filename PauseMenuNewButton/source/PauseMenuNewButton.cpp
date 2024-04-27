@@ -210,11 +210,12 @@ kmWrite32(0x80487CB0, 0x48000008); // b 0x8 (Skip useless instructions)
     kmCall(0x804876C4, setupButtonConnection);
 #endif
 
-bool PauseMenuIsNewButtonPointingTrigger(PauseMenuExt* pPauseMenu) {
-    #if defined USEBLUECOIN && !defined SM64BLUECOIN
-        PauseMenuIDListControls(pPauseMenu);
-    #endif
+extern void PauseMenuIDListControls(PauseMenu* pPauseMenu);
 
+bool PauseMenuIsNewButtonPointingTrigger(PauseMenuExt* pPauseMenu) {
+    
+    PauseMenuIDListControls(pPauseMenu);
+    
     #ifdef PMNB
         return (pPauseMenu->mButtonTop && pPauseMenu->mButtonTop->isPointingTrigger()) || (pPauseMenu->mButtonNew && pPauseMenu->mButtonNew->isPointingTrigger());
     #else
