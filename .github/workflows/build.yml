@@ -1,0 +1,30 @@
+name: Rust
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  Build-Rust:
+
+    runs-on: 'windows-latest'
+
+    steps:
+    - uses: actions/checkout@v4.1.4
+    - uses: actions/checkout@v4.1.4
+      with:
+        repository: https://github.com/SMGCommunity/Syati.git
+        path: Syati
+    - uses: actions/checkout@v4.1.4
+      with:
+        repository: https://github.com/SMGCommunity/SyatiModuleBuildTool.git
+        path: SyatiModuleBuildTool
+    - uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.x.x
+    - shell: cmd
+      run: DIR
