@@ -4,7 +4,6 @@
 #include "BlueCoinUtil.h"
 #include "Game/Screen/GameSceneLayoutHolder.h"
 #include "Game/Screen/CounterLayoutControllerExt.h"
-//#include "Util/ActorUtil.h"
 #include "Game/NPC/TalkMessageCtrl.h"
 
 #define BINSIZE 867
@@ -13,8 +12,13 @@
 #define SPENT_LOCATION 861
 #define TEXTBOX_LOCATION 864
 
+void* initializeBlueCoinArrayAndLoadArchive() {
+    BlueCoinUtil::initBlueCoinArray();
+    return pt::loadArcAndFile("SystemData/BlueCoinIDRangeTable.arc", "/BlueCoinIDRangeTable.bcsv");
+}
+
 BlueCoinData* gBlueCoinData;
-void* gBlueCoinIDRangeTable = pt::loadArcAndFile("SystemData/BlueCoinIDRangeTable.arc", "/BlueCoinIDRangeTable.bcsv");
+void* gBlueCoinIDRangeTable = initializeBlueCoinArrayAndLoadArchive();
 
 namespace BlueCoinUtil {
     void loadBlueCoinData() {
