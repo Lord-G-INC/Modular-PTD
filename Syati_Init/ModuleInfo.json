@@ -1,0 +1,16 @@
+{
+  "Name": "Syati Initilizer Module",
+  "Author": "",
+  "Description": "Required to make Syati Modules run properly",
+  "ModuleData" : [
+    {
+      "ArchiveUtil" : [
+        {
+          "VarName" : "gDummyDisplayModelTable",
+          "ArcPath" : "/SystemData/DummyDisplayModelTable.arc",
+          "FilePath" : "/DummyDisplayModelTable.bcsv"
+        }
+      ]
+    }
+  ]
+}
