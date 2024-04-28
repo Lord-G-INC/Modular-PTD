@@ -11,6 +11,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4.1.4
+      with:
+        submodules: recursive
     - uses: actions/checkout@v4.1.4
       with:
         repository: SMGCommunity/Syati
