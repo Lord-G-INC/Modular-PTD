@@ -4,12 +4,6 @@
 //#include "pt/init.h"
 
 void* gBoardDataTable = pt::loadArcAndFile("SystemData/BlueCoinBoardDataTable.arc", "/BlueCoinBoardDataTable.bcsv");
-
-void loadPTPictureFont() {
-	pt::loadArcAndFile("/SystemData/PictureFont.arc", "/PictureFont.brfnt");
-}
-
-kmCall(0x804B8048, loadPTPictureFont);
 /*
     Super Mario Starshine: Blue Coin Board
 

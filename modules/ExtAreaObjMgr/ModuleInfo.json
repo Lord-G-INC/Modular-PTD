@@ -1,8 +1,7 @@
 {
-  "Name": "Area Manager Extensions",
+  "Name": "Area Manager Extensions (Codegen)",
   "Author": "Evanbowl",
-  "Description": "My Syati Module is awesome!",
-
+  "Description": "Extends the AreaObjMgr creation table.",
   "ModuleExtensionDefinition" : [
     {
       "Name" : "AreaObjMgr",

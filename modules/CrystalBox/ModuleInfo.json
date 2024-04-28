@@ -2,7 +2,7 @@
   "Name": "Crystal Box",
   "Author": "Evanbowl",
   "Description": "Custom actor \"CrystalBox\" from PTD.",
-    "ModuleData" : [
+  "ModuleData" : [
     {
       "NameObjFactory": [
         {

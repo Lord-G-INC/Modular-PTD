@@ -5,7 +5,7 @@
 
 
 static ManagerEntry cModuleCreateAreaObjMgrTable[] = {
-    { "ChildSwitchArea", 64, AreaObjContainer::createManager<AreaObjMgr> },
+    { "ChildSwitchArea", 32, AreaObjContainer::createManager<AreaObjMgr> },
 
 };
 
