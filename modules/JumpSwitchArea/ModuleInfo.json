@@ -1,0 +1,25 @@
+{
+  "Name": "Jump Switch Area",
+  "Author": "Someone",
+  "Description": "My Syati Module is awesome!",
+  "ModuleData" : [
+    {
+      "NameObjFactory" : [
+        {
+          "Name" : "JumpSwitchArea",
+          "Function" : "createExtActor<pt::JumpSwitchArea>",
+          "Include" : "JumpSwitchArea.h"
+        }
+      ]
+    },
+    {
+      "AreaObjMgr" : [
+        {
+          "Name" : "JumpSwitchArea",
+          "MaxCount" : "64",
+          "Function" : "AreaObjContainer::createManager<AreaObjMgr>"
+        }
+      ]
+    }
+  ]
+}
