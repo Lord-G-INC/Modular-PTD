@@ -91,7 +91,6 @@ bool BlueCoin::receiveMessage(u32 msg, HitSensor* pSender, HitSensor* pReciver) 
 }
 
 void BlueCoin::appearAndMove() {
-    // I need a better way to calculate the gravity
     TVec3f coinVelocity = TVec3f(0.0f, mLaunchVelocity / 10.0f, 0.0f);
     coinVelocity.scale(coinVelocity.y, -mGravity);
 
