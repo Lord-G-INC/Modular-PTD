@@ -6,6 +6,7 @@
 * Error Message Fallback
 * PictureFont Redirection
 * Custom Flag Textures
+* Custom HipDropSwitch Colors
 * Print File Name if Missing
 * Yes/No Dialogue Extensions
 * Appear Custom Coin Types on Dark Comets
@@ -74,6 +75,17 @@ namespace pt {
 	kmWrite32(0x80254884, 0x7FA5EB78); // mr r5, r29
 	kmCall(0x8025488C, CustomFlagTextures);
 
+
+	void customHipDropSwitchColors(LiveActor* actor, const JMapInfoIter& iter) {
+		MR::needStageSwitchWriteA(actor, iter);
+	
+		f32 frame = 0;
+		MR::getJMapInfoArg1NoInit(iter, &frame);
+		MR::startBtpAndSetFrameAndStop(actor, "ButtonColor", frame);
+	}
+	
+	kmCall(0x802AF524, customHipDropSwitchColors);
+	
 	/*
 	* Debugging feature: displaying the names of missing files on the "File isn't exist" error.
 	*

@@ -275,14 +275,14 @@ wchar_t* gBButtonIcon = new wchar_t[2];
 s32 setUpBlueCoinInfo(PauseMenu* pPauseMenu) {
     setPauseMenuBlueCoinStageCount(pPauseMenu);
 
-    s32 rangemin = BlueCoinUtil::getBlueCoinRange(0, 0);
+    s32 rangemin = BlueCoinUtil::getBlueCoinRange(0, false);
 
     setUpBlueCoinFlagsInfo(pPauseMenu);
 
     ((PauseMenuExt*)pPauseMenu)->mDisplayMode = 0;
 
     if (rangemin != -1) {
-        s32 totalCoins = (BlueCoinUtil::getBlueCoinRange(0, 1)-rangemin)+1;
+        s32 totalCoins = (BlueCoinUtil::getBlueCoinRange(0, true)-rangemin)+1;
         s32 newLineOff = 0;
         s32 collectedCount = 0;
         bool newLineAdded = 0;
