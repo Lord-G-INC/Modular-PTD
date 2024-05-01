@@ -32,8 +32,10 @@ namespace pt {
             MR::getJMapInfoArg6NoInit(rIter, &colorId);
         }
 
-        if (modelId == 25 && BlueCoinUtil::isBlueCoinGotCurrentFile(colorId))
-            modelId++;
+        #ifdef BLUECOINSYSTEM
+            if (modelId == 25 && BlueCoinUtil::isBlueCoinGotCurrentFile(colorId))
+                modelId++;
+        #endif
     
         JMapInfo table;
         table.attach(gDummyDisplayModelTable);

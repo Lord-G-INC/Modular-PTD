@@ -213,10 +213,11 @@ kmWrite32(0x80487CB0, 0x48000008); // b 0x8 (Skip useless instructions)
 extern void PauseMenuIDListControls(PauseMenu* pPauseMenu);
 
 bool PauseMenuIsNewButtonPointingTrigger(PauseMenuExt* pPauseMenu) {
+    #ifdef BLUECOINSYSTEM
+        PauseMenuIDListControls(pPauseMenu);
+    #endif
     
-    PauseMenuIDListControls(pPauseMenu);
-    
-    #ifdef PMNB
+    #ifdef PAUSEMENUNEWBUTTON
         return (pPauseMenu->mButtonTop && pPauseMenu->mButtonTop->isPointingTrigger()) || (pPauseMenu->mButtonNew && pPauseMenu->mButtonNew->isPointingTrigger());
     #else
         return (pPauseMenu->mButtonTop && pPauseMenu->mButtonTop->isPointingTrigger());

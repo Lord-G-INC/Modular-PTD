@@ -1,5 +1,8 @@
 {
   "Name": "PauseMenuNewButton",
   "Author": "Evanbowl",
-  "Description": "Restart Stage Button"
+  "Description": "Restart Stage Button",
+  "CompilerFlags" : [
+    "-DPAUSEMENUNEWBUTTON"
+  ]
 }

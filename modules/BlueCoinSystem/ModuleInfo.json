@@ -2,6 +2,9 @@
   "Name": "SMSS Blue Coin System",
   "Author": "Evanbowl and Lord-Giganticus",
   "Description": "Starshine Blue Coin System + Blue Coin Board",
+  "CompilerFlags" : [
+    "-DBLUECOINSYSTEM"
+  ],
   "ModuleData" : [
     {
       "NameObjFactory": [

@@ -2,9 +2,7 @@
 
 #include "syati.h"
 #include "RedCoinController.h"
-#include "revolution.h"
 #include "Game/MapObj/Coin.h"
-#include "Game/LiveActor/FlashingCtrl.h"
 #include "Game/Screen/CountUpPaneRumbler.h"
 
 

@@ -1,4 +1,5 @@
 #pragma once
+
 #include "syati.h"
 #include "BlueCoinUtil.h"
 

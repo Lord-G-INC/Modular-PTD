@@ -39,7 +39,6 @@ void BlueCoin::init(const JMapInfoIter& rIter) {
     }
     else
         MR::processInitFunction(this, BlueCoinUtil::isBlueCoinGotCurrentFile(mID) ? "BlueCoinClear" : "BlueCoin", false);
-    
 
     initEffectKeeper(2, "Coin", 0);
     MR::calcGravity(this);
