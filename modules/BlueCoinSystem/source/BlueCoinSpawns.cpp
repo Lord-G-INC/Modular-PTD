@@ -54,8 +54,6 @@ kmCall(0x801B8EC8, KuriboAppearBlueCoin);
 SamboHeadExt::SamboHeadExt(const char* pName) : SamboHead(pName) {
     mBlueCoin = 0;
     mBlueCoinArg = -1;
-    mRedCoin = 0;
-    mRedCoinGroup = -1;
 }
 
 SamboHead* createSamboHeadExt(const char* pName) {
@@ -66,27 +64,13 @@ kmCall(0x8033DC44, createSamboHeadExt); // li r3, 0xC4
 kmWrite32(0x8033DC48, 0x48000014); // li r3, 0xC4
 
 void SamboHeadSetUpBlueCoin(SamboHeadExt* pSamboHead, const JMapInfoIter& rIter, const char* pStr) {
-    if (MR::isValidInfo(rIter)) {
+    if (MR::isValidInfo(rIter))
         MR::getJMapInfoArg1NoInit(rIter, &pSamboHead->mBlueCoinArg);
-        MR::getJMapInfoArg2NoInit(rIter, &pSamboHead->mRedCoinGroup);
-    }
 
     MR::processInitFunction(pSamboHead, rIter, pStr, 0);
 
     if (pSamboHead->mBlueCoinArg > -1)
         pSamboHead->mBlueCoin = (BlueCoin*)BlueCoinUtil::createBlueCoinForSpawning(pSamboHead, pSamboHead->mBlueCoinArg);
-
-    //if (pSamboHead->mRedCoinGroup > -1) {
-    //    RedCoin* pCoin = new RedCoin("RedCoinS");
-    //    MR::addToCoinHolder(pSamboHead, pCoin);
-    //    pCoin->initWithoutIter();
-    //    MR::hideModel(pCoin);
-    //    MR::invalidateHitSensors(pCoin);
-    //    pSamboHead->mActionKeeper->mItemGenerator = 0;
-    //    LiveActorGroup* pRedCoinGroup = MR::joinToGroupArray(pCoin, rIter, "RedCoinGroup", 24);
-    //    //((LiveActorGroupArray*)MR::getSceneObjHolder()->getObj(0xE))->findGroup(pCoin)->mGroupId = new JMapIdInfo(pSamboHead->mRedCoinGroup, rIter);
-    //    pSamboHead->mRedCoin = pCoin;
-    //}
 }
 
 kmCall(0x801F8024, SamboHeadSetUpBlueCoin);
@@ -96,15 +80,6 @@ void SamboHeadAppearBlueCoin(SamboHeadExt* pSamboHead, const char* pStr) {
 
     if (pSamboHead->mBlueCoin)
         BlueCoinUtil::appearBlueCoin(pSamboHead, pSamboHead->mBlueCoin);
-
-    //if (pSamboHead->mRedCoin) {
-    //    TVec3f coinVelocity = TVec3f(0.0f, 25.0f, 0.0f);
-    //    coinVelocity.scale(coinVelocity.y, -pSamboHead->mGravity);
-//
-    //    MR::startSystemSE("SE_SY_RED_COIN_APPEAR", -1, -1);
-//
-    //   pSamboHead->mRedCoin->appearMove(pSamboHead->mTranslation, coinVelocity, 0x7FFFFFFF, 60);
-    //}
 }
 
 kmCall(0x801F81D4, SamboHeadAppearBlueCoin);

@@ -1,5 +1,7 @@
 #include "Game/Enemy/Kuribo.h"
+#ifdef BLUECOINSYSTEM
 #include "BlueCoin.h"
+#endif
 
 class KuriboExt : public Kuribo {
 public:

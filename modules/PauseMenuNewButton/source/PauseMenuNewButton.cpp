@@ -217,11 +217,7 @@ bool PauseMenuIsNewButtonPointingTrigger(PauseMenuExt* pPauseMenu) {
         PauseMenuIDListControls(pPauseMenu);
     #endif
     
-    #ifdef PAUSEMENUNEWBUTTON
-        return (pPauseMenu->mButtonTop && pPauseMenu->mButtonTop->isPointingTrigger()) || (pPauseMenu->mButtonNew && pPauseMenu->mButtonNew->isPointingTrigger());
-    #else
-        return (pPauseMenu->mButtonTop && pPauseMenu->mButtonTop->isPointingTrigger());
-    #endif
+    return (pPauseMenu->mButtonTop && pPauseMenu->mButtonTop->isPointingTrigger()) || (pPauseMenu->mButtonNew && pPauseMenu->mButtonNew->isPointingTrigger());
 }
 
 kmWrite32(0x80487714, 0x7F63DB78); // mr r3, r27 (PauseMenuExt* into r3)
