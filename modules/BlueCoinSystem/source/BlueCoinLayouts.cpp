@@ -157,9 +157,6 @@ namespace NrvBlueCoinCounter {
     NrvShowTextBox(NrvShowTextBox::sInstance);
 }
 
-// Add 0x4 to CounterLayoutController for BlueCoinCounter ptr
-//kmWrite32(0x80471780, 0x38600050);
-
 CounterLayoutControllerExt* createCounterLayoutControllerExt() {
     return new CounterLayoutControllerExt();
 }
@@ -167,7 +164,7 @@ CounterLayoutControllerExt* createCounterLayoutControllerExt() {
 CounterLayoutControllerExt::CounterLayoutControllerExt() : CounterLayoutController() {}
 
 kmCall(0x80471780, createCounterLayoutControllerExt);
-kmWrite32(0x80471784, 0x48000010);
+kmWrite32(0x80471784, 0x48000010); // b 0x10
 
 void initBlueCoinLayout(CounterLayoutControllerExt* pController) {
     MR::connectToSceneLayout(pController);
@@ -413,13 +410,13 @@ void setBlueCoinCounterFileInfo(LayoutActor* pLayout, const Nerve* pNerve) {
 
 kmCall(0x8046D9BC, setBlueCoinCounterFileInfo);
 
+#ifdef DISABLED
 void initGalaxyInfoBlueCoinCount(LayoutActor* actor) {
     MR::setTextBoxFormatRecursive(actor, "ShaBlueCoinGalax", counterPictureFonts2);
 }
 
-//#ifdef NOGLE
-//    kmCall(0x804A952C, initGalaxyInfoBlueCoinCount);
-//
+kmCall(0x804A952C, initGalaxyInfoBlueCoinCount);
+
 
 void setGalaxyInfoBlueCoinCount(LayoutActor* actor, const char* pGalaxyName, const wchar_t* pWStr) {
     MR::setTextBoxMessageRecursive(actor, "StarIcon", pWStr);
@@ -435,7 +432,6 @@ void setGalaxyInfoBlueCoinCount(LayoutActor* actor, const char* pGalaxyName, con
     }
 }
 
-//#ifdef NOGLE
-//kmWrite32(0x804A95E4, 0x809B003C);
-//kmCall(0x804A95E8, setGalaxyInfoBlueCoinCount);
-//
+kmWrite32(0x804A95E4, 0x809B003C); // lwz r4, 0x3C(r27)
+kmCall(0x804A95E8, setGalaxyInfoBlueCoinCount);
+#endif

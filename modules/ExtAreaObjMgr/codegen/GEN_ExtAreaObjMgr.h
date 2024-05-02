@@ -5,7 +5,7 @@
 {{IncludeList}}
 
 static ManagerEntry cModuleCreateAreaObjMgrTable[] = {
-    {{ManagerEntryList}}
+{{ManagerEntryList}}
 };
 
 const s32 cModuleCreateAreaObjMgrTableCount = sizeof(cModuleCreateAreaObjMgrTable) / sizeof(ManagerEntry);

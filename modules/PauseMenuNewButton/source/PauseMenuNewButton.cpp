@@ -8,7 +8,7 @@ PauseMenuExt* createPauseMenuExt() {
 }
 
 kmCall(0x804712C0, createPauseMenuExt);
-kmWrite32(0x804712C4, 0x48000010);
+kmWrite32(0x804712C4, 0x48000010); // b 0x10
 
 PauseMenuExt::PauseMenuExt() : PauseMenu() {
     mButtonNew = 0;
@@ -58,7 +58,7 @@ void PauseMenuInitNewButton(PauseMenuExt* pPauseMenu, const Nerve* pNerve) {
     pPauseMenu->initNerve(pNerve);
 }
 
-kmCall(0x8048702C, PauseMenuInitNewButton); // Call
+kmCall(0x8048702C, PauseMenuInitNewButton);
 
 void ButtonControl(TVec2f* pPos, PauseMenuExt* pPauseMenu, const char* pStr) {
     MR::copyPaneTrans(&pPauseMenu->mButtonTopFollowPos, pPauseMenu, pStr);
@@ -69,7 +69,7 @@ void ButtonControl(TVec2f* pPos, PauseMenuExt* pPauseMenu, const char* pStr) {
     }
 }
 
-kmCall(0x8048727C, ButtonControl); // Call
+kmCall(0x8048727C, ButtonControl);
 
 void PauseMenuSetButtonPosition(PauseMenuExt* pPauseMenu, const char* pStr1, const char* pStr2, f32 frame, u32 u) {
     MR::startPaneAnimAndSetFrameAndStop(pPauseMenu, pStr1, pPauseMenu->mButtonNew ? "ButtonPosition_restartbutton" : pStr2, frame, u);
@@ -85,7 +85,7 @@ void ForceToWaitNewButton(PauseMenuExt* pPauseMenu) {
 }
 
 kmWrite32(0x80487504, 0x60000000); // nop (Skip overwriting r3)
-kmCall(0x80487508, ForceToWaitNewButton); // Call
+kmCall(0x80487508, ForceToWaitNewButton);
 
 void PauseMenuAppearNewButton(PauseMenuExt* pPauseMenu) {
     pPauseMenu->mButtonTop->appear();
@@ -95,7 +95,7 @@ void PauseMenuAppearNewButton(PauseMenuExt* pPauseMenu) {
 }
 
 kmWrite32(0x80487560, 0x7FE3FB78); // mr r3, r31 (PauseMenuExt* into r3)
-kmCall(0x80487564, PauseMenuAppearNewButton); // Call
+kmCall(0x80487564, PauseMenuAppearNewButton);
 
 bool IsNewButtonPressed(PauseMenuExt* pPauseMenu) {
     bool isPressed = false;
@@ -114,7 +114,7 @@ bool IsNewButtonPressed(PauseMenuExt* pPauseMenu) {
 }
 
 kmWrite32(0x804877B4, 0x7F63DB78); // mr r3, r27 (PauseMenuExt* into r3)
-kmCall(0x804877C0, IsNewButtonPressed); // Call
+kmCall(0x804877C0, IsNewButtonPressed);
 
 void PauseMenuSetInfoWindowStr(PauseMenuExt* pPauseMenu, const char* pStr) {
     pPauseMenu->mSysInfoWindow->appear(pStr, SysInfoWindow::SysInfoType_2, SysInfoWindow::SysInfoTextPos_0, SysInfoWindow::SysInfoMessageType_1);
@@ -124,7 +124,7 @@ void PauseMenuSetInfoWindowStr(PauseMenuExt* pPauseMenu, const char* pStr) {
 }
 
 kmWrite32(0x80487C4C, 0x7FE3FB78); // mr r3, r31 (PauseMenuExt* into r4)
-kmCall(0x80487C5C, PauseMenuSetInfoWindowStr); // Call
+kmCall(0x80487C5C, PauseMenuSetInfoWindowStr);
 
 void DisappearNewButton(PauseMenuExt* pPauseMenu) {
     pPauseMenu->mButtonTop->disappear();
@@ -134,14 +134,14 @@ void DisappearNewButton(PauseMenuExt* pPauseMenu) {
 }
 
 kmWrite32(0x80487B10, 0x7FC3F378); // mr r3, r30 (PauseMenuExt* into r3)
-kmCall(0x80487B14, DisappearNewButton); // Call
+kmCall(0x80487B14, DisappearNewButton);
 
 bool IsNewButtonTimingForSelectedSE(PauseMenuExt* pPauseMenu) {
     return (pPauseMenu->mButtonBottom && pPauseMenu->mButtonBottom->isTimingForSelectedSe()) || (pPauseMenu->mButtonNew && pPauseMenu->mButtonNew->isTimingForSelectedSe());
 }
 
 kmWrite32(0x804879C8, 0x7FC3F378); // mr r3, r30
-kmCall(0x804879CC, IsNewButtonTimingForSelectedSE); // Call
+kmCall(0x804879CC, IsNewButtonTimingForSelectedSE);
 
 bool PauseMenuValidateButton(PauseMenuExt* pPauseMenu) {
     return (pPauseMenu->mButtonBottom && pPauseMenu->mButtonBottom->_24) || (pPauseMenu->mButtonNew && pPauseMenu->mButtonNew->_24);
@@ -159,7 +159,7 @@ bool IsNewButtonDecidedWait(PauseMenuExt* pPauseMenu) {
 }
 
 kmWrite32(0x80487A00, 0x7FC3F378); // mr r3, r30 (PauseMenuExt* into r3)
-kmCall(0x80487A04, IsNewButtonDecidedWait); // Call
+kmCall(0x80487A04, IsNewButtonDecidedWait);
 
 kmWrite32(0x80487A3C, 0x807E0034); // lwz r3, 0x34(r30)
 
@@ -174,7 +174,7 @@ void DoNewButtonAction(PauseMenuExt* pPauseMenu, bool isValid) {
 
 kmWrite32(0x80487CA4, 0x7C641B78); // mr r4, r3 (isValid into r4)
 kmWrite32(0x80487CA8, 0x7FE3FB78); // mr r3, r31 (PauseMenuExt* into r3)
-kmCall(0x80487CAC, DoNewButtonAction); // Call
+kmCall(0x80487CAC, DoNewButtonAction);
 kmWrite32(0x80487CB0, 0x48000008); // b 0x8 (Skip useless instructions)
 
     #if defined (USA) || defined (PAL) || defined (JPN)
@@ -194,8 +194,8 @@ kmWrite32(0x80487CB0, 0x48000008); // b 0x8 (Skip useless instructions)
         StarPointerUtil::setConnectionMovePositionDown2Way("BoxButton1", "BoxButton2");
     }
 
-    kmWrite32(0x80487640, 0x60000000);
-    kmWrite32(0x80487644, 0x7FC3F378);
+    kmWrite32(0x80487640, 0x60000000); // nop
+    kmWrite32(0x80487644, 0x7FC3F378); // mr r3, r30
     kmCall(0x80487648, setupNewConnection1to2);
 
     void setupButtonConnection(PauseMenuExt* pPauseMenu) {

@@ -149,7 +149,7 @@ namespace pt {
 
     // Repeat Timer Switch Sound Effect Control
 
-    kmWrite32(0x80342BA4, 0x3860002C);
+    kmWrite32(0x80342BA4, 0x3860002C); // li r3, 0x2C
     
     void RepeatTimerSwitchGetNewArg(LiveActor* pActor, const JMapInfoIter& rIter) {
         ((s32*)pActor)[0xA] = -1;
@@ -180,15 +180,15 @@ namespace pt {
     }
 
     kmCall(0x80266C8C, RepeatTimerSwitchPlaySound);
-    kmWrite32(0x80266C94, 0x2C030000);
-    kmWrite32(0x80266C98, 0x4182005C);
+    kmWrite32(0x80266C94, 0x2C030000); // cmpwi r3, 0
+    kmWrite32(0x80266C98, 0x4182005C); // beq 0x5C
 
     kmCall(0x80266CC0, RepeatTimerSwitchPlaySound);
-    kmWrite32(0x80266CC8, 0x2C030000);
-    kmWrite32(0x80266CCC, 0x41820028);
+    kmWrite32(0x80266CC8, 0x2C030000); // cmpwi r3, 0
+    kmWrite32(0x80266CCC, 0x41820028); // beq 0x28
 
     kmCall(0x80266CE0, RepeatTimerSwitchPlaySound);
-    kmWrite32(0x80266CE8, 0x2C030000);
-    kmWrite32(0x80266CEC, 0x41820008);
+    kmWrite32(0x80266CE8, 0x2C030000); // cmpwi r3, 0
+    kmWrite32(0x80266CEC, 0x41820008); // beq 0x8
 
 }

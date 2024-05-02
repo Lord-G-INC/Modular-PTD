@@ -4,24 +4,24 @@
 BlueCoin::BlueCoin(const char* pName) : Coin(pName) {
     mCoinHostInfo = 0;
     mFlashingCtrl = 0;
-	mAirBubble = 0; 
-	mConnector = 0;
-	mShadowDropPos = TVec3f(0.0f, 0.0f, 0.0f);
-	_AC = TVec3f(0.0f, 0.0f, 0.0f);
-	_B8 = TVec3f(0.0f, 0.0f, 0.0f);
-	mLifeTime = 600;
-	mCannotTime = 0;
-	mShadowType = -1;
-	mInWater = 0;
-	mShadowCalcOn = 0;
-	mIgnoreGravity = 0;
-	mCalcShadowPrivateGravity = 0;
-	mIsPurple = 0;
-	mIsInBubble = 0;
-
+    mAirBubble = 0; 
+    mConnector = 0;
+    mShadowDropPos = TVec3f(0.0f, 0.0f, 0.0f);
+    _AC = TVec3f(0.0f, 0.0f, 0.0f);
+    _B8 = TVec3f(0.0f, 0.0f, 0.0f);
+    mLifeTime = 600;
+    mCannotTime = 0;
+    mShadowType = -1;
+    mInWater = 0;
+    mShadowCalcOn = 0;
+    mIgnoreGravity = 0;
+    mCalcShadowPrivateGravity = 0;
+    mIsPurple = 0;
+    mIsInBubble = 0;
+    
     mID = 0;
     mLaunchVelocity = 250.0f;
-
+    
     MR::createCoinRotater();
     MR::createCoinHolder();
     MR::addToCoinHolder(this, this);
@@ -46,7 +46,11 @@ void BlueCoin::init(const JMapInfoIter& rIter) {
     initNerve(&NrvCoin::CoinNrvFix::sInstance, 0);
     initHitSensor(1);
 
-    MR::addHitSensor(this, "BlueCoin", 0x4A, 4, 55.0f, TVec3f(0.0f, 70.0f, 0.0f));
+    #ifdef SMG63
+        MR::addHitSensor(this, "BlueCoin", 0x4A, 4, 120.0f, TVec3f(0.0f, 0.0f, 0.0f));
+    #else
+        MR::addHitSensor(this, "BlueCoin", 0x4A, 4, 55.0f, TVec3f(0.0f, 70.0f, 0.0f));
+    #endif
 
     MR::initShadowVolumeSphere(this, 50.0f);
     MR::setShadowDropPositionPtr(this, 0, &mShadowDropPos);
@@ -104,8 +108,13 @@ void BlueCoin::collect() {
 
     MR::emitEffect(this, "BlueCoinGet"); 
 
-    MR::emitEffect(this, BlueCoinUtil::isBlueCoinGotCurrentFile(mID) ? "BlueCoinClearGet" : "BlueCoinGet"); 
-    MR::startSystemSE("SE_SY_PURPLE_COIN", -1, -1);     
+    #if defined SMG63 
+        MR::emitEffect(this, "BlueCoinGet"); 
+        MR::startSystemSE("SE_SY_TICO_COIN", -1, -1);
+    #else
+        MR::emitEffect(this, BlueCoinUtil::isBlueCoinGotCurrentFile(mID) ? "BlueCoinClearGet" : "BlueCoinGet"); 
+        MR::startSystemSE("SE_SY_PURPLE_COIN", -1, -1);     
+    #endif
     
 
     if (!BlueCoinUtil::isBlueCoinGotCurrentFile(mID)) {

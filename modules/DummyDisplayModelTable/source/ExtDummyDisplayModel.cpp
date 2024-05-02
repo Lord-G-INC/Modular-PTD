@@ -60,8 +60,8 @@ namespace pt {
     kmCall(0x80295D88, tryCreateNewDummyModel);
 
     // Skip repeated reading of Obj_arg7 field
-    kmWrite32(0x801D0314, 0x7CA32B78);
-    kmWrite32(0x801D0318, 0x60000000);
+    kmWrite32(0x801D0314, 0x7CA32B78); // mr r3, r5
+    kmWrite32(0x801D0318, 0x60000000); // nop
 
     asm void spinCustomDisplayModels() {
         lwz r4, 0xA4(r30)

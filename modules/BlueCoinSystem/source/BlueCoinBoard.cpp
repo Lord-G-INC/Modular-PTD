@@ -1,7 +1,5 @@
 #include "BlueCoinBoard.h"
 #include "BlueCoinUtil.h"
-//#include "pt/Util.h"
-//#include "pt/init.h"
 
 void* gBoardDataTable = pt::loadArcAndFile("SystemData/BlueCoinBoardDataTable.arc", "/BlueCoinBoardDataTable.bcsv");
 /*
@@ -496,7 +494,6 @@ void BlueCoinBoard::connectButtonsToDPad() {
     StarPointerUtil::setDefaultAllMovePosition(mBoxButtonName[0]);
     StarPointerUtil::sub_8005E940(this);
     StarPointerUtil::sub_8005E790(this);
-    
 }
 
 namespace NrvBlueCoinBoard {

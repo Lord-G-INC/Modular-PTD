@@ -18,13 +18,13 @@ KuriboExt* createKuriboExt(const char* pName) {
 }
 
 kmCall(0x801A2C8C, createKuriboExt);
-kmWrite32(0x801A2C90, 0x48000014);
+kmWrite32(0x801A2C90, 0x48000014); // b 0x14
 kmCall(0x801E4B34, createKuriboExt);
-kmWrite32(0x801E4B38, 0x48000014);
+kmWrite32(0x801E4B38, 0x48000014); // b 0x14
 kmCall(0x802B4934, createKuriboExt);
-kmWrite32(0x802B4938, 0x48000018);
+kmWrite32(0x802B4938, 0x48000018); // b 0x18
 kmCall(0x8033D4C4, createKuriboExt);
-kmWrite32(0x8033D4C8, 0x48000014);
+kmWrite32(0x8033D4C8, 0x48000014); // b 0x14
 
 void KuriboSetUpBlueCoin(KuriboExt* pKuribo, const JMapInfoIter& rIter, const char* pStr) {
 
@@ -60,7 +60,7 @@ SamboHead* createSamboHeadExt(const char* pName) {
     return new SamboHeadExt(pName);
 }
 
-kmCall(0x8033DC44, createSamboHeadExt); // li r3, 0xC4
+kmCall(0x8033DC44, createSamboHeadExt);
 kmWrite32(0x8033DC48, 0x48000014); // li r3, 0xC4
 
 void SamboHeadSetUpBlueCoin(SamboHeadExt* pSamboHead, const JMapInfoIter& rIter, const char* pStr) {
