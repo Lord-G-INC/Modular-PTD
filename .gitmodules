@@ -7,3 +7,6 @@
 [submodule "Syati_ObjectFactories"]
 	path = modules/Syati_ObjectFactories
 	url = https://www.github.com/SMGCommunity/Syati_ObjectFactories
+[submodule "SMG2_OpenGhost"]
+	path = modules/SMG2_OpenGhost
+	url = https://www.github.com/SuperHackio/SMG2_OpenGhost

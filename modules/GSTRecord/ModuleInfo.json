@@ -1,0 +1,25 @@
+{
+  "Name": "GSTRecord",
+  "Author": "Aurum",
+  "Description": "My Syati Module is awesome!",
+  "ModuleData" : [
+    {
+      "NameObjFactory" : [
+        {
+          "Name" : "GhostLuigiRecordHelper",
+          "Function" : "createExtActor<gst::GhostLuigiRecordHelper>",
+          "Include" : "GSTRecord.h"
+        }
+      ]
+    },
+    {
+      "OnAnySceneDestroy" : [
+        {
+          "Name" : "GSTRecordGameSceneDestroy",
+          "Function" : "gst::waitGstRecorder",
+          "Include" : "GSTRecord.h"
+        }
+      ]
+    }
+  ]
+}

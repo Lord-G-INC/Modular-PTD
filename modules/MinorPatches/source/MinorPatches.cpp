@@ -1,7 +1,7 @@
 #include "syati.h"
 #include "Game/NPC/TalkMessageCtrl.h"
 #include "Game/NPC/TalkNodeCtrl.h"
-
+#include "Game/Screen/GameSceneLayoutHolder.h"
 /*
 * Error Message Fallback
 * PictureFont Redirection
@@ -11,6 +11,7 @@
 * Yes/No Dialogue Extensions
 * Appear Custom Coin Types on Dark Comets
 * Custom Green Star Scenario Names
+* Death Area Extensions
 * Repeat Timer Switch Sound Effects Control
 */
 namespace pt {
@@ -146,6 +147,45 @@ namespace pt {
 	kmWrite32(0x800415A0, 0x7FE5FB78); // mr r5, r31
 	kmCall(0x800415A4, CustomGreenStarNames);
 	kmWrite32(0x800415A8, 0x48000050); // b 0x48
+
+
+	/*
+	* Mini Patch: Swimming Death Area
+	* 
+	* This patch is really useless but I thought it would be nice to include.
+	* For example, this could be used to make instant death water/lava.
+	*/
+
+	void DeathAreaExtensions(DeathArea* area) {
+		if (area->mObjArg0 < 0) {
+			MR::getGameSceneLayoutHolder()->mMarioSubMeter->mAirMeter->mLayoutActorFlag.mIsHidden = area->isInVolume(*MR::getPlayerPos());
+
+			bool checkForSwimming;
+
+			if (area->mObjArg1 == -1)
+				checkForSwimming = false;
+			else
+				checkForSwimming = true;
+
+			if (area->isInVolume(*MR::getPlayerPos()) && checkForSwimming ? MR::isPlayerSwimming() : true) 
+				MarioAccess::forceKill(checkForSwimming ? 3 : 0, 0);
+		}
+	}
+
+	kmCall(0x8007401C, DeathAreaExtensions);
+	kmWrite32(0x8007402C, 0x60000000);
+
+
+	bool isInDeathFix(const char* name, const TVec3f& pos) {
+		if (MR::isInAreaObj(name, pos))
+			if (MR::getAreaObj(name, pos)->mObjArg1 == -1 || MR::isInWater(pos))
+				return true;
+
+		return false;
+	}
+
+	kmBranch(0x8004AC1C, isInDeathFix);
+
 
     // Repeat Timer Switch Sound Effect Control
 
