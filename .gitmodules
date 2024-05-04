@@ -10,3 +10,6 @@
 [submodule "SMG2_OpenGhost"]
 	path = modules/SMG2_OpenGhost
 	url = https://www.github.com/SuperHackio/SMG2_OpenGhost
+[submodule "Syati_GlobalLayouts"]
+	path = modules/Syati_GlobalLayouts
+	url = https://www.github.com/SMGCommunity/Syati_GlobalLayouts
