@@ -19,6 +19,16 @@
           "Include" : "BlueCoinBoard.h"
         }
       ]
+    },
+    {
+      "GlobalLayout" : [
+        {
+          "Name" : "BlueCoinCounterInStage",
+          "DiscPath" : "/LayoutData/BlueCoinCounterInStage.arc",
+          "Function" : "createExtLayout<BlueCoinCounter>",
+          "Include" : "BlueCoinLayouts.h"
+        }
+      ]
     }
   ]
 }

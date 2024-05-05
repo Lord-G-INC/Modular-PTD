@@ -19,7 +19,7 @@ void* initializeBlueCoinArrayAndLoadArchive() {
 
 BlueCoinData* gBlueCoinData;
 void* gBlueCoinIDRangeTable = initializeBlueCoinArrayAndLoadArchive();
-
+    
 namespace BlueCoinUtil {
     void loadBlueCoinData() {
         OSReport("(BlueCoinUtil) Attempting BlueCoinData.bin read.\n");
@@ -248,7 +248,8 @@ namespace BlueCoinUtil {
         if (hasSeenBlueCoinTextBoxCurrentFile())
             return false;
         else {
-            return ((CounterLayoutControllerExt*)MR::getGameSceneLayoutHolder()->mCounterLayoutController)->mPTDBlueCoinCounter->isNerve(&NrvBlueCoinCounter::NrvShowTextBox::sInstance);
+            BlueCoinCounter* pCounter = getBlueCoinCounter(MR::getGameSceneLayoutHolder()->mCounterLayoutController, "BlueCoinCounterInStage");
+            return pCounter->isNerve(&NrvBlueCoinCounter::NrvShowTextBox::sInstance);
         }
     }
 
@@ -289,7 +290,8 @@ namespace BlueCoinUtil {
     }
 
     void startCounterCountUp() {
-        ((BlueCoinCounter*)((CounterLayoutControllerExt*)MR::getGameSceneLayoutHolder()->mCounterLayoutController)->mPTDBlueCoinCounter)->startCountUp();
+        BlueCoinCounter* pCounter = BlueCoinUtil::getBlueCoinCounter(MR::getGameSceneLayoutHolder()->mCounterLayoutController, "BlueCoinCounterInStage");
+        pCounter->startCountUp();
     }
 
     s32 getBlueCoinRangeData(const char* pStageName, bool collectedCoinsOnly) {
@@ -410,6 +412,28 @@ namespace BlueCoinUtil {
         MR::startSystemSE("SE_SY_PURPLE_COIN_APPEAR", -1, -1);
 
         ((BlueCoin*)pBlueCoin)->appearMove(pSourceActor->mTranslation, coinVelocity, 0x7FFFFFFF, 60);
+    }
+
+    BlueCoinCounter* getBlueCoinCounter(CounterLayoutController* pController, const char* pName) {
+        LayoutActor** layouts;
+        s32 num = 0;
+
+        if (pController == NULL)
+            return NULL;
+
+        s32* pGlobal = ((CounterLayoutControllerExt*)pController)->mGlobalLayoutHolder;
+
+        asm("lwz %0, 0x0(%1)" : "=r" (layouts) : "=r" (pGlobal));
+        num = ((s32*)pGlobal)[1];
+
+        if (pName) {
+            for (s32 i = 1; i < num; i++) {
+                LayoutActor* pActorCurrent = (LayoutActor*)layouts[i];
+                if (MR::isEqualString(pActorCurrent->mName, "BlueCoinCounterInStage"))
+                    return (BlueCoinCounter*)pActorCurrent;
+            }
+        }
+        return NULL;
     }
 }
 

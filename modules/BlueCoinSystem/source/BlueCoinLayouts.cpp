@@ -2,8 +2,6 @@
 #include "BlueCoinLayouts.h"
 #include "Game/Screen/GameSceneLayoutHolder.h"
 #include "Game/Screen/PauseMenuExt.h"
-#include "Game/Screen/CounterLayoutControllerExt.h"
-
 
 // HUD
 
@@ -28,8 +26,7 @@ void BlueCoinCounter::init(const JMapInfoIter& rIter) {
 
     appear();
     initNerve(&NrvBlueCoinCounter::NrvDisappear::sInstance);
-    MR::hideLayout(this);
-
+    MR::hideLayout(this);    
 
     if (!BlueCoinUtil::hasSeenBlueCoinTextBoxCurrentFile()) {
         mSysInfoWindow = MR::createSysInfoWindowMiniExecuteWithChildren();
@@ -157,40 +154,22 @@ namespace NrvBlueCoinCounter {
     NrvShowTextBox(NrvShowTextBox::sInstance);
 }
 
-CounterLayoutControllerExt* createCounterLayoutControllerExt() {
-    return new CounterLayoutControllerExt();
-}
-
-CounterLayoutControllerExt::CounterLayoutControllerExt() : CounterLayoutController() {}
-
-kmCall(0x80471780, createCounterLayoutControllerExt);
-kmWrite32(0x80471784, 0x48000010); // b 0x10
-
-void initBlueCoinLayout(CounterLayoutControllerExt* pController) {
-    MR::connectToSceneLayout(pController);
-    
-    if (!MR::isStageFileSelect()) {
-        pController->mPTDBlueCoinCounter = new BlueCoinCounter("BlueCoinCounter");
-        pController->mPTDBlueCoinCounter->initWithoutIter();
-    }
-}
-
-kmCall(0x804657A0, initBlueCoinLayout);
-
-void appearBlueCoinLayout(CounterLayoutControllerExt* pController) {
+void appearBlueCoinLayout(CounterLayoutController* pController) {
     if (!MR::isStageFileSelect() && !BlueCoinUtil::isBlueCoinTextBoxAppeared()) {
-        ((BlueCoinCounter*)pController->mPTDBlueCoinCounter)->mWaitTime = -1;
-        pController->mPTDBlueCoinCounter->setNerve(&NrvBlueCoinCounter::NrvAppear::sInstance);
+        BlueCoinCounter* pCounter = BlueCoinUtil::getBlueCoinCounter(pController, "BlueCoinCounterInStage");
+        pCounter->mWaitTime = -1;
+        pCounter->setNerve(&NrvBlueCoinCounter::NrvAppear::sInstance);
     } 
 
-        pController->showAllLayout();
+    pController->showAllLayout();
 }
 
 kmCall(0x80466128, appearBlueCoinLayout);
 
-void disappearBlueCoinLayout(CounterLayoutControllerExt* pController) {
+void disappearBlueCoinLayout(CounterLayoutController* pController) {
     if (!MR::isStageFileSelect() && !BlueCoinUtil::isBlueCoinTextBoxAppeared()) {
-        pController->mPTDBlueCoinCounter->setNerve(&NrvBlueCoinCounter::NrvDisappear::sInstance);
+        BlueCoinCounter* pCounter = BlueCoinUtil::getBlueCoinCounter(pController, "BlueCoinCounterInStage");
+        pCounter->setNerve(&NrvBlueCoinCounter::NrvDisappear::sInstance);
     }
         
     pController->hideAllLayout();
@@ -198,10 +177,11 @@ void disappearBlueCoinLayout(CounterLayoutControllerExt* pController) {
 
 kmCall(0x80466198, disappearBlueCoinLayout);
 
-void killBlueCoinCounter(CounterLayoutControllerExt* pController) {
+void killBlueCoinCounter(CounterLayoutController* pController) {
     if (!MR::isStageFileSelect() && !BlueCoinUtil::isBlueCoinTextBoxAppeared()) {
-        MR::hideLayout(pController->mPTDBlueCoinCounter);
-        pController->mPTDBlueCoinCounter->setNerve(&NrvBlueCoinCounter::NrvDisappear::sInstance);
+        BlueCoinCounter* pCounter = BlueCoinUtil::getBlueCoinCounter(pController, "BlueCoinCounterInStage");
+        MR::hideLayout(pCounter);
+        pCounter->setNerve(&NrvBlueCoinCounter::NrvDisappear::sInstance);
     }
 
     pController->killAllCoounter();

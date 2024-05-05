@@ -1,5 +1,7 @@
 #pragma once
 #include "syati.h"
+class CounterLayoutController;
+class BlueCoinCounter;
 
 /// @brief Structure of the contents of BlueCoinData.bin
 /// @param collectionData Blue Coin Collection Flags
@@ -131,4 +133,6 @@ namespace BlueCoinUtil {
     /// @param pSourceActor Source Actor
     /// @param pBlueCoin Blue Coin to appear
     void appearBlueCoin(LiveActor* pSourceActor, LiveActor* pBlueCoin);
+
+    BlueCoinCounter* getBlueCoinCounter(CounterLayoutController* pController, const char* pName);
     };
