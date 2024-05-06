@@ -5,4 +5,5 @@ class CounterLayoutControllerExt : public CounterLayoutController {
 public:
     CounterLayoutControllerExt();
     s32* mGlobalLayoutHolder;
+    BlueCoinCounter* mBlueCoinCounter;
 };

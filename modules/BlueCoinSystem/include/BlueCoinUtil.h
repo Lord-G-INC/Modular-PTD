@@ -133,6 +133,4 @@ namespace BlueCoinUtil {
     /// @param pSourceActor Source Actor
     /// @param pBlueCoin Blue Coin to appear
     void appearBlueCoin(LiveActor* pSourceActor, LiveActor* pBlueCoin);
-
-    BlueCoinCounter* getBlueCoinCounter(CounterLayoutController* pController, const char* pName);
     };
