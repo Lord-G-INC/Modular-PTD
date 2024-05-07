@@ -137,7 +137,7 @@ namespace BlueCoinUtil {
             s32 flagidx = 0;
             
             for (s32 j = 0; j < 35; j++) {
-                if (j == 8 || j == 17 || j == 26) // hoping to solve this with math
+                if (j % 9 == 8)
                     flagstr[i][j] = 0x20;
                 else {
                     flagstr[i][j] = gBlueCoinData->flags[i][flagidx] ? 0x31 : 0x30;
@@ -255,7 +255,7 @@ namespace BlueCoinUtil {
 
     void startCounterCountUp() {
         BlueCoinCounter* pCounter = ((CounterLayoutControllerExt*)MR::getGameSceneLayoutHolder()->mCounterLayoutController)->mBlueCoinCounter;
-        
+
         if (pCounter)
             pCounter->startCountUp();
     }

@@ -1,0 +1,16 @@
+{
+  "Name": "CometTimerObj",
+  "Author": "Evanbowl",
+  "Description": "An object that creates a comet timer.",
+  "ModuleData" : [
+    {
+      "NameObjFactory" : [
+        {
+          "Name" : "CometTimerObj",
+          "Function" : "createExtActor<CometTimerObj>",
+          "Include" : "CometTimerObj.h"
+        }
+      ]
+    }
+  ]
+}

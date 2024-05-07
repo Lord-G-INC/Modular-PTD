@@ -74,7 +74,7 @@ bool CrystalBox::receiveMsgPlayerAttack(u32 msg, HitSensor* pSender, HitSensor* 
         setNerve(&NrvCrystalBox::NrvBreak::sInstance);
         return true;
     }
-    return true;
+    return false;
 }
 
 void CrystalBox::exeBreak() {
