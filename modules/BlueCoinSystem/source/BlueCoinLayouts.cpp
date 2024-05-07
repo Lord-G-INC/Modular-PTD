@@ -168,7 +168,7 @@ namespace NrvBlueCoinCounter {
 
 void createBlueCoinCounter(CounterLayoutControllerExt* pController, const Nerve* pNerve) {
     pController->initNerve(pNerve);
-    if (!MR::isStageFileSelect() || !MR::isStageWorldMap()) {   
+    if (!(MR::isStageFileSelect() || MR::isStageWorldMap())) {   
         pController->mBlueCoinCounter = new BlueCoinCounter("BlueCoinCounter");
         pController->mBlueCoinCounter->initWithoutIter();
     }
@@ -380,6 +380,20 @@ void PauseMenuIDListControls(PauseMenu* pPauseMenu) {
 }
 
 #ifndef PAUSEMENUNEWBUTTON
+PauseMenuExt* createPauseMenuExt() {
+    return new PauseMenuExt();
+}
+
+kmCall(0x804712C0, createPauseMenuExt);
+kmWrite32(0x804712C4, 0x48000010); // b 0x10
+
+PauseMenuExt::PauseMenuExt() : PauseMenu() {
+    mButtonNew = 0;
+    mButtonNewFollowPos = TVec2f(0.0f, 0.0f);
+    mDisplayMode = 0;
+    mIsUsedNewButton = false;
+}
+
 bool PauseMenuIsNewButtonPointingTrigger(PauseMenuExt* pPauseMenu) {
     PauseMenuIDListControls(pPauseMenu);
     return (pPauseMenu->mButtonTop && pPauseMenu->mButtonTop->isPointingTrigger());
