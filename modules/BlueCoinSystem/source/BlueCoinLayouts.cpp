@@ -167,11 +167,12 @@ namespace NrvBlueCoinCounter {
 }
 
 void createBlueCoinCounter(CounterLayoutControllerExt* pController, const Nerve* pNerve) {
-    pController->initNerve(pNerve);
     if (!(MR::isStageFileSelect() || MR::isStageWorldMap())) {   
         pController->mBlueCoinCounter = new BlueCoinCounter("BlueCoinCounter");
         pController->mBlueCoinCounter->initWithoutIter();
     }
+
+    pController->initNerve(pNerve);
 }
 
 kmCall(0x804657AC, createBlueCoinCounter);
