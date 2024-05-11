@@ -1,0 +1,16 @@
+{
+  "Name": "BallBeamer",
+  "Author": "Aurum",
+  "Description": "My Syati Module is awesome!",
+  "ModuleData" : [
+    {
+      "NameObjFactory" : [
+        {
+          "Name" : "BallBeamer",
+          "Function" : "createExtActor<pt::BallBeamer>",
+          "Include" : "BallBeamer.h"
+        }
+      ]
+    }
+  ]
+}

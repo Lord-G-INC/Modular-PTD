@@ -1,0 +1,16 @@
+{
+  "Name": "Mogu",
+  "Author": "Aurum",
+  "Description": "My Syati Module is awesome!",
+  "ModuleData" : [
+    {
+      "NameObjFactory" : [
+        {
+          "Name" : "Mogu",
+          "Function" : "createExtActor<pt::Mogu>",
+          "Include" : "Mogu.h"
+        }
+      ]
+    }
+  ]
+}

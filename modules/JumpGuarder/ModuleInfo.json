@@ -1,0 +1,16 @@
+{
+  "Name": "JumpGuarder",
+  "Author": "Aurum",
+  "Description": "My Syati Module is awesome!",
+  "ModuleData" : [
+    {
+      "NameObjFactory" : [
+        {
+          "Name" : "JumpGuarder",
+          "Function" : "createExtActor<pt::JumpGuarder>",
+          "Include" : "JumpGuarder.h"
+        }
+      ]
+    }
+  ]
+}

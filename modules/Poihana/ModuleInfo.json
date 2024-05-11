@@ -1,0 +1,16 @@
+{
+  "Name": "Poihana",
+  "Author": "Aurum",
+  "Description": "My Syati Module is awesome!",
+  "ModuleData" : [
+    {
+      "NameObjFactory" : [
+        {
+          "Name" : "Poihana",
+          "Function" : "createExtActor<pt::Poihana>",
+          "Include" : "Poihana.h"
+        }
+      ]
+    }
+  ]
+}

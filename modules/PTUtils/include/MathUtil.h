@@ -1,11 +1,5 @@
 #pragma once
-
+#include "syati.h"
 namespace pt {
-	template<typename T>
-	void clamp(T min, T max, T* val) {
-		if (*val < min)
-			*val = min;
-		else if (*val > max)
-			*val = max;
-	}
+	void clampS32(s32 min, s32 max, s32* val);
 };

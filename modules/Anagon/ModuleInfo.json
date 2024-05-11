@@ -1,0 +1,16 @@
+{
+  "Name": "Anagon",
+  "Author": "Aurum",
+  "Description": "My Syati Module is awesome!",
+  "ModuleData" : [
+    {
+      "NameObjFactory" : [
+        {
+          "Name" : "Anagon",
+          "Function" : "createExtActor<pt::Anagon>",
+          "Include" : "Anagon.h"
+        }
+      ]
+    }
+  ]
+}
