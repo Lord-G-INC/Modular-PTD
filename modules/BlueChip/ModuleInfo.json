@@ -1,0 +1,29 @@
+{
+  "Name": "My Syati Module",
+  "Author": "YourNameHere",
+  "Description": "My Syati Module is awesome!",
+  "ModuleData" : [
+    {
+      "NameObjFactory" : [
+        {
+          "Name" : "BlueChip",
+          "Function" : "createExtActor<pt::BlueChip>",
+          "Include" : "BlueChip.h"
+        },
+        {
+          "Name" : "BlueChipGroup",
+          "Function" : "createExtActor<pt::BlueChipGroup>"
+        }
+      ]
+    },
+    {
+      "SceneObjHolder" : [
+        {
+          "Name" : "0x6E",
+          "Function" : "pt::createBlueChipHolder",
+          "Include" : "BlueChip.h"
+        }
+      ]
+    }
+  ]
+}
