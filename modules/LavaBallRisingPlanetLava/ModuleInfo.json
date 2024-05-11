@@ -1,0 +1,16 @@
+{
+  "Name": "My Syati Module",
+  "Author": "YourNameHere",
+  "Description": "My Syati Module is awesome!",
+  "ModuleData" : [
+    {
+      "ProductMapObj" : [
+        {
+          "Name" : "ScaleMapObj",
+          "Function" : "createExtActor<pt::LavaBallRisingPlanetLava>",
+          "Include" : "LavaBallRisingPlanetLava.h"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "Name": "WatchTowerRotateStep",
+  "Author": "Someone",
+  "Description": "My Syati Module is awesome!",
+  "ModuleData" : [
+    {
+      "NameObjFactory" : [
+        {
+          "Name" : "WatchTowerRotateStep",
+          "Function" : "createExtActor<pt::WatchTowerRotateStep>",
+          "Include" : "WatchTowerRotateStep.h"
+        }
+      ]
+    }
+  ]
+}

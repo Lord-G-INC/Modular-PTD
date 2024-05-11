@@ -1,0 +1,29 @@
+{
+  "Name": "My Syati Module",
+  "Author": "YourNameHere",
+  "Description": "My Syati Module is awesome!",
+  "ModuleData" : [
+    {
+      "NameObjFactory" : [
+        {
+          "Name" : "MorphItemCollectionFoo",
+          "Function" : "NameObjFactory::createNameObj<MorphItemCollection>"
+        },
+        {
+          "Name" : "MorphItemCollectionIce",
+          "Function" : "NameObjFactory::createNameObj<MorphItemCollection>"
+        },
+        {
+          "Name" : "MorphItemNeoFoo",
+          "Function" : "createExtActor<pt::MorphItemNeoFoo>",
+          "Include" : "NewMorphItemNeo.h"
+        },
+        {
+          "Name" : "MorphItemNeoIce",
+          "Function" : "createExtActor<pt::MorphItemNeoIce>",
+          "Include" : "NewMorphItemNeo.h"
+        }
+      ]
+    }
+  ]
+}
