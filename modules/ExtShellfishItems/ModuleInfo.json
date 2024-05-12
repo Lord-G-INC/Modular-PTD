@@ -1,0 +1,19 @@
+{
+  "Name": "Extended Shellfish Items",
+  "Author": "Aurum",
+  "Description": "My Syati Module is awesome!",
+  "ModuleData" : [
+    {
+      "NameObjFactory" : [
+        {
+          "Name" : "ShellfishBlueChip",
+          "Function" : "NameObjFactory::createNameObj<Shellfish>"
+        },
+        {
+          "Name" : "ShellfishPurpleCoin",
+          "Function" : "NameObjFactory::createNameObj<Shellfish>"
+        }
+      ]
+    }
+  ]
+}
