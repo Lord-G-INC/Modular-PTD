@@ -1,0 +1,16 @@
+{
+  "Name": "TransparentWall",
+  "Author": "Aurum",
+  "Description": "My Syati Module is awesome!",
+  "ModuleData" : [
+    {
+      "ProductMapObj" :[
+        {
+          "Name" : "TransparentWall",
+          "Function" : "createExtActor<pt::TransparentWall>",
+          "Include" : "TransparentWall.h"
+        }
+      ]
+    }
+  ]
+}
