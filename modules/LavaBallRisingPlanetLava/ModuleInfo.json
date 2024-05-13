@@ -1,7 +1,7 @@
 {
-  "Name": "My Syati Module",
-  "Author": "YourNameHere",
-  "Description": "My Syati Module is awesome!",
+  "Name": "LavaBallRisingPlanetLava",
+  "Author": "Aurum",
+  "Description": "PT: LavaBallRisingPlanetLava/ScaleMapObj Class",
   "ModuleData" : [
     {
       "ProductMapObj" : [

@@ -1,7 +1,7 @@
 {
-  "Name": "Extended Shellfish Items",
+  "Name": "ExtShellfishItems",
   "Author": "Aurum",
-  "Description": "My Syati Module is awesome!",
+  "Description": "PT: Extended Shellfish Items",
   "ModuleData" : [
     {
       "NameObjFactory" : [

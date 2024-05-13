@@ -1,7 +1,7 @@
 {
   "Name": "ChildSwitchArea",
   "Author": "AwesomeTMC",
-  "Description": "An area that activates a switch when linked Child Objects enter it.",
+  "Description": "PTD: ChildSwitchArea",
   "ModuleData" : [
     {
       "NameObjFactory": [

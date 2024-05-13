@@ -1,7 +1,7 @@
 {
   "Name": "Custom Launch Star Colors",
   "Author": "Aurum, Evanbowl, Lord-Giganticus",
-  "Description": "Adds new custom color variants of the Launch Star.",
+  "Description": "PTD: Custom Launch Star Colors",
   "ModuleData" : [
     {
       "NameObjFactory": [

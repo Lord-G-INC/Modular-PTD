@@ -1,7 +1,7 @@
 {
   "Name": "Area Manager Extensions (Codegen)",
   "Author": "Evanbowl",
-  "Description": "Extends the AreaObjMgr creation table.",
+  "Description": "PTD: AreaObjMgr Creation Table Extension",
   "ModuleExtensionDefinition" : [
     {
       "Name" : "AreaObjMgr",

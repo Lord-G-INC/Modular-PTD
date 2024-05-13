@@ -1,7 +1,7 @@
 {
   "Name": "PomponPlant",
   "Author": "Someone",
-  "Description": "My Syati Module is awesome!",
+  "Description": "SMG1 Actor Port: PomponPlant",
   "ModuleData" : [
     {
       "NameObjFactory" : [

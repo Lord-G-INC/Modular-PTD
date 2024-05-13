@@ -1,7 +1,7 @@
 {
   "Name": "WatchTowerRotateStep",
-  "Author": "Someone",
-  "Description": "My Syati Module is awesome!",
+  "Author": "Aurum, Someone, Shibboleet",
+  "Description": "SMG1 Actor Port: WatchTowerRotateStep",
   "ModuleData" : [
     {
       "NameObjFactory" : [

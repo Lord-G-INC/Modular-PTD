@@ -1,7 +1,7 @@
 {
-  "Name": "My Syati Module",
-  "Author": "YourNameHere",
-  "Description": "My Syati Module is awesome!",
+  "Name": "BlueChip",
+  "Author": "Aurum",
+  "Description": "Blue Star Chips",
   "ModuleData" : [
     {
       "NameObjFactory" : [

@@ -1,7 +1,7 @@
 {
-  "Name": "Starshine Blue Coin System",
+  "Name": "BlueCoinSystem",
   "Author": "Evanbowl and Lord-Giganticus",
-  "Description": "Starshine Blue Coin System + Blue Coin Board",
+  "Description": "PTD: Full Blue Coin System",
   "CompilerFlags" : [
     "-DBLUECOINSYSTEM"
   ],

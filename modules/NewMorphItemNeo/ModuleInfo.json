@@ -1,7 +1,7 @@
 {
-  "Name": "My Syati Module",
-  "Author": "YourNameHere",
-  "Description": "My Syati Module is awesome!",
+  "Name": "NewMorphItemNeo",
+  "Author": "Aurum",
+  "Description": "PT: Red Star and Ice Flower",
   "ModuleData" : [
     {
       "NameObjFactory" : [

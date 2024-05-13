@@ -1,7 +1,7 @@
 {
   "Name": "ExtQuakeEffectArea",
   "Author": "Aurum",
-  "Description": "My Syati Module is awesome!",
+  "Description": "PT: Restored QuakeEffectArea",
   "ModuleData" : [
     {
       "NameObjFactory" : [

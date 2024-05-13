@@ -1,7 +1,7 @@
 {
-  "Name": "Jump Switch Area",
+  "Name": "JumpSwitchArea",
   "Author": "Someone, Aurum",
-  "Description": "My Syati Module is awesome!",
+  "Description": "PT: JumpSwitchArea",
   "ModuleData" : [
     {
       "NameObjFactory" : [
