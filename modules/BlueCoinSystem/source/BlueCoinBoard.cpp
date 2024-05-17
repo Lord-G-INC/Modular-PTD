@@ -91,6 +91,11 @@ BlueCoinBoard::BlueCoinBoard(const char* pName) : LayoutActor(pName, 0) {
     for (s32 i = 0; i < 8; i++) {
         mButtons[i] = 0;
         mButtonFollowPositions[i] = TVec2f(120.0f, 0.0f);
+        sprintf(mBoxButtonName[i], "BoxButton%d", i);
+        sprintf(mButtonName[i], "CoinButton%d", i);
+        sprintf(mButtonTxtName[i], "Button%dText", i);
+        sprintf(mButtonFollow[i], "Button%d", i);
+        sprintf(mCopyPosName[i], "Button%dPos", i);
     }
     mSysInfoWindowSelect = 0;
     mSysInfoWindowBox = 0;
@@ -136,12 +141,6 @@ void BlueCoinBoard::init(const JMapInfoIter& rIter) {
     MR::setFollowPos(&mBlueCoinCounterFollowPos, this, "BlueCoinCounter");
 
     for (s32 i = 0; i < 8; i++) {
-        sprintf(mBoxButtonName[i], "BoxButton%d", i);
-        sprintf(mButtonName[i], "CoinButton%d", i);
-        sprintf(mButtonTxtName[i], "Button%dText", i);
-        sprintf(mButtonFollow[i], "Button%d", i);
-        sprintf(mCopyPosName[i], "Button%dPos", i);
-
         MR::createAndAddPaneCtrl(this, mButtonFollow[i], 1);
 
         mButtons[i] = new ButtonPaneController(this, mButtonName[i], mBoxButtonName[i], 0, 1);

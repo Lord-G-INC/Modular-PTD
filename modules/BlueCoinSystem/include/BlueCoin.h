@@ -7,6 +7,7 @@ class BlueCoin : public Coin {
     public:
     BlueCoin(const char*);
     virtual void init(const JMapInfoIter& rIter);
+    virtual void kill();
     virtual void initAfterPlacement();
     virtual void control();
     virtual void calcAndSetBaseMtx();
@@ -16,4 +17,5 @@ class BlueCoin : public Coin {
 
     s32 mID;
     f32 mLaunchVelocity;
+    bool mIsCollected;
 };

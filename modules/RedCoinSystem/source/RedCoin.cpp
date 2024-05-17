@@ -21,24 +21,6 @@
 
 /* --- RED COIN --- */
 RedCoin::RedCoin(const char* pName) : Coin(pName) {
-    mCoinHostInfo = 0;
-    mFlashingCtrl = 0;
-	mAirBubble = 0; 
-	mConnector = 0;
-	mShadowDropPos = TVec3f(0.0f, 0.0f, 0.0f);
-	_AC = TVec3f(0.0f, 0.0f, 0.0f);
-	_B8 = TVec3f(0.0f, 0.0f, 0.0f);
-	mLifeTime = 600;
-	mCannotTime = 0;
-	mShadowType = -1;
-	mInWater = false;
-	mShadowCalcOn = false;
-	mIgnoreGravity = false;
-	mCalcShadowPrivateGravity = 0;
-	mIsPurple = false;
-	mIsInBubble = false;
-
-
     mIsCollected = false;
     mLaunchVelocity = 250.0f;
     mInvalidateShadows = false;

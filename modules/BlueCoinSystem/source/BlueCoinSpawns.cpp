@@ -1,4 +1,3 @@
-
 #include "syati.h"
 #include "BlueCoin.h"
 #include "Game/Enemy/KuriboExt.h"

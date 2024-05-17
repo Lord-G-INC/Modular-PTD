@@ -2,25 +2,9 @@
 #include "Game/MapObj/CoinHolder.h"
 
 BlueCoin::BlueCoin(const char* pName) : Coin(pName) {
-    mCoinHostInfo = 0;
-    mFlashingCtrl = 0;
-    mAirBubble = 0; 
-    mConnector = 0;
-    mShadowDropPos = TVec3f(0.0f, 0.0f, 0.0f);
-    _AC = TVec3f(0.0f, 0.0f, 0.0f);
-    _B8 = TVec3f(0.0f, 0.0f, 0.0f);
-    mLifeTime = 600;
-    mCannotTime = 0;
-    mShadowType = -1;
-    mInWater = 0;
-    mShadowCalcOn = 0;
-    mIgnoreGravity = 0;
-    mCalcShadowPrivateGravity = 0;
-    mIsPurple = 0;
-    mIsInBubble = 0;
-    
     mID = 0;
     mLaunchVelocity = 250.0f;
+    mIsCollected = 0;
     
     MR::createCoinRotater();
     MR::createCoinHolder();
@@ -75,6 +59,13 @@ void BlueCoin::initAfterPlacement() {
     Coin::initAfterPlacement();
 }
 
+void BlueCoin::kill() {
+    if (!mIsCollected)
+        OSReport("Blue Coin %d died without being collected.\n", mID);
+
+    LiveActor::kill();
+}
+
 void BlueCoin::control() {
     if (MR::isOnSwitchB(this) && MR::isHiddenModel(this))
         appearAndMove();
@@ -103,6 +94,8 @@ void BlueCoin::appearAndMove() {
 }
 
 void BlueCoin::collect() {
+    mIsCollected = true;
+    
     if (MR::isValidSwitchA(this))
         MR::onSwitchA(this);
 
@@ -124,7 +117,6 @@ void BlueCoin::collect() {
     
     if (!MR::isGalaxyDarkCometAppearInCurrentStage()) {
         MR::incCoin(1, this);
-        
     }
 
     makeActorDead();

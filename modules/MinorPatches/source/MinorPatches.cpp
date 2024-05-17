@@ -192,9 +192,9 @@ namespace pt {
     kmWrite32(0x80342BA4, 0x3860002C); // li r3, 0x2C
     
     void RepeatTimerSwitchGetNewArg(LiveActor* pActor, const JMapInfoIter& rIter) {
-        ((s32*)pActor)[0xA] = -1;
+        ((s32*)pActor)[0xA] = -1; // stw r0, 0x28(r3)
         MR::connectToSceneMapObjMovement(pActor);
-        MR::getJMapInfoArg2NoInit(rIter, &((s32*)pActor)[0xA]);
+        MR::getJMapInfoArg2NoInit(rIter, &((s32*)pActor)[0xA]); // addi r4, r30, 0x28
     }
 
     kmCall(0x80266B5C, RepeatTimerSwitchGetNewArg);
