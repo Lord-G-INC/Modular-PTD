@@ -1,15 +1,15 @@
 [submodule "Syati_Init"]
 	path = PTD/Syati_Init
 	url = https://www.github.com/SMGCommunity/Syati_Init
-[submodule "Syati_CommonFunctionHooks"]
-	path = PTD/Syati_CommonFunctionHooks
-	url = https://www.github.com/SMGCommunity/Syati_CommonFunctionHooks
-[submodule "Syati_ObjectFactories"]
-	path = PTD/Syati_ObjectFactories
-	url = https://www.github.com/SMGCommunity/Syati_ObjectFactories
 [submodule "SMG2_OpenGhost"]
 	path = PTD/SMG2_OpenGhost
 	url = https://www.github.com/SuperHackio/SMG2_OpenGhost
+[submodule "Syati_CommonFunctionHooks"]
+	path = PTD/Syati_CommonFunctionHooks
+	url = https://www.github.com/SMGCommunity/Syati_CommonFunctionHooks
 [submodule "Syati_GlobalLayouts"]
 	path = PTD/Syati_GlobalLayouts
 	url = https://www.github.com/SMGCommunity/Syati_GlobalLayouts
+[submodule "Syati_ObjectFactories"]
+	path = PTD/Syati_ObjectFactories
+	url = https://www.github.com/SMGCommunity/Syati_ObjectFactories
