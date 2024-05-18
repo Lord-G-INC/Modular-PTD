@@ -43,9 +43,9 @@ jobs:
        7z x kamek_2024-04-10_win-x64.zip -oKamek
     - shell: cmd
       run: |
-         SyatiModuleBuildTool.exe USA Syati modules out
-         SyatiModuleBuildTool.exe PAL Syati modules out
-         SyatiModuleBuildTool.exe JPN Syati modules out
+         SyatiModuleBuildTool.exe USA Syati PTD out
+         SyatiModuleBuildTool.exe PAL Syati PTD out
+         SyatiModuleBuildTool.exe JPN Syati PTD out
     - uses: actions/upload-artifact@v4.3.3
       with:
         path: out/*.bin
