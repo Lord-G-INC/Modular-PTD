@@ -7,5 +7,5 @@ If you wanna contribute, please do the following things:
 2. Add the module inside a new folder that quickly describes what it is, for example `CrystalBox`.
 3. To publish it for anyone to use, add it to [installable_modules.csv](https://github.com/SMGCommunity/SyatiManager/blob/main/installable_modules.csv) like this:
 ```
-Name;AuthorName;Description of what the module does;git_folder;https://github.com/SMGCommunity/Modular-PTD/;FolderName
+Name;AuthorName;Description of what the module does;git_folder;https://github.com/SMGCommunity/Modular-PTD;PTD/FolderName
 ```
