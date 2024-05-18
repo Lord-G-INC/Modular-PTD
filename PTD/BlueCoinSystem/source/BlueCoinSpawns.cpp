@@ -27,9 +27,9 @@ kmWrite32(0x8033D4C8, 0x48000014); // b 0x14
 
 void KuriboSetUpBlueCoin(KuriboExt* pKuribo, const JMapInfoIter& rIter, const char* pStr) {
 
-    if (MR::isValidInfo(rIter)) {
+    if (MR::isValidInfo(rIter))
         MR::getJMapInfoArg2NoInit(rIter, &pKuribo->mBlueCoinArg);
-    }
+        
     MR::processInitFunction(pKuribo, rIter, pStr, 0);
 
     if (pKuribo->mBlueCoinArg > -1)
