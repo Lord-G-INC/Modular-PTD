@@ -27,7 +27,7 @@ void RedCoinSwitch::init(const JMapInfoIter& rIter) {
     MR::getJMapInfoArg0NoInit(rIter, &mTime);
     MR::getJMapInfoArg1NoInit(rIter, &mMode);
 
-    mTimeLimitLayout = new TimeLimitLayout(1);
+    mTimeLimitLayout = new TimeLimitLayout();
 
     MR::connectToSceneLayout(mTimeLimitLayout);
     mTimeLimitLayout->setDisplayModeOnNormal(1);
