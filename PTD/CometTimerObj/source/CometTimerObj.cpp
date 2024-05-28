@@ -22,7 +22,7 @@ void CometTimerObj::init(const JMapInfoIter& rIter) {
 
     mStageSwitchCtrl = MR::createStageSwitchCtrl(this, rIter);
 
-    mLayout = new TimeLimitLayout(1);
+    mLayout = new TimeLimitLayout();
     mLayout->setDisplayModeOnNormal(true);
     mLayout->initWithoutIter();
     MR::connectToSceneLayout(mLayout);
