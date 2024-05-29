@@ -1,5 +1,25 @@
 {
   "Name": "WaterRiseSwitch",
   "Author": "Bavario",
-  "Description": "PTD: A Switch that raises the water level to its position."
+  "Description": "PTD: A Switch that raises the water level to its position.",
+  "ModuleData" : [
+    {
+      "NameObjFactory" : [
+        {
+          "Name" : "WaterRiseSwitch",
+          "Function" : "createExtActor<pt::WaterRiseSwitch>",
+          "Include" : "WaterRiseSwitch.h"
+        }
+      ]
+    },
+    {
+      "SceneObjHolder" : [
+        {
+          "Name" : "71",
+          "Function" : "pt::createWaterRiseHolder",
+          "Include" : "WaterRiseSwitch.h"
+        }
+      ]
+    }
+  ]
 }

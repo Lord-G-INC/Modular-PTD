@@ -19,36 +19,42 @@
 * Credit: Bavario, Alex SMG, Super Hackio
 */
 
-LiveActorGroup *pWaterRiseGroup;
-
-extern "C" {
-    void init__11RailMoveObjFRC12JMapInfoIter(RailMoveObj *, const JMapInfoIter &);
+void joinRailMoveWaterObjs(LiveActor* pActor, MtxPtr pMtxPtr) {
+    MR::createIndirectModel(pActor, pMtxPtr);
+    pt::WaterRiseHolder* pHolder = pt::getWaterRiseHolder();
+    pHolder->mGroup->registerActor(pActor);
 }
-void joinRailMoveWaterObjs (RailMoveObj *obj, JMapInfoIter &rIter) {
-    init__11RailMoveObjFRC12JMapInfoIter(obj, rIter);
-    #ifdef SMG63
-    if (MR::isEqualString(obj->mName, "CGWater")) {
-    #else
-    if (MR::isEqualString(obj->mName, "レール移動水オブジェ")) { // RailMoveWaterObj
-    #endif
-        if (!pWaterRiseGroup) 
-            pWaterRiseGroup = new LiveActorGroup("WaterRiseGroup", 16);
-        pWaterRiseGroup->registerActor(obj);
-    }
-}
-kmCall(0x802EA394, joinRailMoveWaterObjs);
-void resetWaterRiseGroup () {
-    delete pWaterRiseGroup;
-    pWaterRiseGroup = NULL;
-}
-kmBranch(0x80451478, resetWaterRiseGroup);
+kmCall(0x802EA3B4, joinRailMoveWaterObjs);
 
 namespace pt {
+    WaterRiseHolder::WaterRiseHolder(const char* pName) : NameObj(pName) {
+        mGroup = new LiveActorGroup("WaterRiseGroup", 16);
+    }
+
+    void WaterRiseHolder::init(const JMapInfoIter& rIter) {
+        OSReport("WaterRiseHolder Init\n");
+    }
+
+    WaterRiseHolder::~WaterRiseHolder() {
+        delete mGroup;
+    }
+
+    NameObj* createWaterRiseHolder() {
+        return new WaterRiseHolder("WaterRiseHolder");
+    }
+
+    WaterRiseHolder* getWaterRiseHolder() {
+        return (WaterRiseHolder*)MR::getSceneObjHolder()->getObj(EXT_SCENE_OBJ_WATER_RISE_HOLDER);
+    }
+
     WaterRiseSwitch::WaterRiseSwitch(const char *pName) : LiveActor(pName) {
         mIsRiseActive = false;
         mSpeed = 1.0f;
         mOffsetY = -350.0f;
         mCurrentBckFrame = 0.0f;
+
+        if (!MR::isExistSceneObj(EXT_SCENE_OBJ_WATER_RISE_HOLDER))
+            MR::createSceneObj(EXT_SCENE_OBJ_WATER_RISE_HOLDER);
     }
     void WaterRiseSwitch::init(const JMapInfoIter &rIter) {
         MR::initDefaultPos(this, rIter);
@@ -63,32 +69,35 @@ namespace pt {
         MR::addHitSensorMapObj(this, "WaterRise", 8, 10.0f, TVec3f(0));
         MR::validateHitSensor(getSensor("WaterRise"));
         makeActorAppeared();
+        OSReport("%d\n", getWaterRiseHolder()->mGroup->mNumObjs);
     }
     void WaterRiseSwitch::attackSensor(HitSensor *pReceiver, HitSensor *pSender) {
-        if (MR::isEqualString(pSender->mActor->mName, "マリオアクター")) {
+        if (MR::isSensorPlayer(pSender)) {
             if (!mIsRiseActive) {
                 MR::startSystemSE("SE_SY_READ_RIDDLE_SS", -1, -1);
                 MR::startBck(this, "WaterRiseSpin", NULL);
                 MR::setBckFrame(this, mCurrentBckFrame);
-                exeRiseWater(pWaterRiseGroup);
+                exeRiseWater();
             }
         }
     }
     void WaterRiseSwitch::control() {
-        if (mIsRiseActive) 
-            exeRiseWater(pWaterRiseGroup);
+        if (mIsRiseActive) {
+            exeRiseWater();
+        }
     }
-    void WaterRiseSwitch::exeRiseWater(LiveActorGroup *waters) {
-        s32 numWaters = waters->getLivingActorNum();
+    void WaterRiseSwitch::exeRiseWater() {
+        LiveActorGroup* pGroup = getWaterRiseHolder()->mGroup;
+        s32 numWaters = pGroup->getLivingActorNum();
         for (int i = 0; i < numWaters; i++) {
             mIsRiseActive = true;
-            f32 dist = this->mTranslation.y - waters->getActor(i)->mTranslation.y + mOffsetY;
+            f32 dist = this->mTranslation.y - pGroup->getActor(i)->mTranslation.y + mOffsetY;
             if (dist < mSpeed && dist > -mSpeed) 
                 mIsRiseActive = false;
             else if (dist < 0.0f) 
-                waters->getActor(i)->mTranslation.y -= mSpeed;
+                pGroup->getActor(i)->mTranslation.y -= mSpeed;
             else 
-                waters->getActor(i)->mTranslation.y += mSpeed;
+                pGroup->getActor(i)->mTranslation.y += mSpeed;
         }
         if (!mIsRiseActive) {
             mCurrentBckFrame = MR::getBckFrame(this);
