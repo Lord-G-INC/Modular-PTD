@@ -23,9 +23,9 @@ RedCoinController::RedCoinController(const char* pName) : LiveActor(pName) {
     mHasAllRedCoins = false;
     mRewardCoins = false;
     mIsValidCounterAppear = false;
-    mRedCoinCounter = 0;
-    mRedCoinPlayerCounter = 0;
-    mRedCoinSwitch = 0;
+    mRedCoinCounter = NULL;
+    mRedCoinPlayerCounter = NULL;
+    mRedCoinSwitch = NULL;
     mLinkedCoins = 0;
 }
 

@@ -3,7 +3,7 @@
 #include "syati.h"
 #include "Game/Screen/TimeLimitLayout.h"
 
-class CometTimerObj : public NameObj {
+class CometTimerObj : public LiveActor {
 public:
     CometTimerObj(const char* pName);
     virtual void init(const JMapInfoIter& rIter);
@@ -11,8 +11,6 @@ public:
     void onTimeUp();
 
     TimeLimitLayout* mLayout;
-    StageSwitchCtrl* mStageSwitchCtrl;
     s32 mTime;
     bool mKillPlayer;
-    bool mIsAppeared;
 };

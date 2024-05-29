@@ -1,7 +1,5 @@
 #include "syati.h"
 #include "Game/Screen/PauseMenuExt.h"
-//#include "pt/MapObj/BlueCoinSystem/BlueCoinUtil.h"
-//#include "pt/MapObj/BlueCoinSystem/BlueCoinLayouts.h"
 
 PauseMenuExt* createPauseMenuExt() {
     return new PauseMenuExt();
@@ -19,7 +17,11 @@ PauseMenuExt::PauseMenuExt() : PauseMenu() {
 
 //SMSS #define STAGE_CHECK MR::isStageMarioFaceShipOrWorldMap() || (MR::isEqualStageName("YosshiHomeGalaxy") && MR::getCurrentScenarioNo() == 1) || MR::isEqualStageName("PrisonGalaxy")
 
-#define STAGE_CHECK MR::isStageMarioFaceShipOrWorldMap() || MR::isEqualStageName("PeachCastleGalaxy")
+#ifdef SMSS
+    #define STAGE_CHECK MR::isStageMarioFaceShipOrWorldMap() || (MR::isEqualStageName("YosshiHomeGalaxy") && MR::getCurrentScenarioNo() == 1) || MR::isEqualStageName("PrisonGalaxy")
+#else
+    #define STAGE_CHECK MR::isStageMarioFaceShipOrWorldMap() || MR::isEqualStageName("PeachCastleGalaxy")
+#endif
 
 
 void setButtonAnimNames(ButtonPaneController* pButton) {
@@ -222,3 +224,22 @@ bool PauseMenuIsNewButtonPointingTrigger(PauseMenuExt* pPauseMenu) {
 
 kmWrite32(0x80487714, 0x7F63DB78); // mr r3, r27 (PauseMenuExt* into r3)
 kmCall(0x80487720, PauseMenuIsNewButtonPointingTrigger);
+
+s32 gRestartTimer = 0;
+
+void handleRestartStageButtonCombination(NerveExecutor* pExecutor) {
+    pExecutor->updateNerve();
+
+    if (MR::testSubPadButtonC(0) && MR::testCorePadButtonDown(0) && !STAGE_CHECK)
+        gRestartTimer++;
+    else
+        gRestartTimer = 0;
+
+    if (gRestartTimer == 30) {
+        GameSequenceFunction::requestChangeScenarioSelect(MR::getCurrentStageName());
+		GameSequenceFunction::requestChangeStage(MR::getCurrentStageName(), MR::getCurrentScenarioNo(), MR::getCurrentSelectedScenarioNo(), JMapIdInfo(0, 0));
+        gRestartTimer = 0;
+    }
+}
+
+kmCall(0x804518B0, handleRestartStageButtonCombination);

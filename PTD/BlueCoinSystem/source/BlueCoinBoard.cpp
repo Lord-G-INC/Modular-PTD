@@ -1,7 +1,6 @@
 #include "BlueCoinBoard.h"
 #include "BlueCoinUtil.h"
 
-void* gBoardDataTable = pt::loadArcAndFile("SystemData/BlueCoinBoardDataTable.arc", "/BlueCoinBoardDataTable.bcsv");
 /*
     Super Mario Starshine: Blue Coin Board
 
@@ -14,8 +13,8 @@ void* gBoardDataTable = pt::loadArcAndFile("SystemData/BlueCoinBoardDataTable.ar
 
     First Concepted in 5/2023
     Started 9/24/2023
-    Finished 10/1/23
-    Revealed 10/2/23
+    Finished 10/1/2023
+    Revealed 10/2/2023
 
     Uses Blue Coin Flags 0-8.
     0-7 are used for each button, and 8 is the Completion flag.
@@ -24,6 +23,8 @@ void* gBoardDataTable = pt::loadArcAndFile("SystemData/BlueCoinBoardDataTable.ar
     
     I thank SPG64, Lord Giganticus, and Xandog for very helpful feedback.
 */
+
+void* gBoardDataTable = pt::loadArcAndFile("SystemData/BlueCoinBoardDataTable.arc", "/BlueCoinBoardDataTable.bcsv");
 
 BlueCoinSign::BlueCoinSign(const char* pName) : NPCActor(pName) {
     pBoard = 0;

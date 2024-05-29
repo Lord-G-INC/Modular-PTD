@@ -126,7 +126,7 @@ void RedCoin::appearAndMove() {
     TVec3f coinVelocity = TVec3f(0.0f, mLaunchVelocity / 10.0f, 0.0f);
     coinVelocity.scale(coinVelocity.y, -mGravity);
     
-    appearMove(mTranslation, coinVelocity, 300, 60);
+    appearMove(mTranslation, coinVelocity, 300, 30);
     MR::startSystemSE("SE_SY_RED_COIN_APPEAR", -1, -1);
 }
 

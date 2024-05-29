@@ -26,7 +26,7 @@ const wchar_t counterPictureFonts2[] = {
 class BlueCoinCounter : public LayoutActor {
 public:
         BlueCoinCounter(const char* pName);
-        
+                
         virtual void init(const JMapInfoIter& rIter);
         virtual void control();
         void exeAppear();
@@ -36,7 +36,7 @@ public:
         void updateCounter();
         void exeAppearAndUpdate();
         void exeShowTextBox();
-
+        
         CounterLayoutAppearer* mAppearer;
         CountUpPaneRumbler* mPaneRumbler;
         SysInfoWindow* mSysInfoWindow;

@@ -90,7 +90,7 @@ void BlueCoin::appearAndMove() {
 
     MR::startSystemSE("SE_SY_PURPLE_COIN_APPEAR", -1, -1);
     
-    appearMove(mTranslation, coinVelocity, 0x7FFFFFFF, 60);
+    appearMove(mTranslation, coinVelocity, 0x7FFFFFFF, 30);
 }
 
 void BlueCoin::collect() {
@@ -98,8 +98,6 @@ void BlueCoin::collect() {
     
     if (MR::isValidSwitchA(this))
         MR::onSwitchA(this);
-
-    MR::emitEffect(this, "BlueCoinGet"); 
 
     #if defined SMG63 
         MR::emitEffect(this, "BlueCoinGet"); 
@@ -109,7 +107,6 @@ void BlueCoin::collect() {
         MR::startSystemSE("SE_SY_PURPLE_COIN", -1, -1);     
     #endif
     
-
     if (!BlueCoinUtil::isBlueCoinGotCurrentFile(mID)) {
         BlueCoinUtil::setBlueCoinGotCurrentFile(mID);
         BlueCoinUtil::startCounterCountUp();
