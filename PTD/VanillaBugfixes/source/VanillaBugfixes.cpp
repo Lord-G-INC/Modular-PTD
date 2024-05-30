@@ -1,7 +1,7 @@
 #include "syati.h"
 
 /*
-* Author: Aurum
+* Author: Aurum, Super Hackio
 */
 
 namespace pt {
@@ -68,10 +68,19 @@ namespace pt {
 
 
 		void killSamboHeadIfInWater(LiveActor* pActor) {
-    	 if (MR::isInWater(pActor->mTranslation) || MR::isBindedGroundSinkDeath(pActor))
-    	    pActor->kill();
-    	}
-	
-    	kmCall(0x801F8290, killSamboHeadIfInWater);
+    	 		if (MR::isInWater(pActor->mTranslation) || MR::isBindedGroundSinkDeath(pActor))
+    	    			pActor->kill();
+    		}
+		kmCall(0x801F8290, killSamboHeadIfInWater);
+
+		/*****************************************************************************************************************/
+		/* Fix certain MapParts from not taking ColorChange/TexChange.                                                   */
+		/*****************************************************************************************************************/
+		void initilizeMapObjActorWithColorAndTexChange(MapObjActor* pActor, const JMapInfoIter& rIter, MapObjActorInitInfo& rInfo) {
+    			MapObjActorUtil::setupInitInfoColorChangeArg0(&rInfo, rIter);
+    			MapObjActorUtil::setupInitInfoTextureChangeArg1(&rInfo, rIter);
+			pActor->initialize(rIter, rInfo);
+		}
+		kmCall(0x802E99E8, initilizeMapObjActorWithColorAndTexChange);
 	}
 }
