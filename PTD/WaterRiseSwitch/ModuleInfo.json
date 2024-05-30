@@ -15,7 +15,7 @@
     {
       "SceneObjHolder" : [
         {
-          "Name" : "71",
+          "Name" : "0x47",
           "Function" : "pt::createWaterRiseHolder",
           "Include" : "WaterRiseSwitch.h"
         }

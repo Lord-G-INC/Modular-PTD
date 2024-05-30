@@ -19,24 +19,35 @@
 * Credit: Bavario, Alex SMG, Super Hackio
 */
 
-void joinRailMoveWaterObjs(LiveActor* pActor, MtxPtr pMtxPtr) {
-    MR::createIndirectModel(pActor, pMtxPtr);
-    pt::WaterRiseHolder* pHolder = pt::getWaterRiseHolder();
-    pHolder->mGroup->registerActor(pActor);
+void joinRailMoveWaterObjs(RailMoveObj* pActor, const JMapInfoIter& rIter) {
+    pActor->RailMoveObj::init(rIter);
+    ModelObj* pObj = MR::createIndirectModel(pActor, pActor->getBaseMtx());
+    asm("stw %0, 0xE0(%1)" : "=r" (pObj) : "=r" (pActor));
+
+    s32 group = -1;
+    MR::getJMapInfoArg3NoInit(rIter, &group);
+    if (MR::isExistSceneObj(EXT_SCENE_OBJ_WATER_RISE_HOLDER))
+        pt::getWaterRiseHolder()->mGroups[group]->registerActor(pActor);
 }
-kmCall(0x802EA3B4, joinRailMoveWaterObjs);
+
+//kmCall(0x802EA380, joinRailMoveWaterObjs);
+//kmWrite32(0x802EA384, 0x4E800020);
 
 namespace pt {
+    extern void clampS32(s32 min, s32 max, s32* val);
+
     WaterRiseHolder::WaterRiseHolder(const char* pName) : NameObj(pName) {
-        mGroup = new LiveActorGroup("WaterRiseGroup", 16);
+        for (s32 i = 0; i < 4; i++) {
+            char str[17];
+            snprintf(str, 17, "WaterRiseGroup%d", i);
+            mGroups[i] = new LiveActorGroup(str, 16);
+        }
     }
 
     void WaterRiseHolder::init(const JMapInfoIter& rIter) {
-        OSReport("WaterRiseHolder Init\n");
-    }
-
-    WaterRiseHolder::~WaterRiseHolder() {
-        delete mGroup;
+        for (s32 i = 0; i < 4; i++) {
+            OSReport("WaterRiseHolder Init %s\n", mGroups[i]->mName);
+        }
     }
 
     NameObj* createWaterRiseHolder() {
@@ -51,6 +62,7 @@ namespace pt {
         mIsRiseActive = false;
         mSpeed = 1.0f;
         mOffsetY = -350.0f;
+        mWaterRiseGroup = 0;
         mCurrentBckFrame = 0.0f;
 
         if (!MR::isExistSceneObj(EXT_SCENE_OBJ_WATER_RISE_HOLDER))
@@ -64,13 +76,15 @@ namespace pt {
         MR::calcGravity(this);
         MR::getJMapInfoArg0NoInit(rIter, &mSpeed);
         MR::getJMapInfoArg1NoInit(rIter, &mOffsetY);
+        MR::getJMapInfoArg2NoInit(rIter, &mWaterRiseGroup);
 
         initHitSensor(1);
         MR::addHitSensorMapObj(this, "WaterRise", 8, 10.0f, TVec3f(0));
         MR::validateHitSensor(getSensor("WaterRise"));
         makeActorAppeared();
-        OSReport("%d\n", getWaterRiseHolder()->mGroup->mNumObjs);
+        OSReport("%d\n", getWaterRiseHolder()->mGroups[mWaterRiseGroup]->mNumObjs);
     }
+
     void WaterRiseSwitch::attackSensor(HitSensor *pReceiver, HitSensor *pSender) {
         if (MR::isSensorPlayer(pSender)) {
             if (!mIsRiseActive) {
@@ -87,7 +101,7 @@ namespace pt {
         }
     }
     void WaterRiseSwitch::exeRiseWater() {
-        LiveActorGroup* pGroup = getWaterRiseHolder()->mGroup;
+        LiveActorGroup* pGroup = getWaterRiseHolder()->mGroups[mWaterRiseGroup];
         s32 numWaters = pGroup->getLivingActorNum();
         for (int i = 0; i < numWaters; i++) {
             mIsRiseActive = true;

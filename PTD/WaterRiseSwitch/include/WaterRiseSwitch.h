@@ -8,17 +8,15 @@ namespace pt {
 	class WaterRiseHolder : public NameObj {
 		public:
 		WaterRiseHolder(const char* pName);
-		virtual ~WaterRiseHolder();
 		virtual void init(const JMapInfoIter& rIter);
 
-		LiveActorGroup* mGroup;
+		LiveActorGroup* mGroups[4];
 	};
 
 	NameObj* createWaterRiseHolder();
 	WaterRiseHolder* getWaterRiseHolder();
-
-	class WaterRiseSwitch : public LiveActor
-	{
+	
+	class WaterRiseSwitch : public LiveActor {
 	public:
 		WaterRiseSwitch(const char *pName);
 		virtual void init(const JMapInfoIter& rIter);
@@ -28,6 +26,7 @@ namespace pt {
 
 		f32 mSpeed;
 		f32 mOffsetY;
+		s32 mWaterRiseGroup;
 		bool mIsRiseActive;
 		f32 mCurrentBckFrame;
     };
