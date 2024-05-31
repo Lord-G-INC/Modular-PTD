@@ -40,10 +40,11 @@ namespace pt {
 	kmCall(0x800413F0, getErrorMessage); // MR::getGameMessageDirect will return the error message instead of NULL
 
     extern void* loadArcAndFile(const char *pArc, const char *pFile);
-    void loadPTPictureFont() {
-    	pt::loadArcAndFile("/SystemData/PictureFont.arc", "/PictureFont.brfnt");
+    void* loadPTPictureFont() {
+    	return pt::loadArcAndFile("/SystemData/PictureFont.arc", "/PictureFont.brfnt");
     }
 
+	kmWrite32(0x804B8034, 0x48000014);
     kmCall(0x804B8048, loadPTPictureFont);
 
 	/*

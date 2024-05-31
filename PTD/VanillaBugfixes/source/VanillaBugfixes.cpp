@@ -76,10 +76,10 @@ namespace pt {
 		/*****************************************************************************************************************/
 		/* Fix certain MapParts from not taking ColorChange/TexChange.                                                   */
 		/*****************************************************************************************************************/
-		
+
 		void initializeMapObjActorWithColorAndTexChange(MapObjActor* pActor, const JMapInfoIter& rIter, MapObjActorInitInfo& rInfo) {
-    			MapObjActorUtil::setupInitInfoColorChangeArg0(&rInfo, rIter);
-    			MapObjActorUtil::setupInitInfoTextureChangeArg1(&rInfo, rIter);
+    		MapObjActorUtil::setupInitInfoColorChangeArg0(&rInfo, rIter);
+    		MapObjActorUtil::setupInitInfoTextureChangeArg1(&rInfo, rIter);
 			pActor->initialize(rIter, rInfo);
 		}
 		kmCall(0x802E99E8, initializeMapObjActorWithColorAndTexChange);
