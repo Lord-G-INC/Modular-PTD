@@ -39,7 +39,7 @@ namespace pt {
 
 	kmCall(0x800413F0, getErrorMessage); // MR::getGameMessageDirect will return the error message instead of NULL
 
-    extern void* loadArcAndFile(const char *pArc, const char *pFile);
+    extern void* loadArcAndFile(const char* pArc, const char* pFile);
     void* loadPTPictureFont() {
     	return pt::loadArcAndFile("/SystemData/PictureFont.arc", "/PictureFont.brfnt");
     }
@@ -59,8 +59,8 @@ namespace pt {
 
 	ResTIMG* CustomFlagTextures(LiveActor* pActor, const char* pStr, const JMapInfoIter& rIter) {
 		s32 flagTex = 0;
-		char* outArcStr = new char[24];
-		char* outTexStr = new char[24];
+		char outArcStr[24];
+		char outTexStr[24];
 		MR::getJMapInfoArg0NoInit(rIter, &flagTex);
 
 		snprintf(outArcStr, 24, "%s.arc", pStr);
@@ -109,7 +109,7 @@ namespace pt {
 	const char* YesNoDialogueExtensions(const TalkMessageCtrl* msg) {
 		u16 selectTxt = ((u16*)msg->mTalkNodeCtrl->getNextNodeBranch())[4];
 
-		char* str = new char[5];
+		char str[5];
 		sprintf(str, "New%d", selectTxt - 18);
 
 		return selectTxt < 18 ? msg->getBranchID() : str;
