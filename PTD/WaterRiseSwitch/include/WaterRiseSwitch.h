@@ -8,7 +8,6 @@ namespace pt {
 	class WaterRiseHolder : public NameObj {
 		public:
 		WaterRiseHolder(const char* pName);
-		virtual void init(const JMapInfoIter& rIter);
 
 		LiveActorGroup* mGroups[4];
 	};

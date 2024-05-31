@@ -24,28 +24,19 @@ void joinRailMoveWaterObjs(RailMoveObj* pActor, const JMapInfoIter& rIter) {
 
     s32 group = -1;
     MR::getJMapInfoArg3NoInit(rIter, &group);
-    if (MR::isExistSceneObj(EXT_SCENE_OBJ_WATER_RISE_HOLDER)) {
+    if (MR::isExistSceneObj(EXT_SCENE_OBJ_WATER_RISE_HOLDER) && group > -1 && group < 4) {
         pt::getWaterRiseHolder()->mGroups[group]->registerActor(pActor);
-        OSReport("Yes %s %d %d\n", pt::getWaterRiseHolder()->mGroups[group]->mName, group, pt::getWaterRiseHolder()->mGroups[group]->mNumObjs);
     }
 }
 
 kmCall(0x802EA394, joinRailMoveWaterObjs);
 
 namespace pt {
-    extern void clampS32(s32 min, s32 max, s32* val);
-
     WaterRiseHolder::WaterRiseHolder(const char* pName) : NameObj(pName) {
         for (s32 i = 0; i < 4; i++) {
             char str[16];
             snprintf(str, 16, "WaterRiseGroup%d", i);
             mGroups[i] = new LiveActorGroup(str, 16);
-        }
-    }
-
-    void WaterRiseHolder::init(const JMapInfoIter& rIter) {
-        for (s32 i = 0; i < 4; i++) {
-            OSReport("WaterRiseHolder Init %s\n", mGroups[i]->mName);
         }
     }
 
@@ -78,8 +69,7 @@ namespace pt {
         MR::getJMapInfoArg2NoInit(rIter, &mWaterRiseGroup);
 
         initHitSensor(1);
-        MR::addHitSensorMapObj(this, "WaterRise", 8, 10.0f, TVec3f(0));
-        MR::validateHitSensor(getSensor("WaterRise"));
+        MR::addHitSensorMapObj(this, "WaterRise", 8, 25.0f, TVec3f(0));
         makeActorAppeared();
     }
 
