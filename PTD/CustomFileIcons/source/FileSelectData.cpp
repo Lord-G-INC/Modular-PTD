@@ -157,19 +157,19 @@ kmBranch(0x8024E2D0, emitCompleteEffect);
 void invalidateAllUnusedIcon(MiiSelect pSelect, bool isGet120StarEnding)
 {
   // Invalidate rosalina's icon if needed
-  if (ROSALINA_LOCK && pSelect.bitFlags->isOn(5) && !isGet120StarEnding)
+  if (ROSALINA_LOCK && pSelect.mBitFlags->isOn(5) && !isGet120StarEnding)
   {
-    pSelect.bitFlags->set(5, false);
-    pSelect.iconCount -= 1;
+    pSelect.mBitFlags->set(5, false);
+    pSelect.mNumIcons -= 1;
   }
 
   // Invalidate unused icons
-  for (int i = tableNum; i < pSelect.bitFlags->mFlagCount; i++)
+  for (int i = tableNum; i < pSelect.mBitFlags->mFlagCount; i++)
   {
-    if (pSelect.bitFlags->isOn(i))
+    if (pSelect.mBitFlags->isOn(i))
     {
-      pSelect.bitFlags->set(i, false);
-      pSelect.iconCount -= 1;
+      pSelect.mBitFlags->set(i, false);
+      pSelect.mNumIcons -= 1;
     }
   }
 }
