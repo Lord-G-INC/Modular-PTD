@@ -74,6 +74,12 @@ void ButtonControl(TVec2f* pPos, PauseMenuExt* pPauseMenu, const char* pStr) {
 kmCall(0x8048727C, ButtonControl);
 
 void PauseMenuSetButtonPosition(PauseMenuExt* pPauseMenu, const char* pStr1, const char* pStr2, f32 frame, u32 u) {
+    #ifdef BLUECOINSYSTEM
+    if (pPauseMenu->mDisplayMode == 3) {
+        frame = 2.0f;
+    }
+    #endif
+    OSReport("Frame %f, %d\n", frame, pPauseMenu->mDisplayMode);
     MR::startPaneAnimAndSetFrameAndStop(pPauseMenu, pStr1, pPauseMenu->mButtonNew ? "ButtonPosition_restartbutton" : pStr2, frame, u);
 }
 

@@ -5,6 +5,7 @@
 #include "Game/Screen/GameSceneLayoutHolder.h"
 #include "Game/Screen/CounterLayoutControllerExt.h"
 #include "Game/NPC/TalkMessageCtrl.h"
+#include "Game/MapObj/FileSelector.h"
 
 #define BINSIZE 867
 
@@ -437,8 +438,8 @@ void saveBlueCoinDataOnGameSave(const char* pName) {
 kmCall(0x804DAFD0, saveBlueCoinDataOnGameSave);
 
 // Read blue coin binary on title screen load.
-void onTitleScreenLoad(LiveActor* pActor) {
-    pActor->initHitSensor(1); // Restore original call
+void onTitleScreenLoad(FileSelector* pFileSelector) {
+    pFileSelector->initHitSensor(1); // Restore original call
 
     BlueCoinUtil::clearBlueCoinData();
     BlueCoinUtil::loadBlueCoinData();
