@@ -75,7 +75,7 @@ kmCall(0x8048727C, ButtonControl);
 
 void PauseMenuSetButtonPosition(PauseMenuExt* pPauseMenu, const char* pStr1, const char* pStr2, f32 frame, u32 u) {
     #ifdef BLUECOINSYSTEM
-    if (pPauseMenu->mDisplayMode == 3) {
+    if (pPauseMenu->mDisplayMode == 3 || pPauseMenu->mDisplayMode == 4) {
         frame = 2.0f;
     }
     #endif
