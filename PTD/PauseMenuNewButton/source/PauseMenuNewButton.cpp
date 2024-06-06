@@ -75,11 +75,10 @@ kmCall(0x8048727C, ButtonControl);
 
 void PauseMenuSetButtonPosition(PauseMenuExt* pPauseMenu, const char* pStr1, const char* pStr2, f32 frame, u32 u) {
     #ifdef BLUECOINSYSTEM
-    if (pPauseMenu->mDisplayMode == 3 || pPauseMenu->mDisplayMode == 4) {
+    if (pPauseMenu->mDisplayMode != 2) {
         frame = 2.0f;
     }
     #endif
-    OSReport("Frame %f, %d\n", frame, pPauseMenu->mDisplayMode);
     MR::startPaneAnimAndSetFrameAndStop(pPauseMenu, pStr1, pPauseMenu->mButtonNew ? "ButtonPosition_restartbutton" : pStr2, frame, u);
 }
 
@@ -218,7 +217,7 @@ kmWrite32(0x80487CB0, 0x48000008); // b 0x8 (Skip useless instructions)
     kmCall(0x804876C4, setupButtonConnection);
 #endif
 
-extern void PauseMenuIDListControls(PauseMenu* pPauseMenu);
+extern void PauseMenuIDListControls(PauseMenuExt* pPauseMenu);
 
 bool PauseMenuIsNewButtonPointingTrigger(PauseMenuExt* pPauseMenu) {
     #ifdef BLUECOINSYSTEM

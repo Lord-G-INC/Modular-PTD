@@ -211,14 +211,14 @@ kmCall(0x8046590C, killBlueCoinCounter);
 
 // PAUSE MENU
 
-void initBlueCoinStageCounters(PauseMenu* pPauseMenu) {
+void initPauseMenuBlueCoin(PauseMenuExt* pPauseMenu) {
     MR::connectToSceneLayoutOnPause(pPauseMenu);
 
     MR::setTextBoxFormatRecursive(pPauseMenu, "ShaBlueCoinTotal", counterPictureFonts);
     MR::setTextBoxFormatRecursive(pPauseMenu, "ShaBlueCoinStage", counterPictureFonts);
 }
 
-kmCall(0x80486D60, initBlueCoinStageCounters);
+kmCall(0x80486D60, initPauseMenuBlueCoin);
 
 void setPauseMenuBlueCoinStageCount(PauseMenu* pPauseMenu) {
     s32 rangeCollected = BlueCoinUtil::getBlueCoinRangeData(0, true);
@@ -238,32 +238,6 @@ void setPauseMenuBlueCoinStageCount(PauseMenu* pPauseMenu) {
         MR::hidePaneRecursive(pPauseMenu, "ShaBlueCoinStage");
 }
 
-wchar_t* gWFlagsStr = new wchar_t[34];
-
-void setUpBlueCoinFlagsInfo(PauseMenu* pPauseMenu) {
-    bool newLineAdded = false;
-    s32 newLineOff = 0;
-    gWFlagsStr[33] = 0;
-
-    for (s32 i = 0; i < 33; i++) {
-        newLineAdded = false;
-
-        if (i == 16) {
-            MR::addNewLine(&gWFlagsStr[i]);
-            newLineOff++;
-            newLineAdded = true;
-        }
-
-        if (!newLineAdded) {
-            bool isOn = BlueCoinUtil::isOnBlueCoinFlagCurrentFile(i-newLineOff);
-
-            MR::addPictureFontCode(&gWFlagsStr[i], isOn ? 0x8A : 0xC0);
-        }
-    }
-
-    MR::setTextBoxFormatRecursive(pPauseMenu, "ShaCoinListFlags", gWFlagsStr);
-}
-
 wchar_t gWStr[32];
 wchar_t gCompleteIcon[2];
 wchar_t gStarIcon[2];
@@ -274,40 +248,38 @@ s32 setUpBlueCoinInfo(PauseMenu* pPauseMenu) {
 
     s32 rangemin = BlueCoinUtil::getBlueCoinRange(0, false);
 
-    bool stageCheck = MR::isStageStoryBook() || MR::isStageMarioFaceShipOrWorldMap() || MR::isStageNoPauseMenuStars();
-
-    setUpBlueCoinFlagsInfo(pPauseMenu);
-
     ((PauseMenuExt*)pPauseMenu)->mDisplayMode = 0;  
 
     if (rangemin != -1) {
-        if (stageCheck)
-            ((PauseMenuExt*)pPauseMenu)->mDisplayMode = 3;
-        else {
-            MR::addPictureFontCode(&gStarIcon[0], 0xC1);
-            MR::addPictureFontCode(&gBButtonIcon[0], 0x31);
-
-            MR::setTextBoxFormatRecursive(pPauseMenu, "TxtCoinPage", gStarIcon);
-            MR::setTextBoxFormatRecursive(pPauseMenu, "TxtCoinBButton", gBButtonIcon);
-
-            MR::showPaneRecursive(pPauseMenu, "Stars");
-            MR::showPaneRecursive(pPauseMenu, "ScenarioTitle");
-            MR::showPaneRecursive(pPauseMenu, "TxtCoinPage");
-        }
-
         s32 totalCoins = (BlueCoinUtil::getBlueCoinRange(0, true)-rangemin)+1;
         s32 newLineOff = 0;
         s32 collectedCount = 0;
         bool newLineAdded = 0;
+        bool stageCheck = MR::isStageMarioFaceShipOrWorldMap() || MR::isStageNoPauseMenuStars() || MR::isStageStoryBook();
 
-        if (totalCoins > 30)
-            totalCoins = 30;
+        MR::showPaneRecursive(pPauseMenu, "CoinListIcons");
+        MR::hidePane(pPauseMenu, "TxtCoinComplete");
 
-        MR::hidePaneRecursive(pPauseMenu, "ShaCoinListWin");
-        MR::hidePaneRecursive(pPauseMenu, "ShaCoinListFlags");
-        MR::hidePaneRecursive(pPauseMenu, "TxtCoinComplete");
+        if (stageCheck) {
+            MR::showPane(pPauseMenu, "StageInfo");
+            MR::showPane(pPauseMenu, "WinBase");
+            MR::showPane(pPauseMenu, "BlueCoinAmounts");
+            MR::showPaneRecursive(pPauseMenu, "StageTitle");
+            MR::showPaneRecursive(pPauseMenu, "ShaCoinListWin");
+            MR::setTextBoxMessageRecursive(pPauseMenu, "StageTitle", MR::getCurrentGalaxyNameOnCurrentLanguage());
+            MR::hidePane(pPauseMenu, "TxtCoinPage");
+        }
+        else  {
+            MR::hidePaneRecursive(pPauseMenu, "ShaCoinListWin");
+            MR::showPaneRecursive(pPauseMenu, "Stars");
+            MR::showPaneRecursive(pPauseMenu, "ScenarioTitle");
 
-        MR::showPaneRecursive(pPauseMenu, "TxtCoinBButton");
+            MR::addPictureFontCode(&gStarIcon[0], 0xC1);
+            MR::setTextBoxFormatRecursive(pPauseMenu, "TxtCoinPage", gStarIcon);
+
+            MR::addPictureFontCode(&gBButtonIcon[0], 0x31);
+            MR::setTextBoxFormatRecursive(pPauseMenu, "TxtCoinBButton", gBButtonIcon);
+        }
 
         for (s32 i = 0; i < totalCoins + (totalCoins > 15) ? 1 : 0; i++) {
             newLineAdded = 0;
@@ -341,7 +313,7 @@ s32 setUpBlueCoinInfo(PauseMenu* pPauseMenu) {
         MR::setTextBoxFormatRecursive(pPauseMenu, "ShaCoinListWin", gWStr);
     }
     else
-        ((PauseMenuExt*)pPauseMenu)->mDisplayMode = 5;
+        ((PauseMenuExt*)pPauseMenu)->mDisplayMode = 2;
 
 
     return MR::getCoinNum();
@@ -349,81 +321,37 @@ s32 setUpBlueCoinInfo(PauseMenu* pPauseMenu) {
 
 kmCall(0x80487090, setUpBlueCoinInfo);
 
-wchar_t* gStarIconIDList = new wchar_t[2];
+wchar_t gStarIconIDList[2];
 
 #define NO_STATE 0
 #define COIN_LIST 1
-#define FLAG_LIST 2
-#define COIN_LIST_NOSTAR 3
-#define FLAG_LIST_NOSTAR 4
-#define LIST_DISABLED 5
+#define COIN_LIST_NOSTAR 2
+#define LIST_DISABLED 3
 
-void PauseMenuIDListControls(PauseMenu* pPauseMenu) {
-    PauseMenuExt* pPauseMenuExt = (PauseMenuExt*)pPauseMenu;
+void PauseMenuIDListControls(PauseMenuExt* pPauseMenu) {
+    bool stagecheck = MR::isStageNoPauseMenuStars() || MR::isStageStoryBook() || MR::isStageMarioFaceShipOrWorldMap();
 
-    if (pPauseMenuExt->mDisplayMode != 5) {
-        if (MR::isStageStoryBook() || MR::isStageMarioFaceShipOrWorldMap() || MR::isStageNoPauseMenuStars()) {
-            MR::showPane(pPauseMenuExt, "StageInfo");
-            MR::showPane(pPauseMenuExt, "WinBase");
-            MR::showPane(pPauseMenu, "BlueCoinAmounts");
-            MR::showPane(pPauseMenu, "CoinListIcons");
-            MR::showPaneRecursive(pPauseMenuExt, "StageTitle");
-            MR::setTextBoxMessageRecursive(pPauseMenuExt, "StageTitle", MR::getCurrentGalaxyNameOnCurrentLanguage());
-
-            if (pPauseMenuExt->mDisplayMode == 3) {
-                MR::hidePaneRecursive(pPauseMenuExt, "ShaCoinListFlags");
-                MR::showPaneRecursive(pPauseMenuExt, "ShaCoinListWin");
-                MR::showPaneRecursive(pPauseMenuExt, "TxtCoinBButton");
+    if (pPauseMenu->mDisplayMode != 2 && !stagecheck) {
+        if (MR::testCorePadTriggerB(0)) {
+            if (pPauseMenu->mDisplayMode == 0) {
+                MR::hidePaneRecursive(pPauseMenu, "Stars");
+                MR::hidePaneRecursive(pPauseMenu, "ScenarioTitle");
+                MR::showPaneRecursive(pPauseMenu, "TxtCoinComplete");
+                MR::showPaneRecursive(pPauseMenu, "ShaCoinListWin");
+                pPauseMenu->mDisplayMode = 1;
             }
-            if (pPauseMenuExt->mDisplayMode == 4) {
-                MR::showPaneRecursive(pPauseMenuExt, "ShaCoinListFlags");
-                MR::hidePaneRecursive(pPauseMenuExt, "ShaCoinListWin");
-                MR::hidePaneRecursive(pPauseMenuExt, "TxtCoinBButton");
+            else if (pPauseMenu->mDisplayMode == 1) {
+                MR::showPaneRecursive(pPauseMenu, "Stars");
+                MR::showPaneRecursive(pPauseMenu, "ScenarioTitle");
+                MR::hidePaneRecursive(pPauseMenu, "TxtCoinComplete");
+                MR::hidePaneRecursive(pPauseMenu, "ShaCoinListWin");
+                pPauseMenu->mDisplayMode = 0;
             }
 
-            if (MR::testCorePadTriggerB(0)) {
-                if (pPauseMenuExt->mDisplayMode == 4)
-                    pPauseMenuExt->mDisplayMode = 3;
-            
-                if (MR::testSubPadButtonC(0) && pPauseMenuExt->mDisplayMode == 3)
-                    pPauseMenuExt->mDisplayMode = 4;
-            }
+        MR::addPictureFontCode(&gStarIconIDList[0], pPauseMenu->mDisplayMode > 0 ? 0xC2 : 0xC1);
+        MR::setTextBoxFormatRecursive(pPauseMenu, "TxtCoinPage", gStarIconIDList);
         }
-        else {
-            if (MR::testCorePadTriggerB(0)) {
-                if (pPauseMenuExt->mDisplayMode == 1 || pPauseMenuExt->mDisplayMode == 2) {
-                    MR::hidePaneRecursive(pPauseMenuExt, "ShaCoinListWin");
-                    MR::hidePaneRecursive(pPauseMenuExt, "TxtCoinComplete");
-                    MR::hidePaneRecursive(pPauseMenuExt, "ShaCoinListFlags");
-
-                    MR::showPaneRecursive(pPauseMenuExt, "Stars");
-                    MR::showPaneRecursive(pPauseMenuExt, "ScenarioTitle");
-                    pPauseMenuExt->mDisplayMode = 0;  
-                }
-                else if (pPauseMenuExt->mDisplayMode == 0) {
-                    MR::showPaneRecursive(pPauseMenuExt, "ShaCoinListWin");
-                    MR::showPaneRecursive(pPauseMenuExt, "TxtCoinComplete");
-
-                    MR::hidePaneRecursive(pPauseMenuExt, "Stars");
-                    MR::hidePaneRecursive(pPauseMenuExt, "ScenarioTitle");
-                    pPauseMenuExt->mDisplayMode = 1;
-                }
-
-                if (MR::testSubPadButtonC(0)) {
-                    MR::hidePaneRecursive(pPauseMenuExt, "ShaCoinListWin");
-                    MR::hidePaneRecursive(pPauseMenuExt, "TxtCoinComplete");
-                    MR::showPaneRecursive(pPauseMenuExt, "ShaCoinListFlags");
-                    
-                    MR::hidePaneRecursive(pPauseMenuExt, "Stars");
-                    MR::hidePaneRecursive(pPauseMenuExt, "ScenarioTitle");
-                    pPauseMenuExt->mDisplayMode = 2;
-                }
-
-                MR::addPictureFontCode(&gStarIconIDList[0], pPauseMenuExt->mDisplayMode > 0 ? 0xC2 : 0xC1);
-                MR::setTextBoxFormatRecursive(pPauseMenuExt, "TxtCoinPage", gStarIconIDList);
-            }
-        }
-    }
+    }    
 }
 
 #ifndef PAUSEMENUNEWBUTTON
@@ -450,7 +378,7 @@ kmWrite32(0x80487714, 0x7F63DB78); // mr r3, r27 (PauseMenuExt* into r3)
 kmCall(0x80487720, PauseMenuIsNewButtonPointingTrigger);
 
 void PauseMenuMoveButtonForBlueCoin(PauseMenuExt* pPauseMenu, const char* pStr1, const char* pStr2, f32 frame, u32 u) {
-    if (pPauseMenu->mDisplayMode == 3 || pPauseMenu->mDisplayMode == 4) {
+    if (pPauseMenu->mDisplayMode != 2) {
         frame = 2.0f;
     }
     MR::startPaneAnimAndSetFrameAndStop(pPauseMenu, pStr1, pStr2, frame, u);
