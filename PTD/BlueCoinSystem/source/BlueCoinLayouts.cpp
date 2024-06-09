@@ -231,9 +231,6 @@ void setPauseMenuBlueCoinStageCount(PauseMenu* pPauseMenu) {
         MR::setTextBoxArgNumberRecursive(pPauseMenu, "ShaBlueCoinStage", rangeCollected, 0);
     
         MR::showPaneRecursive(pPauseMenu, "ShaBlueCoinStage");
-
-        //if (rangeTotal > -1)
-        //    BlueCoinUtil::getBlueCoinPaneNameFromTable(pPauseMenu, 0);
     }
     else
         MR::hidePaneRecursive(pPauseMenu, "ShaBlueCoinStage");
@@ -428,7 +425,6 @@ void setGalaxyInfoBlueCoinCount(LayoutActor* actor, const char* pGalaxyName, con
     if (rangeNum != -1) {
         MR::showPane(actor, "BlueCoin");
         MR::showPaneRecursive(actor, "ShaBlueCoinGalax");
-        //BlueCoinUtil::getBlueCoinPaneNameFromTable(actor, pGalaxyName);
         MR::setTextBoxFormatRecursive(actor, "ShaBlueCoinGalax", L"%ls%d", counterPictureFonts2, rangeNum);
     }
 }

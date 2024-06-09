@@ -368,34 +368,6 @@ namespace BlueCoinUtil {
         return -1;
     }
 
-
-    //void getBlueCoinPaneNameFromTable(LayoutActor* pLayout, const char* pStageName) {
-    //    JMapInfo table = JMapInfo();
-    //    table.attach(gBlueCoinIDRangeTable);
-//
-    //    const char* tableStageName;
-    //    s32 targetLine = -1;
-//
-    //    if (!pStageName)
-    //        pStageName = MR::getCurrentStageName();
-//
-    //    for (s32 i = 0; i < MR::getCsvDataElementNum(&table); i++) {
-    //        MR::getCsvDataStr(&tableStageName, &table, "StageName", i);
-//
-    //        if (MR::isEqualString(pStageName, tableStageName)) {
-    //            targetLine = i;
-    //            break;
-    //        }
-    //    }
-//
-    //    s32 texID = 0;  
-    //    MR::getCsvDataS32(&texID, &table, "TexID", targetLine);
-    //    char paneName[10];
-    //    snprintf(paneName, 10, "ShaCoin%02d", texID);
-    //    OSReport("(BlueCoinIDRangeTable) Pane \"ShaCoin%02d\" selected.\n", texID);
-    //    MR::showPaneRecursive(pLayout, (const char*)paneName);
-    //}
-
     LiveActor* createBlueCoinForSpawning(LiveActor* pSourceActor, s32 id) {
         BlueCoin* coin = new BlueCoin("BlueCoinS");
         MR::addToCoinHolder(pSourceActor, coin);
