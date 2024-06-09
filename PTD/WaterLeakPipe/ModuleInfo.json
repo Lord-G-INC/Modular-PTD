@@ -1,0 +1,16 @@
+{
+    "Name": "WaterLeakPipe",
+    "Author": "Aurum",
+    "Description": "PTD: The leaking water pipe from Freezeflame Galaxy and Deep Dark Galaxy.",
+    "ModuleData" : [
+      {
+        "NameObjFactory" : [
+          {
+            "Name" : "WaterLeakPipe",
+            "Function" : "createExtActor<pt::WaterLeakPipe>",
+            "Include" : "WaterLeakPipe.h"
+          }
+        ]
+      }
+    ]
+  }
