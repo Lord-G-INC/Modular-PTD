@@ -15,6 +15,7 @@
 */
 
 namespace pt {
+	extern void initRailToNearestAndRepositionWithGravity(LiveActor *);
 	IceStepNoSlip::IceStepNoSlip(MtxPtr pMtx)
 		: ModelObj("アイス床", "IceStepNoSlip", pMtx, MR::DrawBufferType_IndirectMapObjStrongLight, MR::CategoryList_Auto, MR::CategoryList_Auto, false)
 	{
