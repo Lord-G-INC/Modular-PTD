@@ -225,20 +225,21 @@ void setPauseMenuBlueCoinStageCount(PauseMenu* pPauseMenu) {
     s32 rangeTotal = BlueCoinUtil::getBlueCoinRangeData(0, false);
 
     MR::setTextBoxArgNumberRecursive(pPauseMenu, "ShaBlueCoinTotal", BlueCoinUtil::getTotalBlueCoinNumCurrentFile(false), 0);
+    MR::setTextBoxNumberRecursive(pPauseMenu, "ShaBlueCoinNum", rangeTotal);
 
     if (rangeCollected > -1) {
         MR::setTextBoxArgNumberRecursive(pPauseMenu, "ShaBlueCoinStage", rangeCollected, 0);
     
         MR::showPaneRecursive(pPauseMenu, "ShaBlueCoinStage");
 
-        if (rangeTotal > -1)
-            BlueCoinUtil::getBlueCoinPaneNameFromTable(pPauseMenu, 0);
+        //if (rangeTotal > -1)
+        //    BlueCoinUtil::getBlueCoinPaneNameFromTable(pPauseMenu, 0);
     }
     else
         MR::hidePaneRecursive(pPauseMenu, "ShaBlueCoinStage");
 }
 
-wchar_t gWStr[32];
+wchar_t gIDListStr[32];
 wchar_t gCompleteIcon[2];
 wchar_t gStarIcon[2];
 wchar_t gBButtonIcon[2];
@@ -254,16 +255,19 @@ s32 setUpBlueCoinInfo(PauseMenu* pPauseMenu) {
         s32 totalCoins = (BlueCoinUtil::getBlueCoinRange(0, true)-rangemin)+1;
         s32 newLineOff = 0;
         s32 collectedCount = 0;
-        bool newLineAdded = 0;
+        bool newLineAdded = false;
         bool stageCheck = MR::isStageMarioFaceShipOrWorldMap() || MR::isStageNoPauseMenuStars() || MR::isStageStoryBook();
 
+        if (totalCoins > 30)
+            totalCoins = 30;
+
+        MR::showPaneRecursive(pPauseMenu, "BlueCoinAmounts");
         MR::showPaneRecursive(pPauseMenu, "CoinListIcons");
         MR::hidePane(pPauseMenu, "TxtCoinComplete");
 
         if (stageCheck) {
             MR::showPane(pPauseMenu, "StageInfo");
             MR::showPane(pPauseMenu, "WinBase");
-            MR::showPane(pPauseMenu, "BlueCoinAmounts");
             MR::showPaneRecursive(pPauseMenu, "StageTitle");
             MR::showPaneRecursive(pPauseMenu, "ShaCoinListWin");
             MR::setTextBoxMessageRecursive(pPauseMenu, "StageTitle", MR::getCurrentGalaxyNameOnCurrentLanguage());
@@ -285,7 +289,7 @@ s32 setUpBlueCoinInfo(PauseMenu* pPauseMenu) {
             newLineAdded = 0;
 
             if (i == totalCoins/2 && totalCoins > 15) {
-                MR::addNewLine(&gWStr[i]);
+                MR::addNewLine(&gIDListStr[i]);
                 newLineOff++;
                 newLineAdded = true;
             }
@@ -299,7 +303,7 @@ s32 setUpBlueCoinInfo(PauseMenu* pPauseMenu) {
                     collectedCount++;
                 }
 
-                MR::addPictureFontCode(&gWStr[i], icon);
+                MR::addPictureFontCode(&gIDListStr[i], icon);
             }
         }
 
@@ -310,7 +314,7 @@ s32 setUpBlueCoinInfo(PauseMenu* pPauseMenu) {
         else
             MR::setTextBoxFormatRecursive(pPauseMenu, "TxtCoinComplete", gCompleteIcon);
 
-        MR::setTextBoxFormatRecursive(pPauseMenu, "ShaCoinListWin", gWStr);
+        MR::setTextBoxFormatRecursive(pPauseMenu, "ShaCoinListWin", gIDListStr);
     }
     else
         ((PauseMenuExt*)pPauseMenu)->mDisplayMode = 2;
@@ -424,7 +428,7 @@ void setGalaxyInfoBlueCoinCount(LayoutActor* actor, const char* pGalaxyName, con
     if (rangeNum != -1) {
         MR::showPane(actor, "BlueCoin");
         MR::showPaneRecursive(actor, "ShaBlueCoinGalax");
-        BlueCoinUtil::getBlueCoinPaneNameFromTable(actor, pGalaxyName);
+        //BlueCoinUtil::getBlueCoinPaneNameFromTable(actor, pGalaxyName);
         MR::setTextBoxFormatRecursive(actor, "ShaBlueCoinGalax", L"%ls%d", counterPictureFonts2, rangeNum);
     }
 }

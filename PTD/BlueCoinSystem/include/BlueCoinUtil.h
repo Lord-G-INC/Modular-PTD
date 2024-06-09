@@ -121,7 +121,7 @@ namespace BlueCoinUtil {
     /// @brief Gets the value in the "TexID" field. pStageName is used to select the target row.
     /// @param pLayout Source LayoutActor
     /// @param pStageName Target Stage Name
-    void getBlueCoinPaneNameFromTable(LayoutActor* pLayout, const char* pStageName);
+    //void getBlueCoinPaneNameFromTable(LayoutActor* pLayout, const char* pStageName);
 
     /// @brief Creates a Blue Coin that can be used for spawning. The Blue Coin will not be created if -1 is passed into id. In that case, 0 will be returned.
     /// @param pSourceActor Source Actor
