@@ -89,7 +89,7 @@ void RedCoin::control() {
         if (mElapsed == mAppearDelay)
             appearAndMove();
 
-    mElapsed++;
+        mElapsed++;
     }
 
     if (MR::isOnSwitchB(this))

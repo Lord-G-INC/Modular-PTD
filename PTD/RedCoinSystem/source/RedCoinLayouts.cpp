@@ -34,7 +34,6 @@ void RedCoinCounter::appear() {
 }
 
 void RedCoinCounter::setStarIcon(s32 starID, s32 iconID) {
-
     if (starID == 0) {
         iconID = 0x52;
     }

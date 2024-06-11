@@ -1,6 +1,5 @@
 #include "RedCoinController.h"
 #include "RedCoinLayouts.h"
-//#include "pt/MapObj/BlueCoinSystem/BlueCoinUtil.h"
 #include "RedCoinUtil.h"
 
 /* --- RED COIN CONTROLLER --- */
