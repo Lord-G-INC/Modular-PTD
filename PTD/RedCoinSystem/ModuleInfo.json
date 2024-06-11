@@ -2,7 +2,7 @@
   "Name": "Red Coin System",
   "Author": "Evanbowl",
   "Description": "PTD: Red Coin System",
-  "InstallDependencies": ["Syati_ObjectFactories"],
+  "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init"],
   "ModuleData" : [
     {
       "NameObjFactory": [

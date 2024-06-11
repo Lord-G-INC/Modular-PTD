@@ -2,7 +2,7 @@
   "Name": "JumpGuarder",
   "Author": "Aurum",
   "Description": "SMG1 Enemy Port: JumpGuarder",
-  "InstallDependencies": ["Syati_ObjectFactories"],
+  "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init"],
   "ModuleData" : [
     {
       "NameObjFactory" : [

@@ -4,5 +4,6 @@
   "Description": "Restart Stage Button",
   "CompilerFlags" : [
     "-DPAUSEMENUNEWBUTTON"
-  ]
+  ],
+  "InstallDependencies": ["Syati_Init"]
 }

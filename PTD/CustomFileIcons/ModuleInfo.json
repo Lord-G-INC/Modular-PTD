@@ -1,5 +1,6 @@
 {
   "Name": "Custom File Select Icons",
   "Author": "AwesomeTMC",
-  "Description": "Allows you to change what icons are on the File Select."
+  "Description": "Allows you to change what icons are on the File Select.",
+  "InstallDependencies": ["Syati_Init"]
 }

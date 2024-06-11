@@ -1,5 +1,6 @@
 {
   "Name": "Dummy Display Model Table",
   "Author": "Aurum and Evanbowl",
-  "Description": "PTD: DummyDisplayModelTable"
+  "Description": "PTD: DummyDisplayModelTable",
+  "InstallDependencies": ["Syati_Init"]
 }

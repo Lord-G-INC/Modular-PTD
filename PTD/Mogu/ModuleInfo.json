@@ -2,7 +2,7 @@
   "Name": "Mogu",
   "Author": "Aurum",
   "Description": "SMG1 Enemy Port: Mogu",
-  "InstallDependencies": ["Syati_ObjectFactories"],
+  "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init"],
   "ModuleData" : [
     {
       "NameObjFactory" : [

@@ -2,7 +2,7 @@
   "Name": "Crystal Switch",
   "Author": "Original PT Developers",
   "Description": "SMG1 Actor Port: CrystalSwitch",
-  "InstallDependencies": ["Syati_ObjectFactories"],
+  "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init"],
   "ModuleData" : [
     {
       "NameObjFactory" : [

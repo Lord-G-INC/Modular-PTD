@@ -2,7 +2,7 @@
   "Name": "PomponPlant",
   "Author": "Someone",
   "Description": "SMG1 Actor Port: PomponPlant",
-  "InstallDependencies": ["Syati_ObjectFactories"],
+  "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init"],
   "ModuleData" : [
     {
       "NameObjFactory" : [
