@@ -2,6 +2,7 @@
   "Name": "DharmaSambo",
   "Author": "Aurum",
   "Description": "SMG1 Enemy Port: DharmaSambo",
+  "InstallDependencies": ["Syati_ObjectFactories"],
   "ModuleData" : [
     {
       "NameObjFactory" : [

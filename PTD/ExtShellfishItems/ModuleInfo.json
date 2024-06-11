@@ -2,6 +2,7 @@
   "Name": "ExtShellfishItems",
   "Author": "Aurum",
   "Description": "PT: Extended Shellfish Items",
+  "InstallDependencies": ["Syati_ObjectFactories"],
   "ModuleData" : [
     {
       "NameObjFactory" : [

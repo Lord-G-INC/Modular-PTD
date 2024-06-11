@@ -5,6 +5,7 @@
   "CompilerFlags" : [
     "-DBLUECOINSYSTEM"
   ],
+  "InstallDependencies": ["Syati_ObjectFactories"],
   "ModuleData" : [
     {
       "NameObjFactory": [

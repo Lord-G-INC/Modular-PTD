@@ -2,6 +2,7 @@
   "Name": "ChooChooTrain",
   "Author": "Aurum",
   "Description": "SMG1 Class Port: ChooChooTrain",
+  "InstallDependencies": ["Syati_ObjectFactories"],
   "ModuleData" : [
     {
       "ProductMapObj" : [

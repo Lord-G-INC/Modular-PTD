@@ -2,6 +2,7 @@
   "Name": "NewMorphItemNeo",
   "Author": "Aurum",
   "Description": "PT: Red Star and Ice Flower",
+  "InstallDependencies": ["Syati_ObjectFactories"],
   "ModuleData" : [
     {
       "NameObjFactory" : [

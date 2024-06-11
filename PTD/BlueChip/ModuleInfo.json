@@ -2,6 +2,7 @@
   "Name": "BlueChip",
   "Author": "Aurum",
   "Description": "Blue Star Chips",
+  "InstallDependencies": ["Syati_ObjectFactories"],
   "ModuleData" : [
     {
       "NameObjFactory" : [

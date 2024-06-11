@@ -2,6 +2,7 @@
   "Name": "PowerStarSpawner",
   "Author": "Aurum and Evanbowl",
   "Description": "PTD: Power Star Spawner",
+  "InstallDependencies": ["Syati_ObjectFactories"],
   "ModuleData" : [
     {
       "NameObjFactory": [

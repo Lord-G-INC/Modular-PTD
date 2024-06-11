@@ -2,6 +2,7 @@
   "Name": "ProductMapObjDataTableClasses",
   "Author": "Aurum",
   "Description": "PT: New ProductMapObjDataTable Classes",
+  "InstallDependencies": ["Syati_ObjectFactories"],
   "ModuleData" : [
     {
       "ProductMapObj" : [

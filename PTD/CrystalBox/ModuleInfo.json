@@ -2,6 +2,7 @@
   "Name": "Crystal Box",
   "Author": "Evanbowl",
   "Description": "PTD: CrystalBox",
+  "InstallDependencies": ["Syati_ObjectFactories"],
   "ModuleData" : [
     {
       "NameObjFactory": [

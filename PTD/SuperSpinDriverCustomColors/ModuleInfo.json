@@ -2,6 +2,7 @@
   "Name": "Custom Launch Star Colors",
   "Author": "Aurum, Evanbowl, Lord-Giganticus",
   "Description": "PTD: Custom Launch Star Colors",
+  "InstallDependencies": ["Syati_ObjectFactories"],
   "ModuleData" : [
     {
       "NameObjFactory": [

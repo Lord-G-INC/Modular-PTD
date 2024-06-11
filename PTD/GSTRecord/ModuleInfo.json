@@ -2,6 +2,7 @@
   "Name": "GSTRecord",
   "Author": "Aurum",
   "Description": "Aurum's Syati: GSTRecord",
+  "InstallDependencies": ["Syati_ObjectFactories", "Syati_CommonFunctionHooks"],
   "ModuleData" : [
     {
       "NameObjFactory" : [

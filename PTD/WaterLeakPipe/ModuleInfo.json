@@ -2,6 +2,7 @@
     "Name": "WaterLeakPipe",
     "Author": "Aurum",
     "Description": "PTD: The leaking water pipe from Freezeflame Galaxy and Deep Dark Galaxy.",
+    "InstallDependencies": ["Syati_ObjectFactories"],
     "ModuleData" : [
       {
         "NameObjFactory" : [

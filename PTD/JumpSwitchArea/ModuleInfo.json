@@ -2,6 +2,7 @@
   "Name": "JumpSwitchArea",
   "Author": "Someone, Aurum",
   "Description": "PT: JumpSwitchArea",
+  "InstallDependencies": ["Syati_ObjectFactories", "ExtAreaObjMgr"],
   "ModuleData" : [
     {
       "NameObjFactory" : [

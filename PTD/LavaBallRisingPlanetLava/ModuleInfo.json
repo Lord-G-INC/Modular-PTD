@@ -2,6 +2,7 @@
   "Name": "LavaBallRisingPlanetLava",
   "Author": "Aurum",
   "Description": "PT: LavaBallRisingPlanetLava/ScaleMapObj Class",
+  "InstallDependencies": ["Syati_ObjectFactories"],
   "ModuleData" : [
     {
       "ProductMapObj" : [

@@ -2,6 +2,7 @@
   "Name": "TransparentWall",
   "Author": "Aurum",
   "Description": "SMG1 Class Port: TransparentWall",
+  "InstallDependencies": ["Syati_ObjectFactories"],
   "ModuleData" : [
     {
       "ProductMapObj" :[
