@@ -50,9 +50,10 @@ namespace pt {
 	//Loads an arc and a selected file into memory.
 	void* loadArcAndFile(const char *pArc, const char *pFile) {
 		OSReport("Loading file %s from %s\n", pFile, pArc);
-		JKRArchive* arc = MR::mountArchive(pArc, MR::getHeapGDDR3(0), false);
+		JKRHeap* pHeap = MR::getCurrentHeap();
+		JKRArchive* arc = MR::mountArchive(pArc, pHeap, false);
 		void* file = arc->getResource(pFile);
-	
+		OSReport("%d, %d\n", pHeap->getSize(arc), pHeap->getFreeSize());
 		if (arc && file) {
 			OSReport("(PTD Archive Loader) Archive %s and file %s both exist!\n", pArc, pFile);
 			return file;
@@ -62,6 +63,22 @@ namespace pt {
 	
 		return 0;
 	}
+
+	void test(NerveExecutor* pExecutor, Nerve* pNerve) {
+		JKRHeap* pHeap = MR::getCurrentHeap();
+		OSReport("%d\n", pHeap->getFreeSize());
+		pExecutor->setNerve(pNerve);
+	}
+
+	kmCall(0x80451874, test);
+
+	void test2() {
+		JKRHeap* pHeap = MR::getCurrentHeap();
+		OSReport("%d\n", pHeap->getFreeSize());
+		MR::setInitializeStatePlacementPlayer();
+	}
+
+	kmCall(0x8045B904, test2);
 
 	void initShadowVolumeBox(LiveActor* pActor, const TVec3f& rPos) {
 		pActor->initShadowControllerList(1);
