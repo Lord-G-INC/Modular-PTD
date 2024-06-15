@@ -42,7 +42,7 @@ namespace pt {
     extern void* loadArcAndFile(const char* pArc, const char* pFile);
 
     void* loadPTPictureFont(JKRArchive* pArchive) {
-		if (MR::isFileExist("/SystemData/PictureFont.arc", true))
+		if (MR::isFileExist("/SystemData/PictureFont.arc", false))
     		return pt::loadArcAndFile("/SystemData/PictureFont.arc", "/PictureFont.brfnt");
 		
 		return pArchive->getResource("/PictureFont.brfnt");
