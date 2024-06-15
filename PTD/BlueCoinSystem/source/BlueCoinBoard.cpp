@@ -24,8 +24,6 @@
     I thank SPG64, Lord Giganticus, and Xandog for very helpful feedback.
 */
 
-void* gBoardDataTable = pt::loadArcAndFile("SystemData/BlueCoinBoardDataTable.arc", "/BlueCoinBoardDataTable.bcsv");
-
 BlueCoinSign::BlueCoinSign(const char* pName) : NPCActor(pName) {
     pBoard = 0;
 }
@@ -111,6 +109,7 @@ BlueCoinBoard::BlueCoinBoard(const char* pName) : LayoutActor(pName, 0) {
 }
 
 void BlueCoinBoard::init(const JMapInfoIter& rIter) {
+    void* gBoardDataTable = pt::loadArcAndFile("SystemData/BlueCoinBoardDataTable.arc", "/BlueCoinBoardDataTable.bcsv");
     initLayoutManager("BlueCoinBoard", 2);
     MR::registerDemoSimpleCastAll(this);
     initNerve(&NrvBlueCoinBoard::NrvHide::sInstance);
