@@ -28,7 +28,15 @@ void joinRailMoveWaterObjs(RailMoveObj* pActor, const JMapInfoIter& rIter) {
         pt::getWaterRiseHolder()->mGroups[group]->registerActor(pActor);
     }
 }
+void joinMenbos(LiveActor *pActor, const JMapInfoIter& rIter, const char *pModelName, bool unk) {
+    MR::processInitFunction(pActor, rIter, pModelName, unk);
 
+    if (MR::isExistSceneObj(EXT_SCENE_OBJ_WATER_RISE_HOLDER)) {
+        pt::getWaterRiseHolder()->mGroups[group]->registerActor(pActor);
+    }
+}
+
+kmCall(0x801C3B6C, joinMenbos);
 kmCall(0x802EA394, joinRailMoveWaterObjs);
 
 namespace pt {
