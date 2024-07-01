@@ -1,5 +1,5 @@
 {
-  "Name": "NewMorphItemNeo",
+  "Name": "Red Star and Ice Flower",
   "Author": "Aurum",
   "Description": "PT: Red Star and Ice Flower",
   "InstallDependencies": ["Syati_ObjectFactories"],
@@ -17,12 +17,12 @@
         {
           "Name" : "MorphItemNeoFoo",
           "Function" : "createExtActor<pt::MorphItemNeoFoo>",
-          "Include" : "NewMorphItemNeo.h"
+          "Include" : "MorphFooAndIce.h"
         },
         {
           "Name" : "MorphItemNeoIce",
           "Function" : "createExtActor<pt::MorphItemNeoIce>",
-          "Include" : "NewMorphItemNeo.h"
+          "Include" : "MorphFooAndIce.h"
         }
       ]
     }
