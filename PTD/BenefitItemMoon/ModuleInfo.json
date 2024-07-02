@@ -1,0 +1,17 @@
+{
+  "Name": "BenefitItemMoon",
+  "Author": "EterSky",
+  "Description": "3-Up Moon from SMW",
+  "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init"],
+  "ModuleData" : [
+    {
+      "NameObjFactory": [
+        {
+          "Name" : "BenefitItemMoon",
+          "Function" : "createExtActor<BenefitItemMoon>",
+          "Include" : "BenefitItemMoon.h"
+        }
+      ]
+    }
+  ]
+}

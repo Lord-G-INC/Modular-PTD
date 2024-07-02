@@ -1,0 +1,17 @@
+{
+  "Name": "MorphSwitchCtrl",
+  "Author": "EterSky",
+  "Description": "Controller that checks for morph-related stuff",
+  "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init"],
+  "ModuleData" : [
+    {
+      "NameObjFactory": [
+        {
+          "Name" : "MorphSwitchCtrl",
+          "Function" : "createExtActor<MorphSwitchCtrl>",
+          "Include" : "MorphSwitchCtrl.h"
+        }
+      ]
+    }
+  ]
+}
