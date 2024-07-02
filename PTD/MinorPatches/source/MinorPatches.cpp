@@ -238,13 +238,4 @@ namespace pt {
     kmWrite32(0x80266CE8, 0x2C030000); // cmpwi r3, 0
     kmWrite32(0x80266CEC, 0x41820008); // beq 0x8
 
-	// File isn't exist patch
-
-	void printFileNameIfMissing(const char* fileName) {
-		if (!MR::isFileExist(fileName, 0))
-			OSPanic("FileRipper.cpp", 118, "File \"%s\" isn't exist.", fileName);
-	}
-
-	kmCall(0x804B1FE0, printFileNameIfMissing);
-
 }
