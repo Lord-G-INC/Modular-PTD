@@ -1,10 +1,6 @@
-#include "pt/Map/MorphSwitchCtrl.h"
+#include "MorphSwitchCtrl.h"
 #include "Game/Player/MarioActor.h"
 #include "Game/Player/MarioState.h"
-
-extern "C" {
-    void isMsgYoshiLoopTongue__2MRFUl(u32 msg);
-}
 
 MorphSwitchCtrl::MorphSwitchCtrl(const char* pName) : NameObj(pName) {
 	mMorph = -1;
@@ -55,7 +51,7 @@ void MorphSwitchCtrl::movement() {
 				check = MR::isCurrentRushItemDrill();
 			}
 			else {
-				check = MarioAccess::getTakingSensor() && MR::isName(MR::getSensorHost(MarioAccess::getTakingSensor()), "ƒAƒCƒeƒ€ƒhƒŠƒ‹");
+				check = MarioAccess::getTakingSensor() && MR::isName(MR::getSensorHost(MarioAccess::getTakingSensor()), "ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½hï¿½ï¿½ï¿½ï¿½");
 			}
 			break;
 		
@@ -94,12 +90,6 @@ void MorphSwitchCtrl::movement() {
 			break;
 		
 		case 10:
-			/*if (mAction) {
-				check = isMsgYoshiLoopTongue__2MRFUl(u32 msg);
-			}
-			else {
-				check = MR::isPlayerElementModeYoshi();
-			}*/
 			check = MR::isPlayerElementModeYoshi();
 			break;
 		

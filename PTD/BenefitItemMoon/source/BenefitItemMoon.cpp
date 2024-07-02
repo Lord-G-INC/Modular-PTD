@@ -1,4 +1,4 @@
-#include "pt/MapObj/BenefitItemMoon.h"
+#include "BenefitItemMoon.h"
 
 BenefitItemMoon::BenefitItemMoon(const char* pName): LiveActor(pName) {
     mIsCollected = false;
