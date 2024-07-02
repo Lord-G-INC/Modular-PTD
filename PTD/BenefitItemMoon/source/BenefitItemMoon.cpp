@@ -1,4 +1,5 @@
 #include "BenefitItemMoon.h"
+#include "Game/Screen/GameSceneLayoutHolder.h"
 
 BenefitItemMoon::BenefitItemMoon(const char* pName): LiveActor(pName) {
     mIsCollected = false;

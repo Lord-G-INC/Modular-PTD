@@ -1,3 +1,35 @@
+/*
+* A switch that turns on its SW_A if the player morphs.
+* 
+* Obj_arg0 (s32): Morphs to check for
+* 	-> -1: Normal
+*		0: Bee
+*		1: Boo
+*		   (when obj_arg2 is true: if Boo Mario vanishes)
+*		2: Cloud
+*		3: Spin Drill
+*		   (when obj_arg2 is true: if Mario is currently using the Drill)
+*		4: Red Star
+*		   (when obj_arg2 is true: if Mario is flying)
+*		   NOTE: Only works when using the MorphFooAndIce module!
+*		5: Fire
+*		6: Ice
+*		   NOTE: Only works when using the MorphFooAndIce module!
+*		7: Invincible
+*		8: Rock
+*		   (when obj_arg2 is true: if Rock Mario is rolling)
+*		9: Hopper (Spring)
+*		10: Yoshi
+*		11: Blimp Fruit Yoshi
+*		12: Bulb Berry Yoshi
+*		13: Dash Pepper Yoshi
+*
+* Obj_arg1 (bool): Deactivate?
+*	-> Should the SW_A be deactivated after the morph is complete?
+*
+* Obj_arg2 (bool): Perform action?
+*	-> Check obj_arg0 to see what this changes.
+*/
 #include "MorphSwitchCtrl.h"
 #include "Game/Player/MarioActor.h"
 #include "Game/Player/MarioState.h"
@@ -51,7 +83,7 @@ void MorphSwitchCtrl::movement() {
 				check = MR::isCurrentRushItemDrill();
 			}
 			else {
-				check = MarioAccess::getTakingSensor() && MR::isName(MR::getSensorHost(MarioAccess::getTakingSensor()), "ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½hï¿½ï¿½ï¿½ï¿½");
+				check = MarioAccess::getTakingSensor() && MR::isName(MR::getSensorHost(MarioAccess::getTakingSensor()), "ƒAƒCƒeƒ€ƒhƒŠƒ‹");
 			}
 			break;
 		
