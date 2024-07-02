@@ -10,7 +10,7 @@ void BenefitItemMoon::init(const JMapInfoIter& rIter) {
     MR::calcGravity(this);
 
     initHitSensor(1);
-    MR::addHitSensor(this, "BenefitItemMoon", 0x4A, 4, 55.0f, TVec3f(0.0f, 70.0f, 0.0f));
+    MR::addHitSensor(this, "BenefitItemMoon", ATYPE_MORPH_ITEM, 4, 55.0f, TVec3f(0.0f, 70.0f, 0.0f));
 
     makeActorAppeared();
 
