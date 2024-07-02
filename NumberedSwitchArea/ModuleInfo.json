@@ -1,0 +1,26 @@
+{
+  "Name": "NumberedSwitchArea",
+  "Author": "Gabbo",
+  "Description": "PTD: NumberedSwitchArea",
+  "InstallDependencies": ["Syati_ObjectFactories", "ExtAreaObjMgr"],
+  "ModuleData" : [
+    {
+      "NameObjFactory": [
+        {
+          "Name" : "NumberedSwitchArea",
+          "Function" : "createExtActor<pt::NumberedSwitchArea>",
+          "Include" : "NumberedSwitchArea.h"
+        }
+      ]
+    },
+    {
+      "AreaObjMgr" : [
+        {
+          "Name" : "NumberedSwitchArea",
+          "MaxCount" : "32",
+          "Function" : "AreaObjContainer::createManager<AreaObjMgr>"
+        }
+      ]
+    }
+  ]
+}
