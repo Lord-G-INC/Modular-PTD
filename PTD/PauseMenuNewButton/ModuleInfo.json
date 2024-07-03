@@ -5,5 +5,10 @@
   "CompilerFlags" : [
     "-DPAUSEMENUNEWBUTTON"
   ],
-  "InstallDependencies": ["Syati_Init"]
+  "InstallDependencies": ["Syati_Init"],
+  "BuildTasks": [{
+    "Task": "Copy",
+    "From": "disc/",
+    "To": "../../Output/disc/"
+  }]
 }
