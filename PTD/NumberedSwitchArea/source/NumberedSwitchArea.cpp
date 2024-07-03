@@ -29,7 +29,6 @@ namespace pt {
             if (isOnSwitchB() && !mIsSwActive) {
                 mTime++;
                 mIsSwActive = true;
-                OSReport("Le time #%d\n", mTime);
                 if (mTime == mSwNum) {
                     onSwitchA();
                     mTime = 0;
