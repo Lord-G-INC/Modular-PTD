@@ -2,7 +2,12 @@
   "Name": "WatchTowerRotateStep",
   "Author": "Aurum, Someone, Shibboleet",
   "Description": "SMG1 Actor Port: WatchTowerRotateStep",
-  "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init"],
+  "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init", "PTUtils"],
+  "BuildTasks": [{
+    "Task": "Copy",
+    "From": "disc/",
+    "To": "../../Output/disc/"
+  }],
   "ModuleData" : [
     {
       "NameObjFactory" : [

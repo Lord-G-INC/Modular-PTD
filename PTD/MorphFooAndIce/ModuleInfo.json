@@ -1,8 +1,13 @@
 {
-  "Name": "NewMorphItemNeo",
+  "Name": "Red Star and Ice Flower",
   "Author": "Aurum",
   "Description": "PT: Red Star and Ice Flower",
   "InstallDependencies": ["Syati_ObjectFactories"],
+  "BuildTasks": [{
+    "Task": "Copy",
+    "From": "disc/",
+    "To": "../../Output/disc/"
+  }],
   "ModuleData" : [
     {
       "NameObjFactory" : [
@@ -17,12 +22,12 @@
         {
           "Name" : "MorphItemNeoFoo",
           "Function" : "createExtActor<pt::MorphItemNeoFoo>",
-          "Include" : "NewMorphItemNeo.h"
+          "Include" : "MorphFooAndIce.h"
         },
         {
           "Name" : "MorphItemNeoIce",
           "Function" : "createExtActor<pt::MorphItemNeoIce>",
-          "Include" : "NewMorphItemNeo.h"
+          "Include" : "MorphFooAndIce.h"
         }
       ]
     }

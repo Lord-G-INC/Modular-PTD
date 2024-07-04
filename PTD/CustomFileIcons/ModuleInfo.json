@@ -2,5 +2,10 @@
   "Name": "Custom File Select Icons",
   "Author": "AwesomeTMC",
   "Description": "Allows you to change what icons are on the File Select.",
-  "InstallDependencies": ["Syati_Init"]
+  "InstallDependencies": ["Syati_Init"],
+  "BuildTasks": [{
+    "Task": "Copy",
+    "From": "disc/",
+    "To": "../../Output/disc/"
+  }]
 }

@@ -3,6 +3,11 @@
   "Author": "Bavario",
   "Description": "PTD: A Switch that raises the water level to its position.",
   "InstallDependencies": ["Syati_ObjectFactories"],
+  "BuildTasks": [{
+    "Task": "Copy",
+    "From": "disc/",
+    "To": "../../Output/disc/"
+  }],
   "ModuleData" : [
     {
       "NameObjFactory" : [
