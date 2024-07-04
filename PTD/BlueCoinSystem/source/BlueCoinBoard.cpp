@@ -23,6 +23,7 @@
     
     I thank SPG64, Lord Giganticus, and Xandog for very helpful feedback.
 */
+extern void* gBoardDataTable;
 
 BlueCoinSign::BlueCoinSign(const char* pName) : NPCActor(pName) {
     pBoard = 0;
@@ -100,7 +101,8 @@ BlueCoinBoard::BlueCoinBoard(const char* pName) : LayoutActor(pName, 0) {
     mSysInfoWindowBox = 0;
     mBlueCoinPaneRumbler = 0;
     mBackButton = 0;
-    mTable = 0;
+    mTable = new JMapInfo();
+    mTable->attach(gBoardDataTable);
     mBlueCoinCounterFollowPos = TVec2f(0.0f, 0.0f);
     mSelectedButton = -1;
     mBlueCoinNumToDisplay = 0;
@@ -109,7 +111,6 @@ BlueCoinBoard::BlueCoinBoard(const char* pName) : LayoutActor(pName, 0) {
 }
 
 void BlueCoinBoard::init(const JMapInfoIter& rIter) {
-    void* gBoardDataTable = pt::loadArcAndFile("SystemData/BlueCoinBoardDataTable.arc", "/BlueCoinBoardDataTable.bcsv");
     initLayoutManager("BlueCoinBoard", 2);
     MR::registerDemoSimpleCastAll(this);
     initNerve(&NrvBlueCoinBoard::NrvHide::sInstance);
@@ -128,9 +129,6 @@ void BlueCoinBoard::init(const JMapInfoIter& rIter) {
     mBlueCoinPaneRumbler = new CountUpPaneRumbler(this, "CounterBlueCoin");
     mBlueCoinPaneRumbler->mRumbleCalculator->mRumbleStrength = 8.0f;
     mBlueCoinPaneRumbler->reset();
-
-    mTable = new JMapInfo();
-    mTable->attach(gBoardDataTable);
 
     checkBoardProgress();
 

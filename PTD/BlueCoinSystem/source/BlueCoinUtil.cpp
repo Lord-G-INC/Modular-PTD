@@ -13,13 +13,15 @@
 #define SPENT_LOCATION 861
 #define TEXTBOX_LOCATION 864
 
-void* initializeBlueCoinArrayAndLoadArchive() {
+s32* initializeBlueCoinArrayAndLoadArchive() {
     BlueCoinUtil::initBlueCoinArray();
-    return pt::loadArcAndFile("SystemData/BlueCoinIDRangeTable.arc", "/BlueCoinIDRangeTable.bcsv");
+    return 0;
 }
 
+s32* yes = initializeBlueCoinArrayAndLoadArchive();
+
 BlueCoinData* gBlueCoinData;
-void* gBlueCoinIDRangeTable = initializeBlueCoinArrayAndLoadArchive();
+extern void* gBlueCoinIDRangeTable;
     
 namespace BlueCoinUtil {
     void loadBlueCoinData() {

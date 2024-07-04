@@ -3,6 +3,11 @@
 /*
 * Authors: Aurum
 */
+
+void* gBoardDataTable;
+void* gBlueCoinIDRangeTable;
+void* gFileSelectDataTable;
+void* gDummyDisplayModelTable;
 namespace pt {
 	void moveAndTurnToPlayer(LiveActor *pActor, const MR::ActorMoveParam &rParam) {
 		MR::moveAndTurnToPlayer(pActor, rParam._0, rParam._4, rParam._8, rParam._C);
@@ -50,7 +55,7 @@ namespace pt {
 	//Loads an arc and a selected file into memory.
 	void* loadArcAndFile(const char *pArc, const char *pFile) {
 		OSReport("Loading file %s from %s\n", pFile, pArc);
-		JKRArchive* arc = MR::mountArchive(pArc, MR::getHeapGDDR3(0), false);
+		JKRArchive* arc = MR::mountArchive(pArc, MR::getStationedHeapGDDR3(), true);
 		void* file = arc->getResource(pFile);
 
 		if (arc && file) {
@@ -59,9 +64,19 @@ namespace pt {
 		}
 		else
 			OSReport("(PTD Archive Loader) %s %s isn't exist!\n", pArc, pFile);
-	
-		return 0;
+
+		return file;
 	}
+
+	void loadArchives(const char* pStr, JKRHeap* pHeap, bool b) {
+		MR::mountArchive(pStr, pHeap, b);
+		gFileSelectDataTable = loadArcAndFile("/ObjectData/FileSelectData.arc", "/FileSelectData.bcsv");
+		gDummyDisplayModelTable = loadArcAndFile("/SystemData/DummyDisplayModelTable.arc", "/DummyDisplayModelTable.bcsv");
+		gBlueCoinIDRangeTable = loadArcAndFile("/SystemData/BlueCoinIDRangeTable.arc", "/BlueCoinIDRangeTable.bcsv");
+		gBoardDataTable = loadArcAndFile("/SystemData/BlueCoinBoardDataTable.arc", "/BlueCoinBoardDataTable.bcsv");
+	}
+
+	kmCall(0x80085214, loadArchives);
 
 	void initShadowVolumeBox(LiveActor* pActor, const TVec3f& rPos) {
 		pActor->initShadowControllerList(1);

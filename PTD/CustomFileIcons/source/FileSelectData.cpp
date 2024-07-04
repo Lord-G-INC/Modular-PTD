@@ -10,7 +10,7 @@
    File Select Table loading and unloading
 */
 
-void *gFileSelectDataTable = pt::loadArcAndFile("/ObjectData/FileSelectData.arc", "/FileSelectData.bcsv");
+extern void *gFileSelectDataTable;
 
 s32 tableNum;
 

@@ -2,6 +2,10 @@
 #include "Game/NPC/TalkMessageCtrl.h"
 #include "Game/NPC/TalkNodeCtrl.h"
 #include "Game/Screen/GameSceneLayoutHolder.h"
+
+#include "JSystem/JUtility/JUTException.h"
+#include "JSystem/JUtility/JUTConsole.h"
+#include "JSystem/JUtility/JUTConsoleManager.h"
 /*
 * Error Message Fallback
 * PictureFont Redirection
@@ -238,4 +242,25 @@ namespace pt {
     kmWrite32(0x80266CE8, 0x2C030000); // cmpwi r3, 0
     kmWrite32(0x80266CEC, 0x41820008); // beq 0x8
 
+	void funcTest(JUTConsole* pConsole, const char* pStr) {
+		const char* region = 0;
+
+		#ifdef USA
+			region = "USA";
+		#elif PAL
+			region = "PAL";
+		#elif JPN
+			region = "JPN";
+		#elif TWN
+			region = "TWN";
+		#elif KOR
+			region = "KOR";
+		#endif
+
+		pConsole->print("-------------------------------- SYATI\n");
+		pConsole->print_f("Build Date: %s\nBuild Time: %s\n", __DATE__, __TIME__);
+		pConsole->print_f("Region: %s\n", region);
+		pConsole->print("--------------------------------\n");
+	}
+	kmCall(0x80510578, funcTest);
 }
