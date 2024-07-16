@@ -1,0 +1,17 @@
+{
+  "Name": "GoldenTurtle",
+  "Author": "Aurum",
+  "Description": "Gold Koopa Shell",
+  "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init"],
+  "ModuleData" : [
+    {
+      "NameObjFactory" : [
+        {
+          "Name" : "GoldenTurtle",
+          "Function" : "createExtActor<GoldenTurtle>",
+          "Include" : "Game/MapObj/JetTurtle.h"
+        }
+      ]
+    }
+  ]
+}
