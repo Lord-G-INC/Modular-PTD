@@ -2,6 +2,9 @@
 
 #include "syati.h"
 
+#define MORPHFOO
+#define MORPHICE
+
 namespace pt {
 	class MorphItemNeoIce : public MorphItemObjNeo {
 	public:
