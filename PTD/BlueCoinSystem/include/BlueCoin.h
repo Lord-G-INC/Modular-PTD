@@ -3,6 +3,10 @@
 #include "syati.h"
 #include "BlueCoinUtil.h"
 
+namespace pt {
+    extern void* loadArcAndFile(const char* pArc, const char* pFile);
+};
+
 class BlueCoin : public Coin {
     public:
     BlueCoin(const char*);

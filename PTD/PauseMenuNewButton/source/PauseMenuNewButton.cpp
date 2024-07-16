@@ -230,6 +230,7 @@ bool PauseMenuIsNewButtonPointingTrigger(PauseMenuExt* pPauseMenu) {
 kmWrite32(0x80487714, 0x7F63DB78); // mr r3, r27 (PauseMenuExt* into r3)
 kmCall(0x80487720, PauseMenuIsNewButtonPointingTrigger);
 
+#ifdef WIP
 s32 gRestartTimer = 0;
 
 void handleRestartStageButtonCombination(NerveExecutor* pExecutor) {
@@ -248,3 +249,4 @@ void handleRestartStageButtonCombination(NerveExecutor* pExecutor) {
 }
 
 kmCall(0x804518B0, handleRestartStageButtonCombination);
+#endif

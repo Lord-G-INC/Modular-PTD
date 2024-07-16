@@ -4,7 +4,11 @@ namespace BlueCoinUtil {
     extern bool isBlueCoinGotCurrentFile(u8);
 };
 
-extern void* gDummyDisplayModelTable;
+namespace pt {
+    extern void* loadArcAndFile(const char* pArc, const char* pFile);
+};
+
+void* gDummyDisplayModelTable = pt::loadArcAndFile("/SystemData/DummyDisplayModelTable.arc", "/DummyDisplayModelTable.bcsv");
 namespace pt {
     
     /*
