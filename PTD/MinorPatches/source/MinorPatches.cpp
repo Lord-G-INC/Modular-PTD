@@ -43,20 +43,6 @@ namespace pt {
 
 	kmCall(0x800413F0, getErrorMessage); // MR::getGameMessageDirect will return the error message instead of NULL
 
-    extern void* loadArcAndFile(const char* pArc, const char* pFile);
-
-    void* loadPTPictureFont(JKRArchive* pArchive) {
-		if (MR::isFileExist("/SystemData/PictureFont.arc", false))
-    		return pt::loadArcAndFile("/SystemData/PictureFont.arc", "/PictureFont.brfnt");
-		
-		return pArchive->getResource("/PictureFont.brfnt");
-    }
-
-
-	kmWrite32(0x804B8034, 0x7F83E378); // mr r3, r28
-	kmCall(0x804B8038, loadPTPictureFont);
-    kmWrite32(0x804B803C, 0x48000010); // b 0x10
-
 	/*
 	* Custom Flag Textures
 	*

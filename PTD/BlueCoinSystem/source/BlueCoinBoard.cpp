@@ -349,7 +349,7 @@ void BlueCoinBoard::exeConfirmUnlock() {
     }
 
     if (MR::isDead(mSysInfoWindowSelect)) {
-        if (mSysInfoWindowSelect->isSelectedYes() && !BlueCoinUtil::isOnBlueCoinFlagCurrentFile(8)) {
+        if (mSysInfoWindowSelect->isSelectedYes() && !BlueCoinUtil::isOnBlueCoinFlagCurrentFile(BLUE_COIN_BOARD_COMPLETE)) {
             
             if (BlueCoinUtil::getTotalBlueCoinNumCurrentFile(true) >= priceFromTable)
                 setNerve(&NrvBlueCoinBoard::NrvCountDownBlueCoin::sInstance);
@@ -440,9 +440,8 @@ void BlueCoinBoard::exeConfirmPlayStage() {
 }
 
 void BlueCoinBoard::checkBoardProgress() {
-    s32 completedStages = 0;
-
     if (!BlueCoinUtil::isOnBlueCoinFlagCurrentFile(BLUE_COIN_BOARD_COMPLETE)) {
+        s32 completedStages = 0;
         for (s32 i = 0; i < 8; i++) {
             if (BlueCoinUtil::isOnBlueCoinFlagCurrentFile(i)) {
                 const char* nameFromTable;
@@ -458,7 +457,6 @@ void BlueCoinBoard::checkBoardProgress() {
         if (completedStages == 8)
             BlueCoinUtil::setOnBlueCoinFlagCurrentFile(BLUE_COIN_BOARD_COMPLETE);
     }
-
 }
 
 // This is what happens when I am not given any symbol names
