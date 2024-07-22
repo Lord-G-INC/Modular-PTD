@@ -43,7 +43,7 @@ kmCall(0x802EA394, joinRailMoveWaterObjs);
 
 namespace pt {
     WaterRiseHolder::WaterRiseHolder(const char* pName) : NameObj(pName) {
-        for (s32 i = 0; i < 5; i++) {
+        for (s32 i = 0; i < MAX_GROUPS; i++) {
             char str[16];
             snprintf(str, 16, "WaterRiseGroup%d", i);
             mGroups[i] = new LiveActorGroup(str, 16);

@@ -3,13 +3,14 @@
 #include "syati.h"
 
 #define EXT_SCENE_OBJ_WATER_RISE_HOLDER 71
+#define MAX_GROUPS 4
 
 namespace pt {
 	class WaterRiseHolder : public NameObj {
 		public:
 		WaterRiseHolder(const char* pName);
 
-		LiveActorGroup* mGroups[4];
+		LiveActorGroup* mGroups[MAX_GROUPS];
 	};
 
 	NameObj* createWaterRiseHolder();
