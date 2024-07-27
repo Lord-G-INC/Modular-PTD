@@ -66,8 +66,10 @@ void BlueCoinCounter::exeDisappear() {
         mWaitTime = -1;
     }
 
-    if (MR::isStep(this, 10))
+    if (MR::isStep(this, 10)) {
         MR::hideLayout(this);
+        MR::setTextBoxNumberRecursive(this, "Counter", BlueCoinUtil::getTotalBlueCoinNumCurrentFile(true));
+    }
 }
 
 void BlueCoinCounter::startCountUp() { 

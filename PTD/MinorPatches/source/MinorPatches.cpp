@@ -250,3 +250,4 @@ namespace pt {
 	}
 	kmCall(0x80510578, funcTest);
 }
+
