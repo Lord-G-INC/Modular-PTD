@@ -5,7 +5,6 @@ RedCoinCounter::RedCoinCounter(const char* pName) : LayoutActor(pName, false) {
     mPaneRumbler = 0;
     mRedCoinCount = 0;
     mLayoutMode = -1;
-    mHasAllRedCoins = 0;
 }
 
 void RedCoinCounter::init(const JMapInfoIter& rIter) {
@@ -47,9 +46,8 @@ void RedCoinCounter::setStarIcon(s32 starID, s32 iconID) {
     MR::setTextBoxFormatRecursive(this, "TxtStar", &str);
 }
 
-void RedCoinCounter::startCountUp(s32 count, bool hasAllCoins, bool isRedCoinSwitchUsed) {
+void RedCoinCounter::startCountUp(s32 count, bool isRedCoinSwitchUsed) {
     mRedCoinCount = count;
-    mHasAllRedCoins = hasAllCoins;
 
     if (mRedCoinCount == 1 && mLayoutMode == -1 && !isRedCoinSwitchUsed) {
         LayoutActor::appear();
@@ -89,10 +87,6 @@ void RedCoinCounter::exeCountUp() {
         MR::setTextBoxNumberRecursive(this, "Counter", mRedCoinCount);
         MR::emitEffect(this, "RedCoinCounterLight");
         mPaneRumbler->start();
-
-    if (mHasAllRedCoins)
-        setNerve(&NrvRedCoinCounter::NrvComplete::sInstance);
-    else 
         MR::startPaneAnim(this, "Counter", "Flash", 0);
     }
 }

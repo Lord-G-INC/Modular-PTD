@@ -23,8 +23,6 @@
     
         LiveActorGroup* mGroup;
         f32 mLaunchVelocity; // Obj_arg0
-        s32 mAppearDelay; // Obj_arg4
-        s32 mElapsed;
         bool mInvalidateShadows; // Obj_arg3
         bool mIsCollected;
         bool mHasRewardedCoins;

@@ -2,7 +2,6 @@
 #ifdef BLUECOINSYSTEM
 #include "BlueCoin.h"
 #endif
-//#include "pt/MapObj/RedCoinSystem/RedCoin.h"
 
 class SamboHeadExt : public SamboHead {
 public:

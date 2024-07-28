@@ -25,8 +25,6 @@ RedCoin::RedCoin(const char* pName) : Coin(pName) {
     mLaunchVelocity = 250.0f;
     mInvalidateShadows = false;
     mHasRewardedCoins = false;
-    mAppearDelay = 0;
-    mElapsed = 0;
     mRedCoinCounterPlayerPos = false;
 
     // Setup Coin
@@ -36,32 +34,27 @@ RedCoin::RedCoin(const char* pName) : Coin(pName) {
 }
 
 void RedCoin::init(const JMapInfoIter& rIter) {
-    if (MR::isValidInfo(rIter)) {
-        MR::processInitFunction(this, rIter, false);
-        MR::joinToGroupArray(this, rIter, "RedCoinGroup", 24);
+    MR::processInitFunction(this, rIter, false);
+    MR::joinToGroupArray(this, rIter, "RedCoinGroup", 24);
 
-        MR::getJMapInfoArg0NoInit(rIter, &mLaunchVelocity); // Y Appear Launch Velocity. Calculates gravity.
-        MR::getJMapInfoArg1NoInit(rIter, &mRedCoinCounterPlayerPos);
-        MR::getJMapInfoArg2NoInit(rIter, &mAppearDelay); // SW_B Appear Spawn Delay
-        Coin::setShadowAndPoseModeFromJMapIter(rIter); // Obj_args 3 and 4
-        Coin::initShadow(rIter); // Obj_args 5 and 6
-    }
-    else {
-        MR::processInitFunction(this, "RedCoin", false);
-    }
+    MR::getJMapInfoArg0NoInit(rIter, &mLaunchVelocity);
+    MR::getJMapInfoArg1NoInit(rIter, &mRedCoinCounterPlayerPos);
+
+    Coin::setShadowAndPoseModeFromJMapIter(rIter);
+    Coin::initShadow(rIter);
 
     MR::calcGravity(this);
     MR::invalidateClipping(this);
-
-    initNerve(&NrvCoin::CoinNrvFix::sInstance, 0);
 
     initHitSensor(1);
     MR::addHitSensor(this, "RedCoin", 0x4A, 4, 55.0f, TVec3f(0.0f, 70.0f, 0.0f));
     mFlashingCtrl = new FlashingCtrl(this, 1);
 
-    if (mIsInBubble && !MR::isValidSwitchB(this))
-        initAirBubble();
+    initNerve(&NrvCoin::CoinNrvFix::sInstance, 0);
 
+    if (!MR::isValidSwitchB(this)) {
+        initAirBubble();
+    }
     makeActorAppeared();
 
     // Can't use ActorInfo for this one...
@@ -70,12 +63,13 @@ void RedCoin::init(const JMapInfoIter& rIter) {
 }
 
 void RedCoin::initAfterPlacement() {
-    if (MR::isValidSwitchB(this)) {
+    if (MR::isValidSwitchB(this) && !mIsInBubble) {
         MR::hideModel(this);
         MR::invalidateHitSensors(this);
     }
-    else
+    else {
         MR::offBind(this);
+    }
 
     if (mInvalidateShadows)
         MR::invalidateShadowAll(this);
@@ -85,11 +79,8 @@ void RedCoin::initAfterPlacement() {
 
 
 void RedCoin::control() {
-    if (MR::isOnSwitchB(this) && !mIsCollected) {
-        if (mElapsed == mAppearDelay)
-            appearAndMove();
-
-        mElapsed++;
+    if (MR::isOnSwitchB(this) && MR::isHiddenModel(this) && !mIsCollected) {
+        appearAndMove();
     }
 
     if (MR::isOnSwitchB(this))
@@ -132,7 +123,8 @@ void RedCoin::appearAndMove() {
 
 void RedCoin::collect() {
     mIsCollected = true;
-
+    setNerve(&NrvCoin::CoinNrvGot::sInstance);
+    
     RedCoinController* pController = (RedCoinController*)RedCoinUtil::getSpecificActorFromGroup(this, "RedCoinController");
     
     if (MR::isValidSwitchA(this))

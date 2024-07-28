@@ -10,7 +10,7 @@ public:
     virtual void appear();
     virtual void control();
     void setStarIcon(s32 starID, s32 iconID);
-    void startCountUp(s32 count, bool hasAllCoins, bool isRedCoinSwitchUsed);
+    void startCountUp(s32 count, bool isRedCoinSwitchUsed);
     void exeAppear();
     void exeAppearWithUpdate();
     void exeDisappear();
@@ -20,7 +20,6 @@ public:
     CountUpPaneRumbler* mPaneRumbler;
     s32 mRedCoinCount;
     s32 mLayoutMode;
-    bool mHasAllRedCoins;
 };
 
 namespace NrvRedCoinCounter {

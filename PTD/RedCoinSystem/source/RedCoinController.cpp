@@ -31,8 +31,8 @@ RedCoinController::RedCoinController(const char* pName) : LiveActor(pName) {
 void RedCoinController::init(const JMapInfoIter& rIter) {
     MR::initDefaultPos(this, rIter);
     MR::connectToSceneMapObjMovement(this);
-    MR::invalidateClipping(this);
     MR::registerDemoSimpleCastAll(this);
+    MR::invalidateClipping(this);
     MR::useStageSwitchWriteA(this, rIter);
     MR::joinToGroupArray(this, rIter, "RedCoinGroup", 24);
 
@@ -44,6 +44,8 @@ void RedCoinController::init(const JMapInfoIter& rIter) {
     MR::getJMapInfoArg1NoInit(rIter, &powerStarCheck); // Power Star to check for to set the collected star indicator
     MR::getJMapInfoArg2NoInit(rIter, &iconID); // PictureFont.brfnt entry to display
     MR::getJMapInfoArg3NoInit(rIter, &layoutMode);
+
+    initNerve(&NrvRedCoinController::NrvWait::sInstance, 1);
 
     // Initialize the RedCoinCounter
     mRedCoinCounter = new RedCoinCounter("RedCoinCounter");
@@ -58,6 +60,8 @@ void RedCoinController::init(const JMapInfoIter& rIter) {
         mRedCoinCounter->mLayoutMode = 0;
         mRedCoinCounter->appear();
     }
+
+    makeActorAppeared();
 }
 
 void RedCoinController::initAfterPlacement() {
@@ -77,61 +81,71 @@ void RedCoinController::initAfterPlacement() {
     }
 }
 
-void RedCoinController::movement() {    
-    calcCounterVisibility();
+void RedCoinController::control() {    
+    setCounterVisibility();
+}
 
-    if (mHasAllRedCoins)
-        mElapsed++; // There may be a better way to do this, maybe nerves?
-
-    if (mElapsed == 1 && mRedCoinSwitch) {
-        mRedCoinSwitch->mTimeLimitLayout->kill();
+void RedCoinController::allCoinsCollectedDemo() {
+    if (MR::isFirstStep(this)) {
+        mRedCoinCounter->setNerve(&NrvRedCoinCounter::NrvComplete::sInstance);
+        MR::tryStartDemo(this, "RedCoinDemo");
     }
-    if (mElapsed == 140) {
+
+    if (MR::isStep(this, 150)) {
         if (MR::isValidSwitchA(this)) {
             MR::onSwitchA(this);
         }
-        
+    
         LiveActorGroup* group = MR::getGroupFromArray(this);
         for (s32 i = 0; i < group->mNumObjs; i++) {
-            if (!MR::isEqualString(group->getActor(i)->mName, "RedCoinSwitch"))
+            if (MR::isEqualString(group->getActor(i)->mName, "RedCoin"))
                 group->getActor(i)->kill();
         }
+        MR::endDemo(this, "RedCoinDemo");
     }
 }
-
 // Increases both layouts by 1
 void RedCoinController::startCountUp(LiveActor* pRedCoin) {
     mNumCoins++;
     
     mHasAllRedCoins = mNumCoins == mLinkedCoins;
 
-    mRedCoinCounter->startCountUp(mNumCoins, mHasAllRedCoins, mRedCoinSwitch);
+    mRedCoinCounter->startCountUp(mNumCoins, mRedCoinSwitch);
 
     mRedCoinPlayerCounter->mLastRedCoin = pRedCoin;
     mRedCoinPlayerCounter->mNumCoins = mNumCoins;
     mRedCoinPlayerCounter->appear();
+
+    if (mHasAllRedCoins)
+        setNerve(&NrvRedCoinController::NrvAllRedCoinsDemo::sInstance);
 }
 
-#ifdef BLUECOINSYSTEM
-namespace BlueCoinUtil {
-    extern bool isBlueCoinTextBoxAppeared();
-}
-#endif
-void RedCoinController::calcCounterVisibility() {
-    bool blueCoin = false;
-    #ifdef BLUECOINSYSTEM
-        blueCoin = BlueCoinUtil::isBlueCoinTextBoxAppeared();
 
-        if (blueCoin) {
-            requestResume();
-            mRedCoinCounter->requestResume();
-        }
-    #endif
+void RedCoinController::setCounterVisibility() {
+    bool layoutVisibility = true;
 
-    if (MR::isPowerStarGetDemoActive() || MR::isDemoActive() || MR::isPlayerDead() || MR::isTimeKeepDemoActive() || MR::isNormalTalking() || MR::isSystemTalking() || blueCoin)
-        MR::hideLayout(mRedCoinCounter);
-    else
+    if (MR::isStageStateScenarioOpeningCamera() || MR::isBeginScenarioStarter())
+        layoutVisibility = false;
+
+    if (MR::isPowerStarGetDemoActive())
+        layoutVisibility = false;
+
+    if (MR::isDemoActive() && !MR::isDemoActive("RedCoinDemo"))
+        layoutVisibility = false;
+
+    if (MR::isPlayerDead())
+        layoutVisibility = false;
+
+    if (MR::isTimeKeepDemoActive() && !MR::isDemoActive("RedCoinDemo"))
+        layoutVisibility = false;
+
+    if (MR::isSystemTalking() || MR::isNormalTalking())
+        layoutVisibility = false;
+
+    if (layoutVisibility)
         MR::showLayout(mRedCoinCounter);
+    else
+        MR::hideLayout(mRedCoinCounter);
 }
 
 void RedCoinController::appearFromSwitch() {
@@ -171,3 +185,14 @@ void RedCoinController::resetAllRedCoins() {
     mRedCoinCounter->kill();
     MR::setTextBoxNumberRecursive(mRedCoinCounter, "Counter", 0);
 }
+
+namespace NrvRedCoinController {
+    void NrvWait::execute(Spine* pSpine) const {}
+
+    void NrvAllRedCoinsDemo::execute(Spine* pSpine) const {
+        ((RedCoinController*)pSpine->mExecutor)->allCoinsCollectedDemo();
+    }
+
+    NrvWait(NrvWait::sInstance);
+    NrvAllRedCoinsDemo(NrvAllRedCoinsDemo::sInstance);
+};
