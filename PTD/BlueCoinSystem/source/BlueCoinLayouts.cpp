@@ -4,8 +4,6 @@
 #include "Game/Screen/GameSceneLayoutHolder.h"
 #include "Game/Screen/PauseMenuExt.h"
 
-// HUD
-
 BlueCoinCounter::BlueCoinCounter(const char* pName) : LayoutActor(pName, 0) {
     mWaitTime = -1;
     mSysInfoWindow = 0;
@@ -389,8 +387,6 @@ void PauseMenuMoveButtonForBlueCoin(PauseMenuExt* pPauseMenu, const char* pStr1,
 
 kmCall(0x804874D4, PauseMenuMoveButtonForBlueCoin);
 #endif
-
-// FILE INFO
 
 void initBlueCoinCounterFileInfo(LayoutActor* pLayout) {
     MR::connectToSceneLayout(pLayout);

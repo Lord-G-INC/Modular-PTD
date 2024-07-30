@@ -2,20 +2,6 @@
 #include "RedCoinLayouts.h"
 #include "RedCoinUtil.h"
 
-/* --- RED COIN CONTROLLER --- */
-
-/*
-    Manages the collected Red Coins, calculated through an Actor Group.
-    Activates an event once all linked Red Coins, usually 8, are collected.
-
-    Obj_args:
-    0: [Bool] Do not increment the coin counter by 2
-    1: [Int] Power Star Indicator: -1 to disable
-    2: [Int] Picture Font Icon ID Entry
-
-    Created by Evanbowl
-*/
-
 RedCoinController::RedCoinController(const char* pName) : LiveActor(pName) {
     mNumCoins = 0;
     mElapsed = 0;
@@ -36,23 +22,20 @@ void RedCoinController::init(const JMapInfoIter& rIter) {
     MR::useStageSwitchWriteA(this, rIter);
     MR::joinToGroupArray(this, rIter, "RedCoinGroup", 24);
 
-    // Get Obj_args
     s32 powerStarCheck = 0;
     s32 iconID = 0x37;
     s32 layoutMode = -1;
-    MR::getJMapInfoArg0NoInit(rIter, &mRewardCoins); // Should the Red Coin increment the coin counter by 2?
-    MR::getJMapInfoArg1NoInit(rIter, &powerStarCheck); // Power Star to check for to set the collected star indicator
-    MR::getJMapInfoArg2NoInit(rIter, &iconID); // PictureFont.brfnt entry to display
+    MR::getJMapInfoArg0NoInit(rIter, &mRewardCoins);
+    MR::getJMapInfoArg1NoInit(rIter, &powerStarCheck);
+    MR::getJMapInfoArg2NoInit(rIter, &iconID);
     MR::getJMapInfoArg3NoInit(rIter, &layoutMode);
 
     initNerve(&NrvRedCoinController::NrvWait::sInstance, 1);
 
-    // Initialize the RedCoinCounter
     mRedCoinCounter = new RedCoinCounter("RedCoinCounter");
     mRedCoinCounter->initWithoutIter();
     mRedCoinCounter->setStarIcon(powerStarCheck, iconID);
 
-    // Initialize RedCoinCounterPlayer
     mRedCoinPlayerCounter = new RedCoinCounterPlayer("RedCoinCounterPlayer");
     mRedCoinPlayerCounter->initWithoutIter();
     

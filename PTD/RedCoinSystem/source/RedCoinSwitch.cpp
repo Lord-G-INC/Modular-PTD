@@ -2,15 +2,6 @@
 #include "RedCoinController.h"
 #include "RedCoinUtil.h"
 
-/*
-* Super Mario Sunshine: Red Coin Timer Switch
-*
-* A port of the Red Coin Switch found in Super Mario Sunshine.
-* This object is paired with a Comet Timer.
-*
-* Exclusive to PTD.
-*/
-
 RedCoinSwitch::RedCoinSwitch(const char* pName) : LiveActor(pName) {
     mRedCoinController = 0;
     mTime = 0;

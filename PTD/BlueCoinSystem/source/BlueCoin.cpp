@@ -3,7 +3,7 @@
 
 BlueCoin::BlueCoin(const char* pName) : Coin(pName) {
     mID = 0;
-    mLaunchVelocity = 250.0f;
+    mLaunchVelocity = 25.0f;
     mIsCollected = 0;
     
     MR::createCoinRotater();
@@ -15,64 +15,45 @@ void BlueCoin::init(const JMapInfoIter& rIter) {
     if (MR::isValidInfo(rIter)) {
         MR::getJMapInfoArg0NoInit(rIter, &mID);
         MR::getJMapInfoArg1NoInit(rIter, &mLaunchVelocity);
+
         Coin::setShadowAndPoseModeFromJMapIter(rIter);
         Coin::initShadow(rIter);
 
         MR::processInitFunction(this, rIter, BlueCoinUtil::isBlueCoinGotCurrentFile(mID) ? "BlueCoinClear" : "BlueCoin", false);
-        MR::setGroupClipping(this, rIter, 64);
     }
-    else
+    else {
+        initHitSensor(1);
+        MR::addHitSensor(this, "BlueCoin", 0x4A, 2, 55.0f, TVec3f(0.0f, 70.0f, 0.0f));
         MR::processInitFunction(this, BlueCoinUtil::isBlueCoinGotCurrentFile(mID) ? "BlueCoinClear" : "BlueCoin", false);
+    }
 
+    mFlashingCtrl = new FlashingCtrl(this, 1);
+    
     initEffectKeeper(2, "Coin", 0);
-    MR::calcGravity(this);
-
     initNerve(&NrvCoin::CoinNrvFix::sInstance, 0);
-    initHitSensor(1);
 
-    #ifdef SMG63
-        MR::addHitSensor(this, "BlueCoin", 0x4A, 4, 120.0f, TVec3f(0.0f, 0.0f, 0.0f));
-    #else
-        MR::addHitSensor(this, "BlueCoin", 0x4A, 4, 55.0f, TVec3f(0.0f, 70.0f, 0.0f));
-    #endif
+    if (mIsInBubble)
+        initAirBubble();
 
+    MR::tryCreateMirrorActor(this, "BlueCoin");
     MR::initShadowVolumeSphere(this, 50.0f);
     MR::setShadowDropPositionPtr(this, 0, &mShadowDropPos);
     MR::setShadowDropLength(this, 0, 1000.0f);
 
-    mFlashingCtrl = new FlashingCtrl(this, 1);
-
     makeActorAppeared();
 
-    if (MR::isValidInfo(rIter))
-        MR::useStageSwitchSyncAppear(this, rIter);
-}
-
-void BlueCoin::initAfterPlacement() {
-    if (MR::isValidSwitchB(this)) {
-        MR::hideModel(this);
-        MR::invalidateHitSensors(this);
-    }
+    if (MR::isValidInfo(rIter) && MR::isValidSwitchB(this) || MR::useStageSwitchSyncAppear(this, rIter))
+        requestHide();
     else
-        MR::offBind(this);
-
-    Coin::initAfterPlacement();
-}
-
-void BlueCoin::kill() {
-    if (!mIsCollected)
-        OSReport("Blue Coin %d died without being collected.\n", mID);
-
-    LiveActor::kill();
+        appearFixInit();
 }
 
 void BlueCoin::control() {
-    if (MR::isOnSwitchB(this) && MR::isHiddenModel(this))
+    if (MR::isOnSwitchB(this) && MR::isHiddenModel(this) && !mIsCollected)
         appearAndMove();
-}
 
-void BlueCoin::calcAndSetBaseMtx() {
-    Coin::calcAndSetBaseMtx();
+    if (MR::isOnSwitchB(this))
+        mLifeTime = 0x7FFFFFFF;
 }
 
 bool BlueCoin::receiveMessage(u32 msg, HitSensor* pSender, HitSensor* pReciver) {
@@ -84,21 +65,35 @@ bool BlueCoin::receiveMessage(u32 msg, HitSensor* pSender, HitSensor* pReciver) 
     return false;
 }
 
+void BlueCoin::initAirBubble() {
+    mAirBubble = MR::createPartsModelNoSilhouettedMapObj(this, "空気アワ", "AirBubble", 0);
+    mAirBubble->initFixedPosition(TVec3f(0.0f, 70.0f, 0.0f), TVec3f(0.0f, 0.0f, 0.0f), 0);
+    MR::startAction(mAirBubble, "Move");
+    MR::setSensorRadius(this, "BlueCoin", 100.0f);
+}
+
 void BlueCoin::appearAndMove() {
-    TVec3f coinVelocity = TVec3f(0.0f, mLaunchVelocity / 10.0f, 0.0f);
-    coinVelocity.scale(coinVelocity.y, -mGravity);
+    TVec3f gravityVec;
+    MR::calcGravityVector(this, mTranslation, &gravityVec, 0, 0);
+    gravityVec.scale(mLaunchVelocity);
+    gravityVec.negate();
+    appearMove(mTranslation, gravityVec, 0x7FFFFFFF, -1);
 
     MR::startSystemSE("SE_SY_PURPLE_COIN_APPEAR", -1, -1);
-    
-    appearMove(mTranslation, coinVelocity, 0x7FFFFFFF, 30);
 }
 
 void BlueCoin::collect() {
     mIsCollected = true;
+    setNerve(&NrvCoin::CoinNrvGot::sInstance);
     
     if (MR::isValidSwitchA(this))
         MR::onSwitchA(this);
 
+    if (mIsInBubble) {
+        MR::emitEffect(mAirBubble, "RecoveryBubbleBreak");
+        mAirBubble->kill();
+    }
+    
     #if defined SMG63 
         MR::emitEffect(this, "BlueCoinGet"); 
         MR::startSystemSE("SE_SY_TICO_COIN", -1, -1);
@@ -112,9 +107,9 @@ void BlueCoin::collect() {
         BlueCoinUtil::startCounterCountUp();
     }
     
-    if (!MR::isGalaxyDarkCometAppearInCurrentStage()) {
+    if (!MR::isGalaxyDarkCometAppearInCurrentStage())
         MR::incCoin(1, this);
-    }
 
+    MR::incPlayerOxygen(mIsInBubble ? 2 : 1);
     makeActorDead();
 }
