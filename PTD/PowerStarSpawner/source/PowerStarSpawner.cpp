@@ -11,8 +11,6 @@
 *
 * This object is a bit overdeveloped but is one of my favorites.
 *
-* One of my favorite objects!
-*
 	Obj_args:
 	0: Power Star ID, int
 	1: Spawn Type, int
@@ -25,7 +23,7 @@
 
 namespace pt {
 	PowerStarSpawner::PowerStarSpawner(const char* pName) : LiveActor(pName) {
-		mScenario = 1;
+		mScenario = -1;
 		mSpawnMode = -1;
 		mDelay = 0;
 		mUseSE = false;
@@ -54,7 +52,11 @@ namespace pt {
 
 		initSound(1, "PowerStarSpawner", &mTranslation, 0);
 
-		MR::declarePowerStar(this, mScenario); // Declares the star determined by mScenario.
+		if (mScenario == -1)
+			MR::declarePowerStar(this);
+		else
+			MR::declarePowerStar(this, mScenario);
+
 		makeActorAppeared();
 	}
 
