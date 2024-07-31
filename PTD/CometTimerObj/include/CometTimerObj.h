@@ -15,6 +15,7 @@ public:
     TimeLimitLayout* mLayout;
     s32 mTime;
     bool mNoKill;
+    bool mNoKillAllowRepeat;
 };
 
 namespace NrvCometTimerObj {

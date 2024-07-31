@@ -9,6 +9,7 @@
 CometTimerObj::CometTimerObj(const char* pName) : LiveActor(pName) {
     mTime = 60;
     mNoKill = false;
+    mNoKillAllowRepeat = false;
 }
 
 void CometTimerObj::init(const JMapInfoIter& rIter) {
@@ -16,6 +17,7 @@ void CometTimerObj::init(const JMapInfoIter& rIter) {
     MR::initDefaultPos(this, rIter);
     MR::getJMapInfoArg0NoInit(rIter, &mTime);
     MR::getJMapInfoArg1NoInit(rIter, &mNoKill);
+    MR::getJMapInfoArg1NoInit(rIter, &mNoKillAllowRepeat);
     MR::needStageSwitchReadA(this, rIter);
     MR::useStageSwitchReadB(this, rIter);
     MR::useStageSwitchWriteDead(this, rIter);
@@ -44,6 +46,10 @@ void CometTimerObj::exeStartCountDown() {
     if (MR::isFirstStep(this)) {
         mLayout->setTimeLimit(mTime*60);
         mLayout->appear();
+        
+        if (MR::isValidSwitchDead(this))
+            MR::onSwitchDead(this);
+
         setNerve(&NrvCometTimerObj::NrvCountDown::sInstance);
     }
 }
@@ -59,12 +65,16 @@ void CometTimerObj::exeTimeUp() {
             MR::forceKillPlayerByGroundRace();
         }
         else {
-            if (MR::isValidSwitchDead(this))
-                MR::onSwitchDead(this);
-
             MR::startSystemSE("SE_SY_TIMER_A_0", -1, -1);
             mLayout->kill();
-            setNerve(&NrvCometTimerObj::NrvWait::sInstance);
+
+            if (MR::isValidSwitchDead(this))
+                MR::offSwitchDead(this);
+
+            if (mNoKillAllowRepeat)
+                setNerve(&NrvCometTimerObj::NrvWait::sInstance);
+            else 
+                kill();
         }
     }
 }
