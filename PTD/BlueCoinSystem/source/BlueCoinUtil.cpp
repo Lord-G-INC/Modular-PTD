@@ -63,19 +63,6 @@ namespace BlueCoinUtil {
             for (s32 i = 0; i < 3; i++) {
                 gBlueCoinData->spentData[i] = buffer[(SPENT_LOCATION-765)+i];
                 gBlueCoinData->hasSeenTextBox[i] = (bool)buffer[(TEXTBOX_LOCATION-765)+i];
-
-
-                if (gBlueCoinData->spentData[i] > getTotalBlueCoinNum(i, false)) {
-                    u8 total = getTotalBlueCoinNum(i, false);
-                    u8 spent = gBlueCoinData->spentData[i];
-
-                    OSReport("(BlueCoinUtil) Discrepancy found on save file %d, c: %d, s: %d, c-s: %d\n", i+1, total, spent, total-spent);
-
-                    while (total-gBlueCoinData->spentData[i] < 0) {
-                        gBlueCoinData->spentData[i]--;
-                    }
-
-                }
             }
 
             delete [] buffer;
@@ -184,7 +171,6 @@ namespace BlueCoinUtil {
     }
 
     void initBlueCoinArray() {
-        OSReport("(BlueCoinUtil) Initializing Blue Coin array.\n");
         gBlueCoinData = new BlueCoinData;
         gBlueCoinData->collectionData = new bool*[3];
         for (int i = 0; i < 3; i++) {
@@ -193,7 +179,7 @@ namespace BlueCoinUtil {
             gBlueCoinData->hasSeenTextBox[i] = 0;
             gBlueCoinData->spentData[i] = 0;
         }
-        OSReport("(BlueCoinUtil) Blue Coin array initialization complete.\n");
+        OSReport("(BlueCoinUtil) Blue Coin array initialized.\n");
     }
 
     s32 getCurrentFileNum() {
@@ -202,7 +188,6 @@ namespace BlueCoinUtil {
 
     void setBlueCoinGotCurrentFile(u8 id) {
         gBlueCoinData->collectionData[getCurrentFileNum()][id] = true;
-        OSReport("(BlueCoinUtil) Blue Coin ID #%d collected on file %d.\n", id, getCurrentFileNum());
     }
 
     bool isBlueCoinGot(u8 file, u8 id) {
@@ -219,12 +204,10 @@ namespace BlueCoinUtil {
 
     void setSeenBlueCoinTextBoxCurrentFile() {
         gBlueCoinData->hasSeenTextBox[getCurrentFileNum()] = true;
-        OSReport("(BlueCoinUtil) gBlueCoinData->hasSeenTextBox on the current file set to true.\n");
     }
 
     void setOnBlueCoinFlagCurrentFile(u8 flag) {
         gBlueCoinData->flags[getCurrentFileNum()][flag] = true;
-        OSReport("(BlueCoinUtil) Flag %d set on file %d\n", flag, getCurrentFileNum());
     }
 
     bool isOnBlueCoinFlagCurrentFile(u8 flag) {
@@ -240,8 +223,6 @@ namespace BlueCoinUtil {
         for (int i = 0; i < 32; i++) {
             gBlueCoinData->flags[file][i] = 0;
         }
-
-        OSReport("(BlueCoinUtil) Blue Coin data for file %d reset.\n", file);
     }
 
     bool isBlueCoinTextBoxAppeared() {
@@ -263,12 +244,8 @@ namespace BlueCoinUtil {
     void spendBlueCoinCurrentFile(u8 numcoin) {
         numcoin == 0 ? 30 : numcoin;
         
-        if (getTotalBlueCoinNumCurrentFile(true) >= numcoin) {
+        if (getTotalBlueCoinNumCurrentFile(true) >= numcoin)
             gBlueCoinData->spentData[getCurrentFileNum()] += numcoin;
-            OSReport("(BlueCoinUtil) Transaction of %d Blue Coins accepted\n", numcoin);
-        }
-        else
-            OSReport("(BlueCoinUtil) Transaction of %d Blue Coins not accepted. Too few coins.\n", numcoin);
     }
 
     s32 getSpentBlueCoinNum(u8 file) {
@@ -332,11 +309,9 @@ namespace BlueCoinUtil {
                     count++;
             }
 
-            OSReport("(BlueCoinIDRangeTable) Stage name: \"%s\", Range: %d through %d, Line: %d, Collected Coins Only: %d, Total: %d\n", pStageName, rangeMin, rangeMax, targetLine, collectedCoinsOnly, count);
             return count;
         }
         
-        OSReport("(BlueCoinIDRangeTable) Stage name \"%s\" not found in table. -1 returned!\n", pStageName);
         return -1;
     }
     
@@ -375,7 +350,6 @@ namespace BlueCoinUtil {
         MR::hideModel(coin);
         MR::invalidateHitSensors(coin);
         pSourceActor->mActionKeeper->mItemGenerator = 0;
-        OSReport("(BlueCoinUtil) Created Blue Coin with ID %d for the actor \"%s\".\n", id, pSourceActor->mName);
         return coin;
     }
 

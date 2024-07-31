@@ -91,7 +91,6 @@ void RedCoin::collect() {
         mAirBubble->kill();
     }
     
-    // Only ever increment coins once.
     if (!mHasRewardedCoins && !MR::isGalaxyDarkCometAppearInCurrentStage()) {
         MR::incPlayerLife(1);
         GameSequenceFunction::getPlayResultInStageHolder()->addCoinNum(!pController->mRewardCoins ? 2 : 0);
@@ -100,7 +99,7 @@ void RedCoin::collect() {
 
     pController->startCountUp(this);
 
-    MR::startSystemSE(pController->mHasAllRedCoins ? "SE_SY_RED_COIN_COMPLETE" : "SE_SY_RED_COIN", -1, -1);
+    MR::startActionSound(this, pController->mHasAllRedCoins ? "SyRedCoinComplete" : "SyRedCoin", -1, -1, -1);
 
     MR::incPlayerOxygen(mIsInBubble ? 2 : 1);
     MR::invalidateHitSensors(this);
