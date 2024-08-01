@@ -10,7 +10,7 @@ public:
     virtual void appear();
     virtual void control();
     void setStarIcon(s32 starID, s32 iconID);
-    void startCountUp(s32 count, bool isRedCoinSwitchUsed);
+    void startCountUp(s32 count);
     void exeAppear();
     void exeAppearWithUpdate();
     void exeDisappear();
@@ -24,6 +24,7 @@ public:
 
 namespace NrvRedCoinCounter {
     NERVE(NrvAppear);
+    NERVE(NrvWait);
     NERVE(NrvAppearWithUpdate);
     NERVE(NrvDisappear);
     NERVE(NrvCountUp);

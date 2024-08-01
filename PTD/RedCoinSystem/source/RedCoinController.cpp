@@ -20,7 +20,7 @@ void RedCoinController::init(const JMapInfoIter& rIter) {
     MR::registerDemoSimpleCastAll(this);
     MR::invalidateClipping(this);
     MR::useStageSwitchWriteA(this, rIter);
-    MR::joinToGroupArray(this, rIter, "RedCoinGroup", 24);
+    MR::joinToGroupArray(this, rIter, "RedCoinGroup", 32);
 
     s32 powerStarCheck = 0;
     s32 iconID = 0x37;
@@ -64,7 +64,7 @@ void RedCoinController::initAfterPlacement() {
     }
 }
 
-void RedCoinController::control() {    
+void RedCoinController::control() {
     setCounterVisibility();
 }
 
@@ -93,7 +93,7 @@ void RedCoinController::startCountUp(LiveActor* pRedCoin) {
     
     mHasAllRedCoins = mNumCoins == mLinkedCoins;
 
-    mRedCoinCounter->startCountUp(mNumCoins, mRedCoinSwitch);
+    mRedCoinCounter->startCountUp(mNumCoins);
 
     mRedCoinPlayerCounter->mLastRedCoin = pRedCoin;
     mRedCoinPlayerCounter->mNumCoins = mNumCoins;

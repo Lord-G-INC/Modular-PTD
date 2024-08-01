@@ -15,7 +15,7 @@ RedCoin::RedCoin(const char* pName) : Coin(pName) {
 
 void RedCoin::init(const JMapInfoIter& rIter) {
     MR::processInitFunction(this, rIter, false);
-    MR::joinToGroupArray(this, rIter, "RedCoinGroup", 24);
+    MR::joinToGroupArray(this, rIter, "RedCoinGroup", 32);
 
     MR::getJMapInfoArg0NoInit(rIter, &mLaunchVelocity);
     MR::getJMapInfoArg1NoInit(rIter, &mRedCoinCounterPlayerPos);

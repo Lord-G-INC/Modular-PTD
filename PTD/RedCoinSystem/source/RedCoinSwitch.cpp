@@ -10,7 +10,7 @@ RedCoinSwitch::RedCoinSwitch(const char* pName) : LiveActor(pName) {
 
 void RedCoinSwitch::init(const JMapInfoIter& rIter) {
     MR::processInitFunction(this, rIter, false);
-    MR::joinToGroupArray(this, rIter, "RedCoinGroup", 24);
+    MR::joinToGroupArray(this, rIter, "RedCoinGroup", 32);
     initNerve(&NrvRedCoinSwitch::NrvWait::sInstance, 0);
     initHitSensor(1);
 	MR::addHitSensorMapObj(this, "Switch", 1, 75.0f, TVec3f(0.0f, 150.0f, 0.0f));

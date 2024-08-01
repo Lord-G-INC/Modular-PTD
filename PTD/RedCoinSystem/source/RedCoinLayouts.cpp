@@ -46,10 +46,10 @@ void RedCoinCounter::setStarIcon(s32 starID, s32 iconID) {
     MR::setTextBoxFormatRecursive(this, "TxtStar", &str);
 }
 
-void RedCoinCounter::startCountUp(s32 count, bool isRedCoinSwitchUsed) {
+void RedCoinCounter::startCountUp(s32 count) {
     mRedCoinCount = count;
 
-    if (mRedCoinCount == 1 && mLayoutMode == -1 && !isRedCoinSwitchUsed) {
+    if (!isNerve(&NrvRedCoinCounter::NrvWait::sInstance) && mLayoutMode == -1) {
         LayoutActor::appear();
         setNerve(&NrvRedCoinCounter::NrvAppearWithUpdate::sInstance);
     }
@@ -62,6 +62,8 @@ void RedCoinCounter::exeAppear() {
         MR::startAnim(this, "Appear", 0);
         MR::startAnim(this, "Wait", 1);
     }
+
+    setNerve(&NrvRedCoinCounter::NrvWait::sInstance);
 }
 
 void RedCoinCounter::exeAppearWithUpdate() {
@@ -89,6 +91,8 @@ void RedCoinCounter::exeCountUp() {
         mPaneRumbler->start();
         MR::startPaneAnim(this, "Counter", "Flash", 0);
     }
+
+    setNerve(&NrvRedCoinCounter::NrvWait::sInstance);
 }
 
 void RedCoinCounter::exeComplete() {
@@ -103,6 +107,8 @@ namespace NrvRedCoinCounter {
     void NrvAppear::execute(Spine* pSpine) const {
         ((RedCoinCounter*)pSpine->mExecutor)->exeAppear();
     }
+
+    void NrvWait::execute(Spine* pSpine) const {}
 
     void NrvAppearWithUpdate::execute(Spine* pSpine) const {
         ((RedCoinCounter*)pSpine->mExecutor)->exeAppearWithUpdate();
@@ -120,10 +126,10 @@ namespace NrvRedCoinCounter {
         ((RedCoinCounter*)pSpine->mExecutor)->exeComplete();
     }
 
-    void NrvHide::execute(Spine* pSpine) const {
-    }
+    void NrvHide::execute(Spine* pSpine) const {}
 
     NrvAppear(NrvAppear::sInstance);
+    NrvWait(NrvWait::sInstance);
     NrvAppearWithUpdate(NrvAppearWithUpdate::sInstance);
     NrvDisappear(NrvDisappear::sInstance);
     NrvCountUp(NrvCountUp::sInstance);
