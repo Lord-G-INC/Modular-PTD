@@ -1,0 +1,17 @@
+{
+  "Name": "Banekiti",
+  "Author": "Aurum",
+  "Description": "The yellow spring dudes from Boo's Boneyard",
+
+  "ModuleData": [
+    {
+      "NameObjFactory": [
+        {
+          "Name": "Banekiti",
+          "Function": "createExtActor<pt::Banekiti>",
+          "Include": "Banekiti.h"
+        }
+      ]
+    }
+  ]
+}
