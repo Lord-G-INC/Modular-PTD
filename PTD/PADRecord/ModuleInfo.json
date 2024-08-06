@@ -1,0 +1,34 @@
+{
+  "Name": "PADRecord",
+  "Author": "Aurum",
+  "Description": "Aurum's Syati: PADRecord",
+  "InstallDependencies": ["Syati_ObjectFactories", "Syati_CommonFunctionHooks", "Syati_Init"],
+  "ModuleData" : [
+    {
+      "NameObjFactory": [
+        {
+          "Name" : "PadRecordHelper",
+          "Function" : "createExtActor<pad::PadRecordHelper>",
+          "Include" : "PadRecord.h"
+        }
+      ]
+    },
+    {
+      "OnAnySceneDestroy" : [
+        {
+          "Name" : "handleAnySceneDestroyed",
+          "Function" : "pad::waitPadRecorderNotPrepared",
+          "Include" : "PadRecord.h"
+        }
+      ]
+    },
+    {
+      "OnGameSceneStart" : [
+        {
+          "Name" : "handleGameSceneStart",
+          "Function" : "pad::startPadRecorderPrepared"
+        }
+      ]
+    }
+  ]
+}

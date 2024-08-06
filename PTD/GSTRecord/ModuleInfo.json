@@ -1,0 +1,26 @@
+{
+  "Name": "GSTRecord",
+  "Author": "Aurum",
+  "Description": "Aurum's Syati: GSTRecord",
+  "InstallDependencies": ["Syati_ObjectFactories", "Syati_CommonFunctionHooks", "Syati_Init"],
+  "ModuleData" : [
+    {
+      "NameObjFactory" : [
+        {
+          "Name" : "GhostLuigiRecordHelper",
+          "Function" : "createExtActor<gst::GhostLuigiRecordHelper>",
+          "Include" : "GSTRecord.h"
+        }
+      ]
+    },
+    {
+      "OnAnySceneDestroy" : [
+        {
+          "Name" : "GSTRecordGameSceneDestroy",
+          "Function" : "gst::waitGstRecorder",
+          "Include" : "GSTRecord.h"
+        }
+      ]
+    }
+  ]
+}
