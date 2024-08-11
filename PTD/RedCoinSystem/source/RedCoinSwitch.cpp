@@ -79,7 +79,7 @@ bool RedCoinSwitch::receiveMessage(u32 msg, HitSensor* pSender, HitSensor* pRece
 	if (MR::isMsgPlayerHipDropFloor(msg) && !isNerve(&NrvRedCoinSwitch::NrvPress::sInstance))
         setNerve(&NrvRedCoinSwitch::NrvPress::sInstance);
 
-		return false;
+	return false;
 }
 
 namespace NrvRedCoinSwitch {

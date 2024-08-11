@@ -30,8 +30,6 @@ void RedCoinController::init(const JMapInfoIter& rIter) {
     MR::getJMapInfoArg2NoInit(rIter, &iconID);
     MR::getJMapInfoArg3NoInit(rIter, &layoutMode);
 
-    initNerve(&NrvRedCoinController::NrvWait::sInstance, 1);
-
     mRedCoinCounter = new RedCoinCounter("RedCoinCounter");
     mRedCoinCounter->initWithoutIter();
     mRedCoinCounter->setStarIcon(powerStarCheck, iconID);
@@ -43,6 +41,8 @@ void RedCoinController::init(const JMapInfoIter& rIter) {
         mRedCoinCounter->mLayoutMode = 0;
         mRedCoinCounter->appear();
     }
+
+    initNerve(&NrvRedCoinController::NrvWait::sInstance, 1);
 
     makeActorAppeared();
 }
@@ -84,10 +84,14 @@ void RedCoinController::allCoinsCollectedDemo() {
             if (MR::isEqualString(group->getActor(i)->mName, "RedCoin"))
                 group->getActor(i)->kill();
         }
+
+        if (mRedCoinSwitch)
+            mRedCoinSwitch->mTimeLimitLayout->kill();
+
         MR::endDemo(this, "RedCoinDemo");
     }
 }
-// Increases both layouts by 1
+
 void RedCoinController::startCountUp(LiveActor* pRedCoin) {
     mNumCoins++;
     
@@ -107,7 +111,7 @@ void RedCoinController::startCountUp(LiveActor* pRedCoin) {
 void RedCoinController::setCounterVisibility() {
     bool layoutVisibility = true;
 
-    if (MR::isStageStateScenarioOpeningCamera() || MR::isBeginScenarioStarter())
+    if (MR::isStageStateScenarioOpeningCamera() || MR::isExecScenarioStarter())
         layoutVisibility = false;
 
     if (MR::isPowerStarGetDemoActive())

@@ -17,7 +17,7 @@ void CometTimerObj::init(const JMapInfoIter& rIter) {
     MR::initDefaultPos(this, rIter);
     MR::getJMapInfoArg0NoInit(rIter, &mTime);
     MR::getJMapInfoArg1NoInit(rIter, &mNoKill);
-    MR::getJMapInfoArg1NoInit(rIter, &mNoKillAllowRepeat);
+    MR::getJMapInfoArg2NoInit(rIter, &mNoKillAllowRepeat);
     MR::needStageSwitchReadA(this, rIter);
     MR::useStageSwitchReadB(this, rIter);
     MR::useStageSwitchWriteDead(this, rIter);
