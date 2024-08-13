@@ -1,0 +1,17 @@
+{
+  "Name": "MultipleChoiceDice",
+  "Author": "Aurum",
+  "Description": "A throwable dice cube with four red circles and two blue crosses on its sides. It activates a different switch depending on the side that it lands on.",
+  "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init"],
+  "ModuleData" : [
+    {
+      "NameObjFactory" : [
+        {
+          "Name" : "MultipleChoiceDice",
+          "Function" : "createExtActor<MultipleChoiceDice>",
+          "Include" : "Game/MapObj/ItemDice.h"
+        }
+      ]
+    }
+  ]
+}
