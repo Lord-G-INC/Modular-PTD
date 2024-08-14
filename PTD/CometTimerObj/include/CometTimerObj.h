@@ -16,6 +16,7 @@ public:
     s32 mTime;
     bool mNoKill;
     bool mNoKillAllowRepeat;
+    bool mSwitchMode;
 };
 
 namespace NrvCometTimerObj {
