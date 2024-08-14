@@ -1,6 +1,6 @@
 {
   "Name": "CollectSwitchCtrl",
-  "Author": "Evanbowl",
+  "Author": "Aurum and Evanbowl",
   "Description": "PT: CollectSwitchCtrl",
   "InstallDependencies": ["Syati_ObjectFactories"],
   "ModuleData" : [
