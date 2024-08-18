@@ -3,8 +3,8 @@
 #include "Game/MapObj/CoinHolder.h"
 
 RedCoin::RedCoin(const char* pName) : Coin(pName) {
-    mIsCollected = false;
     mLaunchVelocity = 25.0f;
+    mIsCollected = false;
     mHasRewardedCoins = false;
     mRedCoinCounterPlayerPos = false;
 
@@ -90,15 +90,17 @@ void RedCoin::collect() {
         mAirBubble->kill();
     }
     
-    if (!mHasRewardedCoins && !MR::isGalaxyDarkCometAppearInCurrentStage()) {
+    if (!mHasRewardedCoins && !MR::isGalaxyDarkCometAppearInCurrentStage() && pController) {
         MR::incPlayerLife(1);
         GameSequenceFunction::getPlayResultInStageHolder()->addCoinNum(!pController->mRewardCoins ? 2 : 0);
         mHasRewardedCoins = true;
     }
 
-    pController->startCountUp(this);
+    if (pController) {
+        pController->startCountUp(this);
 
-    MR::startActionSound(this, pController->mHasAllRedCoins ? "SyRedCoinComplete" : "SyRedCoin", -1, -1, -1);
+        MR::startActionSound(this, pController->mHasAllRedCoins ? "SyRedCoinComplete" : "SyRedCoin", -1, -1, -1);
+    }
 
     MR::incPlayerOxygen(mIsInBubble ? 2 : 1);
     MR::invalidateHitSensors(this);

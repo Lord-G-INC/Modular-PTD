@@ -103,21 +103,15 @@ void BlueCoinCounter::updateCounter() {
 
 void BlueCoinCounter::exeShowTextBox() {
     if (MR::isStep(this, 3)) {
+        MR::tryStartDemo(this, "BlueCoinText");
         mAppearer->disappear();
         mWaitTime = -1;
         mSysInfoWindow->appear("BlueCoinCounter_OnFirstBlueCoin", SysInfoWindow::SysInfoType_0, SysInfoWindow::SysInfoTextPos_0, SysInfoWindow::SysInfoMessageType_1);
-        MR::deactivateDefaultGameLayout();
-        MR::hideLayout(this);
-        MR::suspendAllSceneNameObj();
-        mSysInfoWindow->requestResume();
-        mSysInfoWindow->mIconAButton->requestResume();
-        requestResume();
     }
 
-    if (mSysInfoWindow->isDisappear()) {
-        MR::resumeAllSceneNameObj();
+    if (mSysInfoWindow->isDisappear() && MR::isDead(mSysInfoWindow)) {
+        MR::endDemo(this, "BlueCoinText");
         mWaitTime = 120;
-        MR::activateDefaultGameLayout();
         BlueCoinUtil::setSeenBlueCoinTextBoxCurrentFile();
         setNerve(&NrvBlueCoinCounter::NrvAppearAndUpdate::sInstance);
     }

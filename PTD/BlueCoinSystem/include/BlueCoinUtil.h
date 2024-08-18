@@ -1,19 +1,19 @@
 #pragma once
 #include "syati.h"
+class BlueCoin;
 class CounterLayoutController;
 class BlueCoinCounter;
-
-/// @brief Structure of the contents of BlueCoinData.bin
-/// @param collectionData Blue Coin Collection Flags
-/// @param flags Blue Coin Flags
-/// @param spentData Spent Blue Coin Amounts
-/// @param hasSeenTextBox Has Seen One-Time Text Box
 
 namespace pt {
     extern void* loadArcAndFile(const char *pArc, const char *pFile);
     extern void setTextBoxArgStringNumberFontRecursive(LayoutActor* pLayout, const char* paneName, s32 num, s32 index);
 }
 
+/// @brief Structure of BlueCoinData.bin
+/// @param collectionData Blue Coin Collection Flags
+/// @param flags Blue Coin Flags
+/// @param spentData Spent Blue Coin Amounts
+/// @param hasSeenTextBox Has Seen One-Time Text Box
 struct BlueCoinData {
     bool** collectionData;
     bool flags[3][32];
@@ -116,16 +116,20 @@ namespace BlueCoinUtil {
     /// @return s32
     s32 getBlueCoinRangeData(const char* pStageName, bool collectedCoinsOnly);
 
+    /// @brief Gets the "BlueCoinRangeMin" or "BlueCoinRangeMax" with the given stage name
+    /// @param pStageName Stage Name
+    /// @param minOrMax Search for Minumum or Maximum?
+    /// @return s32
     s32 getBlueCoinRange(const char* pStageName, bool minOrMax);
     
     /// @brief Creates a Blue Coin that can be used for spawning. The Blue Coin will not be created if -1 is passed into id. In that case, 0 will be returned.
     /// @param pSourceActor Source Actor
     /// @param id Blue Coin ID
-    /// @return LiveActor*
-    LiveActor* createBlueCoinForSpawning(LiveActor* pSourceActor, s32 id);
+    /// @return BlueCoin*
+    BlueCoin* createBlueCoinForSpawning(LiveActor* pSourceActor, s32 id);
 
     /// @brief Appears a Blue Coin.
     /// @param pSourceActor Source Actor
     /// @param pBlueCoin Blue Coin to appear
-    void appearBlueCoin(LiveActor* pSourceActor, LiveActor* pBlueCoin);
+    void appearBlueCoin(LiveActor* pSourceActor, BlueCoin* pBlueCoin);
     };
