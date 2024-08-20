@@ -21,30 +21,32 @@ namespace pt {
 	* Support for new BRK frames may be added in the future.
 	*/
 
-	const char* ColorsStr[] = {"Red.bti", "Blue.bti", "Rainbow.bti", "Purple.bti", "Black.bti", "White.bti", "Yellow.bti"};
+	const char* gColorsStr[] = {"Red.bti", "Blue.bti", "Rainbow.bti", "Purple.bti", "Black.bti", "White.bti", "Yellow.bti"};
 
-	JUTTextureHolder Colors = arrsize(ColorsStr);
+	JUTTextureHolder gSpinDriverPathColors = arrsize(gColorsStr);
 
 	void initSuperSpinDriverCustomColor(SuperSpinDriver *pActor) {
 		s32 color = pActor->mColor;
 
-		if (color != 0 && color != 2) {
+		if (color == 0 || color == 2) {
+			pActor->initColor();
+		} 
+		else {
 			MR::startBtpAndSetFrameAndStop(pActor, "SuperSpinDriver", color);
 			MR::startBrk(pActor, color == 1 ? "Green" : "Red");
 
 			pActor->mSpinDriverPathDrawer->mColor = color == 1 ? 0 : color;
-		} else
-			pActor->initColor();
+		}
 			
         if (color >= 3)
-            Colors.SetTexture(color - 3, new JUTTexture(MR::loadTexFromArc("SpinDriverPath.arc", ColorsStr[color - 3], 0), 0));
+            gSpinDriverPathColors.SetTexture(color - 3, new JUTTexture(MR::loadTexFromArc("SpinDriverPath.arc", gColorsStr[color - 3], 0), 0));
 	}
 
 	kmCall(0x8031E29C, initSuperSpinDriverCustomColor); // redirect initColor in init
 
 	void setSpinDriverPathCustomColor(SpinDriverPathDrawer* pDrawer) {
 		if (pDrawer->mColor >= 3)
-			Colors[pDrawer->mColor - 3]->load(GX_TEXMAP0);
+			gSpinDriverPathColors[pDrawer->mColor - 3]->load(GX_TEXMAP0);
 
 		pDrawer->calcDrawCode(); // Restore original call
 	}
