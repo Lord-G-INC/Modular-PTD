@@ -103,14 +103,14 @@ void BlueCoinCounter::updateCounter() {
 
 void BlueCoinCounter::exeShowTextBox() {
     if (MR::isStep(this, 3)) {
-        MR::tryStartDemo(this, "BlueCoinText");
+        MR::tryStartDemoWithoutCinemaFrame((LiveActor*)this, "BlueCoinFirstTimeText");
         mAppearer->disappear();
         mWaitTime = -1;
         mSysInfoWindow->appear("BlueCoinCounter_OnFirstBlueCoin", SysInfoWindow::SysInfoType_0, SysInfoWindow::SysInfoTextPos_0, SysInfoWindow::SysInfoMessageType_1);
     }
 
     if (mSysInfoWindow->isDisappear() && MR::isDead(mSysInfoWindow)) {
-        MR::endDemo(this, "BlueCoinText");
+        MR::endDemo(this, "BlueCoinFirstTimeText");
         mWaitTime = 120;
         BlueCoinUtil::setSeenBlueCoinTextBoxCurrentFile();
         setNerve(&NrvBlueCoinCounter::NrvAppearAndUpdate::sInstance);
