@@ -24,7 +24,10 @@ void joinRailMoveWaterObjs(RailMoveObj* pActor, const JMapInfoIter& rIter) {
 
     s32 group = -1;
     MR::getJMapInfoArg3NoInit(rIter, &group);
-    if (MR::isExistSceneObj(EXT_SCENE_OBJ_WATER_RISE_HOLDER) && group > -1 && group < 4) {
+    if (!MR::isExistSceneObj(EXT_SCENE_OBJ_WATER_RISE_HOLDER)) 
+        MR::createSceneObj(EXT_SCENE_OBJ_WATER_RISE_HOLDER);
+    
+    if (group > -1 && group < 4) {
         pt::getWaterRiseHolder()->mGroups[group]->registerActor(pActor);
     }
 }
@@ -33,7 +36,10 @@ void joinMenbos(LiveActor *pActor, const JMapInfoIter& rIter, const char *pModel
     
     s32 group = -1;
     MR::getJMapInfoArg0NoInit(rIter, &group);
-    if (MR::isExistSceneObj(EXT_SCENE_OBJ_WATER_RISE_HOLDER)) {
+    if (!MR::isExistSceneObj(EXT_SCENE_OBJ_WATER_RISE_HOLDER)) 
+        MR::createSceneObj(EXT_SCENE_OBJ_WATER_RISE_HOLDER);
+    
+    if (group > -1 && group < 4) {
         pt::getWaterRiseHolder()->mGroups[group]->registerActor(pActor);
     }
 }
