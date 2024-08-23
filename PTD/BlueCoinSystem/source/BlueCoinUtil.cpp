@@ -1,4 +1,3 @@
-
 #include "BlueCoin.h"
 #include "BlueCoinLayouts.h"
 #include "BlueCoinUtil.h"
@@ -342,7 +341,7 @@ namespace BlueCoinUtil {
         return -1;
     }
 
-    LiveActor* createBlueCoinForSpawning(LiveActor* pSourceActor, s32 id) {
+    BlueCoin* createBlueCoinForSpawning(LiveActor* pSourceActor, s32 id) {
         BlueCoin* coin = new BlueCoin("BlueCoinS");
         MR::addToCoinHolder(pSourceActor, coin);
         coin->mID = id;
@@ -353,13 +352,13 @@ namespace BlueCoinUtil {
         return coin;
     }
 
-    void appearBlueCoin(LiveActor* pSourceActor, LiveActor* pBlueCoin) {
+    void appearBlueCoin(LiveActor* pSourceActor, BlueCoin* pBlueCoin) {
         TVec3f coinVelocity = TVec3f(0.0f, 25.0f, 0.0f);
         coinVelocity.scale(coinVelocity.y, -pSourceActor->mGravity);
 
-        MR::startSystemSE("SE_SY_PURPLE_COIN_APPEAR", -1, -1);
+        MR::startActionSound(pBlueCoin, "SyBlueCoinAppear", -1, -1, -1);
 
-        ((BlueCoin*)pBlueCoin)->appearMove(pSourceActor->mTranslation, coinVelocity, 0x7FFFFFFF, 60);
+        pBlueCoin->appearMove(pSourceActor->mTranslation, coinVelocity, 0x7FFFFFFF, 60);
     }
 }
 

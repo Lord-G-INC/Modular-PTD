@@ -49,7 +49,7 @@ void RedCoinCounter::setStarIcon(s32 starID, s32 iconID) {
 void RedCoinCounter::startCountUp(s32 count) {
     mRedCoinCount = count;
 
-    if (!isNerve(&NrvRedCoinCounter::NrvWait::sInstance) && mLayoutMode == -1) {
+    if (isNerve(&NrvRedCoinCounter::NrvHide::sInstance) && mLayoutMode == -1) {
         LayoutActor::appear();
         setNerve(&NrvRedCoinCounter::NrvAppearWithUpdate::sInstance);
     }

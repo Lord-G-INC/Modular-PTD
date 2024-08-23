@@ -4,9 +4,6 @@
 #include "Game/Enemy/SamboHeadExt.h"
  // KURIBO
 
-namespace BlueCoinUtil {
-    extern LiveActor* createBlueCoinForSpawning(LiveActor* pSourceActor, s32 id);
-}
 KuriboExt::KuriboExt(const char* pName) : Kuribo(pName) {
     mBlueCoin = 0;
     mBlueCoinArg = -1;
@@ -33,7 +30,7 @@ void KuriboSetUpBlueCoin(KuriboExt* pKuribo, const JMapInfoIter& rIter, const ch
     MR::processInitFunction(pKuribo, rIter, pStr, 0);
 
     if (pKuribo->mBlueCoinArg > -1)
-        pKuribo->mBlueCoin = (BlueCoin*)BlueCoinUtil::createBlueCoinForSpawning(pKuribo, pKuribo->mBlueCoinArg);
+        pKuribo->mBlueCoin = BlueCoinUtil::createBlueCoinForSpawning(pKuribo, pKuribo->mBlueCoinArg);
 }
 
 kmCall(0x801B8A68, KuriboSetUpBlueCoin);
@@ -69,7 +66,7 @@ void SamboHeadSetUpBlueCoin(SamboHeadExt* pSamboHead, const JMapInfoIter& rIter,
     MR::processInitFunction(pSamboHead, rIter, pStr, 0);
 
     if (pSamboHead->mBlueCoinArg > -1)
-        pSamboHead->mBlueCoin = (BlueCoin*)BlueCoinUtil::createBlueCoinForSpawning(pSamboHead, pSamboHead->mBlueCoinArg);
+        pSamboHead->mBlueCoin = BlueCoinUtil::createBlueCoinForSpawning(pSamboHead, pSamboHead->mBlueCoinArg);
 }
 
 kmCall(0x801F8024, SamboHeadSetUpBlueCoin);
