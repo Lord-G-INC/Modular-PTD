@@ -225,7 +225,8 @@ namespace BlueCoinUtil {
     }
 
     bool isBlueCoinTextBoxAppeared() {
-        BlueCoinCounter* pCounter = ((CounterLayoutControllerExt*)MR::getGameSceneLayoutHolder()->mCounterLayoutController)->mBlueCoinCounter;
+        CounterLayoutControllerExt* pCounterLayoutControllerExt = (CounterLayoutControllerExt*)MR::getGameSceneLayoutHolder()->mCounterLayoutController;
+        BlueCoinCounter* pCounter = pCounterLayoutControllerExt->mBlueCoinCounter;
 
         if (!pCounter || hasSeenBlueCoinTextBoxCurrentFile())
             return false;
@@ -234,8 +235,9 @@ namespace BlueCoinUtil {
     }
 
     void startCounterCountUp() {
-        BlueCoinCounter* pCounter = ((CounterLayoutControllerExt*)MR::getGameSceneLayoutHolder()->mCounterLayoutController)->mBlueCoinCounter;
-
+        CounterLayoutControllerExt* pCounterLayoutControllerExt = (CounterLayoutControllerExt*)MR::getGameSceneLayoutHolder()->mCounterLayoutController;
+        BlueCoinCounter* pCounter = pCounterLayoutControllerExt->mBlueCoinCounter;
+        
         if (pCounter)
             pCounter->startCountUp();
     }

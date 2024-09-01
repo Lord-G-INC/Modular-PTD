@@ -32,8 +32,8 @@ BlueCoinSign::BlueCoinSign(const char* pName) : NPCActor(pName) {
 void BlueCoinSign::init(const JMapInfoIter& rIter) {
     NPCActorCaps caps = NPCActorCaps("BlueCoinSign");
     caps.setDefault();
-    caps.mInitLightCtrl = 0;
-    caps.mInitYoshiLockOnTarget = 0;
+    caps.mInitLightCtrl = false;
+    caps.mInitYoshiLockOnTarget = false;
     caps.mWaitNerve = &NrvBlueCoinSign::NrvWait::sInstance;
 
     initialize(rIter, caps, 0, 0, false);
