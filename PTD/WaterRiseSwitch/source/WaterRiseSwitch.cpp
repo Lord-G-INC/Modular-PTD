@@ -106,8 +106,9 @@ namespace pt {
     }
     void WaterRiseSwitch::exeRiseWater() {
         LiveActorGroup* pGroup = getWaterRiseHolder()->mGroups[mWaterRiseGroup];
-        s32 numWaters = pGroup->getLivingActorNum();
+        s32 numWaters = pGroup->mNumObjs;
         for (int i = 0; i < numWaters; i++) {
+            OSReport("%d: %s\n", i, pGroup->getActor(i)->mName);
             mIsRiseActive = true;
             f32 dist = this->mTranslation.y - pGroup->getActor(i)->mTranslation.y + mOffsetY;
             if (dist < mSpeed && dist > -mSpeed) 
