@@ -1,0 +1,26 @@
+{
+  "Name": "Season Cycle Controller",
+  "Author": "BjornGmr",
+  "Description": "A controller for a repeatable cycle.",
+  "InstallDependencies": ["Syati_ObjectFactories", "PTUtils"],
+
+  "ModuleData": [
+    {
+      "NameObjFactory": [
+        {
+          "Name": "CycleController",
+          "Function": "createExtActor<CycleController>",
+          "Include": "CycleController.h"
+        }, {
+          "Name": "CycleObj",
+          "Function": "createExtActor<CycleObj>",
+          "Include": "CycleObj.h"
+        }, {
+          "Name": "CycleTransitionObj",
+          "Function": "createExtActor<CycleTransitionObj>",
+          "Include": "CycleTransitionObj.h"
+        }
+      ]
+    }
+  ]
+}
