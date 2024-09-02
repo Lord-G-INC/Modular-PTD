@@ -1,5 +1,5 @@
 {
-  "Name": "Season Cycle Controller",
+  "Name": "Cycle Controller",
   "Author": "BjornGmr",
   "Description": "A controller for a repeatable cycle.",
   "InstallDependencies": ["Syati_ObjectFactories", "PTUtils"],
