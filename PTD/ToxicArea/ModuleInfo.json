@@ -1,0 +1,26 @@
+{
+  "Name": "Toxic Area",
+  "Author": "VTXG, Bavario",
+  "Description": "The Toxic Gas from SM64 makes its way into SMG2!",
+  "InstallDependencies": ["Syati_ObjectFactories", "ExtAreaObjMgr"],
+  "ModuleData" : [
+    {
+      "NameObjFactory" : [
+        {
+          "Name" : "ToxicArea",
+          "Function" : "createExtActor<ToxicArea>",
+          "Include" : "ToxicArea.h"
+        }
+      ]      
+    },
+    {
+      "AreaObjMgr" : [
+        {
+          "Name" : "ToxicArea",
+          "MaxCount" : "64",
+          "Function" : "AreaObjContainer::createManager<AreaObjMgr>"
+        }
+      ]
+    }
+  ]
+}
