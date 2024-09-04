@@ -1,0 +1,17 @@
+{
+    "Name": "HitWallTimerSwitch",
+    "Author": "Aurum",
+    "Description": "PTD: One of the many unused switch controllers from SMG1 that is activated by attacking the purple button",
+    "InstallDependencies": ["Syati_ObjectFactories"],
+    "ModuleData" : [
+      {
+        "NameObjFactory" : [
+          {
+            "Name" : "HitWallTimerSwitch",
+            "Function" : "createExtActor<pt::HitWallTimerSwitch>",
+            "Include" : "HitWallTimerSwitch.h"
+          }
+        ]
+      }
+    ]
+}

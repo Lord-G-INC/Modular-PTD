@@ -1,0 +1,17 @@
+{
+    "Name": "PTimerSwitch",
+    "Author": "Evanbowl",
+    "Description": "PTD: A switch that can be jumped on.",
+    "InstallDependencies": ["Syati_ObjectFactories"],
+    "ModuleData" : [
+      {
+        "NameObjFactory" : [
+          {
+            "Name" : "PTimerSwitch",
+            "Function" : "createExtActor<PTimerSwitch>",
+            "Include" : "PTimerSwitch.h"
+          }
+        ]
+      }
+    ]
+}
