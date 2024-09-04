@@ -1,7 +1,7 @@
 {
   "Name": "Toxic Area",
   "Author": "VTXG, Bavario",
-  "Description": "The Toxic Gas from SM64 makes its way into SMG2!",
+  "Description": "PTD: The Toxic Gas from SM64 makes its way into SMG2!\nUse ObjArg0 to set the time it takes Mario to die.",
   "InstallDependencies": ["Syati_ObjectFactories", "ExtAreaObjMgr"],
   "ModuleData" : [
     {

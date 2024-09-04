@@ -4,7 +4,7 @@
 #include "Game/Screen/GameSceneLayoutHolder.h"
 
 ToxicArea::ToxicArea(const char *pName) : AreaObj(pName) {
-
+    mIsMeterActive = false;
 }
 
 void ToxicArea::init(const JMapInfoIter &rIter) {
@@ -14,28 +14,25 @@ void ToxicArea::init(const JMapInfoIter &rIter) {
     if (mObjArg0 == -1) {
         mDeathToxicLevel = 500;
     } else {
-        mDeathToxicLevel = (u16)MR::clamp(mObjArg0, 0, 65535);
+        mDeathToxicLevel = (u16)(mObjArg0 & 0xFFFF);
     }
 }
 
 void ToxicArea::movement() {
     if (isInVolume(*MR::getPlayerPos())) {
-        GameSceneLayoutHolder* pLayoutHolder = MR::getGameSceneLayoutHolder();
-        MarioSubMeter* pMarioSubMeter = pLayoutHolder->mMarioSubMeter;
+        GameSceneLayoutHolder *pLayoutHolder = MR::getGameSceneLayoutHolder();
+        MarioAnimator *pMarioAnimator = MarioAccess::getPlayerActor()->mMarioAnimator;
+        MarioSubMeter *pMarioSubMeter = pLayoutHolder->mMarioSubMeter;
 
         if (!mIsMeterActive) {
             pMarioSubMeter->activeSubMeterWater();
             mIsMeterActive = true;
         }
 
-        ToxicUtil::incToxic(1);
-
-        pMarioSubMeter->setWaterLifeRatio(1.0f - (f32)ToxicUtil::getToxic() / (f32)mDeathToxicLevel);
-
-        MarioActor* pMarioActor = MarioAccess::getPlayerActor();
-        MarioAnimator *pMarioAnimator = pMarioActor->mMarioAnimator;
+        ToxicUtil::incToxic();
 
         pMarioAnimator->changeTrackAnim(3, "ダメージウエイト");
+        pMarioSubMeter->setWaterLifeRatio(1.0f - ToxicUtil::getToxic() / mDeathToxicLevel);
 
         if (ToxicUtil::getToxic() % 60 == 0) {
             MR::startSoundPlayer("SE_PV_TIRED", -1, -1);
@@ -49,13 +46,12 @@ void ToxicArea::movement() {
         }
     } else {
         if (mIsMeterActive) {
-            GameSceneLayoutHolder* pLayoutHolder = MR::getGameSceneLayoutHolder();
-            MarioSubMeter* pMarioSubMeter = pLayoutHolder->mMarioSubMeter;
-
-            pMarioSubMeter->frameOutSubMeter();
+            GameSceneLayoutHolder *pLayoutHolder = MR::getGameSceneLayoutHolder();
+            MarioSubMeter *pMarioSubMeter = pLayoutHolder->mMarioSubMeter;
 
             ToxicUtil::setToxic(0);
-            
+
+            pMarioSubMeter->frameOutSubMeter();
             mIsMeterActive = false;
         }
     }
@@ -67,10 +63,6 @@ bool ToxicArea::isInVolume(const TVec3f &mTranslation) const {
     }
 
     return AreaObj::isInVolume(mTranslation);
-}
-
-ToxicArea::~ToxicArea() {
-    
 }
 
 const char* ToxicArea::getManagerName() const {
