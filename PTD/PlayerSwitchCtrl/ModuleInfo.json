@@ -1,0 +1,17 @@
+{
+  "Name": "PlayerSwitchCtrl",
+  "Author": "Evanbowl, Aurum",
+  "Description": "PTD: A controller switch that de/activates when the player has selected the specified character",
+  "InstallDependencies": ["Syati_ObjectFactories"],
+  "ModuleData" : [
+    {
+      "NameObjFactory" : [
+        {
+          "Name" : "PlayerSwitchCtrl",
+          "Function" : "createExtActor<pt::PlayerSwitchCtrl>",
+          "Include" : "PlayerSwitchCtrl.h"
+        }
+      ]
+    }
+  ]
+}

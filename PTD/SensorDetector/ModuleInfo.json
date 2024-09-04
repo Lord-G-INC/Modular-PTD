@@ -1,0 +1,17 @@
+{
+    "Name": "SensorDetector",
+    "Author": "Someone, Evanbowl",
+    "Description": "PTD: An object that detects if the specified message is in the sensor's range",
+    "InstallDependencies": ["Syati_ObjectFactories"],
+    "ModuleData" : [
+      {
+        "NameObjFactory" : [
+          {
+            "Name" : "SensorDetector",
+            "Function" : "createExtActor<pt::SensorDetector>",
+            "Include" : "SensorDetector.h"
+          }
+        ]
+      }
+    ]
+}

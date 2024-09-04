@@ -1,0 +1,17 @@
+{
+    "Name": "Dead Leaves",
+    "Author": "Aurum",
+    "Description": "A pile of autumn leaves from Gold Leaf Galaxy.",
+    "InstallDependencies": ["Syati_ObjectFactories"],
+    "ModuleData" : [
+      {
+        "NameObjFactory" : [
+          {
+            "Name" : "PlayerSwitchCtrl",
+            "Function" : "createExtActor<pt::PlayerSwitchCtrl>",
+            "Include" : "PlayerSwitchCtrl.h"
+          }
+        ]
+      }
+    ]
+}
