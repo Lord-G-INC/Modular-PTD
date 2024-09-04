@@ -2,6 +2,7 @@
 #include "BlueCoin.h"
 #include "Game/Enemy/KuriboExt.h"
 #include "Game/Enemy/SamboHeadExt.h"
+#include "Game/Enemy/TeresaExt.h"
  // KURIBO
 
 KuriboExt::KuriboExt(const char* pName) : Kuribo(pName) {
@@ -79,3 +80,45 @@ void SamboHeadAppearBlueCoin(SamboHeadExt* pSamboHead, const char* pStr) {
 }
 
 kmCall(0x801F81D4, SamboHeadAppearBlueCoin);
+
+// TERESA
+
+TeresaExt::TeresaExt(const char* pName) : Teresa(pName) {
+    mBlueCoin = 0;
+    mBlueCoinArg = 0;
+}
+
+TeresaExt* CreateTeresaExt(const char* pName) {
+    return new TeresaExt(pName);
+}
+
+kmCall(0x8033DF44, CreateTeresaExt);
+kmWrite32(0x8033DF48, 0x48000014); // b 0x14
+
+s32 TeresaSetUpBlueCoin(const JMapInfoIter& rIter, TeresaExt* pTeresa) {
+    s32 modelId = MR::getDummyDisplayModelId(rIter, -1);
+    MR::getJMapInfoArg6NoInit(rIter, &pTeresa->mBlueCoinArg);
+
+    pTeresa->mBlueCoin = BlueCoinUtil::createBlueCoinForSpawning(pTeresa, pTeresa->mBlueCoinArg);
+    
+    if (pTeresa->mBlueCoinArg > 0) {
+        pTeresa->_10C = 0;
+    }
+    return modelId;
+}
+
+kmWrite32(0x8020C15C, 0x7F84E378); // mr r4, r28
+kmCall(0x8020C160, TeresaSetUpBlueCoin);
+
+void TeresaAppearBlueCoin(TeresaExt* pTeresa) {
+    if (pTeresa->_10C)
+        MR::appearCoinPop(pTeresa, pTeresa->mTranslation, 1);
+    else {
+        if (pTeresa->mBlueCoin)
+            BlueCoinUtil::appearBlueCoin(pTeresa, pTeresa->mBlueCoin);
+    }
+}
+
+kmWrite32(0x8020C394, 0x7FE3FB78); // mr r3, r31
+kmCall(0x8020C398, TeresaAppearBlueCoin);
+kmWrite32(0x8020C39C, 0x48000014); // b 0x18
