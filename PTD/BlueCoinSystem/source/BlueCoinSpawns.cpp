@@ -24,7 +24,6 @@ kmCall(0x8033D4C4, createKuriboExt);
 kmWrite32(0x8033D4C8, 0x48000014); // b 0x14
 
 void KuriboSetUpBlueCoin(KuriboExt* pKuribo, const JMapInfoIter& rIter, const char* pStr) {
-
     if (MR::isValidInfo(rIter))
         MR::getJMapInfoArg2NoInit(rIter, &pKuribo->mBlueCoinArg);
         
@@ -101,9 +100,9 @@ s32 TeresaSetUpBlueCoin(const JMapInfoIter& rIter, TeresaExt* pTeresa) {
 
     pTeresa->mBlueCoin = BlueCoinUtil::createBlueCoinForSpawning(pTeresa, pTeresa->mBlueCoinArg);
     
-    if (pTeresa->mBlueCoinArg > 0) {
+    if (pTeresa->mBlueCoin)
         pTeresa->_10C = 0;
-    }
+    
     return modelId;
 }
 
@@ -121,4 +120,4 @@ void TeresaAppearBlueCoin(TeresaExt* pTeresa) {
 
 kmWrite32(0x8020C394, 0x7FE3FB78); // mr r3, r31
 kmCall(0x8020C398, TeresaAppearBlueCoin);
-kmWrite32(0x8020C39C, 0x48000014); // b 0x18
+kmWrite32(0x8020C39C, 0x48000014); // b 0x14

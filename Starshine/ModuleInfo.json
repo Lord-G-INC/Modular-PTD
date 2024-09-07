@@ -1,8 +1,0 @@
-{
-  "Name": "My Syati Module",
-  "Author": "YourNameHere",
-  "Description": "My Syati Module is awesome!",
-  "CompilerFlags" : [
-    "-DSMSS"
-  ]
-}
