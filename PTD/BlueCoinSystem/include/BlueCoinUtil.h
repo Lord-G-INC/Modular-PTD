@@ -126,10 +126,13 @@ namespace BlueCoinUtil {
     /// @param pSourceActor Source Actor
     /// @param id Blue Coin ID
     /// @return BlueCoin*
-    BlueCoin* createBlueCoinForSpawning(LiveActor* pSourceActor, s32 id);
+    //BlueCoin* createBlueCoinForSpawning(LiveActor* pSourceActor, s32 id);
 
     /// @brief Appears a Blue Coin.
     /// @param pSourceActor Source Actor
     /// @param pBlueCoin Blue Coin to appear
-    void appearBlueCoin(LiveActor* pSourceActor, BlueCoin* pBlueCoin);
+    //void appearBlueCoin(LiveActor* pSourceActor, BlueCoin* pBlueCoin);
+    
+    bool tryCreateBlueCoinForSpawningActorActionKeeper(LiveActor* pSourceActor, s32 id);
+    void appearBlueCoinActionKeeper(LiveActor* pSourceActor);
     };

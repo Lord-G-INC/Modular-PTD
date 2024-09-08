@@ -97,6 +97,7 @@ void BlueCoinCounter::exeAppearAndUpdate() {
 
 void BlueCoinCounter::updateCounter() {
     MR::setTextBoxNumberRecursive(this, "Counter", BlueCoinUtil::getTotalBlueCoinNumCurrentFile(true));
+    MR::emitEffect(this, "BlueCoinCounterInStageLight");
     MR::startPaneAnim(this, "Counter", "Flash", 0);
     mPaneRumbler->start();
 }

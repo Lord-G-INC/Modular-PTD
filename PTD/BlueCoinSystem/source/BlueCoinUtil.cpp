@@ -5,6 +5,7 @@
 #include "Game/Screen/CounterLayoutControllerExt.h"
 #include "Game/NPC/TalkMessageCtrl.h"
 #include "Game/MapObj/FileSelector.h"
+#include "Game/LiveActor/ExtActorActionKeeper.h"
 
 #define BINSIZE 867
 
@@ -343,24 +344,52 @@ namespace BlueCoinUtil {
         return -1;
     }
 
-    BlueCoin* createBlueCoinForSpawning(LiveActor* pSourceActor, s32 id) {
-        BlueCoin* coin = new BlueCoin("BlueCoinS");
-        MR::addToCoinHolder(pSourceActor, coin);
-        coin->mID = id;
-        coin->initWithoutIter();
-        MR::hideModel(coin);
-        MR::invalidateHitSensors(coin);
-        pSourceActor->mActionKeeper->mItemGenerator = 0;
-        return coin;
+    //BlueCoin* createBlueCoinForSpawning(LiveActor* pSourceActor, s32 id) {
+    //    BlueCoin* coin = new BlueCoin("BlueCoinS");
+    //    MR::addToCoinHolder(pSourceActor, coin);
+    //    coin->mID = id;
+    //    coin->initWithoutIter();
+    //    MR::hideModel(coin);
+    //    MR::invalidateHitSensors(coin);
+    //    pSourceActor->mActionKeeper->mItemGenerator = 0;
+    //    return coin;
+    //}
+
+    bool tryCreateBlueCoinForSpawningActorActionKeeper(LiveActor* pSourceActor, s32 id) {
+        if (id > -1) {
+            BlueCoin* coin = new BlueCoin("BlueCoinS");
+            MR::addToCoinHolder(pSourceActor, coin);
+            coin->mID = id;
+            coin->initWithoutIter();
+            MR::hideModel(coin);
+            MR::invalidateHitSensors(coin);
+            ExtActorActionKeeper* pKeeper = (ExtActorActionKeeper*)pSourceActor->mActionKeeper;
+            pKeeper->mBlueCoin = coin;
+            pKeeper->mItemGenerator = 0;
+            return true;
+        }
+        return false;
     }
 
-    void appearBlueCoin(LiveActor* pSourceActor, BlueCoin* pBlueCoin) {
-        TVec3f coinVelocity = TVec3f(0.0f, 25.0f, 0.0f);
-        coinVelocity.scale(coinVelocity.y, -pSourceActor->mGravity);
+    //void appearBlueCoin(LiveActor* pSourceActor, BlueCoin* pBlueCoin) {
+    //    TVec3f coinVelocity = TVec3f(0.0f, 25.0f, 0.0f);
+    //    coinVelocity.scale(coinVelocity.y, -pSourceActor->mGravity);
+//
+    //    MR::startActionSound(pBlueCoin, "SyBlueCoinAppear", -1, -1, -1);
+//
+    //    pBlueCoin->appearMove(pSourceActor->mTranslation, coinVelocity, 0x7FFFFFFF, 60);
+    //}
 
-        MR::startActionSound(pBlueCoin, "SyBlueCoinAppear", -1, -1, -1);
+    void appearBlueCoinActionKeeper(LiveActor* pSourceActor) {
+        ExtActorActionKeeper* pKeeper = (ExtActorActionKeeper*)pSourceActor->mActionKeeper;
+        if (pKeeper->mBlueCoin) {
+            TVec3f coinVelocity = TVec3f(0.0f, 25.0f, 0.0f);
+            coinVelocity.scale(coinVelocity.y, -pSourceActor->mGravity);
 
-        pBlueCoin->appearMove(pSourceActor->mTranslation, coinVelocity, 0x7FFFFFFF, 60);
+            MR::startActionSound(pKeeper->mBlueCoin, "SyBlueCoinAppear", -1, -1, -1);
+
+            pKeeper->mBlueCoin->appearMove(pSourceActor->mTranslation, coinVelocity, 0x7FFFFFFF, 60);
+        }
     }
 }
 
