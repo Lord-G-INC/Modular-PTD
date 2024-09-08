@@ -84,13 +84,13 @@ namespace pt {
 
 	NameObj *createObjByName(const char *pName) {
 		CreateActorFunc *pCreator;
-    	pCreator = (CreateActorFunc *)NameObjFactory::getCreator(pName);
-    	return pCreator(MR::getJapaneseObjectName(pName));
+		pCreator = (CreateActorFunc *)NameObjFactory::getCreator(pName);
+		return pCreator(MR::getJapaneseObjectName(pName));
 	}
 
 	NameObj *createObjByNameAndInitWithoutIter(const char *pName) {
 		CreateActorFunc *pCreator;
-    	pCreator = (CreateActorFunc *)NameObjFactory::getCreator(pName);
+		pCreator = (CreateActorFunc *)NameObjFactory::getCreator(pName);
 		NameObj *pObj = pCreator(MR::getJapaneseObjectName(pName));
 		pObj->initWithoutIter();
 		return pObj;
