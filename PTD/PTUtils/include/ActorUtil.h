@@ -17,4 +17,7 @@ namespace pt {
 	void initShadowVolumeBox(LiveActor* pActor, const TVec3f& rPos);
 
 	LiveActor* getSpecificActorFromGroup(LiveActor* pActor, const char* pName);
+
+	NameObj *createObjByName(const char *pName);
+	NameObj *createObjByNameAndInitWithoutIter(const char *pName);
 };

@@ -66,7 +66,7 @@ namespace pt {
 
 	void initShadowVolumeBox(LiveActor* pActor, const TVec3f& rPos) {
 		pActor->initShadowControllerList(1);
-		MR::addShadowVolumeBox(pActor, "繝懊Μ繝･繝ｼ繝蠖ｱ(繝懊ャ繧ｯ繧ｹ)", rPos, (MtxPtr)pActor->getBaseMtx());
+		MR::addShadowVolumeBox(pActor, "ボリューム影(ボックス)", rPos, (MtxPtr)pActor->getBaseMtx());
 	}
 
 	LiveActor* getSpecificActorFromGroup(LiveActor* pActor, const char* pName) {
@@ -79,6 +79,20 @@ namespace pt {
     	        break;
     	    }
     	}
+		return pObj;
+	}
+
+	NameObj *createObjByName(const char *pName) {
+		CreateActorFunc *pCreator;
+    	pCreator = (CreateActorFunc *)NameObjFactory::getCreator(pName);
+    	return pCreator(MR::getJapaneseObjectName(pName));
+	}
+
+	NameObj *createObjByNameAndInitWithoutIter(const char *pName) {
+		CreateActorFunc *pCreator;
+    	pCreator = (CreateActorFunc *)NameObjFactory::getCreator(pName);
+		NameObj *pObj = pCreator(MR::getJapaneseObjectName(pName));
+		pObj->initWithoutIter();
 		return pObj;
 	}
 }
