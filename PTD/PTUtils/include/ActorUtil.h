@@ -13,7 +13,7 @@ namespace pt {
 
 	AnimScaleController* createSamboAnimScaleController(AnimScaleParam *pAnimScaleParam);
 
-	void* loadArcAndFile(const char *pArc, const char *pFile);
+	void* loadArcAndFile(const char *pArc, const char *pFile, JKRHeap *pHeap);
 	void initShadowVolumeBox(LiveActor* pActor, const TVec3f& rPos);
 
 	LiveActor* getSpecificActorFromGroup(LiveActor* pActor, const char* pName);

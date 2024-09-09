@@ -77,7 +77,7 @@ void CycleObj::deactivate()
 }
 
 const char *CycleObj::getBgmName() {
-    void *stageBgmInfoBCSV = pt::loadArcAndFile("/AudioRes/Info/StageBgmInfo.arc", "/StageBgmInfo.bcsv");
+    void *stageBgmInfoBCSV = pt::loadArcAndFile("/AudioRes/Info/StageBgmInfo.arc", "/StageBgmInfo.bcsv", 0);
     JMapInfo mapInfo = JMapInfo();
     mapInfo.attach(stageBgmInfoBCSV);
 

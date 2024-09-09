@@ -49,9 +49,11 @@ namespace pt {
 	}
 	
 	//Loads an arc and a selected file into memory.
-	void* loadArcAndFile(const char *pArc, const char *pFile) {
+	void* loadArcAndFile(const char *pArc, const char *pFile, JKRHeap *pHeap) {
 		OSReport("Loading file %s from %s\n", pFile, pArc);
-		JKRArchive* arc = MR::mountArchive(pArc, MR::getStationedHeapGDDR3(), true);
+		if (!pHeap) 
+			pHeap = MR::getStationedHeapGDDR3();
+		JKRArchive* arc = MR::mountArchive(pArc, pHeap, true);
 		void* file = arc->getResource(pFile);
 
 		if (arc && file) {
@@ -85,14 +87,30 @@ namespace pt {
 	NameObj *createObjByName(const char *pName) {
 		CreateActorFunc *pCreator;
 		pCreator = (CreateActorFunc *)NameObjFactory::getCreator(pName);
+		if (!pCreator) {
+			OSReport("(PTUtils createObjByName) Creator for %s isn't exist!\n", pName);
+			return 0;
+		}
 		return pCreator(MR::getJapaneseObjectName(pName));
 	}
 
+	NameObj *createObjByNameAndInit(const char *pName, const JMapInfoIter &rIter) {
+		NameObj *pObj = createObjByName(pName);
+		if (pObj) {
+			pObj->init(rIter);
+			return pObj;
+		}
+		OSReport("(PTUtils createObjByNameAndInit) init for %s not called!\n", pName);
+		return 0;
+	}
+
 	NameObj *createObjByNameAndInitWithoutIter(const char *pName) {
-		CreateActorFunc *pCreator;
-		pCreator = (CreateActorFunc *)NameObjFactory::getCreator(pName);
-		NameObj *pObj = pCreator(MR::getJapaneseObjectName(pName));
-		pObj->initWithoutIter();
-		return pObj;
+		NameObj *pObj = createObjByName(pName);
+		if (pObj) {
+			pObj->initWithoutIter();
+			return pObj;
+		}
+		OSReport("(PTUtils createObjByNameAndInitWithoutIter) initWithoutIter for %s not called!\n", pName);
+		return 0;
 	}
 }
