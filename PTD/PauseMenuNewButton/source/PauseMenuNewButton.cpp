@@ -18,9 +18,9 @@ PauseMenuExt::PauseMenuExt() : PauseMenu() {
 //SMSS #define STAGE_CHECK MR::isStageMarioFaceShipOrWorldMap() || (MR::isEqualStageName("YosshiHomeGalaxy") && MR::getCurrentScenarioNo() == 1) || MR::isEqualStageName("PrisonGalaxy")
 
 #ifdef SMSS
-    #define STAGE_CHECK MR::isStageMarioFaceShipOrWorldMap() || (MR::isEqualStageName("YosshiHomeGalaxy") && MR::getCurrentScenarioNo() == 1) || MR::isEqualStageName("PrisonGalaxy")
+    #define STAGE_CHECK MR::isStageMarioFaceShipOrWorldMap() || MR::isEqualStageName("PrisonGalaxy")
 #else
-    #define STAGE_CHECK MR::isStageMarioFaceShipOrWorldMap()
+    #define STAGE_CHECK MR::isStageMarioFaceShipOrWorldMap() || MR::isEqualStageName("PeachCastleGalaxy")
 #endif
 
 
