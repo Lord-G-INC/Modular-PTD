@@ -393,11 +393,10 @@ kmCall(0x8046D908, initBlueCoinCounterFileInfo);
 
 void setBlueCoinCounterFileInfo(LayoutActor* pLayout, const char* pStr, s32 fileID) {
     MR::setTextBoxArgNumberRecursive(pLayout, "ShaBlueCoinFileInfo", BlueCoinUtil::getTotalBlueCoinNum(fileID - 1, false), 0);
-    MR::startAnim(pLayout, pStr, 0);
+    MR::setTextBoxNumberRecursive(pLayout, pStr, fileID);
 }
 
-kmWrite32(0x8046D9AC, 0x80BF002C);
-kmCall(0x8046D9B0, setBlueCoinCounterFileInfo);
+kmCall(0x8046DCF8, setBlueCoinCounterFileInfo);
 
 #ifdef DISABLED
 void initGalaxyInfoBlueCoinCount(LayoutActor* actor) {
