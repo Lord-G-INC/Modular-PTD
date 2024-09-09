@@ -3,7 +3,7 @@
 #include "syati.h"
 
 namespace pt {
-    extern void* loadArcAndFile(const char *pArc, const char *pFile, JKRHeap *pHeap = MR::getStationedHeapGDDR3());
+    extern void* loadArcAndFile(const char *pArc, const char *pFile, JKRHeap *pHeap);
 }
 
 class CycleObj : public LiveActor {

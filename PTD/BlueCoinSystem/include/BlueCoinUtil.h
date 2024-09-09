@@ -5,7 +5,7 @@ class CounterLayoutController;
 class BlueCoinCounter;
 
 namespace pt {
-    extern void* loadArcAndFile(const char *pArc, const char *pFile, JKRHeap *pHeap = MR::getStationedHeapGDDR3());
+    extern void* loadArcAndFile(const char *pArc, const char *pFile, JKRHeap *pHeap);
     extern void setTextBoxArgStringNumberFontRecursive(LayoutActor* pLayout, const char* paneName, s32 num, s32 index);
 }
 

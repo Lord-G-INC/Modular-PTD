@@ -23,7 +23,7 @@
     
     I thank SPG64, Lord Giganticus, and Xandog for very helpful feedback.
 */
-void* gBoardDataTable = pt::loadArcAndFile("/SystemData/BlueCoinBoardDataTable.arc", "/BlueCoinBoardDataTable.bcsv"); 
+void* gBoardDataTable = pt::loadArcAndFile("/SystemData/BlueCoinBoardDataTable.arc", "/BlueCoinBoardDataTable.bcsv", 0); 
 
 BlueCoinSign::BlueCoinSign(const char* pName) : NPCActor(pName) {
     pBoard = 0;

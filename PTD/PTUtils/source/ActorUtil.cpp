@@ -49,8 +49,10 @@ namespace pt {
 	}
 	
 	//Loads an arc and a selected file into memory.
-	void* loadArcAndFile(const char *pArc, const char *pFile, JKRHeap *pHeap = MR::getStationedHeapGDDR3()) {
+	void* loadArcAndFile(const char *pArc, const char *pFile, JKRHeap *pHeap) {
 		OSReport("Loading file %s from %s\n", pFile, pArc);
+		if (!pHeap) 
+			pHeap = MR::getStationedHeapGDDR3();
 		JKRArchive* arc = MR::mountArchive(pArc, pHeap, true);
 		void* file = arc->getResource(pFile);
 

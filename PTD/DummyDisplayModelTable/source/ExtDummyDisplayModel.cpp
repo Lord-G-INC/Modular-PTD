@@ -6,7 +6,7 @@ DummyDisplayModel(pHost, pInfo, i, l1, l2) {
     mSpinMode = 0;
 }
 
-void* gDummyDisplayModelTable = pt::loadArcAndFile("/SystemData/DummyDisplayModelTable.arc", "/DummyDisplayModelTable.bcsv");
+void* gDummyDisplayModelTable = pt::loadArcAndFile("/SystemData/DummyDisplayModelTable.arc", "/DummyDisplayModelTable.bcsv", 0);
 namespace pt {
     
     /*
