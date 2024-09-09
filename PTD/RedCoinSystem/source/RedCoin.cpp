@@ -1,6 +1,7 @@
 #include "RedCoin.h"
 #include "RedCoinUtil.h"
 #include "Game/MapObj/CoinHolder.h"
+#include "RedCoinController.h"
 
 RedCoin::RedCoin(const char* pName) : Coin(pName) {
     mLaunchVelocity = 25.0f;

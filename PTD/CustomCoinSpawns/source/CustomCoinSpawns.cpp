@@ -6,11 +6,9 @@
 #include "Game/LiveActor/ExtActorActionKeeper.h"
 #include "CustomCoinSpawns.h"
 
-// ACTORACTIONKEEPER EXTENSION
-
 // KURIBO
 
-void KuriboSetUpBlueCoin(Kuribo* pKuribo, const JMapInfoIter& rIter, const char* pStr) {
+void KuriboSetUpCustomCoin(Kuribo* pKuribo, const JMapInfoIter& rIter, const char* pStr) {
     MR::processInitFunction(pKuribo, rIter, pStr, 0);
     
     #ifdef BLUECOINSYSTEM
@@ -32,9 +30,9 @@ void KuriboSetUpBlueCoin(Kuribo* pKuribo, const JMapInfoIter& rIter, const char*
     #endif
 }
 
-kmCall(0x801B8A68, KuriboSetUpBlueCoin);
+kmCall(0x801B8A68, KuriboSetUpCustomCoin);
 
-void KuriboAppearBlueCoin(Kuribo* pKuribo, const char* pStr) {
+void KuriboAppearCustomCoin(Kuribo* pKuribo, const char* pStr) {
     MR::emitEffect(pKuribo, pStr);
 
     #ifdef BLUECOINSYSTEM
@@ -46,12 +44,12 @@ void KuriboAppearBlueCoin(Kuribo* pKuribo, const char* pStr) {
     #endif
 }
 
-kmCall(0x801B8EC8, KuriboAppearBlueCoin);
+kmCall(0x801B8EC8, KuriboAppearCustomCoin);
 
 // SAMBOHEAD
 
 
-void SamboHeadSetUpBlueCoin(SamboHead* pSamboHead, const JMapInfoIter& rIter, const char* pStr) {
+void SamboHeadSetUpCustomCoin(SamboHead* pSamboHead, const JMapInfoIter& rIter, const char* pStr) {
     MR::processInitFunction(pSamboHead, rIter, pStr, 0);
 
     #ifdef BLUECOINSYSTEM
@@ -71,9 +69,9 @@ void SamboHeadSetUpBlueCoin(SamboHead* pSamboHead, const JMapInfoIter& rIter, co
     #endif
 }
 
-kmCall(0x801F8024, SamboHeadSetUpBlueCoin);
+kmCall(0x801F8024, SamboHeadSetUpCustomCoin);
 
-void SamboHeadAppearBlueCoin(SamboHead* pSamboHead, const char* pStr) {
+void SamboHeadAppearCustomCoin(SamboHead* pSamboHead, const char* pStr) {
     MR::emitEffect(pSamboHead, pStr);
 
     #ifdef BLUECOINSYSTEM    
@@ -85,12 +83,12 @@ void SamboHeadAppearBlueCoin(SamboHead* pSamboHead, const char* pStr) {
     #endif  
 }
 
-kmCall(0x801F81D4, SamboHeadAppearBlueCoin);
+kmCall(0x801F81D4, SamboHeadAppearCustomCoin);
 
 // TERESA
 
 
-s32 TeresaSetUpBlueCoin(const JMapInfoIter& rIter, Teresa* pTeresa) {
+s32 TeresaSetUpCustomCoin(const JMapInfoIter& rIter, Teresa* pTeresa) {
     s32 modelId = MR::getDummyDisplayModelId(rIter, -1);
 
     s32 arg = -1;
@@ -100,7 +98,7 @@ s32 TeresaSetUpBlueCoin(const JMapInfoIter& rIter, Teresa* pTeresa) {
     #ifdef BLUECOINSYSTEM
         if (MR::isEqualString(pDisplayModelName, "BlueCoin") || MR::isEqualString(pDisplayModelName, "BlueCoinClear")) {
             MR::getJMapInfoArg6NoInit(rIter, &arg);
-            bool coinCreated = BlueCoinUtil::tryCreateBlueCoinForSpawningActorActionKeeper(pTeresa, arg);
+            coinCreated = BlueCoinUtil::tryCreateBlueCoinForSpawningActorActionKeeper(pTeresa, arg);
         }
     #endif
 
@@ -116,9 +114,9 @@ s32 TeresaSetUpBlueCoin(const JMapInfoIter& rIter, Teresa* pTeresa) {
 }
 
 kmWrite32(0x8020C15C, 0x7F84E378); // mr r4, r28
-kmCall(0x8020C160, TeresaSetUpBlueCoin);
+kmCall(0x8020C160, TeresaSetUpCustomCoin);
 
-void TeresaAppearBlueCoin(Teresa* pTeresa) {
+void TeresaAppearCustomCoin(Teresa* pTeresa) {
     if (pTeresa->_10C)
         MR::appearCoinPop(pTeresa, pTeresa->mTranslation, 1);
 
@@ -132,5 +130,5 @@ void TeresaAppearBlueCoin(Teresa* pTeresa) {
 }
 
 kmWrite32(0x8020C394, 0x7FE3FB78); // mr r3, r31
-kmCall(0x8020C398, TeresaAppearBlueCoin);
+kmCall(0x8020C398, TeresaAppearCustomCoin);
 kmWrite32(0x8020C39C, 0x48000014); // b 0x14

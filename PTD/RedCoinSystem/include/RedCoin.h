@@ -1,7 +1,6 @@
 #pragma once
 
 #include "syati.h"
-#include "RedCoinController.h"
 #include "Game/MapObj/Coin.h"
 #include "Game/Screen/CountUpPaneRumbler.h"
 
