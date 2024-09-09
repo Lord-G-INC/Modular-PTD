@@ -1,5 +1,5 @@
 {
   "Name": "Custom Coin Spawns",
   "Author": "Evanbowl",
-  "Description": "Implements Enemy Spawning mechanics for the Blue and Red Coins"
+  "Description": "Custom Coin Spawns\n\nCurrently Supported (Blue Coin)\nKuribo (Obj_arg2)\nSamboHead (Obj_arg1)\nTeresa (Obj_arg6 and Obj_arg7)\n\nCurrently Supported (Red Coin)\nKuribo (Obj_arg3)\nSamboHead (Obj_arg2)\nTeresa (Obj_arg7)"
 }
