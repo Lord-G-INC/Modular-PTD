@@ -51,7 +51,7 @@ namespace pt {
 	//Loads an arc and a selected file into memory.
 	void* loadArcAndFile(const char *pArc, const char *pFile) {
 		OSReport("Loading file %s from %s\n", pFile, pArc);
-		JKRArchive* arc = MR::mountArchive(pArc, MR::getStationedHeapGDDR3(), true);
+		JKRArchive* arc = MR::mountArchive(pArc, MR::getSceneHeapGDDR3(), true);
 		void* file = arc->getResource(pFile);
 
 		if (arc && file) {
@@ -89,9 +89,7 @@ namespace pt {
 	}
 
 	NameObj *createObjByNameAndInitWithoutIter(const char *pName) {
-		CreateActorFunc *pCreator;
-		pCreator = (CreateActorFunc *)NameObjFactory::getCreator(pName);
-		NameObj *pObj = pCreator(MR::getJapaneseObjectName(pName));
+		NameObj *pObj = createObjByName(pName);
 		pObj->initWithoutIter();
 		return pObj;
 	}
