@@ -1,5 +1,6 @@
 #include "Game/LiveActor.h"
 #include "BlueCoin.h"
+#include "RedCoinSystem/RedCoin.h"
 
 
 class ExtActorActionKeeper : public ActorActionKeeper {
@@ -9,4 +10,5 @@ public:
         ActionFootPrintCtrl *pFootPrintCtrl, ActionBgmCtrl *pBgmCtrl);
 
     BlueCoin* mBlueCoin;
+    RedCoin* mRedCoin;
 };

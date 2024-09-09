@@ -15,7 +15,7 @@
 
 void* initializeBlueCoinArrayAndLoadTable() {
     BlueCoinUtil::initBlueCoinArray();
-    return pt::loadArcAndFile("/SystemData/BlueCoinIDRangeTable.arc", "/BlueCoinIDRangeTable.bcsv");;
+    return pt::loadArcAndFile("/SystemData/BlueCoinIDRangeTable.arc", "/BlueCoinIDRangeTable.bcsv");
 }
 
 BlueCoinData* gBlueCoinData;
@@ -344,17 +344,6 @@ namespace BlueCoinUtil {
         return -1;
     }
 
-    //BlueCoin* createBlueCoinForSpawning(LiveActor* pSourceActor, s32 id) {
-    //    BlueCoin* coin = new BlueCoin("BlueCoinS");
-    //    MR::addToCoinHolder(pSourceActor, coin);
-    //    coin->mID = id;
-    //    coin->initWithoutIter();
-    //    MR::hideModel(coin);
-    //    MR::invalidateHitSensors(coin);
-    //    pSourceActor->mActionKeeper->mItemGenerator = 0;
-    //    return coin;
-    //}
-
     bool tryCreateBlueCoinForSpawningActorActionKeeper(LiveActor* pSourceActor, s32 id) {
         if (id > -1) {
             BlueCoin* coin = new BlueCoin("BlueCoinS");
@@ -370,15 +359,6 @@ namespace BlueCoinUtil {
         }
         return false;
     }
-
-    //void appearBlueCoin(LiveActor* pSourceActor, BlueCoin* pBlueCoin) {
-    //    TVec3f coinVelocity = TVec3f(0.0f, 25.0f, 0.0f);
-    //    coinVelocity.scale(coinVelocity.y, -pSourceActor->mGravity);
-//
-    //    MR::startActionSound(pBlueCoin, "SyBlueCoinAppear", -1, -1, -1);
-//
-    //    pBlueCoin->appearMove(pSourceActor->mTranslation, coinVelocity, 0x7FFFFFFF, 60);
-    //}
 
     void appearBlueCoinActionKeeper(LiveActor* pSourceActor) {
         ExtActorActionKeeper* pKeeper = (ExtActorActionKeeper*)pSourceActor->mActionKeeper;

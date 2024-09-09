@@ -13,6 +13,7 @@ ExtActorActionKeeper::ExtActorActionKeeper(LiveActor *pActor, ActorAnimKeeper *p
     ActorActionKeeper(pActor, pAnimKeeper, pFlagCtrl, pPadAndCameraCtrl, pHitReactionCtrl, pItemGenerator, pActorParam, pScreenBlurCtrl, pFootPrintCtrl, pBgmCtrl) {
     
     mBlueCoin = 0;
+    mRedCoin = 0;
 }
 
 ExtActorActionKeeper* createExtActorActionKeeper(s32 l, LiveActor *pActor, ActorAnimKeeper *pAnimKeeper, ActionFlagCtrl *pFlagCtrl, ActorPadAndCameraCtrl *pPadAndCameraCtrl,
@@ -35,7 +36,6 @@ void KuriboSetUpBlueCoin(Kuribo* pKuribo, const JMapInfoIter& rIter, const char*
     MR::processInitFunction(pKuribo, rIter, pStr, 0);
 
     BlueCoinUtil::tryCreateBlueCoinForSpawningActorActionKeeper(pKuribo, arg);
-
 }
 
 kmCall(0x801B8A68, KuriboSetUpBlueCoin);
@@ -79,13 +79,22 @@ s32 TeresaSetUpBlueCoin(const JMapInfoIter& rIter, Teresa* pTeresa) {
     s32 modelId = MR::getDummyDisplayModelId(rIter, -1);
 
     s32 arg = -1;
+    bool coinCreated = false;
     const char* pDisplayModelName = pTeresa->mDummyDisplayModel->mName;
-    if (MR::isEqualString(pDisplayModelName, "BlueCoin") || MR::isEqualString(pDisplayModelName, "BlueCoinClear"))
-        MR::getJMapInfoArg6NoInit(rIter, &arg);
 
-    bool coinCreated = BlueCoinUtil::tryCreateBlueCoinForSpawningActorActionKeeper(pTeresa, arg);
-    
-    if (arg > -1 && coinCreated)
+    if (MR::isEqualString(pDisplayModelName, "BlueCoin") || MR::isEqualString(pDisplayModelName, "BlueCoinClear")) {
+        MR::getJMapInfoArg6NoInit(rIter, &arg);
+        bool coinCreated = BlueCoinUtil::tryCreateBlueCoinForSpawningActorActionKeeper(pTeresa, arg);
+    }
+
+    if (MR::isEqualString(pDisplayModelName, "RedCoin")) {
+        RedCoin* pCoin = (RedCoin*)NameObjFactory::initChildObj(rIter, 0);
+        pCoin->requestHide();
+        ((ExtActorActionKeeper*)pTeresa->mActionKeeper)->mRedCoin = pCoin;
+        coinCreated = true;
+    }
+
+    if (coinCreated)
         pTeresa->_10C = 0;
     
     return modelId;
@@ -97,8 +106,17 @@ kmCall(0x8020C160, TeresaSetUpBlueCoin);
 void TeresaAppearBlueCoin(Teresa* pTeresa) {
     if (pTeresa->_10C)
         MR::appearCoinPop(pTeresa, pTeresa->mTranslation, 1);
-    else
-        BlueCoinUtil::appearBlueCoinActionKeeper(pTeresa);
+    
+
+    BlueCoinUtil::appearBlueCoinActionKeeper(pTeresa);
+
+    RedCoin* pCoin = ((ExtActorActionKeeper*)pTeresa->mActionKeeper)->mRedCoin;
+
+    if (pCoin) {
+        MR::setPosition(pCoin, pTeresa->mTranslation);
+        pCoin->appearAndMove();
+    }
+        
 }
 
 kmWrite32(0x8020C394, 0x7FE3FB78); // mr r3, r31

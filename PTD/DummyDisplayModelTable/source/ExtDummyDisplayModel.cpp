@@ -1,12 +1,10 @@
 #include "syati.h"
+#include "Game/MapObj/ExtDummyDisplayModel.h"
 
-namespace BlueCoinUtil {
-    extern bool isBlueCoinGotCurrentFile(u8);
-};
-
-namespace pt {
-    extern void* loadArcAndFile(const char* pArc, const char* pFile);
-};
+ExtDummyDisplayModel::ExtDummyDisplayModel(LiveActor *pHost, const DummyDisplayModelInfo *pInfo, int i, s32 l1, s32 l2) :
+DummyDisplayModel(pHost, pInfo, i, l1, l2) {
+    mSpinMode = 0;
+}
 
 void* gDummyDisplayModelTable = pt::loadArcAndFile("/SystemData/DummyDisplayModelTable.arc", "/DummyDisplayModelTable.bcsv");
 namespace pt {
@@ -55,8 +53,9 @@ namespace pt {
         MR::getCsvDataStr(&pInfo->mAnimName, &table, "AnimName", modelId - 15);
         MR::getCsvDataBool(&pInfo->mHasColorChange, &table, "HasColorChange", modelId - 15);
         
-        DummyDisplayModel *pModel = new DummyDisplayModel(pHost, pInfo, v4, modelId, colorId);
+        ExtDummyDisplayModel *pModel = new ExtDummyDisplayModel(pHost, pInfo, v4, modelId, colorId);
         pModel->initWithoutIter();
+        MR::getCsvDataS32(&pModel->mSpinMode, &table, "UseSpin", modelId-15);
         return pModel;
     }
 
@@ -72,24 +71,16 @@ namespace pt {
     kmWrite32(0x801D0318, 0x60000000); // nop
 
     asm void spinCustomDisplayModels() {
-        //lwz r4, 0xA4(r30)
-        //li r0, 3
-        //addi r3, r4, -0x18
-        //subfc r0, r3, r0
-        //addze r0, r3
-        //subf r0, r0, r3
-        //andc r0, r4, r0
         lwz r0, 0xA4(r30) // this->mModelId
 
         cmpwi r0, 0xF
         blt end
 
-        lwz r4, 0xA0(r30) // this->mModelInfo
-        lwz r4, 0x14(r4) // mModelInfo->_14
+        lwz r5, 0xB4(r30) // this->mSpinMode
 
         li r0, -1
 
-        cmpwi r4, 1
+        cmpwi r5, 1
         beq spinCoin
         b end
 
