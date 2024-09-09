@@ -25,12 +25,14 @@ PauseMenuExt::PauseMenuExt() : PauseMenu() {
 
 
 void setButtonAnimNames(ButtonPaneController* pButton) {
-    pButton->mAnimNameAppear = "ButtonAppear_restartbutton";
-    pButton->mAnimNameDecide = "ButtonDecide_restartbutton";
-    pButton->mAnimNameEnd = "ButtonEnd_restartbutton";
-    pButton->mAnimNameSelectIn = "ButtonSelectIn_restartbutton";
-    pButton->mAnimNameSelectOut = "ButtonSelectOut_restartbutton";
-    pButton->mAnimNameWait = "ButtonWait_restartbutton";
+    if (pButton) {
+        pButton->mAnimNameAppear = "ButtonAppear_restartbutton";
+        pButton->mAnimNameDecide = "ButtonDecide_restartbutton";
+        pButton->mAnimNameEnd = "ButtonEnd_restartbutton";
+        pButton->mAnimNameSelectIn = "ButtonSelectIn_restartbutton";
+        pButton->mAnimNameSelectOut = "ButtonSelectOut_restartbutton";
+        pButton->mAnimNameWait = "ButtonWait_restartbutton";
+    }
 }
 
 void PauseMenuInitNewButton(PauseMenuExt* pPauseMenu, const Nerve* pNerve) { 
