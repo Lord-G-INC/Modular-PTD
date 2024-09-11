@@ -1,0 +1,17 @@
+{
+  "Name": "SMG1: Unused Bowser Land Mines",
+  "Author": "Someone, Aurum",
+  "Description": "Adds back the Bowser Land Mines that were unused in SMG1",
+  
+  "ModuleData": [
+    {
+      "NameObjFactory": [
+        {
+          "Name": "Jiraira",
+          "Function": "createExtActor<pt::Jiraira>",
+          "Include": "Jiraira.h"
+        }
+      ]
+    }
+  ]
+}
