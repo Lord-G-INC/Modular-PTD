@@ -5,118 +5,167 @@
 #include "Game/Screen/PauseMenuExt.h"
 
 BlueCoinCounter::BlueCoinCounter(const char* pName) : LayoutActor(pName, 0) {
-    mWaitTime = -1;
     mSysInfoWindow = 0;
+    mBlueCoinDisplayNum = 0;
+    _28 = 0;
+    mIsAppear = 0;
 }
 
 void BlueCoinCounter::init(const JMapInfoIter& rIter) {
     initLayoutManager("BlueCoinCounterInStage", 2);
     initEffectKeeper(0, 0, 0);
-    MR::registerDemoSimpleCastAll(this);
     MR::connectToSceneLayout(this);
+    MR::registerDemoSimpleCastAll(this);
     MR::createAndAddPaneCtrl(this, "Counter", 1);
-    MR::setTextBoxNumberRecursive(this, "ShaNumber", BlueCoinUtil::getTotalBlueCoinNumCurrentFile(true));
+    s32 blueCoinNum = BlueCoinUtil::getTotalBlueCoinNumCurrentFile(true);
+    MR::setTextBoxNumberRecursive(this, "Counter", blueCoinNum);
+    mBlueCoinDisplayNum = blueCoinNum;
 
     mAppearer = new CounterLayoutAppearer(this, TVec2f(-50.0f, 0.0f));
 
     mPaneRumbler = new CountUpPaneRumbler(this, "Counter");
     mPaneRumbler->mRumbleCalculator->mRumbleStrength = 8.0f;
-    mPaneRumbler->reset();
 
-    appear();
-    initNerve(&NrvBlueCoinCounter::NrvDisappear::sInstance);
-    MR::hideLayout(this);    
+    initNerve(&NrvBlueCoinCounter::NrvHide::sInstance);   
 
     if (!BlueCoinUtil::hasSeenBlueCoinTextBoxCurrentFile()) {
         mSysInfoWindow = MR::createSysInfoWindowMiniExecuteWithChildren();
         MR::connectToSceneLayout(mSysInfoWindow);
         MR::registerDemoSimpleCastAll(mSysInfoWindow);
     }
+
+    appear();
+}
+
+void BlueCoinCounter::appear() {
+    mAppearer->reset();
+    mPaneRumbler->reset();
+    _28 = 0;
+    mIsAppear = false;
+    MR::hideLayout(this);
+    setNerve(&NrvBlueCoinCounter::NrvHide::sInstance);
+    LayoutActor::appear();
+}
+
+void BlueCoinCounter::forceAppear() {
+    if (!isNerve(&NrvBlueCoinCounter::NrvWait::sInstance)) {
+        appear();
+        setNerve(&NrvBlueCoinCounter::NrvAppear::sInstance);
+    }
+
+    mIsAppear = true;
+}
+
+void BlueCoinCounter::disappear() {
+    mIsAppear = false;
+    setNerve(&NrvBlueCoinCounter::NrvDisappear::sInstance);
 }
 
 void BlueCoinCounter::control() {
-    if (mWaitTime > 0)
-        mWaitTime--;
-
-    if (mWaitTime == 0 && !isNerve(&NrvBlueCoinCounter::NrvShowTextBox::sInstance))
-        setNerve(&NrvBlueCoinCounter::NrvDisappear::sInstance);
-
+    updateCounter();
     mAppearer->updateNerve();
     mPaneRumbler->update();
 }
 
-void BlueCoinCounter::exeAppear() {
-    if (MR::isFirstStep(this) || MR::isStep(this, 1) && mAppearer->isDisappeared()) {
-        if (!mAppearer->isAppeared()) {
-            MR::showLayout(this);
-            mAppearer->appear(TVec2f(0.0f, 0.0f));
-            MR::startAnim(this, "Wait", 1);
-        }
+void BlueCoinCounter::updateCounter() {
+    s32 blueCoinNum = BlueCoinUtil::getTotalBlueCoinNumCurrentFile(true);
+    s32 var = _28;
+    mBlueCoinCount = blueCoinNum;
 
-        if (mWaitTime == 0)
-            mWaitTime = -1;
+    if (var > 0) {
+        _28 = var - 1;
+    }
+    else {
+        if (mBlueCoinDisplayNum != blueCoinNum && !isNerve(&NrvBlueCoinCounter::NrvShowTextBox::sInstance)) {
+            if (isNerve(&NrvBlueCoinCounter::NrvWait::sInstance)) {
+                u32 v4 = mBlueCoinDisplayNum;
+                _28 = 3;
+
+                if (mBlueCoinDisplayNum < blueCoinNum)
+                    mBlueCoinDisplayNum = v4 + 1;
+                else 
+                    mBlueCoinDisplayNum = v4 - 1;
+
+                MR::startAnim(this, "Flash", 0);
+                MR::emitEffect(this, "BlueCoinCounterInStageLight");
+                mPaneRumbler->start();
+            }
+
+            if (!isNerve(&NrvBlueCoinCounter::NrvAppear::sInstance)) {
+                if (!isNerve(&NrvBlueCoinCounter::NrvWait::sInstance))
+                    setNerve(&NrvBlueCoinCounter::NrvAppear::sInstance);
+                else
+                    setNerve(&NrvBlueCoinCounter::NrvWait::sInstance);
+            }
+        }
+    }
+
+    MR::setTextBoxNumberRecursive(this, "Counter", mBlueCoinDisplayNum);
+}
+
+void BlueCoinCounter::setCounter() {
+    s32 blueCoinNum = BlueCoinUtil::getTotalBlueCoinNumCurrentFile(true);
+    mBlueCoinDisplayNum = blueCoinNum;
+    mBlueCoinCount = blueCoinNum;
+}
+
+void BlueCoinCounter::exeHide() {
+    if (MR::isFirstStep(this)) {
+        _28 = 0;
+        MR::hideLayout(this);
     }
 }
-  
+
+void BlueCoinCounter::exeAppear() {
+    if (MR::isFirstStep(this)) {
+        MR::showLayout(this);
+        mAppearer->appear(TVec2f(0.0f, 0.0f));
+        MR::startAnim(this, "Wait", 1);
+    }
+
+    if (mAppearer->isAppeared()) {
+        setNerve(&NrvBlueCoinCounter::NrvWait::sInstance);
+    }
+}
+
+void BlueCoinCounter::exeWait() {
+    if (!mIsAppear && mBlueCoinDisplayNum == mBlueCoinCount) {
+        if (CounterLayoutController::isWaitToDisappearCounter(this)) {
+            setNerve(&NrvBlueCoinCounter::NrvDisappear::sInstance);
+        }
+    }
+}
+
 void BlueCoinCounter::exeDisappear() {
     if (MR::isFirstStep(this)) {
         mAppearer->disappear();
-        mWaitTime = -1;
     }
 
-    if (MR::isStep(this, 10)) {
-        MR::hideLayout(this);
-        MR::setTextBoxNumberRecursive(this, "Counter", BlueCoinUtil::getTotalBlueCoinNumCurrentFile(true));
+    if (mAppearer->isDisappeared()) {
+        setNerve(&NrvBlueCoinCounter::NrvHide::sInstance);
     }
-}
-
-void BlueCoinCounter::startCountUp() { 
-    if (BlueCoinUtil::hasSeenBlueCoinTextBoxCurrentFile()) {
-        if (mAppearer->isDisappeared()) {
-            setNerve(&NrvBlueCoinCounter::NrvAppearAndUpdate::sInstance);
-            mWaitTime = 120;
-        }
-        else {
-            updateCounter();
-
-            if (mWaitTime > 0)
-                mWaitTime = 120;
-        }
-    }
-    else
-        setNerve(&NrvBlueCoinCounter::NrvShowTextBox::sInstance);
-}   
-
-void BlueCoinCounter::exeAppearAndUpdate() {
-    if (MR::isFirstStep(this))
-        exeAppear();
-
-    if (MR::isStep(this, 15))
-        updateCounter();
-}
-
-void BlueCoinCounter::updateCounter() {
-    MR::setTextBoxNumberRecursive(this, "Counter", BlueCoinUtil::getTotalBlueCoinNumCurrentFile(true));
-    MR::emitEffect(this, "BlueCoinCounterInStageLight");
-    MR::startPaneAnim(this, "Counter", "Flash", 0);
-    mPaneRumbler->start();
 }
 
 void BlueCoinCounter::exeShowTextBox() {
-    if (MR::isStep(this, 3)) {
+    if (MR::isFirstStep(this)) {
+        MR::hideLayout(this);
         MR::tryStartDemoWithoutCinemaFrame((LiveActor*)this, "BlueCoinFirstTimeText");
-        mAppearer->disappear();
-        mWaitTime = -1;
-        mSysInfoWindow->appear("BlueCoinCounter_OnFirstBlueCoin", SysInfoWindow::SysInfoType_0, SysInfoWindow::SysInfoTextPos_0, SysInfoWindow::SysInfoMessageType_1);
     }
+
+    if (MR::isStep(this, 3))
+        mSysInfoWindow->appear("BlueCoinCounter_OnFirstBlueCoin", SysInfoWindow::SysInfoType_0, SysInfoWindow::SysInfoTextPos_0, SysInfoWindow::SysInfoMessageType_1);
 
     if (mSysInfoWindow->isDisappear() && MR::isDead(mSysInfoWindow)) {
         MR::endDemo(this, "BlueCoinFirstTimeText");
-        mWaitTime = 120;
         BlueCoinUtil::setSeenBlueCoinTextBoxCurrentFile();
-        setNerve(&NrvBlueCoinCounter::NrvAppearAndUpdate::sInstance);
+        setNerve(&NrvBlueCoinCounter::NrvAppear::sInstance);
     }
 }
+
+BlueCoinCounter::~BlueCoinCounter() {
+
+}
+
 
 bool fixBlueCoinWindowCrash() {
     if (!MR::isStageFileSelect() && !MR::isEqualStageName("PeachCastleGalaxy") && !MR::isStageStoryBook() && !BlueCoinUtil::hasSeenBlueCoinTextBoxCurrentFile())
@@ -139,25 +188,30 @@ kmCall(0x80471784, createCounterLayoutControllerExt);
 kmWrite32(0x80471788, 0x4800000C);
 
 namespace NrvBlueCoinCounter {
+	void NrvHide::execute(Spine* pSpine) const {
+        ((BlueCoinCounter*)pSpine->mExecutor)->exeHide();
+    }
+
 	void NrvAppear::execute(Spine* pSpine) const {
         ((BlueCoinCounter*)pSpine->mExecutor)->exeAppear();
-	}
+    }
+
+	void NrvWait::execute(Spine* pSpine) const {
+        ((BlueCoinCounter*)pSpine->mExecutor)->exeWait();
+    }
 
 	void NrvDisappear::execute(Spine* pSpine) const {
         ((BlueCoinCounter*)pSpine->mExecutor)->exeDisappear();
-	}
-
-	void NrvAppearAndUpdate::execute(Spine* pSpine) const {
-        ((BlueCoinCounter*)pSpine->mExecutor)->exeAppearAndUpdate();
-	}
+    }
 
 	void NrvShowTextBox::execute(Spine* pSpine) const {
         ((BlueCoinCounter*)pSpine->mExecutor)->exeShowTextBox();
-	}
+    }
 
-	NrvAppear(NrvAppear::sInstance);
+	NrvHide(NrvHide::sInstance);
+    NrvAppear(NrvAppear::sInstance);
+    NrvWait(NrvWait::sInstance);
     NrvDisappear(NrvDisappear::sInstance);
-    NrvAppearAndUpdate(NrvAppearAndUpdate::sInstance);
     NrvShowTextBox(NrvShowTextBox::sInstance);
 }
 
@@ -172,20 +226,55 @@ void createBlueCoinCounter(CounterLayoutControllerExt* pController, const Nerve*
 
 kmCall(0x804657AC, createBlueCoinCounter);
 
+bool isBlueCoinCounterDead(CounterLayoutControllerExt* pController) {
+    return (MR::isDead(pController->mCoinCounter) || MR::isDead(pController->mBlueCoinCounter));
+}
+
+kmWrite32(0x80465C00, 0x7F23CB78); // mr r3, r25
+kmCall(0x80465C04, isBlueCoinCounterDead);
+
+bool isBlueCoinCounterHidden(CounterLayoutControllerExt* pController) {
+    return (MR::isHiddenLayout(pController->mCoinCounter) || MR::isHiddenLayout(pController->mBlueCoinCounter));
+}
+
+kmWrite32(0x80465C10, 0x7F23CB78); // mr r3, r25
+kmCall(0x80465C14, isBlueCoinCounterHidden);
+
+
+bool isBlueCoinCounterWait(CounterLayoutControllerExt* pController) {
+    return (pController->mCoinCounter->isWait() || pController->mBlueCoinCounter->isNerve(&NrvBlueCoinCounter::NrvWait::sInstance));
+}
+
+kmWrite32(0x80465C20, 0x7F23CB78); // mr r3, r25
+kmCall(0x80465C24, isBlueCoinCounterWait);
+
+
 void appearBlueCoinLayout(CounterLayoutControllerExt* pController) {
-    if (pController->mBlueCoinCounter && !BlueCoinUtil::isBlueCoinTextBoxAppeared()) {
-        pController->mBlueCoinCounter->mWaitTime = -1;
-        pController->mBlueCoinCounter->setNerve(&NrvBlueCoinCounter::NrvAppear::sInstance);
+    if (pController->mBlueCoinCounter) {
+        pController->mBlueCoinCounter->forceAppear();
     } 
 
     pController->showAllLayout();
 }
 
+
 kmCall(0x80466128, appearBlueCoinLayout);
 
+
+void appearBlueCoinLayoutWithoutStar(CounterLayoutControllerExt* pController) {
+    pController->mCoinCounter->appear();
+
+    if (pController->mBlueCoinCounter) {
+        pController->mBlueCoinCounter->appear();
+    } 
+}
+
+kmCall(0x80465EC4, appearBlueCoinLayoutWithoutStar);
+kmWrite32(0x80465EC8, 0x48000010); // b 0x10
+
 void disappearBlueCoinLayout(CounterLayoutControllerExt* pController) {
-    if (pController->mBlueCoinCounter && !BlueCoinUtil::isBlueCoinTextBoxAppeared()) {
-        pController->mBlueCoinCounter->setNerve(&NrvBlueCoinCounter::NrvDisappear::sInstance);
+    if (pController->mBlueCoinCounter) {
+        pController->mBlueCoinCounter->disappear();
     }
         
     pController->hideAllLayout();
@@ -194,9 +283,8 @@ void disappearBlueCoinLayout(CounterLayoutControllerExt* pController) {
 kmCall(0x80466198, disappearBlueCoinLayout);
 
 void killBlueCoinCounter(CounterLayoutControllerExt* pController) {
-    if (pController->mBlueCoinCounter && !BlueCoinUtil::isBlueCoinTextBoxAppeared()) {
-        MR::hideLayout(pController->mBlueCoinCounter);
-        pController->mBlueCoinCounter->setNerve(&NrvBlueCoinCounter::NrvDisappear::sInstance);
+    if (pController->mBlueCoinCounter && !MR::isDemoActive("BlueCoinFirstTimeText")) {
+        pController->mBlueCoinCounter->kill();
     }
 
     pController->killAllCoounter();

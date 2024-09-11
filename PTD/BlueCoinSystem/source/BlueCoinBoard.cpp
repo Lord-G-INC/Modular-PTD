@@ -1,6 +1,5 @@
 #include "BlueCoinBoard.h"
 #include "BlueCoinUtil.h"
-
 /*
     Super Mario Starshine: Blue Coin Board
 
@@ -223,7 +222,7 @@ void BlueCoinBoard::exeAppear() {
             else
                 MR::setTextBoxGameMessageRecursive(this, "TextComplete", "WinBase_AllSpent");
         }
-        
+
         MR::copyPaneTrans(&mBlueCoinCounterFollowPos, this, BlueCoinUtil::getTotalBlueCoinNumCurrentFile(true) > 99 ? "BlueCoinPos100" : "BlueCoinPos10");
 
         mBackButton->appear();
@@ -313,9 +312,7 @@ void BlueCoinBoard::exeDisappear() {
     }
 
     if (MR::isStep(this, 50)) {
-        if (mHasSpentBlueCoins)
-            BlueCoinUtil::startCounterCountUp();
-
+        BlueCoinUtil::setCounter();
         MR::endStarPointerMode(this);
         kill();
     }

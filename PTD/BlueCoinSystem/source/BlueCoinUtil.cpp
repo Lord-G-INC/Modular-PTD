@@ -226,21 +226,15 @@ namespace BlueCoinUtil {
     }
 
     bool isBlueCoinTextBoxAppeared() {
-        CounterLayoutControllerExt* pCounterLayoutControllerExt = (CounterLayoutControllerExt*)MR::getGameSceneLayoutHolder()->mCounterLayoutController;
-        BlueCoinCounter* pCounter = pCounterLayoutControllerExt->mBlueCoinCounter;
-
-        if (!pCounter || hasSeenBlueCoinTextBoxCurrentFile())
-            return false;
-        else
-            return pCounter->isNerve(&NrvBlueCoinCounter::NrvShowTextBox::sInstance);
+        return MR::isDemoActive("BlueCoinFirstTimeText");
     }
 
-    void startCounterCountUp() {
+    void setCounter() {
         CounterLayoutControllerExt* pCounterLayoutControllerExt = (CounterLayoutControllerExt*)MR::getGameSceneLayoutHolder()->mCounterLayoutController;
         BlueCoinCounter* pCounter = pCounterLayoutControllerExt->mBlueCoinCounter;
         
         if (pCounter)
-            pCounter->startCountUp();
+            pCounter->setCounter();
     }
 
     void spendBlueCoinCurrentFile(u8 numcoin) {

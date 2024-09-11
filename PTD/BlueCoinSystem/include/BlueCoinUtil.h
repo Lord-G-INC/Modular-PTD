@@ -84,8 +84,8 @@ namespace BlueCoinUtil {
     void resetAllBlueCoin(u8 file);
 
     /// @brief Updates the Blue Coin counter
-    void startCounterCountUp();
-
+    void setCounter();
+    
     /// @brief Spends an amount of Blue Coins on the current file. Using 0 defaults to 30.
     /// @param numcoin Number of coins to spend
     void spendBlueCoinCurrentFile(u8 numcoin);

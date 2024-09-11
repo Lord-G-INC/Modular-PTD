@@ -27,27 +27,35 @@ const wchar_t counterPictureFonts2[] = {
 class BlueCoinCounter : public LayoutActor {
 public:
         BlueCoinCounter(const char* pName);
-                
-        virtual void init(const JMapInfoIter& rIter);
-        virtual void control();
-        void exeAppear();
-        void exeDisappear();
-        void exeWait();
-        void startCountUp();
-        void updateCounter();
-        void exeAppearAndUpdate();
-        void exeShowTextBox();
         
+        virtual ~BlueCoinCounter();
+        virtual void init(const JMapInfoIter& rIter);
+        virtual void appear();
+        virtual void control();
+        void forceAppear();
+        void updateCounter();
+        void disappear();
+        void setCounter();
+        void exeHide();
+        void exeAppear();
+        void exeWait();
+        void exeDisappear();
+        void exeShowTextBox();
+
         CounterLayoutAppearer* mAppearer;
         CountUpPaneRumbler* mPaneRumbler;
         SysInfoWindow* mSysInfoWindow;
-        s32 mWaitTime;
+        s32 mBlueCoinCount;
+        s32 mBlueCoinDisplayNum;
+        s32 _28;
+        bool mIsAppear;
 };
 
 namespace NrvBlueCoinCounter {
-	NERVE(NrvAppear);
+	NERVE(NrvHide);
+        NERVE(NrvAppear);
+        NERVE(NrvWait);
         NERVE(NrvDisappear);
-        NERVE(NrvAppearAndUpdate);
         NERVE(NrvShowTextBox);
 };
 

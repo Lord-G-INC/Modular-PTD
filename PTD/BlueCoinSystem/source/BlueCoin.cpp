@@ -1,5 +1,8 @@
 #include "BlueCoin.h"
 #include "Game/MapObj/CoinHolder.h"
+#include "BlueCoinLayouts.h"
+#include "Game/Screen/GameSceneLayoutHolder.h"
+#include "Game/Screen/CounterLayoutControllerExt.h"
 
 BlueCoin::BlueCoin(const char* pName) : Coin(pName) {
     mID = 0;
@@ -103,7 +106,9 @@ void BlueCoin::collect() {
     
     if (!BlueCoinUtil::isBlueCoinGotCurrentFile(mID)) {
         BlueCoinUtil::setBlueCoinGotCurrentFile(mID);
-        BlueCoinUtil::startCounterCountUp();
+
+        if (!BlueCoinUtil::hasSeenBlueCoinTextBoxCurrentFile())
+            ((CounterLayoutControllerExt*)MR::getGameSceneLayoutHolder()->mCounterLayoutController)->mBlueCoinCounter->setNerve(&NrvBlueCoinCounter::NrvShowTextBox::sInstance);
     }
     
     if (!MR::isGalaxyDarkCometAppearInCurrentStage())
