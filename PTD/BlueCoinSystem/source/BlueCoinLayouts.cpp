@@ -4,6 +4,12 @@
 #include "Game/Screen/GameSceneLayoutHolder.h"
 #include "Game/Screen/PauseMenuExt.h"
 
+#if defined TWN || defined KOR
+#define REGIONOFF 0x10
+#else
+#define REGIONOFF 0
+#endif
+
 BlueCoinCounter::BlueCoinCounter(const char* pName) : LayoutActor(pName, 0) {
     mSysInfoWindow = 0;
     mBlueCoinDisplayNum = 0;
@@ -21,7 +27,11 @@ void BlueCoinCounter::init(const JMapInfoIter& rIter) {
     MR::setTextBoxNumberRecursive(this, "Counter", blueCoinNum);
     mBlueCoinDisplayNum = blueCoinNum;
 
-    mAppearer = new CounterLayoutAppearer(this, TVec2f(-50.0f, 0.0f));
+    #ifdef SMSS
+        mAppearer = new CounterLayoutAppearer(this, TVec2f(0.0f, 0.0f));
+    #else
+        mAppearer = new CounterLayoutAppearer(this, TVec2f(-50.0f, 0.0f));
+    #endif
 
     mPaneRumbler = new CountUpPaneRumbler(this, "Counter");
     mPaneRumbler->mRumbleCalculator->mRumbleStrength = 8.0f;
@@ -174,7 +184,7 @@ bool fixBlueCoinWindowCrash() {
     return MR::isPlayerDead();
 }
 
-kmCall(0x80451C40, fixBlueCoinWindowCrash);
+//kmCall(0x80451C40, fixBlueCoinWindowCrash);
 
 CounterLayoutControllerExt::CounterLayoutControllerExt() : CounterLayoutController() {
     mBlueCoinCounter = 0;
@@ -301,7 +311,8 @@ void initPauseMenuBlueCoin(PauseMenuExt* pPauseMenu) {
     MR::setTextBoxFormatRecursive(pPauseMenu, "ShaBlueCoinStage", counterPictureFonts);
 }
 
-kmCall(0x80486D60, initPauseMenuBlueCoin);
+kmCall(0x80486D60+REGIONOFF, initPauseMenuBlueCoin);
+
 
 void setPauseMenuBlueCoinStageCount(PauseMenu* pPauseMenu) {
     s32 rangeCollected = BlueCoinUtil::getBlueCoinRangeData(0, true);
@@ -403,7 +414,7 @@ s32 setUpBlueCoinInfo(PauseMenu* pPauseMenu) {
     return MR::getCoinNum();
 }
 
-kmCall(0x80487090, setUpBlueCoinInfo);
+kmCall(0x80487090+REGIONOFF, setUpBlueCoinInfo);
 
 wchar_t gStarIconIDList[2];
 
@@ -458,8 +469,8 @@ bool PauseMenuIsNewButtonPointingTrigger(PauseMenuExt* pPauseMenu) {
     return (pPauseMenu->mButtonTop && pPauseMenu->mButtonTop->isPointingTrigger());
 }
 
-kmWrite32(0x80487714, 0x7F63DB78); // mr r3, r27 (PauseMenuExt* into r3)
-kmCall(0x80487720, PauseMenuIsNewButtonPointingTrigger);
+kmWrite32(0x80487714+REGIONOFF, 0x7F63DB78); // mr r3, r27 (PauseMenuExt* into r3)
+kmCall(0x80487720+REGIONOFF, PauseMenuIsNewButtonPointingTrigger);
 
 void PauseMenuMoveButtonForBlueCoin(PauseMenuExt* pPauseMenu, const char* pStr1, const char* pStr2, f32 frame, u32 u) {
     if (pPauseMenu->mDisplayMode != 2) {
@@ -468,7 +479,7 @@ void PauseMenuMoveButtonForBlueCoin(PauseMenuExt* pPauseMenu, const char* pStr1,
     MR::startPaneAnimAndSetFrameAndStop(pPauseMenu, pStr1, pStr2, frame, u);
 }
 
-kmCall(0x804874D4, PauseMenuMoveButtonForBlueCoin);
+kmCall(0x804874D4+REGIONOFF, PauseMenuMoveButtonForBlueCoin);
 #endif
 
 void initBlueCoinCounterFileInfo(LayoutActor* pLayout) {
@@ -491,8 +502,11 @@ void initGalaxyInfoBlueCoinCount(LayoutActor* actor) {
     MR::setTextBoxFormatRecursive(actor, "ShaBlueCoinGalax", counterPictureFonts2);
 }
 
+#if defined TWN || defined KOR
 kmCall(0x804A952C, initGalaxyInfoBlueCoinCount);
-
+#else
+kmCall(0x804A952C, initGalaxyInfoBlueCoinCount);
+#endif
 
 void setGalaxyInfoBlueCoinCount(LayoutActor* actor, const char* pGalaxyName, const wchar_t* pWStr) {
     MR::setTextBoxMessageRecursive(actor, "StarIcon", pWStr);

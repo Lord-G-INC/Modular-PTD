@@ -15,6 +15,12 @@ PauseMenuExt::PauseMenuExt() : PauseMenu() {
     mIsUsedNewButton = false;
 }
 
+#if defined TWN || defined KOR
+#define REGIONOFF 0x10
+#else
+#define REGIONOFF 0
+#endif
+
 //SMSS #define STAGE_CHECK MR::isStageMarioFaceShipOrWorldMap() || (MR::isEqualStageName("YosshiHomeGalaxy") && MR::getCurrentScenarioNo() == 1) || MR::isEqualStageName("PrisonGalaxy")
 
 #ifdef SMSS
@@ -62,7 +68,7 @@ void PauseMenuInitNewButton(PauseMenuExt* pPauseMenu, const Nerve* pNerve) {
     pPauseMenu->initNerve(pNerve);
 }
 
-kmCall(0x8048702C, PauseMenuInitNewButton);
+kmCall(0x8048702C+REGIONOFF, PauseMenuInitNewButton);
 
 void ButtonControl(TVec2f* pPos, PauseMenuExt* pPauseMenu, const char* pStr) {
     MR::copyPaneTrans(&pPauseMenu->mButtonTopFollowPos, pPauseMenu, pStr);
@@ -73,7 +79,7 @@ void ButtonControl(TVec2f* pPos, PauseMenuExt* pPauseMenu, const char* pStr) {
     }
 }
 
-kmCall(0x8048727C, ButtonControl);
+kmCall(0x8048727C+REGIONOFF, ButtonControl);
 
 void PauseMenuSetButtonPosition(PauseMenuExt* pPauseMenu, const char* pStr1, const char* pStr2, f32 frame, u32 u) {
     #ifdef BLUECOINSYSTEM
@@ -93,8 +99,8 @@ void ForceToWaitNewButton(PauseMenuExt* pPauseMenu) {
         pPauseMenu->mButtonNew->forceToWait();
 }
 
-kmWrite32(0x80487504, 0x60000000); // nop (Skip overwriting r3)
-kmCall(0x80487508, ForceToWaitNewButton);
+kmWrite32(0x80487504+REGIONOFF, 0x60000000); // nop (Skip overwriting r3)
+kmCall(0x80487508+REGIONOFF, ForceToWaitNewButton);
 
 void PauseMenuAppearNewButton(PauseMenuExt* pPauseMenu) {
     pPauseMenu->mButtonTop->appear();
@@ -103,8 +109,8 @@ void PauseMenuAppearNewButton(PauseMenuExt* pPauseMenu) {
         pPauseMenu->mButtonNew->appear();
 }
 
-kmWrite32(0x80487560, 0x7FE3FB78); // mr r3, r31 (PauseMenuExt* into r3)
-kmCall(0x80487564, PauseMenuAppearNewButton);
+kmWrite32(0x80487560+REGIONOFF, 0x7FE3FB78); // mr r3, r31 (PauseMenuExt* into r3)
+kmCall(0x80487564+REGIONOFF, PauseMenuAppearNewButton);
 
 bool IsNewButtonPressed(PauseMenuExt* pPauseMenu) {
     bool isPressed = false;
@@ -122,8 +128,8 @@ bool IsNewButtonPressed(PauseMenuExt* pPauseMenu) {
     return isPressed;
 }
 
-kmWrite32(0x804877B4, 0x7F63DB78); // mr r3, r27 (PauseMenuExt* into r3)
-kmCall(0x804877C0, IsNewButtonPressed);
+kmWrite32(0x804877B4+REGIONOFF, 0x7F63DB78); // mr r3, r27 (PauseMenuExt* into r3)
+kmCall(0x804877C0+REGIONOFF, IsNewButtonPressed);
 
 void PauseMenuSetInfoWindowStr(PauseMenuExt* pPauseMenu, const char* pStr) {
     pPauseMenu->mSysInfoWindow->appear(pStr, SysInfoWindow::SysInfoType_2, SysInfoWindow::SysInfoTextPos_0, SysInfoWindow::SysInfoMessageType_1);
@@ -132,8 +138,8 @@ void PauseMenuSetInfoWindowStr(PauseMenuExt* pPauseMenu, const char* pStr) {
         MR::setTextBoxFormatRecursive(pPauseMenu->mSysInfoWindow, "TxtConfirm", L"Restart current stage?");
 }
 
-kmWrite32(0x80487C4C, 0x7FE3FB78); // mr r3, r31 (PauseMenuExt* into r4)
-kmCall(0x80487C5C, PauseMenuSetInfoWindowStr);
+kmWrite32(0x80487C4C+REGIONOFF, 0x7FE3FB78); // mr r3, r31 (PauseMenuExt* into r4)
+kmCall(0x80487C5C+REGIONOFF, PauseMenuSetInfoWindowStr);
 
 void DisappearNewButton(PauseMenuExt* pPauseMenu) {
     pPauseMenu->mButtonTop->disappear();
@@ -142,35 +148,35 @@ void DisappearNewButton(PauseMenuExt* pPauseMenu) {
         pPauseMenu->mButtonNew->disappear();
 }
 
-kmWrite32(0x80487B10, 0x7FC3F378); // mr r3, r30 (PauseMenuExt* into r3)
-kmCall(0x80487B14, DisappearNewButton);
+kmWrite32(0x80487B10+REGIONOFF, 0x7FC3F378); // mr r3, r30 (PauseMenuExt* into r3)
+kmCall(0x80487B14+REGIONOFF, DisappearNewButton);
 
 bool IsNewButtonTimingForSelectedSE(PauseMenuExt* pPauseMenu) {
     return (pPauseMenu->mButtonBottom && pPauseMenu->mButtonBottom->isTimingForSelectedSe()) || (pPauseMenu->mButtonNew && pPauseMenu->mButtonNew->isTimingForSelectedSe());
 }
 
-kmWrite32(0x804879C8, 0x7FC3F378); // mr r3, r30
-kmCall(0x804879CC, IsNewButtonTimingForSelectedSE);
+kmWrite32(0x804879C8+REGIONOFF, 0x7FC3F378); // mr r3, r30
+kmCall(0x804879CC+REGIONOFF, IsNewButtonTimingForSelectedSE);
 
 bool PauseMenuValidateButton(PauseMenuExt* pPauseMenu) {
     return (pPauseMenu->mButtonBottom && pPauseMenu->mButtonBottom->_24) || (pPauseMenu->mButtonNew && pPauseMenu->mButtonNew->_24);
 }
 
-kmWrite32(0x804879B0, 0x7FC3F378); // mr r3, r30
-kmCall(0x804879B4, PauseMenuValidateButton);
-kmWrite32(0x804879B8, 0x2C030000); // cmpwi r3, 0
-kmWrite32(0x804879BC, 0x41820080); // beq 0x80
-kmWrite32(0x804879C0, 0x48000008); // b 0x8
+kmWrite32(0x804879B0+REGIONOFF, 0x7FC3F378); // mr r3, r30
+kmCall(0x804879B4+REGIONOFF, PauseMenuValidateButton);
+kmWrite32(0x804879B8+REGIONOFF, 0x2C030000); // cmpwi r3, 0
+kmWrite32(0x804879BC+REGIONOFF, 0x41820080); // beq 0x80
+kmWrite32(0x804879C0+REGIONOFF, 0x48000008); // b 0x8
 
 
 bool IsNewButtonDecidedWait(PauseMenuExt* pPauseMenu) {
     return (pPauseMenu->mButtonBottom && pPauseMenu->mButtonBottom->isDecidedWait()) || (pPauseMenu->mButtonNew && pPauseMenu->mButtonNew->isDecidedWait());
 }
 
-kmWrite32(0x80487A00, 0x7FC3F378); // mr r3, r30 (PauseMenuExt* into r3)
-kmCall(0x80487A04, IsNewButtonDecidedWait);
+kmWrite32(0x80487A00+REGIONOFF, 0x7FC3F378); // mr r3, r30 (PauseMenuExt* into r3)
+kmCall(0x80487A04+REGIONOFF, IsNewButtonDecidedWait);
 
-kmWrite32(0x80487A3C, 0x807E0034); // lwz r3, 0x34(r30)
+kmWrite32(0x80487A3C+REGIONOFF, 0x807E0034); // lwz r3, 0x34(r30)
 
 void DoNewButtonAction(PauseMenuExt* pPauseMenu, bool isValid) {
     if (!pPauseMenu->mIsUsedNewButton)
@@ -181,45 +187,45 @@ void DoNewButtonAction(PauseMenuExt* pPauseMenu, bool isValid) {
     }
 }
 
-kmWrite32(0x80487CA4, 0x7C641B78); // mr r4, r3 (isValid into r4)
-kmWrite32(0x80487CA8, 0x7FE3FB78); // mr r3, r31 (PauseMenuExt* into r3)
-kmCall(0x80487CAC, DoNewButtonAction);
-kmWrite32(0x80487CB0, 0x48000008); // b 0x8 (Skip useless instructions)
+kmWrite32(0x80487CA4+REGIONOFF, 0x7C641B78); // mr r4, r3 (isValid into r4)
+kmWrite32(0x80487CA8+REGIONOFF, 0x7FE3FB78); // mr r3, r31 (PauseMenuExt* into r3)
+kmCall(0x80487CAC+REGIONOFF, DoNewButtonAction);
+kmWrite32(0x80487CB0+REGIONOFF, 0x48000008); // b 0x8 (Skip useless instructions)
 
-    #if defined (USA) || defined (PAL) || defined (JPN)
-    void addStarPointerMovePositionNewButton(PauseMenuExt* pPauseMenu, const char* pStr, TVec2f* pOffsetVec) {
-        StarPointerUtil::addStarPointerMovePositionFromPane(pPauseMenu, pStr, pOffsetVec);
+void addStarPointerMovePositionNewButton(PauseMenuExt* pPauseMenu, const char* pStr, TVec2f* pOffsetVec) {
+    StarPointerUtil::addStarPointerMovePositionFromPane(pPauseMenu, pStr, pOffsetVec);
+    
+    if (pPauseMenu->mButtonNew)
+        StarPointerUtil::addStarPointerMovePositionFromPane(pPauseMenu, "BoxButton4", pOffsetVec);
+}
 
-        if (pPauseMenu->mButtonNew)
-            StarPointerUtil::addStarPointerMovePositionFromPane(pPauseMenu, "BoxButton4", pOffsetVec);
+kmCall(0x804875F0, addStarPointerMovePositionNewButton);
+
+void setupNewConnection1to2(PauseMenuExt* pPauseMenu) {
+    if (pPauseMenu->mButtonNew)
+        StarPointerUtil::setConnectionMovePositionDown2Way("BoxButton4", "BoxButton2");
+
+    StarPointerUtil::setConnectionMovePositionDown2Way("BoxButton1", "BoxButton2");
+}
+
+kmWrite32(0x80487640+REGIONOFF, 0x60000000); // nop
+kmWrite32(0x80487644+REGIONOFF, 0x7FC3F378); // mr r3, r30
+
+kmCall(0x80487648, setupNewConnection1to2);
+void setupButtonConnection(PauseMenuExt* pPauseMenu) {
+    StarPointerUtil::setDefaultAllMovePosition("BoxButton1");
+
+    if (pPauseMenu->mButtonTop && pPauseMenu->mButtonNew) {
+        StarPointerUtil::setConnectionMovePositionRight2Way("BoxButton1", "BoxButton4");
     }
+}
 
-    kmCall(0x804875F0, addStarPointerMovePositionNewButton);
-
-    void setupNewConnection1to2(PauseMenuExt* pPauseMenu) {
-        if (pPauseMenu->mButtonNew)
-            StarPointerUtil::setConnectionMovePositionDown2Way("BoxButton4", "BoxButton2");
-
-        StarPointerUtil::setConnectionMovePositionDown2Way("BoxButton1", "BoxButton2");
-    }
-
-    kmWrite32(0x80487640, 0x60000000); // nop
-    kmWrite32(0x80487644, 0x7FC3F378); // mr r3, r30
-    kmCall(0x80487648, setupNewConnection1to2);
-
-    void setupButtonConnection(PauseMenuExt* pPauseMenu) {
-        StarPointerUtil::setDefaultAllMovePosition("BoxButton1");
-
-        if (pPauseMenu->mButtonTop && pPauseMenu->mButtonNew) {
-            StarPointerUtil::setConnectionMovePositionRight2Way("BoxButton1", "BoxButton4");
-        }
-    }
-
-    kmWrite32(0x804876C0, 0x7FC3F378); // mr r3, r30
-    kmCall(0x804876C4, setupButtonConnection);
+#ifdef BLUECOINSYSTEM
+extern void PauseMenuIDListControls(PauseMenuExt* pPauseMenu);
 #endif
 
-extern void PauseMenuIDListControls(PauseMenuExt* pPauseMenu);
+kmWrite32(0x804876C0+REGIONOFF, 0x7FC3F378); // mr r3, r30
+kmCall(0x804876C4+REGIONOFF, setupButtonConnection);
 
 bool PauseMenuIsNewButtonPointingTrigger(PauseMenuExt* pPauseMenu) {
     #ifdef BLUECOINSYSTEM
@@ -229,8 +235,8 @@ bool PauseMenuIsNewButtonPointingTrigger(PauseMenuExt* pPauseMenu) {
     return (pPauseMenu->mButtonTop && pPauseMenu->mButtonTop->isPointingTrigger()) || (pPauseMenu->mButtonNew && pPauseMenu->mButtonNew->isPointingTrigger());
 }
 
-kmWrite32(0x80487714, 0x7F63DB78); // mr r3, r27 (PauseMenuExt* into r3)
-kmCall(0x80487720, PauseMenuIsNewButtonPointingTrigger);
+kmWrite32(0x80487714+REGIONOFF, 0x7F63DB78); // mr r3, r27 (PauseMenuExt* into r3)
+kmCall(0x80487720+REGIONOFF, PauseMenuIsNewButtonPointingTrigger);
 
 #ifdef WIP
 s32 gRestartTimer = 0;

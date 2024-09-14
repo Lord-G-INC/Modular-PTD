@@ -1,4 +1,3 @@
-#if defined USA || defined PAL || defined JPN 
 #include "Game/MapObj/CollapsePlaneExt.h"
 
 CollapsePlaneExt::CollapsePlaneExt(const char* pName) : CollapsePlane(pName) {};
@@ -48,4 +47,3 @@ namespace NewNrvCollapsePlane {
 
 	NrvReturn(NrvReturn::sInstance);
 }
-#endif

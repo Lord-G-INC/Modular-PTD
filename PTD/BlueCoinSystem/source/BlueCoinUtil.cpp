@@ -384,7 +384,11 @@ void saveBlueCoinDataOnGameSave(const char* pName) {
     BlueCoinUtil::saveBlueCoinData();
 }
 
-kmCall(0x804DAFD0, saveBlueCoinDataOnGameSave);
+#if defined TWN || defined KOR
+    kmCall(0x804DB060, saveBlueCoinDataOnGameSave);
+#else
+    kmCall(0x804DAFD0, saveBlueCoinDataOnGameSave);
+#endif
 
 // Read blue coin binary on title screen load.
 void onTitleScreenLoad(FileSelector* pFileSelector) {
