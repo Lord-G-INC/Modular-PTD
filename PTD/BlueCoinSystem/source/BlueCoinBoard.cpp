@@ -111,6 +111,7 @@ BlueCoinBoard::BlueCoinBoard(const char* pName) : LayoutActor(pName, 0) {
 
 void BlueCoinBoard::init(const JMapInfoIter& rIter) {
     initLayoutManager("BlueCoinBoard", 2);
+    initEffectKeeper(0, NULL, NULL);
     MR::registerDemoSimpleCastAll(this);
     initNerve(&NrvBlueCoinBoard::NrvHide::sInstance);
     MR::connectToScene(this, 0xE, 0xD, -1, 0x48);
@@ -362,6 +363,10 @@ void BlueCoinBoard::exeCountDownBlueCoin() {
     s32 priceFromTable = 0;
     MR::getCsvDataS32(&priceFromTable, mTable, "BlueCoinPrice", mSelectedButton);
 
+    if (MR::testCorePadTriggerA(0)) {
+        mBlueCoinNumToDisplay = (BlueCoinUtil::getTotalBlueCoinNumCurrentFile(true)-priceFromTable);
+    }
+
     if (mBlueCoinNumToDisplay > (BlueCoinUtil::getTotalBlueCoinNumCurrentFile(true)-priceFromTable)) {
         if (getNerveStep() % 2 == 0)
             MR::startSystemSE("SE_SY_PURPLE_COIN", -1, -1);
@@ -370,6 +375,7 @@ void BlueCoinBoard::exeCountDownBlueCoin() {
     }
     else {
         MR::startPaneAnim(this, "CounterBlueCoin", "Flash", 0);
+        MR::emitEffect(this, "BlueCoinBoardCounterLight");
         mBlueCoinPaneRumbler->start();
         mHasSpentBlueCoins = true;
         BlueCoinUtil::spendBlueCoinCurrentFile(priceFromTable);
@@ -377,7 +383,7 @@ void BlueCoinBoard::exeCountDownBlueCoin() {
         setNerve(&NrvBlueCoinBoard::NrvChangeButtonText::sInstance);
     }
 
-    if (mBlueCoinNumToDisplay == 99)
+    if (mBlueCoinNumToDisplay < 100)
         MR::copyPaneTrans(&mBlueCoinCounterFollowPos, this, "BlueCoinPos10");
 
     MR::setTextBoxNumberRecursive(this, "CounterBlueCoin", mBlueCoinNumToDisplay);  
