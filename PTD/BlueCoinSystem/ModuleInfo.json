@@ -5,7 +5,7 @@
   "CompilerFlags" : [
     "-DBLUECOINSYSTEM"
   ],
-  "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init", "CustomCoinSpawns"],
+  "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init", "CustomCoinSpawns", "PTUtils"],
   "ModuleData" : [
     {
       "NameObjFactory": [
