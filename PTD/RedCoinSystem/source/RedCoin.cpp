@@ -104,8 +104,6 @@ void RedCoin::collect() {
     }
 
     MR::incPlayerOxygen(mIsInBubble ? 2 : 1);
-    MR::invalidateHitSensors(this);
-    MR::invalidateShadowAll(this);
     MR::emitEffect(this, "RedCoinGet");
-    MR::hideModel(this);
+    kill();
 }

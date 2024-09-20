@@ -141,9 +141,7 @@ void RedCoinController::appearFromSwitch() {
 
     for (s32 i = 0; i < group->mNumObjs; i++) {
         if (MR::isEqualString(group->getActor(i)->mName, "RedCoin")) {
-            MR::showModel(group->getActor(i));
-            MR::validateShadowAll(group->getActor(i));
-            MR::validateHitSensors(group->getActor(i));
+            group->getActor(i)->appear();
         }
     }
 }
@@ -154,9 +152,7 @@ void RedCoinController::resetAllRedCoins() {
     for (s32 i = 0; i < group->mNumObjs; i++) {
         if (MR::isEqualString(group->getActor(i)->mName, "RedCoin")) {
             RedCoin* coin = ((RedCoin*)group->getActor(i));
-            MR::hideModel(coin);
-            MR::invalidateShadowAll(coin);
-            MR::invalidateHitSensors(coin);
+            coin->appear();
 
             coin->mIsCollected = false;
 

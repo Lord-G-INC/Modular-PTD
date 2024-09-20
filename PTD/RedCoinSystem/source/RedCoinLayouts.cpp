@@ -173,27 +173,29 @@ void RedCoinCounterPlayer::exeAppear() {
 }
  
 void RedCoinCounterPlayer::calcScreenPos() {
+    TVec3f gravity;
     TVec3f pos;
-    TVec3f pos2;
     f32 heightAdd;
 
     if (((RedCoin*)mLastRedCoin)->mRedCoinCounterPlayerPos) {
-        pos = *MarioAccess::getPlayerActor()->getGravityVec();
-        pos2 = *MR::getPlayerPos();
+        gravity = *MarioAccess::getPlayerActor()->getGravityVec();
+        pos = *MR::getPlayerPos();
         heightAdd = 200.0f;
     }
     else {
-        pos = mLastRedCoin->mGravity;
-        pos2 = mLastRedCoin->mTranslation;
+        gravity = mLastRedCoin->mGravity;
+        pos = mLastRedCoin->mTranslation;
         heightAdd = 150.0f;
     }
 
     TVec2f screenPos;
     TVec3f newPos;
 
-    JMAVECScaleAdd((Vec*)&pos, (Vec*)&pos2, (Vec*)&newPos, -heightAdd);
-    
+    JMAVECScaleAdd((Vec*)&gravity, (Vec*)&pos, (Vec*)&newPos, -heightAdd);
     MR::calcScreenPosition(&screenPos, newPos);
+    MR::clamp(screenPos.x, 0, (f32)MR::getScreenWidth());
+    MR::clamp(screenPos.y, 0, (f32)MR::getScreenHeight());
+
     setTrans(screenPos);
 }
 

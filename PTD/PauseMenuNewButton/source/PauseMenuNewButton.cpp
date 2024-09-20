@@ -48,7 +48,14 @@ void PauseMenuInitNewButton(PauseMenuExt* pPauseMenu, const Nerve* pNerve) {
 
     MR::createAndAddPaneCtrl(pPauseMenu, "NewButton", 1);
 
-    if (!(STAGE_CHECK)) {
+    bool isNewCometInStage = false;
+
+    #ifdef PMNBCOMETRESTRICTION
+        GalaxyStatusAccessor gsa = MR::makeGalaxyStatusAccessor(MR::getCurrentStageName());
+        isNewCometInStage = gsa.isValidComet(MR::getCurrentScenarioNo()) && !gsa.hasPowerStar(MR::getCurrentScenarioNo());
+    #endif
+
+    if (!(STAGE_CHECK) || !isNewCometInStage) {
         pPauseMenu->mButtonNew = new ButtonPaneController(pPauseMenu, "NBackNew", "BoxButton4", 0, 1);
         pPauseMenu->mButtonNew->mFadeAfterSelect = false;
     
