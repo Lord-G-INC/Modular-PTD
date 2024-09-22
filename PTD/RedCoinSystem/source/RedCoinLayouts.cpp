@@ -5,6 +5,8 @@ RedCoinCounter::RedCoinCounter(const char* pName) : LayoutActor(pName, false) {
     mPaneRumbler = 0;
     mRedCoinCount = 0;
     mLayoutMode = -1;
+    mFollowPos = TVec2f (0.0f, 0.0f);
+    mUseFollowPos = false;
 }
 
 void RedCoinCounter::init(const JMapInfoIter& rIter) {
@@ -21,10 +23,23 @@ void RedCoinCounter::init(const JMapInfoIter& rIter) {
     mPaneRumbler->reset();
 
     initNerve(&NrvRedCoinCounter::NrvHide::sInstance);
+
+    #ifdef SMSS
+    MR::createAndAddPaneCtrl(this, "CoinCounter", 1);
+    MR::setFollowTypeReplace(this, "CoinCounter");
+    MR::setFollowPos(&mFollowPos, this, "CoinCounter");
+    #endif
 }
 
 void RedCoinCounter::control() {
     mPaneRumbler->update();
+
+    #ifdef SMSS
+    if (mUseFollowPos)
+        MR::copyPaneTrans(&mFollowPos, this, "PositionTimer");
+    else 
+        MR::copyPaneTrans(&mFollowPos, this, "PositionNoTimer");
+    #endif
 }
 
 void RedCoinCounter::appear() {

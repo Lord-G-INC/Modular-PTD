@@ -49,6 +49,12 @@ void RedCoinController::init(const JMapInfoIter& rIter) {
 
 void RedCoinController::initAfterPlacement() {
     mRedCoinSwitch = (RedCoinSwitch*)RedCoinUtil::getSpecificActorFromGroup(this, "RedCoinSwitch");
+    
+    #ifdef SMSS
+    if (mRedCoinSwitch)
+        mRedCoinCounter->mUseFollowPos = true;
+    #endif
+
     LiveActorGroup* group = MR::getGroupFromArray(this);
 
     for (s32 i = 0; i < group->mNumObjs; i++) {

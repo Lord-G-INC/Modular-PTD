@@ -18,8 +18,10 @@ public:
     void exeComplete();
 
     CountUpPaneRumbler* mPaneRumbler;
+    TVec2f mFollowPos;
     s32 mRedCoinCount;
     s32 mLayoutMode;
+    bool mUseFollowPos;
 };
 
 namespace NrvRedCoinCounter {
