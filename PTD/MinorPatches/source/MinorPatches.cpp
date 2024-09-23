@@ -53,7 +53,7 @@ namespace pt {
 	* (FlagName(4)).bti would be selected in (FlagName).arc
 	*/
 
-	ResTIMG* CustomFlagTextures(LiveActor* pActor, const char* pStr, const JMapInfoIter& rIter) {
+	JUTTexture* CustomFlagTextures(LiveActor* pActor, const char* pStr, const JMapInfoIter& rIter) {
 		s32 flagTex = 0;
 		char outArcStr[24];
 		char outTexStr[24];
