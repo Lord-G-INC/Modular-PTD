@@ -71,6 +71,10 @@ void TimerLayout::control() {
 	MR::startPaneAnimAndSetFrameAndStop(this, "WinClearTime", "Color", 4.0f, 0);
 }
 
+TimerLayout::~TimerLayout() {
+	
+}
+
 namespace NrvTimerLayout {
 	void NrvWait::execute(Spine* pSpine) const {
 		TimerLayout* pActor = (TimerLayout*)pSpine->mExecutor;
