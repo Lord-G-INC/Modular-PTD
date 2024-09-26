@@ -97,7 +97,7 @@ void PauseMenuSetButtonPosition(PauseMenuExt* pPauseMenu, const char* pStr1, con
     MR::startPaneAnimAndSetFrameAndStop(pPauseMenu, pStr1, pPauseMenu->mButtonNew ? "ButtonPosition_restartbutton" : pStr2, frame, u);
 }
 
-kmCall(0x804874D4, PauseMenuSetButtonPosition);
+kmCall(0x804874D4+REGIONOFF, PauseMenuSetButtonPosition);
 
 void ForceToWaitNewButton(PauseMenuExt* pPauseMenu) {
     pPauseMenu->mButtonTop->forceToWait();
@@ -206,7 +206,7 @@ void addStarPointerMovePositionNewButton(PauseMenuExt* pPauseMenu, const char* p
         StarPointerUtil::addStarPointerMovePositionFromPane(pPauseMenu, "BoxButton4", pOffsetVec);
 }
 
-kmCall(0x804875F0, addStarPointerMovePositionNewButton);
+kmCall(0x804875F0+REGIONOFF, addStarPointerMovePositionNewButton);
 
 void setupNewConnection1to2(PauseMenuExt* pPauseMenu) {
     if (pPauseMenu->mButtonNew)
@@ -218,7 +218,8 @@ void setupNewConnection1to2(PauseMenuExt* pPauseMenu) {
 kmWrite32(0x80487640+REGIONOFF, 0x60000000); // nop
 kmWrite32(0x80487644+REGIONOFF, 0x7FC3F378); // mr r3, r30
 
-kmCall(0x80487648, setupNewConnection1to2);
+kmCall(0x80487648+REGIONOFF, setupNewConnection1to2);
+
 void setupButtonConnection(PauseMenuExt* pPauseMenu) {
     StarPointerUtil::setDefaultAllMovePosition("BoxButton1");
 

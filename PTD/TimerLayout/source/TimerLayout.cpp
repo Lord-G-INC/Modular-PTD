@@ -40,7 +40,6 @@ void TimerLayout::init(const JMapInfoIter &rIter) {
 }
 
 void TimerLayout::control() {
-	OSReport("%s\n", MR::getPlayerCurrentBckName());
 	if (isValidPlayerState()) {
 		u32 currTime = GameSequenceFunction::getResultBestTime();
 		u32 savedTime = GameDataFunction::getStageSavedBestTime(MR::getCurrentStageName(), MR::getCurrentSelectedScenarioNo());
@@ -69,11 +68,7 @@ void TimerLayout::control() {
 		MR::startPaneAnimAndSetFrameAndStop(this, "WinClearTime", "Color", frame, 0);
 	}
 	else
-		MR::startPaneAnimAndSetFrameAndStop(this, "WinClearTime", "Color", 4.0f, 0);
-}
-
-TimerLayout::~TimerLayout() {
-
+	MR::startPaneAnimAndSetFrameAndStop(this, "WinClearTime", "Color", 4.0f, 0);
 }
 
 namespace NrvTimerLayout {
