@@ -25,10 +25,10 @@ void BlueCoin::init(const JMapInfoIter& rIter) {
         MR::processInitFunction(this, rIter, BlueCoinUtil::isBlueCoinGotCurrentFile(mID) ? "BlueCoinClear" : "BlueCoin", false);
     }
     else {
-        initHitSensor(1);
-        MR::addHitSensor(this, "BlueCoin", 0x4A, 2, 55.0f, TVec3f(0.0f, 70.0f, 0.0f));
         MR::processInitFunction(this, BlueCoinUtil::isBlueCoinGotCurrentFile(mID) ? "BlueCoinClear" : "BlueCoin", false);
     }
+
+    MR::initSensors(this, "BlueCoin", 0);
 
     mFlashingCtrl = new FlashingCtrl(this, 1);
     

@@ -1,0 +1,17 @@
+{
+  "Name": "PTD Timer Layout",
+  "Author": "Evanbowl",
+  "Description": "Adds a layout that shows the current stage Clear Time",
+  "ModuleData": [
+    {
+      "GlobalLayout": [
+        {
+          "Name": "TimerLayout",
+          "DiscPath": "/LayoutData/TimerLayout.arc",
+          "Function": "createExtLayout<TimerLayout>",
+          "Include": "TimerLayout.h"
+        }
+      ]
+    }
+  ]
+}

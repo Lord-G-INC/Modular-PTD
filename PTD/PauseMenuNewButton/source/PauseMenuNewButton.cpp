@@ -55,7 +55,7 @@ void PauseMenuInitNewButton(PauseMenuExt* pPauseMenu, const Nerve* pNerve) {
         isNewCometInStage = gsa.isValidComet(MR::getCurrentScenarioNo()) && !gsa.hasPowerStar(MR::getCurrentScenarioNo());
     #endif
 
-    if (!(STAGE_CHECK) || !isNewCometInStage) {
+    if (!(STAGE_CHECK) && !isNewCometInStage) {
         pPauseMenu->mButtonNew = new ButtonPaneController(pPauseMenu, "NBackNew", "BoxButton4", 0, 1);
         pPauseMenu->mButtonNew->mFadeAfterSelect = false;
     
