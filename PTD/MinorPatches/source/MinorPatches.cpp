@@ -100,7 +100,11 @@ namespace pt {
 			OSPanic("FileRipper.cpp", 118, "File \"%s\" isn't exist.", fileName);
 	}
 
-	kmCall(0x804B1FE0, printFileNameIfMissing);
+	#if defined TWN || defined KOR
+		kmCall(0x804B2050, printFileNameIfMissing);
+	#else
+		kmCall(0x804B1FE0, printFileNameIfMissing);
+	#endif
 
 	const char* YesNoDialogueExtensions(const TalkMessageCtrl* msg) {
 		u16 selectTxt = ((u16*)msg->mTalkNodeCtrl->getNextNodeBranch())[4];

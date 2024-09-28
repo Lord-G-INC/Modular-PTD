@@ -464,7 +464,6 @@ void BlueCoinBoard::checkBoardProgress() {
 
 // This is what happens when I am not given any symbol names
 void BlueCoinBoard::connectButtonsToDPad() {
-    #if defined (USA) || defined (PAL) || defined (JPN)
     if (StarPointerUtil::sub_8005E720(this, 1)) {
         //192.3 424.0 TARGET
         //406.0, 228.0 CENTER POINT
@@ -485,7 +484,6 @@ void BlueCoinBoard::connectButtonsToDPad() {
             StarPointerUtil::setConnectionMovePositionRight2Way(mBoxButtonName[i*2], mBoxButtonName[(i*2)+1]);
         }
     }
-    #endif
     
     StarPointerUtil::setConnectionMovePositionRight2Way("Counter", mBoxButtonName[6]);
 
