@@ -32,7 +32,7 @@ namespace pt {
         mr        r31, r4
         stw       r30, 8(r1)
         mr        r30, r3
-        bl        getSubBgm__7AudWrapFv
+        bl        AudWrap::getSubBgm
         cmpwi     r3, 0
         beq       End
         lwz       r12, 0(r3)
