@@ -4,6 +4,10 @@
 * Authors: Lord-Giganticus, Bavario
 */
 
+extern "C" {
+    void *getSubBgm__7AudWrapFv();
+}
+
 namespace pt {
     template<typename R>
     R* accessMember(void* ptr, size_t offset) {
@@ -32,7 +36,7 @@ namespace pt {
         mr        r31, r4
         stw       r30, 8(r1)
         mr        r30, r3
-        bl        AudWrap::getSubBgm
+        bl        getSubBgm__7AudWrapFv
         cmpwi     r3, 0
         beq       End
         lwz       r12, 0(r3)
