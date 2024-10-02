@@ -3,6 +3,8 @@
 #include "syati.h"
 #include "Game/Screen/TimeLimitLayout.h"
 
+class TimeAttackClockExt;
+
 class CometTimerObj : public LiveActor {
 public:
     CometTimerObj(const char* pName);
@@ -13,7 +15,8 @@ public:
     void exeTimeUp();
 
     TimeLimitLayout* mLayout;
-    s32 mTime;
+    TimeAttackClockExt** mLinkedClocks;
+    u32 mTime;
     bool mNoKill;
     bool mNoKillAllowRepeat;
     bool mSwitchMode;

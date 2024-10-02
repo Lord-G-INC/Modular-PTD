@@ -1,5 +1,5 @@
 #include "CometTimerObj.h"
-
+#include "Game/MapObj/TimeAttackClockExt.h"
 /*
 * Comet Timer Creator
 *
@@ -11,12 +11,13 @@ CometTimerObj::CometTimerObj(const char* pName) : LiveActor(pName) {
     mNoKill = false;
     mNoKillAllowRepeat = false;
     mSwitchMode = false;
+    mLinkedClocks = 0;
 }
 
 void CometTimerObj::init(const JMapInfoIter& rIter) {
     MR::connectToSceneMapObjMovement(this);
     MR::initDefaultPos(this, rIter);
-    MR::getJMapInfoArg0NoInit(rIter, &mTime);
+    MR::getJMapInfoArg0NoInit(rIter, (s32*)&mTime);
     MR::getJMapInfoArg1NoInit(rIter, &mNoKill);
     MR::getJMapInfoArg2NoInit(rIter, &mNoKillAllowRepeat);
     MR::getJMapInfoArg3NoInit(rIter, &mSwitchMode);
@@ -29,6 +30,18 @@ void CometTimerObj::init(const JMapInfoIter& rIter) {
     mLayout->setDisplayModeOnNormal(true);
     mLayout->initWithoutIter();
     MR::connectToSceneLayout(mLayout);
+
+    s32 childnum = MR::getChildObjNum(rIter);
+
+    if (childnum > 0) {
+        mLinkedClocks = new TimeAttackClockExt*[childnum];
+
+        for (s32 i = 0; i < childnum; i++) {
+            mLinkedClocks[i] = new TimeAttackClockExt("TimeAttackClockC");
+            MR::initChildObj(mLinkedClocks[i], rIter, i);
+            mLinkedClocks[i]->mCometTimerObjPtr = this;
+        }
+    }
 
     initNerve(&NrvCometTimerObj::NrvWait::sInstance, 0);
     makeActorAppeared();
