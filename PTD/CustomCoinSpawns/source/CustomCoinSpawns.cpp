@@ -132,3 +132,16 @@ void TeresaAppearCustomCoin(Teresa* pTeresa) {
 kmWrite32(0x8020C394, 0x7FE3FB78); // mr r3, r31
 kmCall(0x8020C398, TeresaAppearCustomCoin);
 kmWrite32(0x8020C39C, 0x48000014); // b 0x14
+
+bool appearCustomCoinOnDarkComet() {
+    const char* name;
+
+    asm("lwz %0, 0x4(r31)" : "=r" (name));
+
+    if (MR::isGalaxyDarkCometAppearInCurrentStage() && !MR::isEqualString(name, "RedCoin") && !MR::isEqualString(name, "BlueCoin"))
+        return true;
+
+    return false;
+	}
+
+kmCall(0x8028C2EC, appearCustomCoinOnDarkComet);

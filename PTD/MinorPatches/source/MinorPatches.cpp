@@ -117,19 +117,6 @@ namespace pt {
 
 	kmCall(0x80379A84, YesNoDialogueExtensions);
 
-	bool appearCustomCoinOnDarkComet() {
-	    const char* name;
-
-	    asm("lwz %0, 0x4(r31)" : "=r" (name));
-
-	    if (MR::isGalaxyDarkCometAppearInCurrentStage() && !MR::isEqualString(name, "RedCoin") && !MR::isEqualString(name, "BlueCoin"))
-	        return true;
-	
-	    return false;
-	}
-
-	kmCall(0x8028C2EC, appearCustomCoinOnDarkComet);
-
 	const wchar_t* CustomGreenStarNames(GalaxyStatusAccessor accessor, const char* pStageName, s32 starid) {
 		char textName[32];
 	    snprintf(textName, 32, "ScenarioName_%s_GreenStar%d", pStageName, starid-accessor.getPowerStarNum()/2);
