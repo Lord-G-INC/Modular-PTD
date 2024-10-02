@@ -330,10 +330,10 @@ void setPauseMenuBlueCoinStageCount(PauseMenu* pPauseMenu) {
         MR::hidePaneRecursive(pPauseMenu, "ShaBlueCoinStage");
 }
 
-wchar_t gIDListStr[32];
-wchar_t gCompleteIcon[2];
-wchar_t gStarIcon[2];
-wchar_t gBButtonIcon[2];
+//wchar_t gIDListStr[32];
+//wchar_t gCompleteIcon[2];
+//wchar_t gStarIcon[2];
+//wchar_t gBButtonIcon[2];
 
 s32 setUpBlueCoinInfo(PauseMenu* pPauseMenu) {
     setPauseMenuBlueCoinStageCount(pPauseMenu);
@@ -343,6 +343,11 @@ s32 setUpBlueCoinInfo(PauseMenu* pPauseMenu) {
     ((PauseMenuExt*)pPauseMenu)->mDisplayMode = 0;  
 
     if (rangemin != -1) {
+        wchar_t gIDListStr[32];
+        wchar_t gCompleteIcon[2];
+        wchar_t gStarIcon[2];
+        wchar_t gBButtonIcon[2];
+
         s32 totalCoins = (BlueCoinUtil::getBlueCoinRange(0, true)-rangemin)+1;
         s32 newLineOff = 0;
         s32 collectedCount = 0;
@@ -369,10 +374,10 @@ s32 setUpBlueCoinInfo(PauseMenu* pPauseMenu) {
             MR::showPaneRecursive(pPauseMenu, "Stars");
             MR::showPaneRecursive(pPauseMenu, "ScenarioTitle");
 
-            MR::addPictureFontCode(&gStarIcon[0], 0xC1);
+            MR::addPictureFontCode(gStarIcon, 0xC1);
             MR::setTextBoxFormatRecursive(pPauseMenu, "TxtCoinPage", gStarIcon);
 
-            MR::addPictureFontCode(&gBButtonIcon[0], 0x31);
+            MR::addPictureFontCode(gBButtonIcon, 0x31);
             MR::setTextBoxFormatRecursive(pPauseMenu, "TxtCoinBButton", gBButtonIcon);
         }
 
@@ -416,15 +421,11 @@ s32 setUpBlueCoinInfo(PauseMenu* pPauseMenu) {
 
 kmCall(0x80487090+REGIONOFF, setUpBlueCoinInfo);
 
-wchar_t gStarIconIDList[2];
-
-#define NO_STATE 0
-#define COIN_LIST 1
-#define COIN_LIST_NOSTAR 2
-#define LIST_DISABLED 3
+//wchar_t gStarIconIDList[2];
 
 void PauseMenuIDListControls(PauseMenuExt* pPauseMenu) {
     bool stagecheck = MR::isStageNoPauseMenuStars() || MR::isStageStoryBook() || MR::isStageMarioFaceShipOrWorldMap();
+    wchar_t gStarIconIDList[2];
 
     if (pPauseMenu->mDisplayMode != 2 && !stagecheck) {
         if (MR::testCorePadTriggerB(0)) {
@@ -443,7 +444,7 @@ void PauseMenuIDListControls(PauseMenuExt* pPauseMenu) {
                 pPauseMenu->mDisplayMode = 0;
             }
 
-        MR::addPictureFontCode(&gStarIconIDList[0], pPauseMenu->mDisplayMode > 0 ? 0xC2 : 0xC1);
+        MR::addPictureFontCode(gStarIconIDList, pPauseMenu->mDisplayMode > 0 ? 0xC2 : 0xC1);
         MR::setTextBoxFormatRecursive(pPauseMenu, "TxtCoinPage", gStarIconIDList);
         }
     }    
