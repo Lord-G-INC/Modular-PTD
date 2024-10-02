@@ -5,7 +5,7 @@ void ExtAreaObjManagers(AreaObjMgr* pManager, AreaObjContainer* pContainer, cons
     pContainer->mManagers.assign(pManager, pContainer->mNumManagers++);
 
     if (l == 94) {
-        for (s32 i = 0; i < cModuleCreateAreaObjMgrTableCount; i++) {
+        for (s32 i = 1; i < cModuleCreateAreaObjMgrTableCount; i++) {
             ManagerEntry* entry = &cModuleCreateAreaObjMgrTable[i];
             pManager = entry->mCreationFunc(entry->mMaxAreas, entry->pManagerName);
             pManager->init(rIter);

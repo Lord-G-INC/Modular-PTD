@@ -5,6 +5,7 @@
 {{IncludeList}}
 
 static ManagerEntry cModuleCreateAreaObjMgrTable[] = {
+    {NULL, NULL, NULL},
 {{ManagerEntryList}}
 };
 
