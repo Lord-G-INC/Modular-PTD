@@ -7,11 +7,14 @@
 */
 
 CometTimerObj::CometTimerObj(const char* pName) : LiveActor(pName) {
-    mTime = 60;
-    mNoKill = false;
-    mNoKillAllowRepeat = false;
-    mSwitchMode = false;
+    mTimeLimitLayout = 0;
+    mBombTimerLayout = 0;
     mLinkedClocks = 0;
+    mLayoutType = 0;
+    mTime = 0;
+    mNoKill = 0;
+    mNoKillAllowRepeat = 0;
+    mSwitchMode = 0;
 }
 
 void CometTimerObj::init(const JMapInfoIter& rIter) {
@@ -21,15 +24,22 @@ void CometTimerObj::init(const JMapInfoIter& rIter) {
     MR::getJMapInfoArg1NoInit(rIter, &mNoKill);
     MR::getJMapInfoArg2NoInit(rIter, &mNoKillAllowRepeat);
     MR::getJMapInfoArg3NoInit(rIter, &mSwitchMode);
+    MR::getJMapInfoArg4NoInit(rIter, &mLayoutType);
     MR::needStageSwitchReadA(this, rIter);
     MR::useStageSwitchReadB(this, rIter);
     MR::useStageSwitchWriteDead(this, rIter);
     MR::invalidateClipping(this);
 
-    mLayout = new TimeLimitLayout();
-    mLayout->setDisplayModeOnNormal(true);
-    mLayout->initWithoutIter();
-    MR::connectToSceneLayout(mLayout);
+    if (mLayoutType) {
+        mBombTimerLayout = new BombTimerLayout();
+        mBombTimerLayout->initWithoutIter();
+    }
+    else {
+        mTimeLimitLayout = new TimeLimitLayout();
+        mTimeLimitLayout->setDisplayModeOnNormal(true);
+        mTimeLimitLayout->initWithoutIter();
+        MR::connectToSceneLayout(mTimeLimitLayout);
+    }
 
     s32 childnum = MR::getChildObjNum(rIter);
 
@@ -51,16 +61,26 @@ void CometTimerObj::control() {
     if (MR::isOnSwitchA(this) && isNerve(&NrvCometTimerObj::NrvWait::sInstance))
         setNerve(&NrvCometTimerObj::NrvStartCountDown::sInstance);
 
-    if (MR::isValidSwitchB(this) && MR::isOnSwitchB(this)) {
-        mLayout->kill();
+    if (MR::isValidSwitchB(this) && MR::isOnSwitchB(this)) {    
+        if (mTimeLimitLayout)
+            mTimeLimitLayout->kill();
+        else
+            mBombTimerLayout->kill();
+
         setNerve(&NrvCometTimerObj::NrvWait::sInstance);
     }
 }
 
 void CometTimerObj::exeStartCountDown() {
     if (MR::isFirstStep(this)) {
-        mLayout->setTimeLimit(mTime*60);
-        mLayout->appear();
+        if (mTimeLimitLayout) {
+            mTimeLimitLayout->setTimeLimit(mTime*60);
+            mTimeLimitLayout->appear();
+        }
+        else {
+            mBombTimerLayout->setTimeLimit(mTime*60);
+            mBombTimerLayout->appear();
+        }
         
         if (MR::isValidSwitchDead(this) && mSwitchMode)
             MR::onSwitchDead(this);
@@ -70,7 +90,7 @@ void CometTimerObj::exeStartCountDown() {
 }
 
 void CometTimerObj::exeCountDown() {
-    if (mLayout->isReadyToTimeUp())
+    if (mTimeLimitLayout && mTimeLimitLayout->isReadyToTimeUp() || mBombTimerLayout && mBombTimerLayout->isReadyToTimeUp())
         setNerve(&NrvCometTimerObj::NrvTimeUp::sInstance);
 }
 
@@ -81,7 +101,11 @@ void CometTimerObj::exeTimeUp() {
         }
         else {
             MR::startSystemSE("SE_SY_TIMER_A_0", -1, -1);
-            mLayout->kill();
+
+            if (mTimeLimitLayout)
+                mTimeLimitLayout->kill();
+            else
+                mBombTimerLayout->kill();
 
             if (MR::isValidSwitchDead(this)) {
                 if (mSwitchMode)
@@ -95,6 +119,16 @@ void CometTimerObj::exeTimeUp() {
             else 
                 kill();
         }
+    }
+}
+
+void CometTimerObj::addTime(u32 timeAdd) {
+    mTime + timeAdd;
+
+    if (mTimeLimitLayout)
+        mTimeLimitLayout->addTimeLimit(timeAdd);
+    else {
+        mBombTimerLayout->setTimeLimit(mBombTimerLayout->mTime+(timeAdd));
     }
 }
 

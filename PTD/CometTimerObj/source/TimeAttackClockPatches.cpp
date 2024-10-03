@@ -18,14 +18,10 @@ kmWrite32(0x8033FFC8, 0x48000014); // b 0x14
 void TimeAttackClockAddTimer(TimeAttackClockExt* pClock, const char* pStr) {
     MR::startActionSound(pClock, pStr, -1, -1, -1);
 
-    if (pClock->mCometTimerObjPtr) {
-        CometTimerObj* pObj = pClock->mCometTimerObjPtr;
-        pObj->mTime + pClock->mAddTime;
-        pObj->mLayout->addTimeLimit(pClock->mAddTime);
-    }
-    else {
+    if (pClock->mCometTimerObjPtr)
+        pClock->mCometTimerObjPtr->addTime(pClock->mAddTime);
+    else
         MR::addCometTimer(pClock->mAddTime);
-    }
 }
 
 kmCall(0x803234B0, TimeAttackClockAddTimer); // bl TimeAttackClockAddTimer

@@ -2,6 +2,7 @@
 
 #include "syati.h"
 #include "Game/Screen/TimeLimitLayout.h"
+#include "Game/Screen/BombTimerLayout.h"
 
 class TimeAttackClockExt;
 
@@ -13,9 +14,12 @@ public:
     void exeStartCountDown();
     void exeCountDown();
     void exeTimeUp();
+    void addTime(u32 time);
 
-    TimeLimitLayout* mLayout;
+    TimeLimitLayout* mTimeLimitLayout;
+    BombTimerLayout* mBombTimerLayout;
     TimeAttackClockExt** mLinkedClocks;
+    s32 mLayoutType;
     u32 mTime;
     bool mNoKill;
     bool mNoKillAllowRepeat;
