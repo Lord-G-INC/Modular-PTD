@@ -381,7 +381,7 @@ s32 setUpBlueCoinInfo(PauseMenu* pPauseMenu) {
             MR::setTextBoxFormatRecursive(pPauseMenu, "TxtCoinBButton", gBButtonIcon);
         }
 
-        for (s32 i = 0; i < totalCoins + (totalCoins > 15) ? 1 : 0; i++) {
+        for (s32 i = 0; i < totalCoins + (s32)(totalCoins > 15); i++) {
             newLineAdded = 0;
 
             if (i == totalCoins/2 && totalCoins > 15) {
