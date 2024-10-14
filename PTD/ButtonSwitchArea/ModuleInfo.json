@@ -1,0 +1,26 @@
+{
+    "Name": "ButtonSwitchArea",
+    "Author": "Bavario",
+    "Description": "An area that can activate its SW_A based on the controller inputs.",
+    "InstallDependencies": ["Syati_ObjectFactories", "ExtAreaObjMgr"],
+    "ModuleData" : [
+      {
+        "NameObjFactory": [
+          {
+            "Name" : "ButtonSwitchArea",
+            "Function" : "createExtActor<ButtonSwitchArea>",
+            "Include" : "ButtonSwitchArea.h"
+          }
+        ]
+      },
+      {
+        "AreaObjMgr" : [
+          {
+            "Name" : "ButtonSwitchArea",
+            "MaxCount" : "64",
+            "Function" : "AreaObjContainer::createManager<AreaObjMgr>"
+          }
+        ]
+      }
+    ]
+}
