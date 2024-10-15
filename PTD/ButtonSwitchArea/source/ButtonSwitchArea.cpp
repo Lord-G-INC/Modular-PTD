@@ -51,6 +51,7 @@ ButtonSwitchArea::ButtonSwitchArea (const char *pName) : AreaObj(pName) {
     mCheckYCoord = 0;
     mRoundPrecision = 1;
     mWPad = 0;
+    mIsBufferFrame = false;
 }
 
 void ButtonSwitchArea::init (const JMapInfoIter &rIter) {
@@ -129,8 +130,14 @@ void ButtonSwitchArea::movement () {
                 extraCondition = true;
         }
 
-        if (!isDisabled() && buttonCondition && extraCondition && !mStageSwitchCtrl->isOnSwitchA()) 
+        OSReport("%d;%d;%d\n", !isDisabled(), buttonCondition, extraCondition);
+
+        if (!isDisabled() && buttonCondition && extraCondition) {
+            mIsBufferFrame = true;
             onSwitchA();
+        }
+        else if (mIsBufferFrame) 
+            mIsBufferFrame = false;
         else 
             offSwitchA();
     } else 

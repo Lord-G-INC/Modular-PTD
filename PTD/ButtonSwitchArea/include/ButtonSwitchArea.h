@@ -20,4 +20,5 @@ public:
     s32 mCheckYCoord;
     s32 mRoundPrecision;
     WPad *mWPad;
+    bool mIsBufferFrame;
 };
