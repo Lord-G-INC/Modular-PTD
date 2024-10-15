@@ -130,8 +130,6 @@ void ButtonSwitchArea::movement () {
                 extraCondition = true;
         }
 
-        OSReport("%d;%d;%d\n", !isDisabled(), buttonCondition, extraCondition);
-
         if (!isDisabled() && buttonCondition && extraCondition) {
             mIsBufferFrame = true;
             onSwitchA();
