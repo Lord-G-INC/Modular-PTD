@@ -32,15 +32,6 @@ bool useStageSwitchWriteAAndGetArg3(TamakoroExt *pStarBall, JMapInfoIter &rIter)
 }
 kmCall(0x804444E0, useStageSwitchWriteAAndGetArg3);
 
-// Define new particles.
-// These will be picked using the Star Ball's current BTP frame.
-const char* cNewParticles[7] = {"BreakYellow", "BreakBronze", "BreakGreen", "BreakRed", "BreakClear", "BreakBlue", "BreakSilver"};
-void TamakoroCustomPowerStarColorsParticles(LiveActor* pActor) {
-	MR::emitEffect(pActor, "Break"); // Emit the original particle. The crystal particles were removed so custom ones can be added to replace it.
-	MR::emitEffect(pActor, cNewParticles[(s32)MR::getBtpFrame(pActor)]); // Emit custom crystal particles picked by the current BTP frame.
-}
-kmCall(0x80446B4C, TamakoroCustomPowerStarColorsParticles);
-
 // Manually overwrite the exeBindEnd code, can't change easily with asm unfortunately.
 void exeBindEnd(TamakoroExt *pStarBall)
 {
