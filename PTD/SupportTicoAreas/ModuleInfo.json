@@ -1,0 +1,36 @@
+{
+    "Name": "SupportTico Areas",
+    "Author": "Bavario",
+    "Description": "Provides two areas to interact with the Co-Star Luma.\nSupportTicoSwitchArea: Turns on its SW_A when the player enters the area with 2-Player mode active. The SW_A will turn off either when when the player leaves the area or when 2-Player mode gets disabled.\nNoSupportTicoArea: Fully disables the second controller (and therefore the Co-Star Luma) as long as the player is inside the area.",
+    "InstallDependencies": ["Syati_ObjectFactories", "ExtAreaObjMgr"],
+    "ModuleData" : [
+      {
+        "NameObjFactory": [
+          {
+            "Name" : "SupportTicoSwitchArea",
+            "Function" : "createExtActor<SupportTicoSwitchArea>",
+            "Include" : "SupportTicoSwitchArea.h"
+          },
+          {
+            "Name" : "NoSupportTicoArea",
+            "Function" : "createExtActor<NoSupportTicoArea>",
+            "Include" : "NoSupportTicoArea.h"
+          }
+        ]
+      },
+      {
+        "AreaObjMgr" : [
+          {
+            "Name" : "SupportTicoSwitchArea",
+            "MaxCount" : "64",
+            "Function" : "AreaObjContainer::createManager<AreaObjMgr>"
+          },
+          {
+            "Name" : "NoSupportTicoArea",
+            "MaxCount" : "64",
+            "Function" : "AreaObjContainer::createManager<AreaObjMgr>"
+          }
+        ]
+      }
+    ]
+}
