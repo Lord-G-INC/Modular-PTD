@@ -1,8 +1,6 @@
-#include "ExtStationedFileTable.h"
+#include "ModuleData_ExtStationedFileTable.h"
 
-
-
-asm void checkName() {
+asm void createAndAddNewStationed() {
     stwu r1, -0x10(r1)
     mflr r0
     stw r0, 0x14(r1)
@@ -33,10 +31,10 @@ asm void checkName() {
 }
 
 kmWrite32(0x804CDF44, 0x2C030000);
-kmCall(0x804CDF40, checkName);
+kmCall(0x804CDF40, createAndAddNewStationed);
 
 
-asm void checkName2() {
+asm void loadNewResources() {
     stwu r1, -0x10(r1)
     mflr r0
     stw r0, 0x14(r1)
@@ -67,7 +65,7 @@ asm void checkName2() {
 }
 
 kmWrite32(0x804CDE68, 0x2C030000);
-kmCall(0x804CDE6C, checkName2);
+kmCall(0x804CDE6C, loadNewResources);
 
 kmWrite32(0x804CDD14, 0x2C030000);
-kmCall(0x804CDD18, checkName2);
+kmCall(0x804CDD18, loadNewResources);

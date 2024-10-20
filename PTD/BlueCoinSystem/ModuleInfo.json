@@ -5,7 +5,7 @@
   "CompilerFlags" : [
     "-DBLUECOINSYSTEM"
   ],
-  "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init", "CustomCoinSpawns", "PTUtils"],
+  "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init", "CustomCoinSpawns", "PTUtils", "ExtStationedFileTable"],
   "ModuleData" : [
     {
       "NameObjFactory": [
@@ -18,6 +18,23 @@
           "Name" : "BlueCoinSign",
           "Function" : "createExtActor<BlueCoinSign>",
           "Include" : "BlueCoinBoard.h"
+        }
+      ],
+      "StationedFileEntry" : [
+        {
+          "Type1" : "0",
+          "Type2" : "6",
+          "Path" : "/ObjectData/BlueCoin.arc"
+        },
+        {
+          "Type1" : "0",
+          "Type2" : "6",
+          "Path" : "/ObjectData/BlueCoinClear.arc"
+        },
+        {
+          "Type1" : "0",
+          "Type2" : "8",
+          "Path" : "/LayoutData/BlueCoinCounterInStage.arc"
         }
       ]
     }
