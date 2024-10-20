@@ -1,7 +1,7 @@
 {
   "Name": "Extended Stationed File List",
   "Author": "Evanbowl",
-  "Description": "My Syati Module is awesome!",
+  "Description": "Extends the list of files that are always loaded in memory.",
   "ModuleExtensionDefinition" : [
     {
       "Name" : "StationedFileEntry",
