@@ -4,6 +4,6 @@
 
 namespace RedCoinUtil {
     LiveActor* getSpecificActorFromGroup(LiveActor* pActor, const char* pName);
-    bool linkToChildRedCoin(LiveActor* pSourceActor, const JMapInfoIter& rIter);
-    void appearLinkedRedCoin(LiveActor* pActor, const TVec3f& pPosition);
+    bool tryLinkToChildRedCoin(LiveActor* pSourceActor, const JMapInfoIter& rIter);
+    bool tryAppearLinkedRedCoin(LiveActor* pSourceActor, const TVec3f& pPosition);
 }

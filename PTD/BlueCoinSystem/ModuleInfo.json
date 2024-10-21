@@ -19,6 +19,23 @@
           "Function" : "createExtActor<BlueCoinSign>",
           "Include" : "BlueCoinBoard.h"
         }
+      ],
+      "StationedFileEntry" : [
+        {
+          "Type1" : "1",
+          "Type2" : "6",
+          "Path" : "/ObjectData/BlueCoin.arc"
+        },
+        {
+          "Type1" : "1",
+          "Type2" : "6",
+          "Path" : "/ObjectData/BlueCoinClear.arc"
+        },
+        {
+          "Type1" : "1",
+          "Type2" : "8",
+          "Path" : "/LayoutData/BlueCoinCounterInStage.arc"
+        }
       ]
     }
   ]

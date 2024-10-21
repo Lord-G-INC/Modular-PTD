@@ -26,7 +26,7 @@ void KuriboSetUpCustomCoin(Kuribo* pKuribo, const JMapInfoIter& rIter, const cha
             MR::getJMapInfoArg3NoInit(rIter, &redCoinArg);
 
         if (redCoinArg > -1)
-            RedCoinUtil::linkToChildRedCoin(pKuribo, rIter);
+            RedCoinUtil::tryLinkToChildRedCoin(pKuribo, rIter);
     #endif
 }
 
@@ -40,7 +40,7 @@ void KuriboAppearCustomCoin(Kuribo* pKuribo, const char* pStr) {
     #endif
 
     #ifdef REDCOINSYSTEM
-        RedCoinUtil::appearLinkedRedCoin(pKuribo, pKuribo->mTranslation);
+        RedCoinUtil::tryAppearLinkedRedCoin(pKuribo, pKuribo->mTranslation);
     #endif
 }
 
@@ -65,7 +65,7 @@ void SamboHeadSetUpCustomCoin(SamboHead* pSamboHead, const JMapInfoIter& rIter, 
         MR::getJMapInfoArg2NoInit(rIter, &redCoinArg);
 
         if (redCoinArg > -1)
-            RedCoinUtil::linkToChildRedCoin(pSamboHead, rIter);
+            RedCoinUtil::tryLinkToChildRedCoin(pSamboHead, rIter);
     #endif
 }
 
@@ -79,7 +79,7 @@ void SamboHeadAppearCustomCoin(SamboHead* pSamboHead, const char* pStr) {
     #endif
 
     #ifdef REDCOINSYSTEM
-        RedCoinUtil::appearLinkedRedCoin(pSamboHead, pSamboHead->mTranslation);
+        RedCoinUtil::tryAppearLinkedRedCoin(pSamboHead, pSamboHead->mTranslation);
     #endif  
 }
 
@@ -104,7 +104,7 @@ s32 TeresaSetUpCustomCoin(const JMapInfoIter& rIter, Teresa* pTeresa) {
 
     #ifdef REDCOINSYSTEM
         if (MR::isEqualString(pDisplayModelName, "RedCoin"))
-            coinCreated = RedCoinUtil::linkToChildRedCoin(pTeresa, rIter);
+            coinCreated = RedCoinUtil::tryLinkToChildRedCoin(pTeresa, rIter);
     #endif
 
     if (coinCreated)
@@ -125,7 +125,7 @@ void TeresaAppearCustomCoin(Teresa* pTeresa) {
     #endif
 
     #ifdef REDCOINSYSTEM
-        RedCoinUtil::appearLinkedRedCoin(pTeresa, pTeresa->mTranslation);
+        RedCoinUtil::tryAppearLinkedRedCoin(pTeresa, pTeresa->mTranslation);
     #endif  
 }
 

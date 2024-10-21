@@ -3,8 +3,8 @@
 #include "syati.h"
 
 namespace RedCoinUtil {
-    extern bool linkToChildRedCoin(LiveActor* pSourceActor, const JMapInfoIter& rIter);
-    extern void appearLinkedRedCoin(LiveActor* pActor, const TVec3f& pPosition);
+    extern bool tryLinkToChildRedCoin(LiveActor* pSourceActor, const JMapInfoIter& rIter);
+    extern bool tryAppearLinkedRedCoin(LiveActor* pSourceActor, const TVec3f& pPosition);
 };
 
 namespace BlueCoinUtil {

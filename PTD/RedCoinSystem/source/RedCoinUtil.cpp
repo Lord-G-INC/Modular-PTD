@@ -16,24 +16,33 @@ namespace RedCoinUtil {
 		return pObj;
     }
 
-	bool linkToChildRedCoin(LiveActor* pSourceActor, const JMapInfoIter& rIter) {
-		RedCoin* pCoin = (RedCoin*)NameObjFactory::initChildObj(rIter, 0);
-        pCoin->requestHide();
-        ((ExtActorActionKeeper*)pSourceActor->mActionKeeper)->mRedCoin = pCoin;
-		pSourceActor->mActionKeeper->mItemGenerator = 0;
+	bool tryLinkToChildRedCoin(LiveActor* pSourceActor, const JMapInfoIter& rIter) {
+		const char* pChildName;
 
-		if (pCoin)
-       		return true;
+		if (MR::getChildObjNum(rIter) == 1) {
+			RedCoin* pCoin = (RedCoin*)NameObjFactory::initChildObj(rIter, 0);
+
+			if (pCoin) {
+				pCoin->requestHide();
+        		((ExtActorActionKeeper*)pSourceActor->mActionKeeper)->mRedCoin = pCoin;
+				pSourceActor->mActionKeeper->mItemGenerator = 0;
+       			return true;
+			}
+		}
 
 		return false;
 	}
 
-    void appearLinkedRedCoin(LiveActor* pSourceActor, const TVec3f& rPosition) {
+	bool tryAppearLinkedRedCoin(LiveActor* pSourceActor, const TVec3f& pPosition) {
 		RedCoin* pCoin = ((ExtActorActionKeeper*)pSourceActor->mActionKeeper)->mRedCoin;
 
 		if (pCoin) {
-			MR::setPosition(pCoin, rPosition);
+			MR::setPosition(pCoin, pPosition);
 			pCoin->appearAndMove();
+
+			return true;
 		}
+
+		return false;
 	}
 }
