@@ -5,5 +5,3 @@ static StationedFileInfoEntry cNewStationedFileEntries[] = {
 {{NewFileList}}
     {0, 9, NULL}
 };
-
-const size_t cNumNewStationedFileEntries = sizeof(cNewStationedFileEntries)/12;
