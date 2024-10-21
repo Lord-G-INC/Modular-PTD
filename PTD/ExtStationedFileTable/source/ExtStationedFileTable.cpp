@@ -6,66 +6,32 @@
     #define REGIONOFF 0
 #endif
 
-asm void createAndAddNewStationed() {
-    stwu r1, -0x10(r1)
-    mflr r0
-    stw r0, 0x14(r1)
-    stw r28, 0x10(r1)
-    stw r29, 0xC(r1)
-
-    lwz r28, 4(r30) 
-    lwz r29, 8(r30)
+const char* createAndAddNewStationed() {
+    StationedFileInfoEntry* pEntry;
+    asm("mr %0, r30" : "=r" (pEntry));
     
-    cmpwi r29, 0
-    bne end
-    cmpwi r28, 9
-    beq end
+    if (pEntry->pPath == 0 && pEntry->l2 != 9) {
+        pEntry = &cNewStationedFileEntries[1];
+    }
 
-    lis r3, cNewStationedFileEntries@ha
-    addi r3, r3, cNewStationedFileEntries@l
-    addi r30, r3, 0xC
-
-    end:
-    lwz r3, 8(r30)
-    lwz r0, 0x14(r1)
-    lwz r28, 0x10(r1)
-    lwz r29, 0xC(r1)
-    mtlr r0
-    addi r1, r1, 0x10
-    blr
+    return pEntry->pPath;
+    asm("mr r30, %0" : "=r" (pEntry));
 }
 
 kmWrite32(0x804CDF40 + REGIONOFF, 0x2C030000);
 kmCall(0x804CDF44 + REGIONOFF, createAndAddNewStationed);
 
 
-asm void loadNewResources() {
-    stwu r1, -0x10(r1)
-    mflr r0
-    stw r0, 0x14(r1)
-    stw r28, 0x10(r1)
-    stw r29, 0xC(r1)
-
-    lwz r28, 4(r31) 
-    lwz r29, 8(r31)
+const char* loadNewResources() {
+    StationedFileInfoEntry* pEntry;
+    asm("mr %0, r31" : "=r" (pEntry));
     
-    cmpwi r29, 0
-    bne end
-    cmpwi r28, 9
-    beq end
+    if (pEntry->pPath == 0 && pEntry->l2 != 9) {
+        pEntry = &cNewStationedFileEntries[1];
+    }
 
-    lis r3, cNewStationedFileEntries@ha
-    addi r3, r3, cNewStationedFileEntries@l
-    addi r31, r3, 0xC
-
-    end:
-    lwz r3, 8(r31)
-    lwz r0, 0x14(r1)
-    lwz r28, 0x10(r1)
-    lwz r29, 0xC(r1)
-    mtlr r0
-    addi r1, r1, 0x10
-    blr
+    return pEntry->pPath;
+    asm("mr r31, %0" : "=r" (pEntry));
 }
 
 kmWrite32(0x804CDE68 + REGIONOFF, 0x2C030000);
