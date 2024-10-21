@@ -11,14 +11,13 @@ const char* createAndAddNewStationed() {
     asm("mr %0, r30" : "=r" (pEntry));
     
     if (pEntry->pPath == 0 && pEntry->l2 != 9) {
-        pEntry = &cNewStationedFileEntries[1];
+        pEntry = &cNewStationedFileEntries[0];
 
         if (pEntry->l2 == 9)
             return 0;
     }
 
     return pEntry->pPath;
-    asm("mr r30, %0" : "=r" (pEntry));
 }
 
 kmWrite32(0x804CDF40 + REGIONOFF, 0x2C030000);
@@ -30,14 +29,13 @@ const char* loadNewResources() {
     asm("mr %0, r31" : "=r" (pEntry));
     
     if (pEntry->pPath == 0 && pEntry->l2 != 9) {
-        pEntry = &cNewStationedFileEntries[1];
+        pEntry = &cNewStationedFileEntries[0];
 
         if (pEntry->l2 == 9)
             return 0;
     }
 
     return pEntry->pPath;
-    asm("mr r31, %0" : "=r" (pEntry));
 }
 
 kmWrite32(0x804CDE68 + REGIONOFF, 0x2C030000);
