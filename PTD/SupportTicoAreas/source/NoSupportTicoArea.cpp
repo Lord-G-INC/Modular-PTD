@@ -14,7 +14,7 @@ void NoSupportTicoArea::init (const JMapInfoIter &rIter) {
 }
 
 void NoSupportTicoArea::movement () {
-    SupportTico *pSupportTico = (SupportTico *)MR::getSceneObjHolder()->getObj(98);
+    SupportTico *pSupportTico = (SupportTico *)MR::getSceneObjHolder()->getObj(SCENE_OBJ_SUPPORT_TICO);
     if (isInVolume(*MR::getPlayerPos())) {
         if (pSupportTico->isNerve(&NrvSupportTico::SupportTicoNrvBehavior::sInstance)) {
             MR::getWPad(1)->disconnected();
