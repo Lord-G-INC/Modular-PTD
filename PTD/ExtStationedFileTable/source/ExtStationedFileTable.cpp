@@ -12,6 +12,9 @@ const char* createAndAddNewStationed() {
     
     if (pEntry->pPath == 0 && pEntry->l2 != 9) {
         pEntry = &cNewStationedFileEntries[1];
+
+        if (pEntry->l2 == 9)
+            return 0;
     }
 
     return pEntry->pPath;
@@ -28,6 +31,9 @@ const char* loadNewResources() {
     
     if (pEntry->pPath == 0 && pEntry->l2 != 9) {
         pEntry = &cNewStationedFileEntries[1];
+
+        if (pEntry->l2 == 9)
+            return 0;
     }
 
     return pEntry->pPath;
