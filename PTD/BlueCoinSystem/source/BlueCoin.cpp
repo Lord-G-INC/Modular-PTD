@@ -108,7 +108,7 @@ void BlueCoin::collect() {
         BlueCoinUtil::setBlueCoinGotCurrentFile(mID);
 
         if (!BlueCoinUtil::hasSeenBlueCoinTextBoxCurrentFile())
-            ((CounterLayoutControllerExt*)MR::getGameSceneLayoutHolder()->mCounterLayoutController)->mBlueCoinCounter->setNerve(&NrvBlueCoinCounter::NrvShowTextBox::sInstance);
+            BlueCoinUtil::showTextBox();
     }
     
     if (!MR::isGalaxyDarkCometAppearInCurrentStage())
