@@ -53,15 +53,11 @@ namespace BlueCoinUtil {
 
 
             for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 256; j++) {
-                    gBlueCoinData->collectionData[i][j] = buffer[256*i+j];
-                }
+                memcpy(gBlueCoinData->collectionData[i], &buffer[256*i], 256);
             }
 
             for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 32; j++) {
-                    gBlueCoinData->flags[i][j] = (bool)buffer[FLAGS_LOCATION+(32*i)+j];
-                }
+                memcpy(gBlueCoinData->flags[i], &buffer[FLAGS_LOCATION+(32*i)], 32);
             }
 
             memcpy(gBlueCoinData->spentData, &buffer[SPENT_LOCATION], 6);
