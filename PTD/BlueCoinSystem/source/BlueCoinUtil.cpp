@@ -7,11 +7,11 @@
 #include "Game/MapObj/FileSelector.h"
 #include "Game/LiveActor/ExtActorActionKeeper.h"
 
-#define BINSIZE 870
+#define BINSIZE 873
 
 #define FLAGS_LOCATION 768
 #define SPENT_LOCATION 864
-#define TEXTBOX_LOCATION 867
+#define TEXTBOX_LOCATION 870
 
 void* initializeBlueCoinArrayAndLoadTable() {
     BlueCoinUtil::initBlueCoinArray();
@@ -64,8 +64,9 @@ namespace BlueCoinUtil {
                 }
             }
 
+            memcpy(gBlueCoinData->spentData, &buffer[SPENT_LOCATION], 6);
+
             for (s32 i = 0; i < 3; i++) {
-                gBlueCoinData->spentData[i] = buffer[SPENT_LOCATION+i];
                 gBlueCoinData->hasSeenTextBox[i] = (bool)buffer[TEXTBOX_LOCATION+i];
             }
 
@@ -87,8 +88,9 @@ namespace BlueCoinUtil {
                 s32 idx = 0;
                 s32 flagidx = 0;
 
+                memcpy(&buffer[SPENT_LOCATION], gBlueCoinData->spentData, 6);
+
                 for (int i = 0; i < 3; i++) {
-                    buffer[SPENT_LOCATION+i] = gBlueCoinData->spentData[i];
                     buffer[TEXTBOX_LOCATION+i] = (bool)gBlueCoinData->hasSeenTextBox[i];
 
                     for (int j = 0; j < 256; j++) {
