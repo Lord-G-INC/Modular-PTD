@@ -6,7 +6,7 @@ class BlueCoinCounter;
 
 namespace pt {
     extern void* loadArcAndFile(const char *pArc, const char *pFile, JKRHeap *pHeap);
-    extern void setTextBoxArgStringNumberFontRecursive(LayoutActor* pLayout, const char* paneName, s32 num, s32 index);
+    extern void setTextBoxArgStringNumberFontRecursive(LayoutActor* pLayout, const char* paneName, u16 num, s32 index);
 }
 
 /// @brief Structure of BlueCoinData.bin
@@ -45,18 +45,18 @@ namespace BlueCoinUtil {
 
     /// @brief Sets a blue coin to true on the current save file.
     /// @param id Blue Coin ID
-    void setBlueCoinGotCurrentFile(u8 id);
+    void setBlueCoinGotCurrentFile(u16 id);
 
     /// @brief Checks if a specific blue coin is collected on the specified save file.
     /// @param file File ID
     /// @param id Blue Coin ID
     /// @return bool 
-    bool isBlueCoinGot(u8 file, u8 id);
+    bool isBlueCoinGot(u8 file, u16 id);
 
     /// @brief Checks if a specific blue coin is collected on the current save file.
     /// @param id Blue Coin ID
     /// @return bool 
-    bool isBlueCoinGotCurrentFile(u8 id);
+    bool isBlueCoinGotCurrentFile(u16 id);
    
     /// @brief Checks the specified BlueCoinFlag on the current file.
     /// @param flag File ID

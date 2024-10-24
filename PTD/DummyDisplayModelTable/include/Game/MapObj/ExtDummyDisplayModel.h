@@ -3,7 +3,7 @@
 #include "syati.h"
 
 namespace BlueCoinUtil {
-    extern bool isBlueCoinGotCurrentFile(u8);
+    extern bool isBlueCoinGotCurrentFile(u16);
 };
 
 namespace pt {
