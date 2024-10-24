@@ -17,7 +17,7 @@ namespace pt {
 struct BlueCoinData {
     bool** collectionData;
     bool flags[3][32];
-    u8 spentData[3];
+    u16 spentData[3];
     bool hasSeenTextBox[3];
 };
 
