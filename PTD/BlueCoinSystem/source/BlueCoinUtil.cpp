@@ -150,13 +150,9 @@ namespace BlueCoinUtil {
     void clearBlueCoinData() {
         for (int i = 0; i < 3; i++) {
             memset(gBlueCoinData->collectionData[i], 0, 256);
-            gBlueCoinData->hasSeenTextBox[i] = 0;
+            memset(gBlueCoinData->flags[i], 0, 32);
             gBlueCoinData->spentData[i] = 0;
             gBlueCoinData->hasSeenTextBox[i] = 0;
-
-            for (int j = 0; j < 32; j++) {
-                gBlueCoinData->flags[i][j] = 0;
-            }
         }
         
         OSReport("(BlueCoinUtil) Blue Coin array cleared.\n");
@@ -168,6 +164,7 @@ namespace BlueCoinUtil {
         for (int i = 0; i < 3; i++) {
             gBlueCoinData->collectionData[i] = new bool[256];
             memset(gBlueCoinData->collectionData[i], 0, 256);
+            memset(gBlueCoinData->flags[i], 0, 32);
             gBlueCoinData->hasSeenTextBox[i] = 0;
             gBlueCoinData->spentData[i] = 0;
         }

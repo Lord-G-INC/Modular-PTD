@@ -43,6 +43,9 @@ void BlueCoinSign::init(const JMapInfoIter& rIter) {
 
     pBoard = new BlueCoinBoard("BlueCoinBoard");
     pBoard->initWithoutIter();
+    s32 flag = 8;
+    MR::getJMapInfoArg0NoInit(rIter, &flag);
+    pBoard->mCompleteFlag = flag;
     makeActorAppeared();
 }
 
@@ -106,6 +109,7 @@ BlueCoinBoard::BlueCoinBoard(const char* pName) : LayoutActor(pName, 0) {
     mSelectedButton = -1;
     mBlueCoinNumToDisplay = 0;
     mTotalBlueCoinPrices = 0;
+    mCompleteFlag = 0;
     mHasSpentBlueCoins = false;
 }
 
@@ -161,15 +165,17 @@ void BlueCoinBoard::appear() {
 void BlueCoinBoard::exeAppear() {
     if (MR::isFirstStep(this)) {
         s32 numStars = 0;
+        s32 scenarioNoFromTable = 0;
+        s32 flag = 0;
         const char* nameFromTable;
-        s32 scenarioNoFromTable;
         mHasSpentBlueCoins = false;
         
         for (s32 i = 0; i < 8; i++) {
             MR::getCsvDataStr(&nameFromTable, mTable, "StageName", i);
             MR::getCsvDataS32(&scenarioNoFromTable, mTable, "ScenarioNo", i);
+            MR::getCsvDataS32(&flag, mTable, "BlueCoinFlag", i);
 
-            if (BlueCoinUtil::isOnBlueCoinFlagCurrentFile(i)) {
+            if (BlueCoinUtil::isOnBlueCoinFlagCurrentFile(flag)) {
                 const char* label = "BoardButton_UnlockedUncleared";
 
                 if (MR::makeGalaxyStatusAccessor(nameFromTable).hasPowerStar(scenarioNoFromTable)) {
@@ -272,12 +278,14 @@ void BlueCoinBoard::exeSelecting() {
     if (!MR::isFirstStep(this)) {
         if (pointedButton > -1) {
             const char* nameFromTable;
-            s32 scenarioNoFromTable;
+            s32 scenarioNoFromTable = 0;
+            s32 flag = 0;
 
             MR::getCsvDataStr(&nameFromTable, mTable, "StageName", pointedButton);
             MR::getCsvDataS32(&scenarioNoFromTable, mTable, "ScenarioNo", pointedButton);
-    
-            if (BlueCoinUtil::isOnBlueCoinFlagCurrentFile(pointedButton)) {
+            MR::getCsvDataS32(&flag, mTable, "BlueCoinFlag", pointedButton);
+
+            if (BlueCoinUtil::isOnBlueCoinFlagCurrentFile(flag)) {
                 const char* label = "WinBase_UnlockedUncleared";
 
                 if (MR::makeGalaxyStatusAccessor(nameFromTable).hasPowerStar(scenarioNoFromTable))
@@ -328,7 +336,10 @@ void BlueCoinBoard::exeSelected() {
     if (MR::isStep(this, 25)) {
         mButtons[mSelectedButton]->forceToWait();
 
-        if (BlueCoinUtil::isOnBlueCoinFlagCurrentFile(mSelectedButton))
+        s32 flag;
+        MR::getCsvDataS32(&flag, mTable, "BlueCoinFlag", mSelectedButton);
+
+        if (BlueCoinUtil::isOnBlueCoinFlagCurrentFile(flag))
             setNerve(&NrvBlueCoinBoard::NrvConfirmPlayStage::sInstance);
         else
             setNerve(&NrvBlueCoinBoard::NrvConfirmUnlock::sInstance);
@@ -379,7 +390,10 @@ void BlueCoinBoard::exeCountDownBlueCoin() {
         mBlueCoinPaneRumbler->start();
         mHasSpentBlueCoins = true;
         BlueCoinUtil::spendBlueCoinCurrentFile(priceFromTable);
-        BlueCoinUtil::setOnBlueCoinFlagCurrentFile(mSelectedButton);
+
+        s32 flag;
+        MR::getCsvDataS32(&flag, mTable, "BlueCoinFlag", mSelectedButton);
+        BlueCoinUtil::setOnBlueCoinFlagCurrentFile(flag);
         setNerve(&NrvBlueCoinBoard::NrvChangeButtonText::sInstance);
     }
 
@@ -446,7 +460,9 @@ void BlueCoinBoard::checkBoardProgress() {
     if (!BlueCoinUtil::isOnBlueCoinFlagCurrentFile(BLUE_COIN_BOARD_COMPLETE)) {
         s32 completedStages = 0;
         for (s32 i = 0; i < 8; i++) {
-            if (BlueCoinUtil::isOnBlueCoinFlagCurrentFile(i)) {
+            s32 flag = 0;
+            MR::getCsvDataS32(&flag, mTable, "BlueCoinFlag", i);
+            if (BlueCoinUtil::isOnBlueCoinFlagCurrentFile(flag)) {
                 const char* nameFromTable;
                 s32 scenarioNoFromTable;
                 MR::getCsvDataStr(&nameFromTable, mTable, "StageName", i);

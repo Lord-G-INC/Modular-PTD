@@ -43,6 +43,7 @@ public:
     s32 mSelectedButton;
     s32 mBlueCoinNumToDisplay;
     s32 mTotalBlueCoinPrices;
+    s32 mCompleteFlag;
     bool mHasSpentBlueCoins;
 };
 
