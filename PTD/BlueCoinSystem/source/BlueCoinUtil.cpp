@@ -76,8 +76,6 @@ namespace BlueCoinUtil {
             if (code == 0) {
                 NANDSeek(&info, 0, 0);
                 u8* buffer = new(0x20) u8[BINSIZE];
-                s32 idx = 0;
-                s32 flagidx = 0;
 
                 for (int i = 0; i < 3; i++) {
                     memcpy(&buffer[256*i], gBlueCoinData->collectionData[i], 256);
