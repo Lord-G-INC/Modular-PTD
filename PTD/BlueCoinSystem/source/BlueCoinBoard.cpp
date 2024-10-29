@@ -379,8 +379,13 @@ void BlueCoinBoard::exeCountDownBlueCoin() {
     }
 
     if (mBlueCoinNumToDisplay > (BlueCoinUtil::getTotalBlueCoinNumCurrentFile(true)-priceFromTable)) {
-        if (getNerveStep() % 2 == 0)
-            MR::startSystemSE("SE_SY_PURPLE_COIN", -1, -1);
+        if (getNerveStep() % 2 == 0) {
+            #ifdef SMSS
+                MR::startSystemSE("SE_BV_BLUE_COIN_GET", -1, -1);
+            #else
+                MR::startSystemSE("SE_SY_PURPLE_COIN", -1, -1);
+            #endif
+        }
 
         mBlueCoinNumToDisplay--;
     }
