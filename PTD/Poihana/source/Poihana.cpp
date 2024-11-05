@@ -430,6 +430,7 @@ namespace pt {
 			MR::startAction(this, "Throw");
 			MR::startActionSound(this, "EvPoihanaShootUp", -1, -1, -1);
 			MR::startActorCameraNoTarget(this, mCamInfo, -1);
+			MR::invalidateClipping(this);
 		}
 
 		f32 dot = mGravity.dot(mVelocity);
@@ -460,6 +461,7 @@ namespace pt {
 		updateBinderSensor();
 
 		MR::endActorCamera(this, mCamInfo, true, -1);
+        MR::validateClipping(this);
 	}
 
 	void Poihana::exeGoBack() {
@@ -625,7 +627,6 @@ namespace pt {
 			MR::tryRumblePadMiddle(this, 0);
 			mBindedActor = pSender->mActor;
 			MR::startBckPlayer("Rise", NULL);
-			MR::invalidateClipping(this);
 			return true;
 		}
 
@@ -639,8 +640,6 @@ namespace pt {
 	}
 
 	void Poihana::endBind() {
-		MR::validateClipping(this);
-
 		if (MR::isPlayerInRush()) {
 			TVec3f jumpVec;
 			jumpVec.scale(mLaunchIntensity, mGravity);
