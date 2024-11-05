@@ -83,5 +83,6 @@ namespace pt {
 			pActor->initialize(rIter, rInfo);
 		}
 		kmCall(0x802E99E8, initializeMapObjActorWithColorAndTexChange);
+		kmCall(0x802FFC2C, initializeMapObjActorWithColorAndTexChange);
 	}
 }
