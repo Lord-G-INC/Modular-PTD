@@ -16,9 +16,7 @@ namespace RedCoinUtil {
 		return pObj;
     }
 
-	bool tryLinkToChildRedCoin(LiveActor* pSourceActor, const JMapInfoIter& rIter) {
-		const char* pChildName;
-
+	RedCoin* tryLinkToChildRedCoin(LiveActor* pSourceActor, const JMapInfoIter& rIter) {
 		if (MR::getChildObjNum(rIter) == 1) {
 			RedCoin* pCoin = (RedCoin*)NameObjFactory::initChildObj(rIter, 0);
 
@@ -26,7 +24,7 @@ namespace RedCoinUtil {
 				pCoin->requestHide();
         		((ExtActorActionKeeper*)pSourceActor->mActionKeeper)->mRedCoin = pCoin;
 				pSourceActor->mActionKeeper->mItemGenerator = 0;
-       			return true;
+       			return pCoin;
 			}
 		}
 

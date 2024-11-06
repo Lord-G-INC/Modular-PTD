@@ -12,22 +12,22 @@ public:
     void setStarIcon(s32 starID, s32 iconID);
     void startCountUp(s32 count);
     void exeAppear();
-    void exeAppearWithUpdate();
     void exeDisappear();
     void exeCountUp();
     void exeComplete();
 
+    CounterLayoutAppearer* mAppearer;
     CountUpPaneRumbler* mPaneRumbler;
     TVec2f mFollowPos;
     s32 mRedCoinCount;
     s32 mLayoutMode;
     bool mUseFollowPos;
+    bool mUpdate;
 };
 
 namespace NrvRedCoinCounter {
     NERVE(NrvAppear);
     NERVE(NrvWait);
-    NERVE(NrvAppearWithUpdate);
     NERVE(NrvDisappear);
     NERVE(NrvCountUp);
     NERVE(NrvComplete);

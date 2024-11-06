@@ -2,11 +2,13 @@
 #include "RedCoin.h"
 
 RedCoinCounter::RedCoinCounter(const char* pName) : LayoutActor(pName, false) {
+    mAppearer = NULL;
     mPaneRumbler = 0;
     mRedCoinCount = 0;
     mLayoutMode = -1;
     mFollowPos = TVec2f (0.0f, 0.0f);
     mUseFollowPos = false;
+    mUpdate = false;
 }
 
 void RedCoinCounter::init(const JMapInfoIter& rIter) {
@@ -18,20 +20,22 @@ void RedCoinCounter::init(const JMapInfoIter& rIter) {
     MR::createAndAddPaneCtrl(this, "Counter", 1);
     MR::setTextBoxNumberRecursive(this, "Counter", 0);
 
+    mAppearer = new CounterLayoutAppearer(this, TVec2f(-50.0f, 0.0f));
+
     mPaneRumbler = new CountUpPaneRumbler(this, "Counter");
     mPaneRumbler->mRumbleCalculator->mRumbleStrength = 8.0f;
-    mPaneRumbler->reset();
 
     initNerve(&NrvRedCoinCounter::NrvHide::sInstance);
 
     #ifdef SMSS
-    MR::createAndAddPaneCtrl(this, "CoinCounter", 1);
-    MR::setFollowTypeReplace(this, "CoinCounter");
-    MR::setFollowPos(&mFollowPos, this, "CoinCounter");
+        MR::createAndAddPaneCtrl(this, "CoinCounter", 1);
+        MR::setFollowTypeReplace(this, "CoinCounter");
+        MR::setFollowPos(&mFollowPos, this, "CoinCounter");
     #endif
 }
 
 void RedCoinCounter::control() {
+    mAppearer->updateNerve();
     mPaneRumbler->update();
 
     #ifdef SMSS
@@ -43,6 +47,9 @@ void RedCoinCounter::control() {
 }
 
 void RedCoinCounter::appear() {
+    mAppearer->reset();
+    mPaneRumbler->reset();
+
     setNerve(&NrvRedCoinCounter::NrvAppear::sInstance);
     LayoutActor::appear();
 }
@@ -64,9 +71,9 @@ void RedCoinCounter::setStarIcon(s32 starID, s32 iconID) {
 void RedCoinCounter::startCountUp(s32 count) {
     mRedCoinCount = count;
 
-    if (isNerve(&NrvRedCoinCounter::NrvHide::sInstance) && mLayoutMode == -1) {
-        LayoutActor::appear();
-        setNerve(&NrvRedCoinCounter::NrvAppearWithUpdate::sInstance);
+    if (mAppearer->isDisappeared() && mLayoutMode == -1) {
+        mUpdate = true;
+        appear();
     }
     else 
         setNerve(&NrvRedCoinCounter::NrvCountUp::sInstance);
@@ -74,26 +81,21 @@ void RedCoinCounter::startCountUp(s32 count) {
 
 void RedCoinCounter::exeAppear() {
     if (MR::isFirstStep(this)) {
-        MR::startAnim(this, "Appear", 0);
+        mAppearer->appear(TVec2f(0.0f, 0.0f));
         MR::startAnim(this, "Wait", 1);
     }
 
-    setNerve(&NrvRedCoinCounter::NrvWait::sInstance);
-}
-
-void RedCoinCounter::exeAppearWithUpdate() {
-    if (MR::isFirstStep(this)) {
-        MR::startAnim(this, "Appear", 0);
-        MR::startAnim(this, "Wait", 1);
+    if (mAppearer->isAppeared()) {
+        if (mUpdate)
+            setNerve(&NrvRedCoinCounter::NrvCountUp::sInstance);
+        else
+            setNerve(&NrvRedCoinCounter::NrvWait::sInstance);
     }
-
-    if (MR::isStep(this, 30))
-        setNerve(&NrvRedCoinCounter::NrvCountUp::sInstance);
 }
 
 void RedCoinCounter::exeDisappear() {
     if (MR::isFirstStep(this))
-        MR::startAnim(this, "End", 0);
+        mAppearer->disappear();
 
     if (MR::isStep(this, 60))
         kill();
@@ -125,10 +127,6 @@ namespace NrvRedCoinCounter {
 
     void NrvWait::execute(Spine* pSpine) const {}
 
-    void NrvAppearWithUpdate::execute(Spine* pSpine) const {
-        ((RedCoinCounter*)pSpine->mExecutor)->exeAppearWithUpdate();
-    }
-
     void NrvDisappear::execute(Spine* pSpine) const {
         ((RedCoinCounter*)pSpine->mExecutor)->exeDisappear();
     }
@@ -145,7 +143,6 @@ namespace NrvRedCoinCounter {
 
     NrvAppear(NrvAppear::sInstance);
     NrvWait(NrvWait::sInstance);
-    NrvAppearWithUpdate(NrvAppearWithUpdate::sInstance);
     NrvDisappear(NrvDisappear::sInstance);
     NrvCountUp(NrvCountUp::sInstance);
     NrvComplete(NrvComplete::sInstance);
