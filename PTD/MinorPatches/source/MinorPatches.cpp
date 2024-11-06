@@ -109,7 +109,7 @@ namespace pt {
 	const char* YesNoDialogueExtensions(const TalkMessageCtrl* msg) {
 		u16 selectTxt = ((u16*)msg->mTalkNodeCtrl->getNextNodeBranch())[4];
 
-		char str[5];
+		char str[7];
 		sprintf(str, "New%d", selectTxt - 18);
 
 		return selectTxt < 18 ? msg->getBranchID() : str;

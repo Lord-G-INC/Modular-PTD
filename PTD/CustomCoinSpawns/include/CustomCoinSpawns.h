@@ -3,7 +3,7 @@
 #include "syati.h"
 
 namespace RedCoinUtil {
-    extern bool tryLinkToChildRedCoin(LiveActor* pSourceActor, const JMapInfoIter& rIter);
+    extern RedCoin* tryLinkToChildRedCoin(LiveActor* pSourceActor, const JMapInfoIter& rIter);
     extern bool tryAppearLinkedRedCoin(LiveActor* pSourceActor, const TVec3f& pPosition);
 };
 
