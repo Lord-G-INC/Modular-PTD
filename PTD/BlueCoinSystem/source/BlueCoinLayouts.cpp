@@ -11,10 +11,12 @@
 #endif
 
 BlueCoinCounter::BlueCoinCounter(const char* pName) : LayoutActor(pName, 0) {
-    mSysInfoWindow = 0;
+    mAppearer = NULL;
+    mPaneRumbler = NULL;
+    mSysInfoWindow = NULL;
+    mBlueCoinCount = 0;
     mBlueCoinDisplayNum = 0;
-    _28 = 0;
-    mIsAppear = 0;
+    _3C = 0;
 }
 
 void BlueCoinCounter::init(const JMapInfoIter& rIter) {
@@ -51,7 +53,6 @@ void BlueCoinCounter::appear() {
     mAppearer->reset();
     mPaneRumbler->reset();
     _28 = 0;
-    mIsAppear = false;
     MR::hideLayout(this);
     setNerve(&NrvBlueCoinCounter::NrvHide::sInstance);
     LayoutActor::appear();
@@ -63,11 +64,9 @@ void BlueCoinCounter::forceAppear() {
         setNerve(&NrvBlueCoinCounter::NrvAppear::sInstance);
     }
 
-    mIsAppear = true;
 }
 
 void BlueCoinCounter::disappear() {
-    mIsAppear = false;
     setNerve(&NrvBlueCoinCounter::NrvDisappear::sInstance);
 }
 
@@ -79,17 +78,17 @@ void BlueCoinCounter::control() {
 
 void BlueCoinCounter::updateCounter() {
     s32 blueCoinNum = BlueCoinUtil::getTotalBlueCoinNumCurrentFile(true);
-    s32 var = _28;
+    s32 var = _3C;
     mBlueCoinCount = blueCoinNum;
 
     if (var > 0) {
-        _28 = var - 1;
+        _3C = var - 1;
     }
     else {
         if (mBlueCoinDisplayNum != blueCoinNum && !isNerve(&NrvBlueCoinCounter::NrvShowTextBox::sInstance)) {
             if (isNerve(&NrvBlueCoinCounter::NrvWait::sInstance)) {
                 u32 v4 = mBlueCoinDisplayNum;
-                _28 = 3;
+                _3C = 3;
 
                 if (mBlueCoinDisplayNum < blueCoinNum)
                     mBlueCoinDisplayNum = v4 + 1;
@@ -121,7 +120,7 @@ void BlueCoinCounter::setCounter() {
 
 void BlueCoinCounter::exeHide() {
     if (MR::isFirstStep(this)) {
-        _28 = 0;
+        _3C = 0;
         MR::hideLayout(this);
     }
 }
@@ -139,7 +138,7 @@ void BlueCoinCounter::exeAppear() {
 }
 
 void BlueCoinCounter::exeWait() {
-    if (!mIsAppear && mBlueCoinDisplayNum == mBlueCoinCount) {
+    if (mAppearer->isDisappeared() && mBlueCoinDisplayNum == mBlueCoinCount) {
         if (CounterLayoutController::isWaitToDisappearCounter(this)) {
             setNerve(&NrvBlueCoinCounter::NrvDisappear::sInstance);
         }
@@ -175,16 +174,6 @@ void BlueCoinCounter::exeShowTextBox() {
 BlueCoinCounter::~BlueCoinCounter() {
 
 }
-
-
-bool fixBlueCoinWindowCrash() {
-    if (!MR::isStageFileSelect() && !MR::isEqualStageName("PeachCastleGalaxy") && !MR::isStageStoryBook() && !BlueCoinUtil::hasSeenBlueCoinTextBoxCurrentFile())
-        return MR::isPlayerDead() || BlueCoinUtil::isBlueCoinTextBoxAppeared();
-
-    return MR::isPlayerDead();
-}
-
-//kmCall(0x80451C40, fixBlueCoinWindowCrash);
 
 CounterLayoutControllerExt::CounterLayoutControllerExt() : CounterLayoutController() {
     mBlueCoinCounter = 0;
@@ -330,11 +319,6 @@ void setPauseMenuBlueCoinStageCount(PauseMenu* pPauseMenu) {
         MR::hidePaneRecursive(pPauseMenu, "ShaBlueCoinStage");
 }
 
-//wchar_t gIDListStr[32];
-//wchar_t gCompleteIcon[2];
-//wchar_t gStarIcon[2];
-//wchar_t gBButtonIcon[2];
-
 s32 setUpBlueCoinInfo(PauseMenu* pPauseMenu) {
     setPauseMenuBlueCoinStageCount(pPauseMenu);
 
@@ -420,8 +404,6 @@ s32 setUpBlueCoinInfo(PauseMenu* pPauseMenu) {
 }
 
 kmCall(0x80487090+REGIONOFF, setUpBlueCoinInfo);
-
-//wchar_t gStarIconIDList[2];
 
 void PauseMenuIDListControls(PauseMenuExt* pPauseMenu) {
     bool stagecheck = MR::isStageNoPauseMenuStars() || MR::isStageStoryBook() || MR::isStageMarioFaceShipOrWorldMap();

@@ -15,8 +15,8 @@
     Finished 10/1/2023
     Revealed 10/2/2023
 
-    Uses Blue Coin Flags 0-8.
-    0-7 are used for each button, and 8 is the Completion flag.
+    Uses Blue Coin Flags specified in the BlueCoinBoardDataTable BCSV file.
+    BlueCoinSign Obj_arg0 is the Completion flag.
 
     Made by Evanbowl
     

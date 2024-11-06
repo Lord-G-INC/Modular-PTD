@@ -47,8 +47,7 @@ public:
         SysInfoWindow* mSysInfoWindow;
         s32 mBlueCoinCount;
         s32 mBlueCoinDisplayNum;
-        s32 _28;
-        bool mIsAppear;
+        s32 _3C;
 };
 
 namespace NrvBlueCoinCounter {
