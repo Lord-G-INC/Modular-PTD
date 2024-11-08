@@ -75,26 +75,26 @@ namespace pt {
     kmWrite32(0x801D0314, 0x7CA32B78); // mr r3, r5
     kmWrite32(0x801D0318, 0x60000000); // nop
 
-    //asm void spinCustomDisplayModels() {
-    //    lwz r0, 0xA4(r30) // this->mModelId
-    //
-    //    cmpwi r0, 0xF
-    //    blt end
-    //
-    //    lwz r5, 0xB4(r30) // this->mSpinMode
-    //
-    //    li r0, -1
-    //
-    //    cmpwi r5, 1
-    //    beq spinCoin
-    //    b end
-    //
-    //    spinCoin:
-    //    li r0, 0
-    //    b end
-    //
-    //    end:
-    //}
+    asm void spinCustomDisplayModels() {
+        lwz r0, 0xA4(r30) // this->mModelId
+    
+        cmpwi r0, 0xF
+        blt end
+    
+        lwz r5, 0xB4(r30) // this->mSpinMode
+    
+        li r0, -1
+    
+        cmpwi r5, 1
+        beq spinCoin
+        b end
+    
+        spinCoin:
+        li r0, 0
+        b end
+    
+        end:
+    }
 
-    //mCall(0x80295A10, spinCustomDisplayModels);
+    kmCall(0x80295A10, spinCustomDisplayModels);
 }
