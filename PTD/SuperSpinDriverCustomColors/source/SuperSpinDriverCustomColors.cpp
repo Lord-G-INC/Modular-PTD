@@ -66,3 +66,11 @@ SpinDriverPathDrawInitExt* createSpinDriverPathDrawInitExt() {
 
 kmCall(0x8045A29C, createSpinDriverPathDrawInitExt); // bl createSpinDriverPathDrawInitExt
 kmWrite32(0x8045A2A0, 0x4800067C); // b 0x67C
+
+
+void CustomSpinDriverDisplayModelColor(DummyDisplayModel* pDisplayModel) {
+	MR::startBtpAndSetFrameAndStop(pDisplayModel, "SuperSpinDriver", pDisplayModel->_A8);
+	MR::startBrk(pDisplayModel, "Yellow");
+}
+
+kmCall(0x802957B8, CustomSpinDriverDisplayModelColor); // bl CustomSpinDriverDisplayModelColor
