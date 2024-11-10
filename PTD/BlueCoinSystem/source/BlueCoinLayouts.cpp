@@ -160,7 +160,7 @@ void BlueCoinCounter::exeShowTextBox() {
         MR::hideLayout(this);
         
         if (MR::canStartDemo()) {
-            DemoStartRequestUtil::startDemoSystem((LiveActor*)this, "BlueCoinFirstTimeText", 2, DemoStartInfo::DEMOTYPE_0, DemoStartInfo::CINEMAFRAMETYPE_1, DemoStartInfo::STARPOINTERTYPE_0, DemoStartInfo::DELETEEFFECTYPE_1, 0);
+            DemoStartRequestUtil::startDemoSystem((LiveActor*)this, "BlueCoinFirstTimeText", 1, DemoStartInfo::DEMOTYPE_0, DemoStartInfo::CINEMAFRAMETYPE_1, DemoStartInfo::STARPOINTERTYPE_0, DemoStartInfo::DELETEEFFECTYPE_0, 0);
             MR::requestMovementOn(this);
         }
     }
