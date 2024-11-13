@@ -52,7 +52,7 @@ void BlueCoinCounter::init(const JMapInfoIter& rIter) {
 void BlueCoinCounter::appear() {
     mAppearer->reset();
     mPaneRumbler->reset();
-    _28 = 0;
+    _3C = 0;
     MR::hideLayout(this);
     setNerve(&NrvBlueCoinCounter::NrvHide::sInstance);
     LayoutActor::appear();
@@ -63,7 +63,6 @@ void BlueCoinCounter::forceAppear() {
         appear();
         setNerve(&NrvBlueCoinCounter::NrvAppear::sInstance);
     }
-
 }
 
 void BlueCoinCounter::disappear() {
@@ -109,6 +108,7 @@ void BlueCoinCounter::updateCounter() {
         }
     }
 
+    OSReport("var: %d, _3C: %d\n", var, _3C);
     MR::setTextBoxNumberRecursive(this, "Counter", mBlueCoinDisplayNum);
 }
 
@@ -138,7 +138,7 @@ void BlueCoinCounter::exeAppear() {
 }
 
 void BlueCoinCounter::exeWait() {
-    if (mAppearer->isDisappeared() && mBlueCoinDisplayNum == mBlueCoinCount) {
+    if (mAppearer->isAppeared() && mBlueCoinDisplayNum == mBlueCoinCount) {
         if (CounterLayoutController::isWaitToDisappearCounter(this)) {
             setNerve(&NrvBlueCoinCounter::NrvDisappear::sInstance);
         }
@@ -187,8 +187,8 @@ CounterLayoutControllerExt* createCounterLayoutControllerExt() {
     return new CounterLayoutControllerExt();
 }
 
-kmCall(0x80471784, createCounterLayoutControllerExt);
-kmWrite32(0x80471788, 0x4800000C);
+kmCall(0x80471784, createCounterLayoutControllerExt); // bl createCounterLayoutControllerExt
+kmWrite32(0x80471788, 0x4800000C); // b 0xC
 
 namespace NrvBlueCoinCounter {
 	void NrvHide::execute(Spine* pSpine) const {
@@ -249,7 +249,7 @@ bool isBlueCoinCounterWait(CounterLayoutControllerExt* pController) {
 }
 
 kmWrite32(0x80465C20, 0x7F23CB78); // mr r3, r25
-kmCall(0x80465C24, isBlueCoinCounterWait);
+kmCall(0x80465C24, isBlueCoinCounterWait); // bl isBlueCoinCounterWait
 
 
 void appearBlueCoinLayout(CounterLayoutControllerExt* pController) {
@@ -272,7 +272,7 @@ void appearBlueCoinLayoutWithoutStar(CounterLayoutControllerExt* pController) {
     } 
 }
 
-kmCall(0x80465EC4, appearBlueCoinLayoutWithoutStar);
+kmCall(0x80465EC4, appearBlueCoinLayoutWithoutStar); // bl appearBlueCoinLayoutWithoutStar
 kmWrite32(0x80465EC8, 0x48000010); // b 0x10
 
 void disappearBlueCoinLayout(CounterLayoutControllerExt* pController) {
@@ -293,7 +293,7 @@ void killBlueCoinCounter(CounterLayoutControllerExt* pController) {
     pController->killAllCoounter();
 }
 
-kmCall(0x8046590C, killBlueCoinCounter);
+kmCall(0x8046590C, killBlueCoinCounter); // bl killBlueCoinCounter
 
 // PAUSE MENU
 
@@ -304,7 +304,7 @@ void initPauseMenuBlueCoin(PauseMenuExt* pPauseMenu) {
     MR::setTextBoxFormatRecursive(pPauseMenu, "ShaBlueCoinStage", counterPictureFonts);
 }
 
-kmCall(0x80486D60+REGIONOFF, initPauseMenuBlueCoin);
+kmCall(0x80486D60+REGIONOFF, initPauseMenuBlueCoin); // bl initPauseMenuBlueCoin
 
 
 void setPauseMenuBlueCoinStageCount(PauseMenu* pPauseMenu) {
@@ -407,7 +407,7 @@ s32 setUpBlueCoinInfo(PauseMenu* pPauseMenu) {
     return MR::getCoinNum();
 }
 
-kmCall(0x80487090+REGIONOFF, setUpBlueCoinInfo);
+kmCall(0x80487090+REGIONOFF, setUpBlueCoinInfo); // bl setUpBlueCoinInfo
 
 void PauseMenuIDListControls(PauseMenuExt* pPauseMenu) {
     bool stagecheck = MR::isStageNoPauseMenuStars() || MR::isStageStoryBook() || MR::isStageMarioFaceShipOrWorldMap();
@@ -441,7 +441,7 @@ PauseMenuExt* createPauseMenuExt() {
     return new PauseMenuExt();
 }
 
-kmCall(0x804712C0, createPauseMenuExt);
+kmCall(0x804712C0, createPauseMenuExt); // bl createPauseMenuExt
 kmWrite32(0x804712C4, 0x48000010); // b 0x10
 
 PauseMenuExt::PauseMenuExt() : PauseMenu() {
@@ -466,7 +466,7 @@ void PauseMenuMoveButtonForBlueCoin(PauseMenuExt* pPauseMenu, const char* pStr1,
     MR::startPaneAnimAndSetFrameAndStop(pPauseMenu, pStr1, pStr2, frame, u);
 }
 
-kmCall(0x804874D4+REGIONOFF, PauseMenuMoveButtonForBlueCoin);
+kmCall(0x804874D4+REGIONOFF, PauseMenuMoveButtonForBlueCoin); // bl PauseMenuMoveButtonForBlueCoin
 #endif
 
 void initBlueCoinCounterFileInfo(LayoutActor* pLayout) {
@@ -475,14 +475,14 @@ void initBlueCoinCounterFileInfo(LayoutActor* pLayout) {
     MR::setTextBoxFormatRecursive(pLayout, "ShaBlueCoinFileInfo", counterPictureFonts);
 }
 
-kmCall(0x8046D908, initBlueCoinCounterFileInfo);
+kmCall(0x8046D908, initBlueCoinCounterFileInfo); // bl initBlueCoinCounterFileInfo
 
 void setBlueCoinCounterFileInfo(LayoutActor* pLayout, const char* pStr, s32 fileID) {
     MR::setTextBoxArgNumberRecursive(pLayout, "ShaBlueCoinFileInfo", BlueCoinUtil::getTotalBlueCoinNum(fileID - 1, false), 0);
     MR::setTextBoxNumberRecursive(pLayout, pStr, fileID);
 }
 
-kmCall(0x8046DCF8, setBlueCoinCounterFileInfo);
+kmCall(0x8046DCF8, setBlueCoinCounterFileInfo); // bl setBlueCoinCounterFileInfo
 
 #ifdef DISABLED
 void initGalaxyInfoBlueCoinCount(LayoutActor* actor) {
@@ -490,9 +490,9 @@ void initGalaxyInfoBlueCoinCount(LayoutActor* actor) {
 }
 
 #if defined TWN || defined KOR
-kmCall(0x804A952C, initGalaxyInfoBlueCoinCount);
+kmCall(0x804A952C, initGalaxyInfoBlueCoinCount); // bl initGalaxyInfoBlueCoinCount
 #else
-kmCall(0x804A952C, initGalaxyInfoBlueCoinCount);
+kmCall(0x804A952C, initGalaxyInfoBlueCoinCount); // bl initGalaxyInfoBlueCoinCount
 #endif
 
 void setGalaxyInfoBlueCoinCount(LayoutActor* actor, const char* pGalaxyName, const wchar_t* pWStr) {
@@ -509,5 +509,5 @@ void setGalaxyInfoBlueCoinCount(LayoutActor* actor, const char* pGalaxyName, con
 }
 
 kmWrite32(0x804A95E4, 0x809B003C); // lwz r4, 0x3C(r27)
-kmCall(0x804A95E8, setGalaxyInfoBlueCoinCount);
+kmCall(0x804A95E8, setGalaxyInfoBlueCoinCount); // bl setGalaxyInfoBlueCoinCount
 #endif

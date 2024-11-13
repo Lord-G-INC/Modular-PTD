@@ -366,7 +366,7 @@ void resetAllBlueCoinOnDeleteFile(SaveDataHandleSequence* pSeq, UserFile* pFile,
     BlueCoinUtil::resetAllBlueCoin(fileID);
 }
 
-kmCall(0x804D9BF8, resetAllBlueCoinOnDeleteFile);
+kmCall(0x804D9BF8, resetAllBlueCoinOnDeleteFile); // bl resetAllBlueCoinOnDeleteFile
 
 // Save gBlueCoinData->collectionData to file.
 
@@ -376,9 +376,9 @@ void saveBlueCoinDataOnGameSave(const char* pName) {
 }
 
 #if defined TWN || defined KOR
-    kmCall(0x804DB060, saveBlueCoinDataOnGameSave);
+    kmCall(0x804DB060, saveBlueCoinDataOnGameSave); // bl saveBlueCoinDataOnGameSave
 #else
-    kmCall(0x804DAFD0, saveBlueCoinDataOnGameSave);
+    kmCall(0x804DAFD0, saveBlueCoinDataOnGameSave); // bl saveBlueCoinDataOnGameSave
 #endif
 
 // Read blue coin binary on title screen load.
@@ -389,4 +389,4 @@ void onTitleScreenLoad(FileSelector* pFileSelector) {
     BlueCoinUtil::loadBlueCoinData();
 }
 
-kmCall(0x8024F358, onTitleScreenLoad);
+kmCall(0x8024F358, onTitleScreenLoad); // bl saveBlueCoinDataOnGameSave
