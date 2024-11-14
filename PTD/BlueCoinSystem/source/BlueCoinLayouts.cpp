@@ -108,7 +108,6 @@ void BlueCoinCounter::updateCounter() {
         }
     }
 
-    OSReport("var: %d, _3C: %d\n", var, _3C);
     MR::setTextBoxNumberRecursive(this, "Counter", mBlueCoinDisplayNum);
 }
 

@@ -145,3 +145,13 @@ bool appearCustomCoinOnDarkComet() {
 	}
 
 kmCall(0x8028C2EC, appearCustomCoinOnDarkComet);
+
+bool skipCustomCoinSetRadius(Coin* pCoin) {
+    MR::showModel(pCoin);
+    pCoin->LiveActor::makeActorAppeared();
+    return MR::isEqualString(pCoin->mName, "RedCoin") || MR::isEqualString(pCoin->mName, "BlueCoin");
+}
+
+kmCall(0x8028C308, skipCustomCoinSetRadius); // bl skipCustomCoinSetRadius
+kmWrite32(0x8028C30C, 0x2C030000); // cmpwi r3, 0
+kmWrite32(0x8028C310, 0x40820060); // bne 0x60

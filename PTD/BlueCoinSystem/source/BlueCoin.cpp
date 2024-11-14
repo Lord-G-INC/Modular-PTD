@@ -51,6 +51,7 @@ void BlueCoin::init(const JMapInfoIter& rIter) {
         appearFixInit();
 }
 
+
 void BlueCoin::control() {
     if (MR::isOnSwitchB(this) && MR::isHiddenModel(this) && !mIsCollected)
         appearAndMove();
