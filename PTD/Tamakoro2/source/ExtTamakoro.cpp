@@ -31,7 +31,7 @@ void TamakoroDeclarePowerStar(const JMapInfoIter& rIter, TamakoroExt* pTamakoro)
 }
 
 kmWrite32(0x804444BC, 0x7F64DB78); // mr r4, r27
-kmCall(0x804444C0, TamakoroDeclarePowerStar);
+kmCall(0x804444C0, TamakoroDeclarePowerStar); // bl TamakoroDeclarePowerStar
 kmWrite32(0x804444C4, 0x48000014); // b 0x14
 
 void TamakoroCreateDummyModel(TamakoroExt* pTamakoro, const JMapInfoIter& rIter) {
@@ -70,9 +70,9 @@ void TamakoroCreateDummyModel(TamakoroExt* pTamakoro, const JMapInfoIter& rIter)
         case 3:
             RedCoinUtil::tryLinkToChildRedCoin(pTamakoro, rIter);
         break;
-        case 4:
-            BlueCoinUtil::tryCreateBlueCoinForSpawningActorActionKeeper(pTamakoro, pTamakoro->mDummyDisplayModel->_A8);
-        break;
+        //case 4:
+        //    BlueCoinUtil::tryCreateBlueCoinForSpawningActorActionKeeper(pTamakoro, pTamakoro->mDummyDisplayModel->_A8);
+        //break;
     }
 }
 
@@ -157,9 +157,9 @@ void TamakoroStopStageBgm(TamakoroExt* pTamakoro) {
         case 3:
             RedCoinUtil::tryAppearLinkedRedCoin(pTamakoro, pTamakoro->mTranslation);
         break;
-        case 4:
-            BlueCoinUtil::appearBlueCoinActionKeeper(pTamakoro);
-        break;
+        //case 4:
+        //    BlueCoinUtil::appearBlueCoinActionKeeper(pTamakoro);
+        //break;
     }
 }
 
@@ -167,23 +167,16 @@ kmCall(0x80446B48, TamakoroStopStageBgm); // bl TamakoroStopStageBgm
 kmWrite32(0x80446B4C, 0x48000034); // b 0x34
 
 void TamakoroStartStageBgm(TamakoroExt* pTamakoro) {
-	const char* seqName = "BGM_TAMAKORO";
-    
-    switch (pTamakoro->mMusicNum) {
-        case 0:
-            seqName = "BGM_TAMAKORO_2";
-        break;
-        case 1:
-            seqName = "BGM_SMG_TAMAKORO";
-        break;
-        case 2:
-            seqName = "BGM_SMG_TAMAKORO_2";
-        break;
+    TamakoroBgmParamEntry* pEntry = &gTamakoroBgmParamTable[0];
+
+    if (pTamakoro->mMusicNum < 3) {
+        pEntry = &gTamakoroBgmParamTable[pTamakoro->mMusicNum+1];
     }
 
 	if (pTamakoro->mMusicNum != 3) {
-	    MR::startStageBGM(seqName, false);
-	    pTamakoro->mAudioCtrl->init(seqName);
+	    MR::startStageBGM(pEntry->mName, false);
+        pTamakoro->mAudioCtrl->mBgmParam = pEntry;
+	    pTamakoro->mAudioCtrl->init(pEntry->mName);
     }
 
     pTamakoro->mIsBind = true;
@@ -191,6 +184,8 @@ void TamakoroStartStageBgm(TamakoroExt* pTamakoro) {
 
 kmBranch(0x80447790, TamakoroStartStageBgm); // b TamakoroStartStageBgm
 
+kmWrite32(0x80222400, 0x48000038); // b 0x38
+kmWrite32(0x80222438, 0x807B0020); // lwz r3, 0x20(r27)
 
 
 void TamakoroControlBgm(TamakoroExt* pTamakoro, f32 f, bool b, s32 l) {
@@ -200,30 +195,4 @@ void TamakoroControlBgm(TamakoroExt* pTamakoro, f32 f, bool b, s32 l) {
 }
 
 kmWrite32(0x8044486C, 0x7FE3FB78); // mr r3, r31
-kmCall(0x80444878, TamakoroControlBgm);
-
-
-TamakoroBgmParamEntry* TamakoroSelectBgm(AudTamakoroBgmCtrl* pBgmCtrl, const char* pName) {
-    for (s32 i = 0; i < 4; i++) {
-        TamakoroBgmParamEntry* pEntry = &gTamakoroBgmParamTable[i];
-        OSReport("%s, %s\n", pName, pEntry->mName);
-
-        if (MR::isEqualString(pName, pEntry->mName))
-            return pEntry;
-    }
-
-    return &gTamakoroBgmParamTable[0];
-}
-
-kmCall(0x80222428, TamakoroSelectBgm); // bl TamakoroSelectBgm
-kmWrite32(0x8022242C, 0x4800000C); // b 0xC 
-
-
-StageInstrumentEntry* LoadNewStageBgm(const char* pStr1, const char* pStr2) {
-    OSReport("%s, %s\n", pStr1, pStr2);
-
-    return &gStageInstrumentTable[3];
-}
-
-kmCall(0x800854E4, LoadNewStageBgm);
-kmCall(0x800855DC, LoadNewStageBgm);
+kmCall(0x80444878, TamakoroControlBgm); // bl TamakoroControlBgm
