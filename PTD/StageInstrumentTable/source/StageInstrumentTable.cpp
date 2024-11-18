@@ -36,7 +36,7 @@ void SetUpStageInstrumentEntry(StageInstrumentEntry* pEntry, const char* currSce
             char field[10];
             
             for (s32 i = 0; i < 4; i++) {
-                snprintf(field, 10, "Code%d", i);
+                snprintf(field, 10, "Param%02d", i);
                 MR::getCsvDataS32(&code, &info, field, targetRow);
     
                 pEntry->_8[i] = (u8)code;
