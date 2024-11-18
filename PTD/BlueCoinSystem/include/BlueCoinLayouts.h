@@ -48,6 +48,7 @@ public:
         s32 mBlueCoinCount;
         s32 mBlueCoinDisplayNum;
         s32 _3C;
+        bool mIsAppear;
 };
 
 namespace NrvBlueCoinCounter {

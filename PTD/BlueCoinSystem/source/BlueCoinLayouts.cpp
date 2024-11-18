@@ -17,6 +17,7 @@ BlueCoinCounter::BlueCoinCounter(const char* pName) : LayoutActor(pName, 0) {
     mBlueCoinCount = 0;
     mBlueCoinDisplayNum = 0;
     _3C = 0;
+    mIsAppear = 0;
 }
 
 void BlueCoinCounter::init(const JMapInfoIter& rIter) {
@@ -53,6 +54,7 @@ void BlueCoinCounter::appear() {
     mAppearer->reset();
     mPaneRumbler->reset();
     _3C = 0;
+    mIsAppear = 0;
     MR::hideLayout(this);
     setNerve(&NrvBlueCoinCounter::NrvHide::sInstance);
     LayoutActor::appear();
@@ -63,9 +65,12 @@ void BlueCoinCounter::forceAppear() {
         appear();
         setNerve(&NrvBlueCoinCounter::NrvAppear::sInstance);
     }
+
+    mIsAppear = true;
 }
 
 void BlueCoinCounter::disappear() {
+    mIsAppear = false;
     setNerve(&NrvBlueCoinCounter::NrvDisappear::sInstance);
 }
 
@@ -137,7 +142,7 @@ void BlueCoinCounter::exeAppear() {
 }
 
 void BlueCoinCounter::exeWait() {
-    if (mAppearer->isAppeared() && mBlueCoinDisplayNum == mBlueCoinCount) {
+    if (!mIsAppear && mBlueCoinDisplayNum == mBlueCoinCount) {
         if (CounterLayoutController::isWaitToDisappearCounter(this)) {
             setNerve(&NrvBlueCoinCounter::NrvDisappear::sInstance);
         }

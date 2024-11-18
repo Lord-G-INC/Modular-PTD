@@ -16,19 +16,18 @@ BlueCoin::BlueCoin(const char* pName) : Coin(pName) {
 
 void BlueCoin::init(const JMapInfoIter& rIter) {
     if (MR::isValidInfo(rIter)) {
+        MR::initDefaultPos(this, rIter);
         MR::getJMapInfoArg0NoInit(rIter, &mID);
         MR::getJMapInfoArg1NoInit(rIter, &mLaunchVelocity);
 
         Coin::setShadowAndPoseModeFromJMapIter(rIter);
         Coin::initShadow(rIter);
+    }
 
-        MR::processInitFunction(this, rIter, BlueCoinUtil::isBlueCoinGotCurrentFile(mID) ? "BlueCoinClear" : "BlueCoin", false);
-    }
-    else {
-        MR::processInitFunction(this, BlueCoinUtil::isBlueCoinGotCurrentFile(mID) ? "BlueCoinClear" : "BlueCoin", false);
-    }
+    MR::processInitFunction(this, BlueCoinUtil::isBlueCoinGotCurrentFile(mID) ? "BlueCoinClear" : "BlueCoin", false);
 
     MR::initSensors(this, "BlueCoin", 0);
+    MR::initSwitches(this, rIter, "BlueCoin", 0);
 
     mFlashingCtrl = new FlashingCtrl(this, 1);
     

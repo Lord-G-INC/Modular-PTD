@@ -149,7 +149,7 @@ kmCall(0x8028C2EC, appearCustomCoinOnDarkComet);
 bool skipCustomCoinSetRadius(Coin* pCoin) {
     MR::showModel(pCoin);
     pCoin->LiveActor::makeActorAppeared();
-    return MR::isEqualString(pCoin->mName, "RedCoin") || MR::isEqualString(pCoin->mName, "BlueCoin");
+    return MR::isExistFileInArc(MR::getResourceHolder(pCoin), "InitSensor.bcsv");
 }
 
 kmCall(0x8028C308, skipCustomCoinSetRadius); // bl skipCustomCoinSetRadius
