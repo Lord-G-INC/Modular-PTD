@@ -1,0 +1,22 @@
+{
+  "Name": "LanternClipArea",
+  "Author": "Gabbo",
+  "Description": "A custom lantern that evokes a spherical matter splatter when it is selected with the player's cursor.",
+  "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init"],
+  "BuildTasks": [{
+    "Task": "Copy",
+    "From": "disc/",
+    "To": "../../Output/disc/"
+  }],
+  "ModuleData" : [
+    {
+      "ProductMapObj" : [
+        {
+          "Name" : "LanternClipArea",
+          "Function" : "createExtActor<pt::LanternClipArea>",
+          "Include" : "LanternClipArea.h"
+        }
+      ]
+    }
+  ]
+}
