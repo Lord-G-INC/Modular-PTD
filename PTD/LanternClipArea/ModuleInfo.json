@@ -13,7 +13,7 @@
       "ProductMapObj" : [
         {
           "Name" : "LanternClipArea",
-          "Function" : "createExtActor<pt::LanternClipArea>",
+          "Function" : "createExtActor<LanternClipArea>",
           "Include" : "LanternClipArea.h"
         }
       ]
