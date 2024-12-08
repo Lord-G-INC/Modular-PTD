@@ -345,7 +345,7 @@ namespace BlueCoinUtil {
         return false;
     }
 
-    void appearBlueCoinActionKeeper(LiveActor* pSourceActor) {
+    void appearBlueCoinActionKeeper(LiveActor* pSourceActor, TVec3f& rPos) {
         ExtActorActionKeeper* pKeeper = (ExtActorActionKeeper*)pSourceActor->mActionKeeper;
         if (pKeeper->mBlueCoin) {
             TVec3f coinVelocity = TVec3f(0.0f, 25.0f, 0.0f);
@@ -353,8 +353,13 @@ namespace BlueCoinUtil {
 
             MR::startActionSound(pKeeper->mBlueCoin, "SyBlueCoinAppear", -1, -1, -1);
 
-            pKeeper->mBlueCoin->appearMove(pSourceActor->mTranslation, coinVelocity, 0x7FFFFFFF, 60);
+            pKeeper->mBlueCoin->appearMove(rPos, coinVelocity, 0x7FFFFFFF, 60);
         }
+    }
+
+    bool isValidBlueCoinActionKeeper(LiveActor* pSourceActor) {
+        ExtActorActionKeeper* pKeeper = (ExtActorActionKeeper*)pSourceActor->mActionKeeper;
+        return pKeeper->mBlueCoin;
     }
 }
 

@@ -135,5 +135,6 @@ namespace BlueCoinUtil {
     //void appearBlueCoin(LiveActor* pSourceActor, BlueCoin* pBlueCoin);
     
     bool tryCreateBlueCoinForSpawningActorActionKeeper(LiveActor* pSourceActor, s32 id);
-    void appearBlueCoinActionKeeper(LiveActor* pSourceActor);
+    void appearBlueCoinActionKeeper(LiveActor* pSourceActor, TVec3f& rPos);
+    bool isValidBlueCoinActionKeeper(LiveActor* pSourceActor);
     };

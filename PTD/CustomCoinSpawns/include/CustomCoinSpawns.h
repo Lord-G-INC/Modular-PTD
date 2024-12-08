@@ -9,5 +9,5 @@ namespace RedCoinUtil {
 
 namespace BlueCoinUtil {
     extern bool tryCreateBlueCoinForSpawningActorActionKeeper(LiveActor* pSourceActor, s32 id);
-    extern void appearBlueCoinActionKeeper(LiveActor* pSourceActor);
+    extern void appearBlueCoinActionKeeper(LiveActor* pSourceActor, TVec3f& rPos);
 };

@@ -36,7 +36,7 @@ void KuriboAppearCustomCoin(Kuribo* pKuribo, const char* pStr) {
     MR::emitEffect(pKuribo, pStr);
 
     #ifdef BLUECOINSYSTEM
-        BlueCoinUtil::appearBlueCoinActionKeeper(pKuribo);
+        BlueCoinUtil::appearBlueCoinActionKeeper(pKuribo, pKuribo->mTranslation);
     #endif
 
     #ifdef REDCOINSYSTEM
@@ -75,7 +75,7 @@ void SamboHeadAppearCustomCoin(SamboHead* pSamboHead, const char* pStr) {
     MR::emitEffect(pSamboHead, pStr);
 
     #ifdef BLUECOINSYSTEM    
-        BlueCoinUtil::appearBlueCoinActionKeeper(pSamboHead);
+        BlueCoinUtil::appearBlueCoinActionKeeper(pSamboHead, pSamboHead->mTranslation);
     #endif
 
     #ifdef REDCOINSYSTEM
@@ -121,7 +121,7 @@ void TeresaAppearCustomCoin(Teresa* pTeresa) {
         MR::appearCoinPop(pTeresa, pTeresa->mTranslation, 1);
 
     #ifdef BLUECOINSYSTEM    
-        BlueCoinUtil::appearBlueCoinActionKeeper(pTeresa);
+        BlueCoinUtil::appearBlueCoinActionKeeper(pTeresa, pTeresa->mTranslation);
     #endif
 
     #ifdef REDCOINSYSTEM

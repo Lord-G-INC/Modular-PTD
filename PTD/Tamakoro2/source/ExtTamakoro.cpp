@@ -158,7 +158,7 @@ void TamakoroStopStageBgm(TamakoroExt* pTamakoro) {
             RedCoinUtil::tryAppearLinkedRedCoin(pTamakoro, pTamakoro->mTranslation);
         break;
         case 4:
-            BlueCoinUtil::appearBlueCoinActionKeeper(pTamakoro);
+            BlueCoinUtil::appearBlueCoinActionKeeper(pTamakoro, pTamakoro->mTranslation);
         break;
     }
 }
