@@ -1,0 +1,6 @@
+{
+    "Name": "Achievements",
+    "Author": "Lord-G",
+    "Description": "Brings Achievements into SMG2.",
+    "InstallDependencies": ["PTUtils"]
+}
