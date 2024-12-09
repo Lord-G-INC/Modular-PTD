@@ -6,7 +6,7 @@ namespace pt {
 
 class Achievement {
     public:
-    enum AchievementType : s32 {
+    enum AchievementType {
         EnemyKillCount,
         JumpCount,
         TimeAttack,
