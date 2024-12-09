@@ -14,7 +14,7 @@ Achievement** Achievement::LoadFromDisk(int& pLength) {
         MR::getCsvDataS32((s32*)&ach->mType, &table, "Type", i);
         MR::getCsvDataS32(&ach->mRequiredNum, &table, "RequiredNum", i);
         MR::getCsvDataS32(&ach->mSceneNum, &table, "SceneNum", i);
-        MR::getCsvDataStr(&ach->mStageName, &table, "Stagename", i);
+        MR::getCsvDataStr(&ach->mStageName, &table, "StageName", i);
         ptr[i] = ach;
     }
 }
