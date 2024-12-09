@@ -17,4 +17,5 @@ Achievement** Achievement::LoadFromDisk(int& pLength) {
         MR::getCsvDataStr(&ach->mStageName, &table, "StageName", i);
         ptr[i] = ach;
     }
+    return ptr;
 }
