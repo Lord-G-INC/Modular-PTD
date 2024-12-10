@@ -19,5 +19,18 @@ class Achievement {
     s32 mRequiredNum;
     s32 mSceneNum;
     const char* mStageName;
-    static Achievement** LoadFromDisk(int& pLength);
+    bool mAcquired = false;
+};
+
+class Achievements {
+    int mLength = 0;
+    Achievement** mAchievements = 0;
+    ~Achievements() {
+        for (int i = 0; i < mLength; i++)
+            delete mAchievements[i];
+        delete [] mAchievements;
+    }
+    void LoadFromDisk();
+    void WriteToNand();
+
 };
