@@ -19,12 +19,24 @@ class Achievement {
     s32 mRequiredNum;
     s32 mSceneNum;
     const char* mStageName;
-    bool mAcquired = false;
+    bool mAcquired;
+    Achievement() {
+        mName = 0,
+        mType = (AchievementType)-1,
+        mRequiredNum = -1,
+        mSceneNum = -1,
+        mStageName = 0,
+        mAcquired = false;
+    }
 };
 
 class Achievements {
-    int mLength = 0;
-    Achievement** mAchievements = 0;
+    int mLength;
+    Achievement** mAchievements;
+    Achievements() {
+        mLength = 0;
+        mAchievements = 0;
+    }
     ~Achievements() {
         for (int i = 0; i < mLength; i++)
             delete mAchievements[i];
