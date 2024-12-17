@@ -60,7 +60,7 @@ namespace pt {
 		for (s32 i = 0; i < mNumBabys; i++) {
 			BegomanBaby *pBaby = new BegomanBaby("ベビーベーゴマン");
 			pBaby->mHost = this;
-			pBaby->mTranslation.set<f32>(mTranslation);
+			pBaby->mTranslation.set(mTranslation);
 			pBaby->initWithoutIter();
 			pBaby->makeActorDead();
 			mBabys[i] = pBaby;
