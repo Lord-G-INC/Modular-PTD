@@ -19,26 +19,45 @@ void Achievements::LoadFromDisk() {
 }
 
 void Achievements::WriteToNand() {
-    if (mLength == 0 && mAchievements == 0)
+    if (mLength == 0 && mAchievements == 0) {
         LoadFromDisk();
+    }
     s32 code = NANDCreate("Achievements.bin", NAND_PERM_READ_WRITE, 0);
     if (code == 0 || code == -6) {
         NANDFileInfo info;
         code = NANDOpen("Achievements.bin", &info, NAND_MODE_RW);
         if (code == 0) {
-            s32 size = 4 + (5 * mLength);
+            NANDSeek(&info, 0, 0);
+            s32 size = mLength;
             u8* buffer = new (0x20) u8[size];
-            memcpy(buffer, &mLength, 4);
-            int index = 4;
+            int index = 0;
             for (int i = 0; i < mLength; i++) {
                 const Achievement* ach = mAchievements[i];
-                memcpy(buffer + index, &i, 4);
-                buffer[index + 4] = ach->mAcquired;
-                index += 5;
+                buffer[index++] = ach->mAcquired;
             }
             code = NANDWrite(&info, buffer, size);
             delete [] buffer;
         }
         NANDClose(&info);
     }
+}
+
+void Achievements::LoadFromNand() {
+    if (mLength == 0 && mAchievements == 0) {
+        LoadFromDisk(); 
+    }
+    NANDFileInfo info;
+    s32 code = NANDOpen("Achievements.bin", &info, NAND_MODE_RW);
+    if (code == 0) {
+        u32 size;
+        NANDGetLength(&info, &size);
+        mLength = size;
+        u8* buffer = new (0x20) u8[size];
+        NANDRead(&info, buffer, mLength);
+        for (int i = 0; i < mLength; i++) {
+            mAchievements[i]->mAcquired = buffer[i];
+        }
+        delete [] buffer;
+    }
+    NANDClose(&info);
 }

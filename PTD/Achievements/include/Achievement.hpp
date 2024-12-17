@@ -7,7 +7,8 @@ namespace pt {
 class Achievement {
     public:
     enum AchievementType {
-        EnemyKillCount,
+        None = -1,
+        EnemyKillCount = 0,
         JumpCount,
         TimeAttack,
         StarNumGet,
@@ -22,7 +23,7 @@ class Achievement {
     bool mAcquired;
     Achievement() {
         mName = 0,
-        mType = (AchievementType)-1,
+        mType = None,
         mRequiredNum = -1,
         mSceneNum = -1,
         mStageName = 0,
@@ -44,5 +45,6 @@ class Achievements {
     }
     void LoadFromDisk();
     void WriteToNand();
-
+    // Loads the Acquired info off the NAND. Assumes that the order is the same from when it was last written.
+    void LoadFromNand();
 };
