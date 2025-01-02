@@ -534,7 +534,7 @@ namespace pt {
 		s32 step = getNerveStep();
 		f32 _f31 = 0.2f - 0.01f * step;
 		f32 scale = sin(36.0f * step * 0.01745329251f) * _f31 + 1.0f;
-		mScale.setAll<f32>(scale);
+		mScale.setAll(scale);
 
 		if (MR::isStep(this, 20)) {
 			mScale.setAll(1.0f);
