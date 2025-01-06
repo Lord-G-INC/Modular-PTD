@@ -54,14 +54,9 @@ void RedCoinCounter::appear() {
     LayoutActor::appear();
 }
 
-void RedCoinCounter::setStarIcon(s32 starID, s32 iconID) {
-    if (starID == 0) {
+void RedCoinCounter::setStarIcon(s32 starID, s32 iconID, bool constant) {
+    if (!constant && (starID == 0 || !MR::hasPowerStarInCurrentStage(starID)))
         iconID = 0x52;
-    }
-    else {
-        if (!MR::hasPowerStarInCurrentStage(starID))
-            iconID = 0x52;
-    }
 
     wchar_t str;
     MR::addPictureFontCode(&str, iconID);

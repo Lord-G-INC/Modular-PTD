@@ -74,7 +74,7 @@ void RedCoin::appearAndMove() {
     gravityVec.scale(-mLaunchVelocity);
     appearMove(mTranslation, gravityVec, 0x7FFFFFFF, -1);
 
-    MR::startActionSound(this, "SyRedCoinAppear", -1, -1, -1);
+    MR::startSystemSE("SE_SY_RED_COIN_APPEAR", -1, -1);
 }
 
 void RedCoin::collect() {
@@ -99,8 +99,7 @@ void RedCoin::collect() {
 
     if (pController) {
         pController->startCountUp(this);
-
-        MR::startActionSound(this, pController->mHasAllRedCoins ? "SyRedCoinComplete" : "SyRedCoin", -1, -1, -1);
+        MR::startSystemSE(pController->mHasAllRedCoins ? "SE_SY_RED_COIN_COMPLETE" : "SE_SY_RED_COIN", -1, -1);
     }
 
     MR::incPlayerOxygen(mIsInBubble ? 2 : 1);

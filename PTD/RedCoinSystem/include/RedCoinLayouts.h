@@ -9,7 +9,7 @@ public:
     virtual void init(const JMapInfoIter& rIter);
     virtual void appear();
     virtual void control();
-    void setStarIcon(s32 starID, s32 iconID);
+    void setStarIcon(s32 starID, s32 iconID, bool constant);
     void startCountUp(s32 count);
     void exeAppear();
     void exeDisappear();

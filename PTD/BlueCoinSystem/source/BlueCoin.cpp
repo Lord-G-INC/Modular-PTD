@@ -81,7 +81,7 @@ void BlueCoin::appearAndMove() {
     gravityVec.scale(-mLaunchVelocity);
     appearMove(mTranslation, gravityVec, 0x7FFFFFFF, -1);
 
-    MR::startActionSound(this, "SyBlueCoinAppear", -1, -1, -1);
+    MR::startSystemSE("SE_SY_PURPLE_COIN_APPEAR", -1, -1);
 }
 
 void BlueCoin::collect() {
@@ -102,7 +102,7 @@ void BlueCoin::collect() {
         MR::emitEffect(this, BlueCoinUtil::isBlueCoinGotCurrentFile(mID) ? "BlueCoinClearGet" : "BlueCoinGet"); 
     #endif
 
-    MR::startActionSound(this, "SyBlueCoin", -1, -1, -1);
+    MR::startSystemSE("SE_SY_PURPLE_COIN", -1, -1);
     
     if (!BlueCoinUtil::isBlueCoinGotCurrentFile(mID)) {
         BlueCoinUtil::setBlueCoinGotCurrentFile(mID);

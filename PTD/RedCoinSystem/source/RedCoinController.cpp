@@ -25,14 +25,16 @@ void RedCoinController::init(const JMapInfoIter& rIter) {
     s32 powerStarCheck = 0;
     s32 iconID = 0x37;
     s32 layoutMode = -1;
+    bool isConstant = false;
     MR::getJMapInfoArg0NoInit(rIter, &mRewardCoins);
     MR::getJMapInfoArg1NoInit(rIter, &powerStarCheck);
     MR::getJMapInfoArg2NoInit(rIter, &iconID);
     MR::getJMapInfoArg3NoInit(rIter, &layoutMode);
+    MR::getJMapInfoArg4NoInit(rIter, &isConstant);
 
     mRedCoinCounter = new RedCoinCounter("RedCoinCounter");
     mRedCoinCounter->initWithoutIter();
-    mRedCoinCounter->setStarIcon(powerStarCheck, iconID);
+    mRedCoinCounter->setStarIcon(powerStarCheck, iconID, isConstant);
 
     mRedCoinPlayerCounter = new RedCoinCounterPlayer("RedCoinCounterPlayer");
     mRedCoinPlayerCounter->initWithoutIter();
