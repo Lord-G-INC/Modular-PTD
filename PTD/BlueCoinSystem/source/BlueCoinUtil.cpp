@@ -351,7 +351,7 @@ namespace BlueCoinUtil {
             TVec3f coinVelocity = TVec3f(0.0f, 25.0f, 0.0f);
             coinVelocity.scale(coinVelocity.y, -pSourceActor->mGravity);
 
-            MR::startActionSound(pKeeper->mBlueCoin, "SyBlueCoinAppear", -1, -1, -1);
+            MR::startSystemSE("SE_SY_PURPLE_COIN_APPEAR", -1, -1);
 
             pKeeper->mBlueCoin->appearMove(rPos, coinVelocity, 0x7FFFFFFF, 60);
         }
