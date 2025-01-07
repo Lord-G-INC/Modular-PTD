@@ -118,8 +118,8 @@ namespace pt {
 	kmCall(0x80379A84, YesNoDialogueExtensions);
 
 	const wchar_t* CustomGreenStarNames(GalaxyStatusAccessor accessor, const char* pStageName, s32 starid) {
-		char textName[32];
-	    snprintf(textName, 32, "ScenarioName_%s_GreenStar%d", pStageName, starid-accessor.getPowerStarNum()/2);
+		char textName[256];
+	    snprintf(textName, 256, "ScenarioName_%s_GreenStar%d", pStageName, starid-accessor.getPowerStarNum()/2);
 	
 	    TalkMessageInfo info;
 	    MessageSystem::getGameMessageDirect(&info, textName);
@@ -127,7 +127,7 @@ namespace pt {
 	    if (info.mMessage)
 	        return info.mMessage;
 	
-	    snprintf(textName, 32, "ScenarioName_GreenStar%d", starid-accessor.getPowerStarNum()/2);
+	    snprintf(textName, 256, "ScenarioName_GreenStar%d", starid-accessor.getPowerStarNum()/2);
 	    return MR::getGameMessageDirect(textName);
 	}
 	
