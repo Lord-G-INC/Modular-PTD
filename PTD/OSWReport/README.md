@@ -35,10 +35,10 @@ Does the same thing as OSWReport, but allows specifying a file path. **Custom lo
 
 Examples:
 ```cpp
-OSWReport("Woah, a custom log?\n", "custom.txt");
+OSWrite("Woah, a custom log?\n", "custom.txt");
 ```
 
 ```cpp
 int daysWithoutNonsense = 0;
-OSWReport("%d days without nonsense\n", "custom.txt", daysWithoutNonsense);
+OSWrite("%d days without nonsense\n", "custom.txt", daysWithoutNonsense);
 ```
