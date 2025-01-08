@@ -1,0 +1,6 @@
+{
+  "Name": "OSWReport",
+  "APIId": "OSWReport",
+  "Author": "AwesomeTMC",
+  "Description": "Adds a version of OSReport that writes to a log file."
+}
