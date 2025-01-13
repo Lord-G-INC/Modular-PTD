@@ -7,4 +7,5 @@ SyatiModuleTemplate
 SyatiModuleBuildTool
 codebuild
 PTD/Starshine
+PTD/SuperFlag
 PTD/.moduleignore
