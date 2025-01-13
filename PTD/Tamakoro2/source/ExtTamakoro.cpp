@@ -45,7 +45,6 @@ void TamakoroCreateDummyModel(TamakoroExt* pTamakoro, const JMapInfoIter& rIter)
 
         if (pModel) {
             pModel->initFixedPosition((MtxPtr)pTamakoro->getBaseMtx(), TVec3f(0.0f, 0.0f, 0.0f), TVec3f(0.0f, 0.0f, 0.0f));
-            pModel->initWithoutIter();
             pTamakoro->mDummyDisplayModel = pModel;
         }
     }
