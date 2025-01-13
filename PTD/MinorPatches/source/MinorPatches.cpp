@@ -124,8 +124,9 @@ namespace pt {
 	    TalkMessageInfo info;
 	    MessageSystem::getGameMessageDirect(&info, textName);
 	
-	    if (info.mMessage)
+	    if (info.mMessage) {
 	        return info.mMessage;
+		}
 	
 	    snprintf(textName, 256, "ScenarioName_GreenStar%d", starid-accessor.getPowerStarNum()/2);
 	    return MR::getGameMessageDirect(textName);
@@ -134,7 +135,7 @@ namespace pt {
 	kmWrite32(0x8004159C, 0x7FC4F378); // mr r4, r30
 	kmWrite32(0x800415A0, 0x7FE5FB78); // mr r5, r31
 	kmCall(0x800415A4, CustomGreenStarNames);
-	kmWrite32(0x800415A8, 0x48000050); // b 0x48
+	kmWrite32(0x800415A8, 0x48000050); // b 0x50
 
 
 	/*
@@ -241,4 +242,3 @@ namespace pt {
 	}
 	kmCall(0x80510578, funcTest);
 }
-
