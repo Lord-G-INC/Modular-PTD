@@ -1,6 +1,6 @@
 {
   "Name": "Dummy Display Model Table",
   "Author": "Aurum and Evanbowl",
-  "Description": "PTD: DummyDisplayModelTable",
+  "Description": "Allows new models to be displayed in DummyDisplayModel supporting actors.",
   "InstallDependencies": ["Syati_Init"]
 }
