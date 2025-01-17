@@ -53,4 +53,16 @@ namespace pt {
         addi      r1, r1, 0x10
         blr
     }
+
+    // Inspired by libogc
+    s32 getIOSVersion () {
+	    u32 vercode = *((u32*)0x80003140);
+	    u16 version = vercode >> 16;
+	    return version;
+    }
+    s32 getIOSRevision () {
+        u32 vercode = *((u32*)0x80003140);
+	    u16 revision = vercode & 0xFFFF;
+	    return revision;
+    }
 };

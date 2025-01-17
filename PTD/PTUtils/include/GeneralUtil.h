@@ -9,6 +9,7 @@ namespace pt {
     template<typename R>
     const R* accessMember(const void* ptr, size_t offset);
     const void* accessMember(const void* ptr, size_t offset);
-
     void setSubBGMState(s32 state, u32 fadeTime);
+    s32 getIOSVersion();
+    s32 getIOSRevision();
 };
