@@ -98,11 +98,13 @@ void BlueCoin::collect() {
     
     #if defined SMG63 
         MR::emitEffect(this, "BlueCoinGet"); 
+        MR::startSystemSE("SE_SY_TICO_COIN", -1, -1);
     #else
         MR::emitEffect(this, BlueCoinUtil::isBlueCoinGotCurrentFile(mID) ? "BlueCoinClearGet" : "BlueCoinGet"); 
+        MR::startSystemSE("SE_SY_PURPLE_COIN", -1, -1);
     #endif
 
-    MR::startSystemSE("SE_SY_PURPLE_COIN", -1, -1);
+
     
     if (!BlueCoinUtil::isBlueCoinGotCurrentFile(mID)) {
         BlueCoinUtil::setBlueCoinGotCurrentFile(mID);
