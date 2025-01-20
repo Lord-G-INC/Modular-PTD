@@ -179,7 +179,7 @@ namespace pt {
             MR::getCsvDataS32(&behaviorType, &table, "BehaviorType", targetLine);
             return behaviorType;
         }
-        return 0;
+        return l;
     }
     kmBranch(0x80295DC0, getDummyDisplayModelBehaviorTypeFromTable); // b getDummyDisplayModelIdFromTable
 
