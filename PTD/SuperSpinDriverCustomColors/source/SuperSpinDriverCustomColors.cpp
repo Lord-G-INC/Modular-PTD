@@ -69,7 +69,7 @@ kmWrite32(0x8045A2A0, 0x4800067C); // b 0x67C
 
 
 void CustomSpinDriverDisplayModelColor(DummyDisplayModel* pDisplayModel) {
-	MR::startBtpAndSetFrameAndStop(pDisplayModel, "SuperSpinDriver", pDisplayModel->_A8);
+	MR::startBtpAndSetFrameAndStop(pDisplayModel, "SuperSpinDriver", pDisplayModel->mColorFrame);
 	MR::startBrk(pDisplayModel, "Yellow");
 }
 
