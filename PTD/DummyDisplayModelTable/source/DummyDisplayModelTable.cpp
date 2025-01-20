@@ -20,7 +20,7 @@ namespace pt {
     */
 
     DummyDisplayModelExt* tryCreateNewDummyModel(LiveActor *pHost, const JMapInfoIter &rIter, s32 defaultId, int v4) {
-        s32 modelId = 0;
+        s32 modelId = -1;
         s32 modelParam = 0;
 
         if (MR::isValidInfo(rIter)) {
@@ -28,12 +28,41 @@ namespace pt {
             MR::getJMapInfoArg7NoInit(rIter, &modelId);
         }
 
-        DummyDisplayModelInfo* info = new DummyDisplayModelInfo;
+        if (modelId < 0)
+            return 0;
 
-        s32 tableIndex = createInfoFromTable(info, modelId);
+
+        JMapInfo table;
+        table.attach(gDummyDisplayModelTable); 
+    
+        s32 line = calcTargetLine(table, modelId);
+
+        s32 setupType;
+        MR::getCsvDataS32(&setupType, &table, "SetupType", line);
+
+        #ifdef BLUECOINSYSTEM
+        if (setupType == 6) {
+            if (BlueCoinUtil::isBlueCoinGotCurrentFile(modelParam)) {
+                line = calcTargetLine(table, line+1);
+                MR::getCsvDataS32(&setupType, &table, "SetupType", line);
+            }
+        }
+        #endif
+
+        DummyDisplayModelInfo* info = new DummyDisplayModelInfo;
+        createInfoFromTable(info, table, line);
 
         DummyDisplayModelExt* pNewModel = new DummyDisplayModelExt(pHost, info, v4, modelId, modelParam);
-        applyNewModelConfig(pNewModel, tableIndex);
+
+        MR::getCsvDataS32(&pNewModel->mRotateType, &table, "RotateType", line);
+        MR::getCsvDataS32(&pNewModel->mNoLightCtrl, &table, "NoLightCtrl", line);
+        MR::getCsvDataS32(&pNewModel->mBehaviorType, &table, "BehaviorType", line);
+        pNewModel->mSetupType = setupType;
+
+        f32 scale;
+        MR::getCsvDataF32(&scale, &table, "ScaleValue", line);
+        MR::setScale(pNewModel, scale);
+
         pNewModel->initWithoutIter();
         return pNewModel;
     }
@@ -49,21 +78,7 @@ namespace pt {
     kmWrite32(0x801D0314, 0x7CA32B78); // mr r3, r5
     kmWrite32(0x801D0318, 0x60000000); // nop
 
-    s32 createInfoFromTable(DummyDisplayModelInfo* pInfo, s32 modelId) {
-        JMapInfo table;
-        table.attach(gDummyDisplayModelTable);
-        s32 tableIndex = 0;
-        s32 targetLine = 0;
-
-        for (s32 i = 0; i < MR::getCsvDataElementNum(&table); i++) {
-            MR::getCsvDataS32(&tableIndex, &table, "Index", i);
-
-            if (modelId == tableIndex) {
-                targetLine = i;
-                break;
-            }
-        }
-
+    s32 createInfoFromTable(DummyDisplayModelInfo* pInfo, JMapInfo table, s32 targetLine) {
         MR::getCsvDataStrOrNULL(&pInfo->mModelName, &table, "ModelName", targetLine);
             if (MR::isEqualString(pInfo->mModelName, "0"))
                 pInfo->mModelName = 0;
@@ -85,16 +100,21 @@ namespace pt {
         return targetLine;
     }
 
-    void applyNewModelConfig(DummyDisplayModelExt* pModel, s32 tableIndex) {
-        JMapInfo table;
-        table.attach(gDummyDisplayModelTable);
+    s32 calcTargetLine(JMapInfo table, s32 modelId) {
+        s32 tableIndex = 0;
+        s32 targetLine = 0;
 
-        MR::getCsvDataS32(&pModel->mRotateType, &table, "RotateType", tableIndex);
-        MR::getCsvDataS32(&pModel->mSetupType, &table, "SetupType", tableIndex);
-        MR::getCsvDataS32(&pModel->mNoLightCtrl, &table, "NoLightCtrl", tableIndex);
-        MR::getCsvDataS32(&pModel->mBehaviorType, &table, "BehaviorType", tableIndex);
+        for (s32 i = 0; i < MR::getCsvDataElementNum(&table); i++) {
+            MR::getCsvDataS32(&tableIndex, &table, "Index", i);
+
+            if (modelId == tableIndex) {
+                targetLine = i;
+                break;
+            }
+        }
+
+        return targetLine;
     }
-    
     // Read and apply RotateType
     kmWrite32(0x80295A10, 0x801E00B4); // lwz r0, 0xB4(r30)
     kmWrite32(0x80295A14, 0x2C000001); // cmpwi r0, 1
@@ -164,4 +184,21 @@ namespace pt {
     kmBranch(0x80295DC0, getDummyDisplayModelBehaviorTypeFromTable); // b getDummyDisplayModelIdFromTable
 
     kmWrite32(0x80295E30, 0x806300C0); // lwz r3, 0xC0(r3)
+
+
+    void Setup_PowerStarOverrideColor(DummyDisplayModelExt* pModel, NameObj* pHostActor, s32 l) {
+        if (pModel->mColorFrame == 0)
+            ((PowerStar*)pModel)->setupColor(pHostActor, -1);
+        else {
+            f32 frame = (f32)pModel->mColorFrame;
+            MR::startBtpAndSetFrameAndStop(pModel, "PowerStarColor", frame);
+            MR::startBrkAndSetFrameAndStop(pModel, "PowerStarColor", frame);
+            MR::startBtkAndSetFrameAndStop(pModel, "PowerStarColor", frame);
+
+            bool isCollected = false;
+            int ret = MR::isStarCollected(pHostActor, -1, &isCollected);
+            MR::startBvaAndSetFrameAndStop(pModel, "PowerStarColor", (f32)isCollected);
+        }
+    }
+    kmCall(0x8029575C, Setup_PowerStarOverrideColor);
 }

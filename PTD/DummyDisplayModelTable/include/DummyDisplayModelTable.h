@@ -18,6 +18,10 @@ public:
 namespace pt {
     extern void* loadArcAndFile(const char *pArc, const char *pFile, JKRHeap *pHeap);
     
-    s32 createInfoFromTable(DummyDisplayModelInfo* pInfo, s32 modelId);
-    void applyNewModelConfig(DummyDisplayModelExt* pModel, s32 tableIndex);
+    s32 calcTargetLine(JMapInfo table, s32 modelId);
+    s32 createInfoFromTable(DummyDisplayModelInfo* pInfo, JMapInfo table, s32 modelId);
 };
+
+namespace MR {
+    bool isStarCollected(const NameObj*, s32, bool*);
+}
