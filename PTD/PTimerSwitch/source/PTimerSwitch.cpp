@@ -17,18 +17,16 @@ void PTimerSwitch::reset() {
 }
 
 void PTimerSwitch::init(const JMapInfoIter& rIter) {
-    MR::initDefaultPos(this, rIter);
     MR::processInitFunction(this, rIter, false);
-    MR::connectToSceneMapObj(this);
-    initHitSensor(2);
-    MR::addHitSensorMapObj(this, "body", 0x10, 0.0f, TVec3f(0.0f, 0.0f, 0.0f));
-    MR::addHitSensor(this, "hit", 0x49, 0x10, 120.0f, TVec3f(0.0f, 0.0f, 50.0f));
-    MR::initCollisionParts(this, "PTimerSwitch", getSensor("body"), 0);
-    mParts = MR::createCollisionPartsFromLiveActor(this, "Move", getSensor("hit"), MR::CollisionScaleType_Default);
-    initSound(4, "PTimerSwitch", &mTranslation, TVec3f(0.0f, 0.0f, 0.0f));
-    MR::needStageSwitchWriteA(this, rIter);
+    //MR::addHitSensorMapObj(this, "body", 0x10, 0.0f, TVec3f(0.0f, 0.0f, 0.0f));
+    //MR::addHitSensor(this, "hit", 0x49, 0x10, 120.0f, TVec3f(0.0f, 0.0f, 50.0f));
+    //MR::initCollisionParts(this, "PTimerSwitch", getSensor("body"), 0);
+    mParts = MR::getCollisionParts(this);
+    //mParts = MR::createCollisionPartsFromLiveActor(this, "Move", getSensor("hit"), MR::CollisionScaleType_Default);
+    //initSound(1, "PTimerSwitch", &mTranslation, TVec3f(0.0f, 0.0f, 0.0f));
+    //MR::needStageSwitchWriteA(this, rIter);
     initNerve(&NrvPTimerSwitch::PTimerSwitchNrvOff::sInstance, 0);
-    initEffectKeeper(0, "PTimerSwitch", false);
+    //initEffectKeeper(0, "PTimerSwitch", false);
     MR::startBck(this, "Move", 0);
     mConnector = new MapObjConnector(this);
     appear();
@@ -127,7 +125,8 @@ void PTimerSwitch::exeOn() {
     if (MR::isFirstStep(this)) {
         MR::onSwitchA(this);
         MR::shakeCameraNormal();
-        MR::startSound(this, "SE_OJ_SWITCH_1", -1, -1);
+        //MR::startSound(this, "SE_OJ_SWITCH_1", -1, -1);
+        MR::startActionSound(this, "OjSwitch1", -1, -1, -1);
     }
 
     if (MR::isGreaterStep(this, 25)) {
