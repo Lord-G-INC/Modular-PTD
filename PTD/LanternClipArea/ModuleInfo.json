@@ -10,7 +10,7 @@
   }],
   "ModuleData" : [
     {
-      "ProductMapObj" : [
+      "NameObjFactory" : [
         {
           "Name" : "LanternClipArea",
           "Function" : "createExtActor<LanternClipArea>",
