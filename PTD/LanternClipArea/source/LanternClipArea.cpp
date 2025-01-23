@@ -12,6 +12,7 @@
  * - Obj_arg1: The time in frames it takes for the sphere to grow until it reaches its specified size in Obj_arg0, Default 30.
  * - Obj_arg2: The time in frames it stays at full size before it shrinks down, Default 180.
  * - Obj_arg3: the time in frames it takes for the sphere to shrink down to 0, Default 120.
+ * - Obj_arg4: the color to use (0 = Gray, 1 = Red, 2 = Green, 3 = Blue, 4 = Purple, 5 = Cyan, 6 = Gold), Default 0.
  *
  * It can be paired with the Matter Splatter Color Controller Module to change the color of the sphere.
 */
@@ -22,6 +23,7 @@ LanternClipArea::LanternClipArea(const char *pName) : LiveActor(pName) {
     mStay = -1; 
     mClosure = -1; 
     mTotal = 0;
+    mColorFrame = 0.0f;
     MR::createClipAreaDropHolder();
 }
 
@@ -91,6 +93,8 @@ void LanternClipArea::init(const JMapInfoIter &rIter) {
     MR::getJMapInfoArg1NoInit(rIter, &mOpening);
     MR::getJMapInfoArg2NoInit(rIter, &mStay);
     MR::getJMapInfoArg3NoInit(rIter, &mClosure);
+    MR::getJMapInfoArg4NoInit(rIter, &mColorFrame);
+    MR::startBrkAndSetFrameAndStop(this, "ColorChange", mColorFrame);
     MR::startBtpAndSetFrameAndStop(this, "LanternLight", 0.0f);
     MR::validateClipping(this);
     initNerve(&NrvLantern::LanternNrvWait::sInstance, 0);

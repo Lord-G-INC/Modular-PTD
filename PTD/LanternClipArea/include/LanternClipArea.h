@@ -19,6 +19,7 @@ public:
     s32 mStay;
     s32 mClosure;
     s32 mTotal;
+    f32 mColorFrame;
 };
 
 namespace NrvLantern { 
