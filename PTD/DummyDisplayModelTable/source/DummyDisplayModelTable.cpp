@@ -28,9 +28,10 @@ namespace pt {
             MR::getJMapInfoArg7NoInit(rIter, &modelId);
         }
 
-        if (modelId < 0 && defaultId >= 0)
+        if (modelId == -1 && defaultId != 1)
             modelId = defaultId;
-        else
+
+        if (modelId == 0)
             return 0;
 
         JMapInfo table;
