@@ -31,7 +31,7 @@ namespace pt {
         if (modelId == -1 && defaultId != 1)
             modelId = defaultId;
 
-        if (modelId == 0)
+        if (modelId == -1)
             return 0;
 
         JMapInfo table;
