@@ -1,0 +1,9 @@
+{
+    "Version": 1,
+    "Files": [
+        "include/ToxicArea.h",
+        "include/ToxicUtil.h",
+        "source/ToxicArea.cpp",
+        "source/ToxicUtil.cpp"
+    ]
+}
