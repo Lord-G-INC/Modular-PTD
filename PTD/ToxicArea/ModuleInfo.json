@@ -1,8 +1,8 @@
 {
   "Name": "Toxic Area",
   "Author": "VTXG, Bavario",
-  "Description": "PTD: The Toxic Gas from SM64 makes its way into SMG2!\nUse ObjArg0 to set the time it takes Mario to die.",
-  "InstallDependencies": ["Syati_ObjectFactories", "ExtAreaObjMgr"],
+  "Description": "PTD: The Toxic Gas from SM64 makes its way into SMG2!\n  (ObjArg0) The time (in frames) it takes for the player to die inside this area.\n  (ObjArg1) Coin restore amount, from 0 to 100.\n  (ObjArg2) Bubble restore amount, from 0 to 100.\n\n  (SW_A) Enable/disable area.",
+  "InstallDependencies": ["Syati_ObjectFactories", "Syati_CommonFunctionHooks", "ExtAreaObjMgr"],
   "ModuleData" : [
     {
       "NameObjFactory" : [
@@ -19,6 +19,15 @@
           "Name" : "ToxicArea",
           "MaxCount" : "64",
           "Function" : "AreaObjContainer::createManager<AreaObjMgr>"
+        }
+      ]
+    },
+    {
+      "OnGameSceneUpdate": [
+        {
+          "Name": "ToxicController",
+          "Function": "ToxicController::main",
+          "Include": "ToxicArea.h"
         }
       ]
     }
