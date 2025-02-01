@@ -15,6 +15,8 @@
  * - Obj_arg4: the color to use (0 = Gray, 1 = Red, 2 = Green, 3 = Blue, 4 = Purple, 5 = Cyan, 6 = Gold), Default 0.
  *
  * It can be paired with the Matter Splatter Color Controller Module to change the color of the sphere.
+ * It enables SW_A when the sphere starts growing and disables it when it's done shrinking down to 0.
+ * It enables SW_A when the sphere is at full size and disables it when the sphere starts to shrink down again.
 */
 
 LanternClipArea::LanternClipArea(const char *pName) : LiveActor(pName) {
@@ -96,7 +98,9 @@ void LanternClipArea::init(const JMapInfoIter &rIter) {
     MR::getJMapInfoArg4NoInit(rIter, &mColorFrame);
     MR::startBrkAndSetFrameAndStop(this, "ColorChange", mColorFrame);
     MR::startBtpAndSetFrameAndStop(this, "LanternLight", 0.0f);
-    MR::validateClipping(this);
+    MR::invalidateClipping(this);
+    MR::useStageSwitchWriteA(this, rIter);
+    MR::useStageSwitchWriteB(this, rIter);
     initNerve(&NrvLantern::LanternNrvWait::sInstance, 0);
     makeActorAppeared();
     if (mRadius <= 0.0f) {
@@ -140,13 +144,22 @@ void LanternClipArea::exeStartClipArea(){
         MR::startSystemSE("SE_SY_LIGHT_FRUIT_GET", -1, -1);
         MR::startBtpAndSetFrameAndStop(this, "LanternLight", 1.0f);
         MR::killClipAreaDrop(mTranslation, mOpening, mStay, mClosure, mRadius);
+        if (MR::isValidSwitchA(this)) 
+            MR::onSwitchA(this);
     }
+
+    if (MR::isGreaterStep(this, mOpening) && MR::isValidSwitchB(this)) 
+        MR::onSwitchB(this);
+    else if (MR::isGreaterStep(this, mOpening + mStay) && MR::isValidSwitchB(this)) 
+        MR::offSwitchB(this);
 
     if (MR::isGreaterEqualStep(this, mTotal)) {
         MR::startBtpAndSetFrameAndStop(this, "LanternLight", 0.0f);
         MR::startSystemSE("SE_SY_LIGHT_FRUIT_TIMER_END", -1, -1);
         MR::deleteEffectAll(this);
         setNerve(&NrvLantern::LanternNrvWait::sInstance);
+        if (MR::isValidSwitchA(this)) 
+            MR::offSwitchA(this);
     }
 }
 
