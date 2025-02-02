@@ -14,20 +14,29 @@ PTD: The Toxic Gas from SM64 makes its way into SMG2!
 f32 gToxic = 1.0f;
 u32 gTimeInside;
 bool gIsMeterActive;
+bool gIsSoundActive;
 
 namespace ToxicController {
     void main() {
         if (MR::isPlayerDead())
             return;
 
-        ToxicArea* toxicArea = (ToxicArea*)MR::getAreaObjAtPlayerPos("ToxicArea");
+        ToxicArea* pToxicArea = (ToxicArea*)MR::getAreaObjAtPlayerPos("ToxicArea");
 
-        if (toxicArea != NULL) {
-            gToxic -= toxicArea->mIncAmount;
+        if (pToxicArea != NULL) {
+            gToxic -= pToxicArea->mIncAmount;
             gTimeInside++;
         }
-        else
+        else {
             gToxic += TOXIC_RESTORE_EXIT;
+
+            if (gTimeInside != 0) {
+                gIsSoundActive = true;
+                MR::startSystemSE("SE_SY_LV_INC_AIR_WALK_TIMER", -1, -1);
+            }
+
+            gTimeInside = 0;
+        }
 
         if (gToxic < 1.0f) {
             MarioSubMeter* pMarioSubMeter = MR::getGameSceneLayoutHolder()->mMarioSubMeter;
@@ -37,9 +46,7 @@ namespace ToxicController {
                 MarioAccess::forceKill(ACTMES_ENEMY_ATTACK_EXTRA_DAMAGE, 0);
                 return;
             }
-
-            // ? MarioAccess::getPlayerActor()->mMarioAnimator->changeTrackAnim(3, TOXIC_ANIM); -- Doesn't do anything.
-
+            
             if (gTimeInside % 60 == 0) {
                 MR::startSoundPlayer("SE_PV_TIRED", -1, -1);
             }
@@ -50,18 +57,29 @@ namespace ToxicController {
             }
 
             pMarioSubMeter->setWaterLifeRatio(gToxic);
+            MarioAccess::getPlayerActor()->mMarioAnimator->changeTrackAnim(3, TRACK_DAMAGE_WAIT);            
         }
-        else  {
+        else {
             if (gToxic > 1.0f) {
                 gToxic = 1.0f;
             }
 
-            if (toxicArea == NULL && gIsMeterActive) {
-                gTimeInside = 0;
+            if (gIsSoundActive) {
+                gIsSoundActive = false;
+                
+                MR::stopSystemSE("SE_SY_LV_INC_AIR_WALK_TIMER", 0); // 0x3A
+                MR::startSystemSE("SE_SY_INC_AIR_WALK_TIMER_F", -1, -1);
+            }
+
+            if (gIsMeterActive) {
                 gIsMeterActive = false;
                 MR::getGameSceneLayoutHolder()->mMarioSubMeter->frameOutSubMeter();
             }
         }
+    }
+    
+    inline f32 getToxic() {
+        return gToxic;
     }
 
     inline void setToxic(f32 value) {
