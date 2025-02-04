@@ -1,7 +1,5 @@
 #include "BlueCoinUtil.h"
 #include "BlueCoinLayouts.h"
-#include "Game/Screen/CounterLayoutControllerExt.h"
-#include "Game/Screen/GameSceneLayoutHolder.h"
 #include "Game/Screen/PauseMenuExt.h"
 
 #if defined TWN || defined KOR
@@ -10,295 +8,6 @@
 #define REGIONOFF 0
 #endif
 
-BlueCoinCounter::BlueCoinCounter(const char* pName) : LayoutActor(pName, 0) {
-    mAppearer = NULL;
-    mPaneRumbler = NULL;
-    mSysInfoWindow = NULL;
-    mBlueCoinCount = 0;
-    mBlueCoinDisplayNum = 0;
-    _3C = 0;
-    mIsAppear = 0;
-}
-
-void BlueCoinCounter::init(const JMapInfoIter& rIter) {
-    initLayoutManager("BlueCoinCounterInStage", 2);
-    initEffectKeeper(0, 0, 0);
-    MR::connectToSceneLayout(this);
-    MR::registerDemoSimpleCastAll(this);
-    MR::createAndAddPaneCtrl(this, "Counter", 1);
-    s32 blueCoinNum = BlueCoinUtil::getTotalBlueCoinNumCurrentFile(true);
-    MR::setTextBoxNumberRecursive(this, "Counter", blueCoinNum);
-    mBlueCoinDisplayNum = blueCoinNum;
-
-    #ifdef SMSS
-        mAppearer = new CounterLayoutAppearer(this, TVec2f(0.0f, 0.0f));
-    #else
-        mAppearer = new CounterLayoutAppearer(this, TVec2f(-50.0f, 0.0f));
-    #endif
-
-    mPaneRumbler = new CountUpPaneRumbler(this, "Counter");
-    mPaneRumbler->mRumbleCalculator->mRumbleStrength = 8.0f;
-
-    initNerve(&NrvBlueCoinCounter::NrvHide::sInstance);   
-
-    if (!BlueCoinUtil::hasSeenBlueCoinTextBoxCurrentFile()) {
-        mSysInfoWindow = MR::createSysInfoWindowMiniExecuteWithChildren();
-        MR::connectToSceneLayout(mSysInfoWindow);
-        MR::registerDemoSimpleCastAll(mSysInfoWindow);
-    }
-
-    appear();
-}
-
-void BlueCoinCounter::appear() {
-    mAppearer->reset();
-    mPaneRumbler->reset();
-    _3C = 0;
-    mIsAppear = 0;
-    MR::hideLayout(this);
-    setNerve(&NrvBlueCoinCounter::NrvHide::sInstance);
-    LayoutActor::appear();
-}
-
-void BlueCoinCounter::forceAppear() {
-    if (!isNerve(&NrvBlueCoinCounter::NrvWait::sInstance)) {
-        appear();
-        setNerve(&NrvBlueCoinCounter::NrvAppear::sInstance);
-    }
-
-    mIsAppear = true;
-}
-
-void BlueCoinCounter::disappear() {
-    mIsAppear = false;
-    setNerve(&NrvBlueCoinCounter::NrvDisappear::sInstance);
-}
-
-void BlueCoinCounter::control() {
-    updateCounter();
-    mAppearer->updateNerve();
-    mPaneRumbler->update();
-}
-
-void BlueCoinCounter::updateCounter() {
-    s32 blueCoinNum = BlueCoinUtil::getTotalBlueCoinNumCurrentFile(true);
-    s32 var = _3C;
-    mBlueCoinCount = blueCoinNum;
-
-    if (var > 0) {
-        _3C = var - 1;
-    }
-    else {
-        if (mBlueCoinDisplayNum != blueCoinNum && !isNerve(&NrvBlueCoinCounter::NrvShowTextBox::sInstance)) {
-            if (isNerve(&NrvBlueCoinCounter::NrvWait::sInstance)) {
-                u32 v4 = mBlueCoinDisplayNum;
-                _3C = 3;
-
-                if (mBlueCoinDisplayNum < blueCoinNum)
-                    mBlueCoinDisplayNum = v4 + 1;
-                else 
-                    mBlueCoinDisplayNum = v4 - 1;
-
-                MR::startAnim(this, "Flash", 0);
-                MR::emitEffect(this, "BlueCoinCounterInStageLight");
-                mPaneRumbler->start();
-            }
-
-            if (!isNerve(&NrvBlueCoinCounter::NrvAppear::sInstance)) {
-                if (!isNerve(&NrvBlueCoinCounter::NrvWait::sInstance))
-                    setNerve(&NrvBlueCoinCounter::NrvAppear::sInstance);
-                else
-                    setNerve(&NrvBlueCoinCounter::NrvWait::sInstance);
-            }
-        }
-    }
-
-    MR::setTextBoxNumberRecursive(this, "Counter", mBlueCoinDisplayNum);
-}
-
-void BlueCoinCounter::setCounter() {
-    s32 blueCoinNum = BlueCoinUtil::getTotalBlueCoinNumCurrentFile(true);
-    mBlueCoinDisplayNum = blueCoinNum;
-    mBlueCoinCount = blueCoinNum;
-}
-
-void BlueCoinCounter::exeHide() {
-    if (MR::isFirstStep(this)) {
-        _3C = 0;
-        MR::hideLayout(this);
-    }
-}
-
-void BlueCoinCounter::exeAppear() {
-    if (MR::isFirstStep(this)) {
-        MR::showLayout(this);
-        mAppearer->appear(TVec2f(0.0f, 0.0f));
-        MR::startAnim(this, "Wait", 1);
-    }
-
-    if (mAppearer->isAppeared()) {
-        setNerve(&NrvBlueCoinCounter::NrvWait::sInstance);
-    }
-}
-
-void BlueCoinCounter::exeWait() {
-    if (!mIsAppear && mBlueCoinDisplayNum == mBlueCoinCount) {
-        if (CounterLayoutController::isWaitToDisappearCounter(this)) {
-            setNerve(&NrvBlueCoinCounter::NrvDisappear::sInstance);
-        }
-    }
-}
-
-void BlueCoinCounter::exeDisappear() {
-    if (MR::isFirstStep(this)) {
-        mAppearer->disappear();
-    }
-
-    if (mAppearer->isDisappeared()) {
-        setNerve(&NrvBlueCoinCounter::NrvHide::sInstance);
-    }
-}
-
-void BlueCoinCounter::exeShowTextBox() {
-    if (MR::isFirstStep(this)) {
-        MR::hideLayout(this);
-        
-        if (MR::canStartDemo()) {
-            DemoStartRequestUtil::startDemoSystem((LiveActor*)this, "BlueCoinFirstTimeText", 1, DemoStartInfo::DEMOTYPE_0, DemoStartInfo::CINEMAFRAMETYPE_1, DemoStartInfo::STARPOINTERTYPE_0, DemoStartInfo::DELETEEFFECTYPE_0, 0);
-            MR::requestMovementOn(this);
-        }
-    }
-
-    if (MR::isStep(this, 3))
-        mSysInfoWindow->appear("BlueCoinCounter_OnFirstBlueCoin", SysInfoWindow::SysInfoType_0, SysInfoWindow::SysInfoTextPos_0, SysInfoWindow::SysInfoMessageType_1);
-
-    if (mSysInfoWindow->isDisappear() && MR::isDead(mSysInfoWindow)) {
-        MR::endDemo(this, "BlueCoinFirstTimeText");
-        BlueCoinUtil::setSeenBlueCoinTextBoxCurrentFile();
-        setNerve(&NrvBlueCoinCounter::NrvAppear::sInstance);
-    }
-}
-
-BlueCoinCounter::~BlueCoinCounter() {
-
-}
-
-CounterLayoutControllerExt::CounterLayoutControllerExt() : CounterLayoutController() {
-    mBlueCoinCounter = 0;
-}
-
-CounterLayoutControllerExt* createCounterLayoutControllerExt() {
-    return new CounterLayoutControllerExt();
-}
-
-kmCall(0x80471784, createCounterLayoutControllerExt); // bl createCounterLayoutControllerExt
-kmWrite32(0x80471788, 0x4800000C); // b 0xC
-
-namespace NrvBlueCoinCounter {
-	void NrvHide::execute(Spine* pSpine) const {
-        ((BlueCoinCounter*)pSpine->mExecutor)->exeHide();
-    }
-
-	void NrvAppear::execute(Spine* pSpine) const {
-        ((BlueCoinCounter*)pSpine->mExecutor)->exeAppear();
-    }
-
-	void NrvWait::execute(Spine* pSpine) const {
-        ((BlueCoinCounter*)pSpine->mExecutor)->exeWait();
-    }
-
-	void NrvDisappear::execute(Spine* pSpine) const {
-        ((BlueCoinCounter*)pSpine->mExecutor)->exeDisappear();
-    }
-
-	void NrvShowTextBox::execute(Spine* pSpine) const {
-        ((BlueCoinCounter*)pSpine->mExecutor)->exeShowTextBox();
-    }
-
-	NrvHide(NrvHide::sInstance);
-    NrvAppear(NrvAppear::sInstance);
-    NrvWait(NrvWait::sInstance);
-    NrvDisappear(NrvDisappear::sInstance);
-    NrvShowTextBox(NrvShowTextBox::sInstance);
-}
-
-void createBlueCoinCounter(CounterLayoutControllerExt* pController, const Nerve* pNerve) {
-    if (!(MR::isStageFileSelect() || MR::isStageWorldMap())) {   
-        pController->mBlueCoinCounter = new BlueCoinCounter("BlueCoinCounter");
-        pController->mBlueCoinCounter->initWithoutIter();
-    }
-
-    pController->initNerve(pNerve);
-}
-
-kmCall(0x804657AC, createBlueCoinCounter);
-
-bool isBlueCoinCounterDead(CounterLayoutControllerExt* pController) {
-    return (MR::isDead(pController->mCoinCounter) || MR::isDead(pController->mBlueCoinCounter));
-}
-
-kmWrite32(0x80465C00, 0x7F23CB78); // mr r3, r25
-kmCall(0x80465C04, isBlueCoinCounterDead);
-
-bool isBlueCoinCounterHidden(CounterLayoutControllerExt* pController) {
-    return (MR::isHiddenLayout(pController->mCoinCounter) || MR::isHiddenLayout(pController->mBlueCoinCounter));
-}
-
-kmWrite32(0x80465C10, 0x7F23CB78); // mr r3, r25
-kmCall(0x80465C14, isBlueCoinCounterHidden);
-
-
-bool isBlueCoinCounterWait(CounterLayoutControllerExt* pController) {
-    return (pController->mCoinCounter->isWait() || pController->mBlueCoinCounter->isNerve(&NrvBlueCoinCounter::NrvWait::sInstance));
-}
-
-kmWrite32(0x80465C20, 0x7F23CB78); // mr r3, r25
-kmCall(0x80465C24, isBlueCoinCounterWait); // bl isBlueCoinCounterWait
-
-
-void appearBlueCoinLayout(CounterLayoutControllerExt* pController) {
-    if (pController->mBlueCoinCounter) {
-        pController->mBlueCoinCounter->forceAppear();
-    } 
-
-    pController->showAllLayout();
-}
-
-
-kmCall(0x80466128, appearBlueCoinLayout);
-
-
-void appearBlueCoinLayoutWithoutStar(CounterLayoutControllerExt* pController) {
-    pController->mCoinCounter->appear();
-
-    if (pController->mBlueCoinCounter) {
-        pController->mBlueCoinCounter->appear();
-    } 
-}
-
-kmCall(0x80465EC4, appearBlueCoinLayoutWithoutStar); // bl appearBlueCoinLayoutWithoutStar
-kmWrite32(0x80465EC8, 0x48000010); // b 0x10
-
-void disappearBlueCoinLayout(CounterLayoutControllerExt* pController) {
-    if (pController->mBlueCoinCounter) {
-        pController->mBlueCoinCounter->disappear();
-    }
-        
-    pController->hideAllLayout();
-}
-
-kmCall(0x80466198, disappearBlueCoinLayout);
-
-void killBlueCoinCounter(CounterLayoutControllerExt* pController) {
-    if (pController->mBlueCoinCounter && !MR::isDemoActive("BlueCoinFirstTimeText")) {
-        pController->mBlueCoinCounter->kill();
-    }
-
-    pController->killAllCoounter();
-}
-
-kmCall(0x8046590C, killBlueCoinCounter); // bl killBlueCoinCounter
-
 // PAUSE MENU
 
 void initPauseMenuBlueCoin(PauseMenuExt* pPauseMenu) {
@@ -306,12 +15,16 @@ void initPauseMenuBlueCoin(PauseMenuExt* pPauseMenu) {
 
     MR::setTextBoxFormatRecursive(pPauseMenu, "ShaBlueCoinTotal", counterPictureFonts);
     MR::setTextBoxFormatRecursive(pPauseMenu, "ShaBlueCoinStage", counterPictureFonts);
+
+    BlueCoinList* pBlueCoinList = new BlueCoinList("BlueCoinList");
+    pBlueCoinList->initWithoutIter();
+    pPauseMenu->mBlueCoinList = pBlueCoinList;
 }
 
 kmCall(0x80486D60+REGIONOFF, initPauseMenuBlueCoin); // bl initPauseMenuBlueCoin
 
 
-void setPauseMenuBlueCoinStageCount(PauseMenu* pPauseMenu) {
+void setPauseMenuBlueCoinStageCount(PauseMenuExt* pPauseMenu) {
     s32 rangeCollected = BlueCoinUtil::getBlueCoinRangeData(0, true);
     s32 rangeTotal = BlueCoinUtil::getBlueCoinRangeData(0, false);
 
@@ -320,19 +33,34 @@ void setPauseMenuBlueCoinStageCount(PauseMenu* pPauseMenu) {
 
     if (rangeCollected > -1) {
         MR::setTextBoxArgNumberRecursive(pPauseMenu, "ShaBlueCoinStage", rangeCollected, 0);
-    
         MR::showPaneRecursive(pPauseMenu, "ShaBlueCoinStage");
     }
     else
         MR::hidePaneRecursive(pPauseMenu, "ShaBlueCoinStage");
 }
 
-s32 setUpBlueCoinInfo(PauseMenu* pPauseMenu) {
+const char* savePauseMenuIsInvalidBack(PauseMenuExt* pPauseMenu, bool isInvalidBack) {
+    pPauseMenu->mIsInvalidBack = isInvalidBack;
+
+    const char* pLabel = "PauseMenu_ButtonBackWorldMap";
+
+    if (isInvalidBack)
+        pLabel = "PauseMenu_ButtonEndGame";
+
+    return pLabel;
+}
+
+kmWrite32(0x80486EA0, 0x7C641B78); // mr r4, r3
+kmWrite32(0x80486EA4, 0x7F63DB78); // mr r3, r27
+kmCall(0x80486EA8, savePauseMenuIsInvalidBack); // bl savePauseMenuIsInvalidBack
+kmWrite32(0x80486EAC, 0x7C651B78); // mr r5, r3
+
+s32 setUpBlueCoinInfoOnAppear(PauseMenuExt* pPauseMenu) {
     setPauseMenuBlueCoinStageCount(pPauseMenu);
-
     s32 rangemin = BlueCoinUtil::getBlueCoinRange(0, false);
-
-    ((PauseMenuExt*)pPauseMenu)->mDisplayMode = 0;  
+    MR::startPaneAnimAndSetFrameAndStop(pPauseMenu, "ListButton", "ChangeList", 0.0f, 1);
+    MR::setTextBoxGameMessageRecursive(pPauseMenu, "StarList", "PauseMenu_StarList");
+    pPauseMenu->mDisplayMode = 0;  
 
     if (rangemin != -1) {
         wchar_t gIDListStr[32];
@@ -353,24 +81,19 @@ s32 setUpBlueCoinInfo(PauseMenu* pPauseMenu) {
         MR::showPaneRecursive(pPauseMenu, "CoinListIcons");
         MR::hidePane(pPauseMenu, "TxtCoinComplete");
 
+
         if (stageCheck) {
-            MR::showPane(pPauseMenu, "StageInfo");
-            MR::showPane(pPauseMenu, "WinBase");
-            MR::showPaneRecursive(pPauseMenu, "StageTitle");
-            MR::showPaneRecursive(pPauseMenu, "ShaCoinListWin");
+            MR::showPaneRecursive(pPauseMenu, "StageInfo");
             MR::setTextBoxMessageRecursive(pPauseMenu, "StageTitle", MR::getCurrentGalaxyNameOnCurrentLanguage());
-            MR::hidePane(pPauseMenu, "TxtCoinPage");
+            MR::startPaneAnimAndSetFrameAndStop(pPauseMenu, "StageInfo", "Change", 2.0f, 1);
         }
         else  {
-            MR::hidePaneRecursive(pPauseMenu, "ShaCoinListWin");
-            MR::showPaneRecursive(pPauseMenu, "Stars");
-            MR::showPaneRecursive(pPauseMenu, "ScenarioTitle");
-
             MR::addPictureFontCode(gStarIcon, 0xC1);
             MR::setTextBoxFormatRecursive(pPauseMenu, "TxtCoinPage", gStarIcon);
 
             MR::addPictureFontCode(gBButtonIcon, 0x31);
             MR::setTextBoxFormatRecursive(pPauseMenu, "TxtCoinBButton", gBButtonIcon);
+            MR::startPaneAnimAndSetFrameAndStop(pPauseMenu, "StageInfo", "Change", 0.0f, 1);
         }
 
         for (s32 i = 0; i < totalCoins + (s32)(totalCoins > 15); i++) {
@@ -397,47 +120,44 @@ s32 setUpBlueCoinInfo(PauseMenu* pPauseMenu) {
 
         MR::addPictureFontCode(&gCompleteIcon[0], collectedCount == totalCoins ? 0x50 : 0x52);
 
-        if (stageCheck)
-            MR::setTextBoxFormatRecursive(pPauseMenu, "TxtCoinBButton", gCompleteIcon);
-        else
-            MR::setTextBoxFormatRecursive(pPauseMenu, "TxtCoinComplete", gCompleteIcon);
+        MR::setTextBoxFormatRecursive(pPauseMenu, "TxtCoinComplete", gCompleteIcon);
 
-        MR::setTextBoxFormatRecursive(pPauseMenu, "ShaCoinListWin", gIDListStr);
+        MR::setTextBoxFormatRecursive(pPauseMenu, "CoinListWin", gIDListStr);
     }
-    else
-        ((PauseMenuExt*)pPauseMenu)->mDisplayMode = 2;
-
 
     return MR::getCoinNum();
 }
 
-kmCall(0x80487090+REGIONOFF, setUpBlueCoinInfo); // bl setUpBlueCoinInfo
+kmWrite32(0x80486D14, 0x38A00002+REGIONOFF); // li r5, 2
+kmWrite32(0x80486D54, 0x38A00002+REGIONOFF); // li r5, 2
+kmCall(0x80487090+REGIONOFF, setUpBlueCoinInfoOnAppear); // bl setUpBlueCoinInfo
 
 void PauseMenuIDListControls(PauseMenuExt* pPauseMenu) {
     bool stagecheck = MR::isStageNoPauseMenuStars() || MR::isStageStoryBook() || MR::isStageMarioFaceShipOrWorldMap();
     wchar_t gStarIconIDList[2];
 
-    if (pPauseMenu->mDisplayMode != 2 && !stagecheck) {
-        if (MR::testCorePadTriggerB(0)) {
-            if (pPauseMenu->mDisplayMode == 0) {
-                MR::hidePaneRecursive(pPauseMenu, "Stars");
-                MR::hidePaneRecursive(pPauseMenu, "ScenarioTitle");
-                MR::showPaneRecursive(pPauseMenu, "TxtCoinComplete");
-                MR::showPaneRecursive(pPauseMenu, "ShaCoinListWin");
-                pPauseMenu->mDisplayMode = 1;
-            }
-            else if (pPauseMenu->mDisplayMode == 1) {
-                MR::showPaneRecursive(pPauseMenu, "Stars");
-                MR::showPaneRecursive(pPauseMenu, "ScenarioTitle");
-                MR::hidePaneRecursive(pPauseMenu, "TxtCoinComplete");
-                MR::hidePaneRecursive(pPauseMenu, "ShaCoinListWin");
-                pPauseMenu->mDisplayMode = 0;
-            }
+    if (MR::testCorePadTriggerB(0)) {
+        if (pPauseMenu->mDisplayMode == 0)
+            pPauseMenu->mDisplayMode = 1;
+        else
+            pPauseMenu->mDisplayMode = 0;
 
-        MR::addPictureFontCode(gStarIconIDList, pPauseMenu->mDisplayMode > 0 ? 0xC2 : 0xC1);
-        MR::setTextBoxFormatRecursive(pPauseMenu, "TxtCoinPage", gStarIconIDList);
+        const char* pLabel = "PauseMenu_StarList";
+
+        if (pPauseMenu->mDisplayMode == 1)
+            pLabel = "PauseMenu_BlueCoinList";
+
+        MR::setTextBoxGameMessageRecursive(pPauseMenu, "StarList", pLabel);
+        f32 frame = (f32)pPauseMenu->mDisplayMode;
+        MR::startPaneAnimAndSetFrameAndStop(pPauseMenu, "ListButton", "ChangeList", frame, 1);
+        
+        
+        if (BlueCoinUtil::getBlueCoinRangeData(MR::getCurrentStageName(), false) != -1 && !stagecheck) {
+            MR::startPaneAnimAndSetFrameAndStop(pPauseMenu, "StageInfo", "Change", frame, 1);
+            MR::addPictureFontCode(gStarIconIDList, pPauseMenu->mDisplayMode > 0 ? 0xC2 : 0xC1);
+            MR::setTextBoxFormatRecursive(pPauseMenu, "TxtCoinPage", gStarIconIDList);
         }
-    }    
+    }
 }
 
 #ifndef PAUSEMENUNEWBUTTON
@@ -448,11 +168,42 @@ PauseMenuExt* createPauseMenuExt() {
 kmCall(0x804712C0, createPauseMenuExt); // bl createPauseMenuExt
 kmWrite32(0x804712C4, 0x48000010); // b 0x10
 
+void setPauseMenuNerve(PauseMenuExt* pPauseMenu, const Nerve* pNerve) {
+    if (pPauseMenu->mDisplayMode == 1)
+        pNerve = &NrvPauseMenuExt::NrvPauseMenuExtBlueCoinList::sInstance;
+
+    pPauseMenu->setNerve(pNerve);
+}
+kmCall(0x80487BD0, setPauseMenuNerve);
+// EXTENDED PAUSEMENU
 PauseMenuExt::PauseMenuExt() : PauseMenu() {
-    mButtonNew = 0;
-    mButtonNewFollowPos = TVec2f(0.0f, 0.0f);
+    // BCS
+    mBlueCoinList = 0;
     mDisplayMode = 0;
-    mIsUsedNewButton = false;
+    mIsInvalidBack = 0;
+}
+
+PauseMenuExt::~PauseMenuExt() {
+
+}
+
+void unkPauseMenuReturnToSelect(PauseMenu*); // sub_80487540
+
+void PauseMenuExt::exeBlueCoinList() {
+
+    if (MR::isFirstStep(this))
+        mBlueCoinList->appear();
+
+    if (MR::isDead(mBlueCoinList))
+        unkPauseMenuReturnToSelect(this);
+}
+
+namespace NrvPauseMenuExt {
+    void NrvPauseMenuExtBlueCoinList::execute(Spine* pSpine) const {
+        ((PauseMenuExt*)pSpine->mExecutor)->exeBlueCoinList();
+    }
+
+    NrvPauseMenuExtBlueCoinList(NrvPauseMenuExtBlueCoinList::sInstance);
 }
 
 bool PauseMenuIsNewButtonPointingTrigger(PauseMenuExt* pPauseMenu) {
@@ -464,7 +215,7 @@ kmWrite32(0x80487714+REGIONOFF, 0x7F63DB78); // mr r3, r27 (PauseMenuExt* into r
 kmCall(0x80487720+REGIONOFF, PauseMenuIsNewButtonPointingTrigger);
 
 void PauseMenuMoveButtonForBlueCoin(PauseMenuExt* pPauseMenu, const char* pStr1, const char* pStr2, f32 frame, u32 u) {
-    if (pPauseMenu->mDisplayMode != 2) {
+    if (BlueCoinUtil::getBlueCoinRangeData(MR::getCurrentStageName(), false) != -1) {
         frame = 2.0f;
     }
     MR::startPaneAnimAndSetFrameAndStop(pPauseMenu, pStr1, pStr2, frame, u);

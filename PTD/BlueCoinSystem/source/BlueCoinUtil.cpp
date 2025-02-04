@@ -1,5 +1,5 @@
 #include "BlueCoin.h"
-#include "BlueCoinLayouts.h"
+#include "BlueCoinCounter.h"
 #include "BlueCoinUtil.h"
 #include "Game/Screen/GameSceneLayoutHolder.h"
 #include "Game/Screen/CounterLayoutControllerExt.h"

@@ -1,10 +1,20 @@
 #include "Game/Screen/PauseMenu.h"
 
+class BlueCoinList;
+
 class PauseMenuExt : public PauseMenu {
 public: 
     PauseMenuExt();
-    ButtonPaneController* mButtonNew;
-    TVec2f mButtonNewFollowPos;
+    virtual ~PauseMenuExt();
+    void exeBlueCoinList();
+
+    // BCS
+    BlueCoinList* mBlueCoinList;
     s32 mDisplayMode;
-    bool mIsUsedNewButton;
+    bool mIsInvalidBack;
+
+};
+
+namespace NrvPauseMenuExt {
+    NERVE(NrvPauseMenuExtBlueCoinList);
 };

@@ -1,3 +1,4 @@
+#ifdef BLUECOINBOARD
 #pragma once
 #include "syati.h"
 #include "BlueCoinUtil.h"
@@ -75,3 +76,4 @@ namespace NrvBlueCoinSign {
     NERVE(NrvWait);
     NERVE(NrvOpen);
 };
+#endif
