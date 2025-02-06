@@ -6,17 +6,19 @@
  * Object: LanternClipArea
  * Description:
  * A custom lantern that evokes a spherical matter splatter when it is selected with the player's cursor,
- * and disappears after a chosen amount of time. A matter splatter setup is needed to make it work.
+ * and disappears after a chosen amount of time.
+ * A matter splatter setup is needed to make it work.
  * 
  * - Obj_arg0: The size of the sphere, Default 750.
  * - Obj_arg1: The time in frames it takes for the sphere to grow until it reaches its specified size in Obj_arg0, Default 30.
  * - Obj_arg2: The time in frames it stays at full size before it shrinks down, Default 180.
  * - Obj_arg3: the time in frames it takes for the sphere to shrink down to 0, Default 120.
- * - Obj_arg4: the color to use (0 = Gray, 1 = Red, 2 = Green, 3 = Blue, 4 = Purple, 5 = Cyan, 6 = Gold), Default 0.
+ * - Obj_arg4: the color to use (0 = Black, 1 = Red, 2 = Green, 3 = Blue, 4 = Purple, 5 = Cyan, 6 = Gold, 7 = Steel), Default 0.
  *
+ * If SW_A is given, it disables the cursor selection and the object can only be lit if its SW_A is activated.
+ * It enables SW_B when the sphere is at full size and disables it when the sphere starts to shrink down again.
+ * 
  * It can be paired with the Matter Splatter Color Controller Module to change the color of the sphere.
- * It enables SW_A when the sphere starts growing and disables it when it's done shrinking down to 0.
- * It enables SW_A when the sphere is at full size and disables it when the sphere starts to shrink down again.
 */
 
 LanternClipArea::LanternClipArea(const char *pName) : LiveActor(pName) {
@@ -103,21 +105,18 @@ void LanternClipArea::init(const JMapInfoIter &rIter) {
     MR::useStageSwitchWriteB(this, rIter);
     initNerve(&NrvLantern::LanternNrvWait::sInstance, 0);
     makeActorAppeared();
-    if (mRadius <= 0.0f) {
+    if (mRadius <= 0.0f)
         mRadius = 750.0f;
-    }         
 
-    if (mOpening <= 0) {
+    if (mOpening <= 0) 
         mOpening = 30;
-    }   
 
-    if (mStay <= 0) {
+    if (mStay < 0) 
         mStay = 180;
-    }
 
-    if (mClosure <= 0) {
+    if (mClosure <= 0) 
         mClosure = 120;
-    }
+
     mTotal = (mOpening + mStay + mClosure);
 }
 
@@ -127,25 +126,26 @@ void LanternClipArea::attackSensor(HitSensor *pSender, HitSensor *pReceiver) {
     }
 }
 
-void LanternClipArea::exeWait(){
-    if (MR::isNearPlayer(this, 4750.0f)) {
-        if (MR::isStarPointerPointing(this, 0, true, 0)){
-            if (MR::testCorePadTriggerA(0)){
-                setNerve(&NrvLantern::LanternNrvStart::sInstance);
-            }
+void LanternClipArea::exeWait() {
+    if (MR::isValidSwitchA(this)) {
+        if (MR::isOnSwitchA(this)) {
+            setNerve(&NrvLantern::LanternNrvStart::sInstance);            
+        }
+    }
+    else if (MR::isNearPlayer(this, 4750.0f)) {
+        if (MR::isStarPointerPointing(this, 0, true, 0) && MR::testCorePadTriggerA(0)){
+            setNerve(&NrvLantern::LanternNrvStart::sInstance);
         }        
     }
 }
 
 void LanternClipArea::exeStartClipArea(){
-    if (MR::isFirstStep(this)){
+    if (MR::isFirstStep(this)) {
         MR::emitEffect(this, "Get");
         MR::emitEffect(this, "Glow");
         MR::startSystemSE("SE_SY_LIGHT_FRUIT_GET", -1, -1);
         MR::startBtpAndSetFrameAndStop(this, "LanternLight", 1.0f);
         MR::killClipAreaDrop(mTranslation, mOpening, mStay, mClosure, mRadius);
-        if (MR::isValidSwitchA(this)) 
-            MR::onSwitchA(this);
     }
 
     if (MR::isGreaterStep(this, mOpening) && MR::isValidSwitchB(this)) 
@@ -157,9 +157,9 @@ void LanternClipArea::exeStartClipArea(){
         MR::startBtpAndSetFrameAndStop(this, "LanternLight", 0.0f);
         MR::startSystemSE("SE_SY_LIGHT_FRUIT_TIMER_END", -1, -1);
         MR::deleteEffectAll(this);
-        setNerve(&NrvLantern::LanternNrvWait::sInstance);
-        if (MR::isValidSwitchA(this)) 
+        if (MR::isValidSwitchA(this))
             MR::offSwitchA(this);
+        setNerve(&NrvLantern::LanternNrvWait::sInstance);
     }
 }
 
