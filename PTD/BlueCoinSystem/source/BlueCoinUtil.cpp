@@ -329,6 +329,12 @@ namespace BlueCoinUtil {
         return -1;
     }
 
+    JMapInfo* getBlueCoinIDRangeTable() {
+        JMapInfo* table = new JMapInfo();
+        table->attach(gBlueCoinIDRangeTable);
+        return table;
+    }
+
     bool tryCreateBlueCoinForSpawningActorActionKeeper(LiveActor* pSourceActor, s32 id) {
         if (id > -1) {
             BlueCoin* coin = new BlueCoin("BlueCoinS");

@@ -122,6 +122,7 @@ namespace BlueCoinUtil {
     /// @param minOrMax Search for Minumum or Maximum?
     /// @return s32
     s32 getBlueCoinRange(const char* pStageName, bool minOrMax);
+    JMapInfo* getBlueCoinIDRangeTable();
     
     /// @brief Creates a Blue Coin that can be used for spawning. The Blue Coin will not be created if -1 is passed into id. In that case, 0 will be returned.
     /// @param pSourceActor Source Actor
