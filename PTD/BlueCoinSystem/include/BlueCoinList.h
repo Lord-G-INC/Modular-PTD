@@ -2,13 +2,7 @@
 #include "BlueCoinUtil.h"
 #include "Game/Screen/BackButton.h"
 
-struct ListEntry {
-    s32 coinNum;
-    s32 rangeMin;
-    s32 rangeMax;
-    char pStageName[48];
-    bool isBlankSlot;
-};
+
 
 class BlueCoinList : public LayoutActor {
 public:
@@ -26,9 +20,17 @@ public:
     void updateTextBoxes();
     void updateBlueCoinTextPane();
 
+    struct ListEntry {
+        s32 coinNum;
+        s32 rangeMin;
+        s32 rangeMax;
+        char pStageName[48];
+        bool isBlankSlot;
+    };
+
+    ListEntry* mListEntries[7];
     BackButtonCancelB* mBackButton;
     JMapInfo* mRangeTable;
-    ListEntry* mListEntries[7];
     s32 mCurrentPage;
     s32 mCursorPosition;
     s32 mBlueCoinPageCount;

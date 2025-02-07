@@ -8,7 +8,13 @@ BlueCoinList::BlueCoinList(const char* pName) : LayoutActor(pName, false) {
     mCurrentPage = 1;
 
     for (s32 i = 0; i < 7; i++) {
-        mListEntries[i] = 0;
+
+        mListEntries[i] = new ListEntry;
+        memset(mListEntries[i]->pStageName, 0, 48);
+        mListEntries[i]->coinNum = 0;
+        mListEntries[i]->rangeMin = 0;
+        mListEntries[i]->rangeMax = 0;
+        mListEntries[i]->isBlankSlot = false;
     }
 }
 
@@ -21,12 +27,6 @@ void BlueCoinList::init(const JMapInfoIter& rIter) {
     MR::createAndAddPaneCtrl(this, "Cursor", 2);
     initNerve(&NrvBlueCoinList::NrvInit::sInstance);
     mRangeTable = BlueCoinUtil::getBlueCoinIDRangeTable();
-
-    for (s32 i = 0; i < 7; i++) {
-        mListEntries[i] = new ListEntry;
-        memset(mListEntries[i]->pStageName, 0, 48);
-        mListEntries[i]->isBlankSlot = true;
-    }
 }
 
 void BlueCoinList::appear() {
@@ -150,21 +150,23 @@ void BlueCoinList::populateListEntries() {
 }
 
 void BlueCoinList::updateTextBoxes() {
-    for (s32 i = 0; i < 7; i++) {
-        char paneName[8];
-        snprintf(paneName, 8, "Galaxy%d", i);
+    for (s32 i = 1; i < 7; i++) {
+        char txtPaneName[15];
 
-        char txtPaneName[12];
-        snprintf(txtPaneName, 12, "TxtGalaxy%d", i);
-
+        snprintf(txtPaneName, 15, "Galaxy%d", i);
 
         if (!mListEntries[i]->isBlankSlot)
-            MR::setTextBoxFormatRecursive(this, paneName, MR::getGalaxyNameOnCurrentLanguage(mListEntries[i]->pStageName));
-        else {
-            MR::setTextBoxFormatRecursive(this, paneName, L"----");
-        }
+            MR::setTextBoxFormatRecursive(this, txtPaneName, MR::getGalaxyNameOnCurrentLanguage(mListEntries[i]->pStageName));
+        else
+            MR::setTextBoxFormatRecursive(this, txtPaneName, L"----");
+
 
     }
+    MR::setTextBoxFormatRecursive(this, "StageGalaxy0", MR::getGalaxyNameOnCurrentLanguage(mListEntries[0]->pStageName));
+    MR::setTextBoxGameMessageRecursive(this, "CoinMiGalaxy0", "BlueCoinList_Counter");
+    MR::setTextBoxArgNumberRecursive(this, "CoinMiGalaxy0", mListEntries[0]->coinNum, 0);
+    MR::setTextBoxGameMessageRecursive(this, "CoinMaGalaxy0", "BlueCoinList_CounterMax");
+    MR::setTextBoxArgNumberRecursive(this, "CoinMaGalaxy0", (mListEntries[0]->rangeMax-mListEntries[0]->rangeMin)+1, 0);
 }
 
 void BlueCoinList::updateBlueCoinTextPane() {
