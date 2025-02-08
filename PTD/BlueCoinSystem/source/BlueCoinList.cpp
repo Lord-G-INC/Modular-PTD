@@ -6,6 +6,7 @@ BlueCoinList::BlueCoinList(const char* pName) : LayoutActor(pName, false) {
     mBlueCoinPageCount = 0;
     mRangeTable = 0;
     mCurrentPage = 1;
+    mMaxPages = 1;
 
     for (s32 i = 0; i < 7; i++) {
 
@@ -36,19 +37,17 @@ void BlueCoinList::appear() {
 
 void BlueCoinList::exeAppear() {
     mBackButton->appear();
+    
     populateListEntries();
     updateTextBoxes();
     updateBlueCoinTextPane();
+
+    MR::setTextBoxNumberRecursive(this, "InfoPageMax", mMaxPages);
 
     setNerve(&NrvBlueCoinList::NrvWait::sInstance);
 
     mCursorPosition = 0;
     setCursorPosition(0);
-    
-    for (s32 i = 0; i < 7; i++) {
-        ListEntry* entry = mListEntries[i];
-        OSReport("%s, %d, %d, %d\n", entry->pStageName, entry->rangeMax-entry->rangeMin, entry->coinNum, entry->isBlankSlot);
-    }
 }
 
 void BlueCoinList::exeWait() {
@@ -56,6 +55,7 @@ void BlueCoinList::exeWait() {
         setNerve(&NrvBlueCoinList::NrvClose::sInstance);
 
     s32 pageDirection = 0;
+    s32 cursorDirection = 0;
 
     if (MR::testCorePadTriggerLeft(0))
         pageDirection = -1;
@@ -66,17 +66,14 @@ void BlueCoinList::exeWait() {
         mCurrentPage = mCurrentPage + pageDirection;
         
         if (mCurrentPage < 1) 
-            mCurrentPage = 2;
+            mCurrentPage = mMaxPages;
 
-        if (mCurrentPage > 2) 
+        if (mCurrentPage > mMaxPages) 
             mCurrentPage = 1;
 
         populateListEntries();
         updateTextBoxes();
-        setCursorPosition(mCursorPosition);
     }
-
-    s32 cursorDirection = 0;
 
     if (MR::testCorePadTriggerUp(0))
         cursorDirection = -1;
@@ -84,20 +81,18 @@ void BlueCoinList::exeWait() {
         cursorDirection = 1;
 
 
-    if (cursorDirection != 0) {
-        mCursorPosition = mCursorPosition + cursorDirection; 
+    if (cursorDirection != 0 && pageDirection == 0) {
+        mCursorPosition = (mCursorPosition +cursorDirection) % 7;
 
-        if (mCursorPosition < 0)
+        if (mCursorPosition == -1)
             mCursorPosition = 6;
-
-        if (mCursorPosition > 6)
-            mCursorPosition = 0;
-
-        setCursorPosition(mCursorPosition);
     }
+    
 
-    if (cursorDirection != 0 || pageDirection != 0)
+    if (cursorDirection != 0 || pageDirection != 0) {
+        setCursorPosition(mCursorPosition);
         updateBlueCoinTextPane();
+    }
 }
 
 void BlueCoinList::exeClose() {
@@ -105,9 +100,6 @@ void BlueCoinList::exeClose() {
 }
 
 void BlueCoinList::setCursorPosition(s32 slot) {
-
-    OSReport("%d\n", slot);
-
     char paneName[13];
     snprintf(paneName, 13, "TxtGalaxy%d", slot);
 
@@ -115,19 +107,21 @@ void BlueCoinList::setCursorPosition(s32 slot) {
     MR::calcTextBoxRectRecursive(&txtPaneBox, this, paneName);
     f32 strLength = txtPaneBox.mPointMax.x-txtPaneBox.mPointMin.x;
 
-    //OSReport("%.03f - %.03f = %.03f + 32.0 = %.03f\n", txtPaneBox.mPointMax.x, txtPaneBox.mPointMin.x, strLength, strLength+32.0f);
     MR::startPaneAnimAndSetFrameAndStop(this, "Cursor", "CursorScale", strLength+32.0f, 0);
     MR::startPaneAnimAndSetFrameAndStop(this, "Cursor", "CursorPosition", (f32)slot, 1);
 }
 
 void BlueCoinList::populateListEntries() {
     for (s32 i = 0; i < 7; i++) {
-        mListEntries[i]->isBlankSlot = true;
+        setEntryBlank(getEntry(i));
     }
 
     for (s32 i = 0; i < MR::getCsvDataElementNum(mRangeTable); i++) {
         s32 pageNum = 0;
         MR::getCsvDataS32(&pageNum, mRangeTable, "ListPage", i);
+
+        if (mMaxPages < pageNum)
+            mMaxPages = pageNum;
 
         if (pageNum == mCurrentPage) {
             s32 slotNum = 0;
@@ -136,42 +130,62 @@ void BlueCoinList::populateListEntries() {
             if (slotNum < 8) {
                 const char* name = 0;
                 MR::getCsvDataStrOrNULL(&name, mRangeTable, "StageName", i);
-                OSReport("Name %s\n", name);
+
                 if (name) {
-                    MR::copyString(mListEntries[slotNum-1]->pStageName, name, 48);
-                    mListEntries[slotNum-1]->rangeMin = BlueCoinUtil::getBlueCoinRange(name, false);
-                    mListEntries[slotNum-1]->rangeMax = BlueCoinUtil::getBlueCoinRange(name, true);
-                    mListEntries[slotNum-1]->coinNum = BlueCoinUtil::getBlueCoinRangeData(name, true);
-                    mListEntries[slotNum-1]->isBlankSlot = false;
+                    ListEntry* entry = getEntry(slotNum-1);
+                    MR::copyString(entry->pStageName, name, 48);
+                    entry->rangeMin = BlueCoinUtil::getBlueCoinRange(name, false);
+                    entry->rangeMax = BlueCoinUtil::getBlueCoinRange(name, true);
+                    entry->coinNum = BlueCoinUtil::getBlueCoinRangeData(name, true);
+                    entry->isBlankSlot = false;
+                    setEntryNotBlank(entry);
                 }
             }
         }
     }
+
+    printListDebugInfo();
 }
 
 void BlueCoinList::updateTextBoxes() {
-    for (s32 i = 1; i < 7; i++) {
-        char txtPaneName[15];
+    for (s32 i = 0; i < 7; i++) {
+        ListEntry* entry = getEntry(i);
+        char txtPaneName[16];
+        char coinMiPaneName[17];
+        char coinMaPaneName[17];
+        char coinGalaxy[15];
+        s32 coinMiArg = 0;
+        s32 coinMaArg = 0;
 
-        snprintf(txtPaneName, 15, "Galaxy%d", i);
+        snprintf(txtPaneName, 16, "StageGalaxy%d", i);
+        snprintf(coinMiPaneName, 17, "CoinMiGalaxy%d", i);
+        snprintf(coinMaPaneName, 17, "CoinMaGalaxy%d", i);
+        snprintf(coinGalaxy, 15, "CoinGalaxy%d", i);
 
-        if (!mListEntries[i]->isBlankSlot)
-            MR::setTextBoxFormatRecursive(this, txtPaneName, MR::getGalaxyNameOnCurrentLanguage(mListEntries[i]->pStageName));
-        else
+        if (!isEntryBlank(entry)) {
+            MR::setTextBoxFormatRecursive(this, txtPaneName, MR::getGalaxyNameOnCurrentLanguage(entry->pStageName));
+            MR::showPaneRecursive(this, coinGalaxy);
+            coinMiArg = entry->coinNum;
+            coinMaArg = (entry->rangeMax-entry->rangeMin)+1;
+        }
+        else {
             MR::setTextBoxFormatRecursive(this, txtPaneName, L"----");
+            MR::hidePaneRecursive(this, coinGalaxy);
+        }
+        
+        MR::setTextBoxGameMessageRecursive(this, coinMiPaneName, "BlueCoinList_Counter");
+        MR::setTextBoxArgNumberRecursive(this, coinMiPaneName, coinMiArg, 0);
+        MR::setTextBoxGameMessageRecursive(this, coinMaPaneName, "BlueCoinList_CounterMax");
+        MR::setTextBoxArgNumberRecursive(this, coinMaPaneName, coinMaArg, 0);
 
-
+        MR::setTextBoxNumberRecursive(this, "InfoPageCurrent", mCurrentPage);
     }
-    MR::setTextBoxFormatRecursive(this, "StageGalaxy0", MR::getGalaxyNameOnCurrentLanguage(mListEntries[0]->pStageName));
-    MR::setTextBoxGameMessageRecursive(this, "CoinMiGalaxy0", "BlueCoinList_Counter");
-    MR::setTextBoxArgNumberRecursive(this, "CoinMiGalaxy0", mListEntries[0]->coinNum, 0);
-    MR::setTextBoxGameMessageRecursive(this, "CoinMaGalaxy0", "BlueCoinList_CounterMax");
-    MR::setTextBoxArgNumberRecursive(this, "CoinMaGalaxy0", (mListEntries[0]->rangeMax-mListEntries[0]->rangeMin)+1, 0);
+
 }
 
 void BlueCoinList::updateBlueCoinTextPane() {
     wchar_t IDListStr[32];
-    ListEntry* entry = mListEntries[mCursorPosition];
+    ListEntry* entry = getEntry(mCursorPosition);
     s32 newLineOff = 0;
     bool newLineAdded = 0;
 
@@ -200,6 +214,43 @@ void BlueCoinList::updateBlueCoinTextPane() {
 
     MR::setTextBoxFormatRecursive(this, "CoinListWin", IDListStr);
 }
+
+BlueCoinList::ListEntry* BlueCoinList::getEntry(s32 slot) {
+    if (slot < 0 || slot > 6)
+        return 0;
+
+    return mListEntries[slot];
+};
+
+bool BlueCoinList::isEntryBlank(ListEntry* pEntry) {
+    return pEntry->isBlankSlot;
+}
+
+void BlueCoinList::setEntryBlank(ListEntry* pEntry) {
+    pEntry->isBlankSlot = true;
+}
+
+void BlueCoinList::setEntryNotBlank(ListEntry* pEntry) {
+    pEntry->isBlankSlot = false;
+}
+
+void BlueCoinList::printListDebugInfo() {
+    OSReport("----ENTRIES----\n");
+    for (s32 i = 0; i < 7; i++) {
+        ListEntry* entry = getEntry(i);
+
+        OSReport("Entry %d, %s, [%d - %d], %d, Blank? %s\n",
+        i,
+        entry->pStageName,
+        entry->rangeMin, entry->rangeMax,
+        entry->coinNum, 
+        isEntryBlank(entry) ? "Yes" : "No");
+    }
+
+    OSReport("------------\n");
+}
+
+
 BlueCoinList::~BlueCoinList() {
 
 }

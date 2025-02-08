@@ -24,9 +24,14 @@ public:
         s32 coinNum;
         s32 rangeMin;
         s32 rangeMax;
-        char pStageName[48];
         bool isBlankSlot;
+        char pStageName[48];
     };
+    ListEntry* getEntry(s32 slot);
+    bool isEntryBlank(ListEntry* pEntry);
+    void setEntryBlank(ListEntry* pEntry);
+    void setEntryNotBlank(ListEntry* pEntry);
+    void printListDebugInfo();
 
     ListEntry* mListEntries[7];
     BackButtonCancelB* mBackButton;
@@ -34,6 +39,7 @@ public:
     s32 mCurrentPage;
     s32 mCursorPosition;
     s32 mBlueCoinPageCount;
+    s32 mMaxPages;
 };
 
 namespace NrvBlueCoinList {
