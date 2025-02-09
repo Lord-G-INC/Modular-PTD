@@ -44,6 +44,9 @@ namespace ToxicController {
             if (gToxic <= 0.0f) {
                 pMarioSubMeter->frameOutSubMeter();
                 MarioAccess::forceKill(ACTMES_ENEMY_ATTACK_EXTRA_DAMAGE, 0);
+
+                gToxic = 1.0f;
+                gTimeInside = 0;
                 return;
             }
             
@@ -67,7 +70,7 @@ namespace ToxicController {
             if (gIsSoundActive) {
                 gIsSoundActive = false;
                 
-                MR::stopSystemSE("SE_SY_LV_INC_AIR_WALK_TIMER", 0); // 0x3A
+                MR::stopSystemSE("SE_SY_LV_INC_AIR_WALK_TIMER", 0);
                 MR::startSystemSE("SE_SY_INC_AIR_WALK_TIMER_F", -1, -1);
             }
 
@@ -95,17 +98,17 @@ namespace ToxicController {
     }
 
     void decToxicCoin() {
-        ToxicArea* toxicArea = (ToxicArea*)MR::getAreaObjAtPlayerPos("ToxicArea");
+        ToxicArea* pToxicArea = (ToxicArea*)MR::getAreaObjAtPlayerPos("ToxicArea");
 
-        if (toxicArea != NULL)
-            gToxic += toxicArea->mCoinRestore;
+        if (pToxicArea != NULL)
+            gToxic += pToxicArea->mCoinRestore;
     }
 
     void decToxicBubble() {
-        ToxicArea* toxicArea = (ToxicArea*)MR::getAreaObjAtPlayerPos("ToxicArea");
+        ToxicArea* pToxicArea = (ToxicArea*)MR::getAreaObjAtPlayerPos("ToxicArea");
 
-        if (toxicArea != NULL)
-            gToxic += toxicArea->mBubbleRestore;
+        if (pToxicArea != NULL)
+            gToxic += pToxicArea->mBubbleRestore;
     }
 }
 
