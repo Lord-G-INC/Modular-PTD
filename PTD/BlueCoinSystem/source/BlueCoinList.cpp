@@ -9,7 +9,6 @@ BlueCoinList::BlueCoinList(const char* pName) : LayoutActor(pName, false) {
     mMaxPages = 1;
 
     for (s32 i = 0; i < 7; i++) {
-
         mListEntries[i] = new ListEntry;
         memset(mListEntries[i]->pStageName, 0, 48);
         mListEntries[i]->coinNum = 0;
@@ -26,6 +25,7 @@ void BlueCoinList::init(const JMapInfoIter& rIter) {
     mBackButton->initWithoutIter();
     MR::connectToSceneLayoutOnPause(mBackButton);
     MR::createAndAddPaneCtrl(this, "Cursor", 2);
+    MR::createAndAddPaneCtrl(this, "WinGalaxy", 1);
     initNerve(&NrvBlueCoinList::NrvInit::sInstance);
     mRangeTable = BlueCoinUtil::getBlueCoinIDRangeTable();
 }
@@ -42,7 +42,12 @@ void BlueCoinList::exeAppear() {
     updateTextBoxes();
     updateBlueCoinTextPane();
 
-    MR::setTextBoxNumberRecursive(this, "InfoPageMax", mMaxPages);
+    MR::setTextBoxGameMessageRecursive(this, "InfoTotals", "BlueCoinList_Totals");
+    MR::setTextBoxGameMessageRecursive(this, "InfoPage", "BlueCoinList_Page");
+    MR::setTextBoxArgNumberRecursive(this, "InfoPage", mMaxPages, 1);
+    MR::startPaneAnimAndSetFrameAndStop(this, "WinGalaxy", "TotalsVisibility", 0.0f, 0);
+
+    MR::setTextBoxNumberRecursive(this, "CounterBlueCoin", BlueCoinUtil::getTotalBlueCoinNumCurrentFile(false));
 
     setNerve(&NrvBlueCoinList::NrvWait::sInstance);
 
@@ -82,10 +87,10 @@ void BlueCoinList::exeWait() {
 
 
     if (cursorDirection != 0 && pageDirection == 0) {
-        mCursorPosition = (mCursorPosition +cursorDirection) % 7;
+        mCursorPosition = (mCursorPosition +cursorDirection) % 8;
 
         if (mCursorPosition == -1)
-            mCursorPosition = 6;
+            mCursorPosition = 7;
     }
     
 
@@ -101,7 +106,10 @@ void BlueCoinList::exeClose() {
 
 void BlueCoinList::setCursorPosition(s32 slot) {
     char paneName[13];
-    snprintf(paneName, 13, "TxtGalaxy%d", slot);
+    if (slot < 7)
+        snprintf(paneName, 13, "TxtGalaxy%d", slot);
+    else
+        MR::copyString(paneName, "TxtTotals", 11);
 
     TBox2f txtPaneBox;
     MR::calcTextBoxRectRecursive(&txtPaneBox, this, paneName);
@@ -154,6 +162,7 @@ void BlueCoinList::updateTextBoxes() {
         char coinMiPaneName[17];
         char coinMaPaneName[17];
         char coinGalaxy[15];
+        char listPageName[22];
         s32 coinMiArg = 0;
         s32 coinMaArg = 0;
 
@@ -163,7 +172,7 @@ void BlueCoinList::updateTextBoxes() {
         snprintf(coinGalaxy, 15, "CoinGalaxy%d", i);
 
         if (!isEntryBlank(entry)) {
-            MR::setTextBoxFormatRecursive(this, txtPaneName, MR::getGalaxyNameOnCurrentLanguage(entry->pStageName));
+            MR::setTextBoxFormatRecursive(this, txtPaneName, MR::getGalaxyNameShortOnCurrentLanguage(entry->pStageName));
             MR::showPaneRecursive(this, coinGalaxy);
             coinMiArg = entry->coinNum;
             coinMaArg = (entry->rangeMax-entry->rangeMin)+1;
@@ -172,24 +181,31 @@ void BlueCoinList::updateTextBoxes() {
             MR::setTextBoxFormatRecursive(this, txtPaneName, L"----");
             MR::hidePaneRecursive(this, coinGalaxy);
         }
-        
+
+
         MR::setTextBoxGameMessageRecursive(this, coinMiPaneName, "BlueCoinList_Counter");
         MR::setTextBoxArgNumberRecursive(this, coinMiPaneName, coinMiArg, 0);
         MR::setTextBoxGameMessageRecursive(this, coinMaPaneName, "BlueCoinList_CounterMax");
         MR::setTextBoxArgNumberRecursive(this, coinMaPaneName, coinMaArg, 0);
 
-        MR::setTextBoxNumberRecursive(this, "InfoPageCurrent", mCurrentPage);
+        snprintf(listPageName, 22, "BlueCoinList_Page%d", mCurrentPage);
+        MR::setTextBoxGameMessageRecursive(this, "TextPage", listPageName);
+        MR::setTextBoxArgNumberRecursive(this, "InfoPage", mCurrentPage, 0);
     }
 
 }
 
 void BlueCoinList::updateBlueCoinTextPane() {
     wchar_t IDListStr[32];
-    ListEntry* entry = getEntry(mCursorPosition);
+    s32 pos = mCursorPosition;
+    if (pos == 7)
+        pos = 6;
+    
+    ListEntry* entry = getEntry(pos);
     s32 newLineOff = 0;
     bool newLineAdded = 0;
 
-    if (!entry->isBlankSlot) {
+    if (!isEntryBlank(entry)) {
         s32 totalCoins = (entry->rangeMax-entry->rangeMin)+1;
         for (s32 i = 0; i < totalCoins + (s32)(totalCoins > 15); i++) {
             newLineAdded = 0;
@@ -213,6 +229,8 @@ void BlueCoinList::updateBlueCoinTextPane() {
     }
 
     MR::setTextBoxFormatRecursive(this, "CoinListWin", IDListStr);
+
+    MR::startPaneAnimAndSetFrameAndStop(this, "WinGalaxy", "TotalsVisibility", (f32)(mCursorPosition == 7), 0);
 }
 
 BlueCoinList::ListEntry* BlueCoinList::getEntry(s32 slot) {
