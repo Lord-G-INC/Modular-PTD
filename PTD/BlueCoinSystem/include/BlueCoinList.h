@@ -36,9 +36,10 @@ public:
     ListEntry* mListEntries[7];
     BackButtonCancelB* mBackButton;
     JMapInfo* mRangeTable;
+    s32 mTotalCoinsInPage;
+    s32 mBlueCoinTotalCount;
     s32 mCurrentPage;
     s32 mCursorPosition;
-    s32 mBlueCoinPageCount;
     s32 mMaxPages;
 };
 

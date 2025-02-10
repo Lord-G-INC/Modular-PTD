@@ -3,12 +3,14 @@
 BlueCoinList::BlueCoinList(const char* pName) : LayoutActor(pName, false) {
     mBackButton = 0;
     mCursorPosition = 0;
-    mBlueCoinPageCount = 0;
+    mTotalCoinsInPage = 0;
+    mBlueCoinTotalCount = 0;
     mRangeTable = 0;
     mCurrentPage = 1;
     mMaxPages = 1;
 
     for (s32 i = 0; i < 7; i++) {
+
         mListEntries[i] = new ListEntry;
         memset(mListEntries[i]->pStageName, 0, 48);
         mListEntries[i]->coinNum = 0;
@@ -28,6 +30,20 @@ void BlueCoinList::init(const JMapInfoIter& rIter) {
     MR::createAndAddPaneCtrl(this, "WinGalaxy", 1);
     initNerve(&NrvBlueCoinList::NrvInit::sInstance);
     mRangeTable = BlueCoinUtil::getBlueCoinIDRangeTable();
+
+    for (s32 i = 0; i < MR::getCsvDataElementNum(mRangeTable); i++) {
+        s32 pageNum;
+        s32 slotNum;
+        MR::getCsvDataS32(&pageNum, mRangeTable, "ListPage", i);
+        MR::getCsvDataS32(&slotNum, mRangeTable, "ListSlot", i);
+
+        if (pageNum > 0 && slotNum > 0) {
+            const char* pStageName;
+            MR::getCsvDataStrOrNULL(&pStageName, mRangeTable, "StageName", i);
+            mBlueCoinTotalCount = mBlueCoinTotalCount + BlueCoinUtil::getBlueCoinRangeData(pStageName, false);
+        }
+        OSReport("mTotalCoins: %d\n", mBlueCoinTotalCount);
+    }
 }
 
 void BlueCoinList::appear() {
@@ -47,7 +63,10 @@ void BlueCoinList::exeAppear() {
     MR::setTextBoxArgNumberRecursive(this, "InfoPage", mMaxPages, 1);
     MR::startPaneAnimAndSetFrameAndStop(this, "WinGalaxy", "TotalsVisibility", 0.0f, 0);
 
-    MR::setTextBoxNumberRecursive(this, "CounterBlueCoin", BlueCoinUtil::getTotalBlueCoinNumCurrentFile(false));
+    MR::setTextBoxGameMessageRecursive(this, "BlueCoinTotal", "BlueCoinList_Counter");
+    MR::setTextBoxArgNumberRecursive(this, "BlueCoinTotal", BlueCoinUtil::getTotalBlueCoinNumCurrentFile(false), 0);
+
+    MR::setTextBoxNumberRecursive(this, "ShaBlueCoinMax", mBlueCoinTotalCount);
 
     setNerve(&NrvBlueCoinList::NrvWait::sInstance);
 
@@ -120,6 +139,7 @@ void BlueCoinList::setCursorPosition(s32 slot) {
 }
 
 void BlueCoinList::populateListEntries() {
+    mTotalCoinsInPage = 0;
     for (s32 i = 0; i < 7; i++) {
         setEntryBlank(getEntry(i));
     }
@@ -142,10 +162,11 @@ void BlueCoinList::populateListEntries() {
                 if (name) {
                     ListEntry* entry = getEntry(slotNum-1);
                     MR::copyString(entry->pStageName, name, 48);
-                    entry->rangeMin = BlueCoinUtil::getBlueCoinRange(name, false);
                     entry->rangeMax = BlueCoinUtil::getBlueCoinRange(name, true);
+                    entry->rangeMin = BlueCoinUtil::getBlueCoinRange(name, false);
                     entry->coinNum = BlueCoinUtil::getBlueCoinRangeData(name, true);
                     entry->isBlankSlot = false;
+                    mTotalCoinsInPage = mTotalCoinsInPage + BlueCoinUtil::getBlueCoinRangeData(name, false);
                     setEntryNotBlank(entry);
                 }
             }
