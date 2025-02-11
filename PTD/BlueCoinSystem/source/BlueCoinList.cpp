@@ -8,6 +8,9 @@ BlueCoinList::BlueCoinList(const char* pName) : LayoutActor(pName, false) {
     mRangeTable = 0;
     mCurrentPage = 1;
     mMaxPages = 1;
+    mDefaultCursorPosition = 7;
+    mDefaultPage = 1;
+    mTotalCollectedCoinsInPage = 0;
 
     for (s32 i = 0; i < 7; i++) {
 
@@ -41,8 +44,12 @@ void BlueCoinList::init(const JMapInfoIter& rIter) {
             const char* pStageName;
             MR::getCsvDataStrOrNULL(&pStageName, mRangeTable, "StageName", i);
             mBlueCoinTotalCount = mBlueCoinTotalCount + BlueCoinUtil::getBlueCoinRangeData(pStageName, false);
+
+            if (MR::isEqualStageName(pStageName)) {
+                mDefaultPage = pageNum;
+                mDefaultCursorPosition = slotNum-1;
+            }
         }
-        OSReport("mTotalCoins: %d\n", mBlueCoinTotalCount);
     }
 }
 
@@ -54,24 +61,33 @@ void BlueCoinList::appear() {
 void BlueCoinList::exeAppear() {
     mBackButton->appear();
     
+    mCursorPosition = mDefaultCursorPosition;
+    mCurrentPage = mDefaultPage;
+
     populateListEntries();
     updateTextBoxes();
     updateBlueCoinTextPane();
+    setCursorPosition(mCursorPosition);
 
     MR::setTextBoxGameMessageRecursive(this, "InfoTotals", "BlueCoinList_Totals");
+    MR::setTextBoxGameMessageRecursive(this, "ShaProgress", "BlueCoinList_Progress");
+
     MR::setTextBoxGameMessageRecursive(this, "InfoPage", "BlueCoinList_Page");
+    MR::setTextBoxArgNumberRecursive(this, "InfoPage", mCurrentPage, 0);
     MR::setTextBoxArgNumberRecursive(this, "InfoPage", mMaxPages, 1);
+    
     MR::startPaneAnimAndSetFrameAndStop(this, "WinGalaxy", "TotalsVisibility", 0.0f, 0);
 
-    MR::setTextBoxGameMessageRecursive(this, "BlueCoinTotal", "BlueCoinList_Counter");
-    MR::setTextBoxArgNumberRecursive(this, "BlueCoinTotal", BlueCoinUtil::getTotalBlueCoinNumCurrentFile(false), 0);
+    MR::setTextBoxGameMessageRecursive(this, "ShaBlueCoinT", "BlueCoinList_Counter");
+    MR::setTextBoxArgNumberRecursive(this, "ShaBlueCoinT", BlueCoinUtil::getTotalBlueCoinNumCurrentFile(false), 0);
+    MR::setTextBoxNumberRecursive(this, "ShaCoinMaxT", mBlueCoinTotalCount);
 
-    MR::setTextBoxNumberRecursive(this, "ShaBlueCoinMax", mBlueCoinTotalCount);
+    MR::setTextBoxGameMessageRecursive(this, "ShaBlueCoinP", "BlueCoinList_Counter");
+    MR::setTextBoxArgNumberRecursive(this, "ShaBlueCoinP", mTotalCollectedCoinsInPage, 0);
+    MR::setTextBoxNumberRecursive(this, "ShaCoinMaxP", mTotalCoinsInPage);
+
 
     setNerve(&NrvBlueCoinList::NrvWait::sInstance);
-
-    mCursorPosition = 0;
-    setCursorPosition(0);
 }
 
 void BlueCoinList::exeWait() {
@@ -139,6 +155,7 @@ void BlueCoinList::setCursorPosition(s32 slot) {
 }
 
 void BlueCoinList::populateListEntries() {
+    mTotalCollectedCoinsInPage = 0;
     mTotalCoinsInPage = 0;
     for (s32 i = 0; i < 7; i++) {
         setEntryBlank(getEntry(i));
@@ -167,6 +184,7 @@ void BlueCoinList::populateListEntries() {
                     entry->coinNum = BlueCoinUtil::getBlueCoinRangeData(name, true);
                     entry->isBlankSlot = false;
                     mTotalCoinsInPage = mTotalCoinsInPage + BlueCoinUtil::getBlueCoinRangeData(name, false);
+                    mTotalCollectedCoinsInPage = mTotalCollectedCoinsInPage + BlueCoinUtil::getBlueCoinRangeData(name, true);
                     setEntryNotBlank(entry);
                 }
             }
@@ -211,9 +229,11 @@ void BlueCoinList::updateTextBoxes() {
 
         snprintf(listPageName, 22, "BlueCoinList_Page%d", mCurrentPage);
         MR::setTextBoxGameMessageRecursive(this, "TextPage", listPageName);
-        MR::setTextBoxArgNumberRecursive(this, "InfoPage", mCurrentPage, 0);
     }
+    MR::setTextBoxArgNumberRecursive(this, "InfoPage", mCurrentPage, 0);
 
+    MR::setTextBoxArgNumberRecursive(this, "ShaBlueCoinP", mTotalCollectedCoinsInPage, 0);
+    MR::setTextBoxNumberRecursive(this, "ShaCoinMaxP", mTotalCoinsInPage);
 }
 
 void BlueCoinList::updateBlueCoinTextPane() {

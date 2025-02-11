@@ -37,10 +37,13 @@ public:
     BackButtonCancelB* mBackButton;
     JMapInfo* mRangeTable;
     s32 mTotalCoinsInPage;
+    s32 mTotalCollectedCoinsInPage;
     s32 mBlueCoinTotalCount;
     s32 mCurrentPage;
     s32 mCursorPosition;
     s32 mMaxPages;
+    s32 mDefaultCursorPosition;
+    s32 mDefaultPage;
 };
 
 namespace NrvBlueCoinList {
