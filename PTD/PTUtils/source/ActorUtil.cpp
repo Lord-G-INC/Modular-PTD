@@ -36,6 +36,14 @@ namespace pt {
 		turnToDirectionUpFront(pActor, -pActor->mGravity, pRider->mCurrentDir);
 	}
 
+	bool isPlayerFrontSide (const LiveActor *pActor) {
+        MtxPtr v0 = pActor->getBaseMtx();
+        TVec3f v1(v0[0][2], v0[1][2], v0[2][2]);
+        TVec3f v2(*MR::getPlayerPos());
+        JMathInlineVEC::PSVECSubtract(v2, pActor->mTranslation, v2);
+        return v2.dot(v1) >= 0.0f;
+    }
+
 	AnimScaleController* createSamboAnimScaleController(AnimScaleParam *pAnimScaleParam) {
 		pAnimScaleParam->_10 = 4.0f;
 		pAnimScaleParam->_14 = 1.0f;
@@ -68,7 +76,7 @@ namespace pt {
 
 	void initShadowVolumeBox(LiveActor* pActor, const TVec3f& rPos) {
 		pActor->initShadowControllerList(1);
-		MR::addShadowVolumeBox(pActor, "�{�����[���e(�{�b�N�X)", rPos, (MtxPtr)pActor->getBaseMtx());
+		MR::addShadowVolumeBox(pActor, "�ｿｽ{�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽe(�ｿｽ{�ｿｽb�ｿｽN�ｿｽX)", rPos, (MtxPtr)pActor->getBaseMtx());
 	}
 
 	LiveActor* getSpecificActorFromGroup(LiveActor* pActor, const char* pName) {

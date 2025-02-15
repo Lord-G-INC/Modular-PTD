@@ -10,6 +10,7 @@ namespace pt {
 
 	void initRailToNearestAndRepositionWithGravity(LiveActor *pActor);
 	void getTransRotateFromRailWithGravity(LiveActor *pActor);
+	bool isPlayerFrontSide(const LiveActor *pActor);
 
 	AnimScaleController* createSamboAnimScaleController(AnimScaleParam *pAnimScaleParam);
 
