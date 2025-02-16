@@ -76,7 +76,7 @@ namespace pt {
 
 	void initShadowVolumeBox(LiveActor* pActor, const TVec3f& rPos) {
 		pActor->initShadowControllerList(1);
-		MR::addShadowVolumeBox(pActor, "�ｿｽ{�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ[�ｿｽ�ｿｽ�ｿｽe(�ｿｽ{�ｿｽb�ｿｽN�ｿｽX)", rPos, (MtxPtr)pActor->getBaseMtx());
+		MR::addShadowVolumeBox(pActor, "�{�����[���e(�{�b�N�X)", rPos, (MtxPtr)pActor->getBaseMtx());
 	}
 
 	LiveActor* getSpecificActorFromGroup(LiveActor* pActor, const char* pName) {
