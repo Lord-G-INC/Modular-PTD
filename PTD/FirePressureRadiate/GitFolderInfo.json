@@ -1,0 +1,7 @@
+{
+  "Version": 1,
+  "Files": [
+    "include/FirePressureRadiate.h",
+    "source/FirePressureRadiate.cpp"
+  ]
+}

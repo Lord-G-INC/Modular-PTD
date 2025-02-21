@@ -1,0 +1,8 @@
+{
+  "Version": 1,
+  "Files": [
+    "include/Jiraira.h",
+    "README.md",
+    "source/Jiraira.cpp"
+  ]
+}

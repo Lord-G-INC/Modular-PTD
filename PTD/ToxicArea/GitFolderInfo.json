@@ -1,7 +1,7 @@
 {
-    "Version": 1,
-    "Files": [
-        "include/ToxicArea.h",
-        "source/ToxicArea.cpp"
-    ]
+  "Version": 1,
+  "Files": [
+    "include/ToxicArea.h",
+    "source/ToxicArea.cpp"
+  ]
 }

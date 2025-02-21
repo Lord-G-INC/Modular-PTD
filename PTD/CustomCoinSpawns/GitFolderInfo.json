@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Files": [
+    "include/BlueCoinSystem/BlueCoin.h",
+    "include/CustomCoinSpawns.h",
+    "include/Game/LiveActor/ExtActorActionKeeper.h",
+    "include/RedCoinSystem/RedCoin.h",
+    "source/CustomCoinSpawns.cpp",
+    "source/ExtActorActionKeeper.cpp"
+  ]
+}

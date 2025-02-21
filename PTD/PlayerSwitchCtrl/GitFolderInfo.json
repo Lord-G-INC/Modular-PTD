@@ -1,0 +1,7 @@
+{
+  "Version": 1,
+  "Files": [
+    "include/PlayerSwitchCtrl.h",
+    "source/PlayerSwitchCtrl.cpp"
+  ]
+}

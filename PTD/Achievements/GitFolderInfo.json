@@ -1,0 +1,7 @@
+{
+  "Version": 1,
+  "Files": [
+    "include/Achievement.hpp",
+    "source/Achievement.cpp"
+  ]
+}

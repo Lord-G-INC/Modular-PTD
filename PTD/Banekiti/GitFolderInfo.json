@@ -1,0 +1,8 @@
+{
+  "Version": 1,
+  "Files": [
+    "disc/ObjectData/Banekiti.arc",
+    "include/Banekiti.h",
+    "source/Banekiti.cpp"
+  ]
+}

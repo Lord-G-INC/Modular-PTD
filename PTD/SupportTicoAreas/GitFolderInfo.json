@@ -1,0 +1,9 @@
+{
+  "Version": 1,
+  "Files": [
+    "include/NoSupportTicoArea.h",
+    "include/SupportTicoSwitchArea.h",
+    "source/NoSupportTicoArea.cpp",
+    "source/SupportTicoSwitchArea.cpp"
+  ]
+}

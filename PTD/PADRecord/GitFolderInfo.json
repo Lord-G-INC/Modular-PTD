@@ -1,0 +1,8 @@
+{
+  "Version": 1,
+  "Files": [
+    "include/PadRecord.h",
+    "README.md",
+    "source/PadRecord.cpp"
+  ]
+}

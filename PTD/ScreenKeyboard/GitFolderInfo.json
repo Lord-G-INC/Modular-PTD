@@ -1,0 +1,8 @@
+{
+  "Version": 1,
+  "Files": [
+    "disc/LayoutData/ScreenKeyboard.arc",
+    "include/ScreenKeyboard.h",
+    "source/ScreenKeyboard.cpp"
+  ]
+}

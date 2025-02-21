@@ -1,0 +1,31 @@
+{
+  "Version": 1,
+  "Files": [
+    "BlueCoinSystem_Assets.zip",
+    "disc/LayoutData/BlueCoinBoard.arc",
+    "disc/LayoutData/BlueCoinCounterInStage.arc",
+    "disc/LayoutData/FileInfo.arc",
+    "disc/LayoutData/PauseMenu.arc",
+    "disc/ObjectData/BlueCoin.arc",
+    "disc/ObjectData/BlueCoinClear.arc",
+    "disc/ObjectData/BlueCoinSign.arc",
+    "disc/SystemData/BlueCoinBoardDataTable.arc",
+    "disc/SystemData/BlueCoinIDRangeTable.arc",
+    "FontIcons/BlueCoinBoardPowerStar_95.png",
+    "FontIcons/BlueCoin_8A.png",
+    "FontIcons/IDListIndicatorClosed_C1.png",
+    "FontIcons/IDListIndicatorOpen_C2.png",
+    "FontIcons/UncollectedBlueCoin_C0.png",
+    "include/BlueCoin.h",
+    "include/BlueCoinBoard.h",
+    "include/BlueCoinLayouts.h",
+    "include/BlueCoinUtil.h",
+    "include/Game/LiveActor/ExtActorActionKeeper.h",
+    "include/Game/Screen/CounterLayoutControllerExt.h",
+    "include/Game/Screen/PauseMenuExt.h",
+    "source/BlueCoin.cpp",
+    "source/BlueCoinBoard.cpp",
+    "source/BlueCoinLayouts.cpp",
+    "source/BlueCoinUtil.cpp"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "Version": 1,
+  "Files": [
+    "include/ButtonSwitchArea.h",
+    "source/ButtonSwitchArea.cpp"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "Version": 1,
+  "Files": [
+    "include/MorphSwitchCtrl.h",
+    "source/MorphSwitchCtrl.cpp"
+  ]
+}
