@@ -1,0 +1,7 @@
+{
+  "Version": 1,
+  "Files": [
+    "include/DolphinSwitchArea.h",
+    "source/DolphinSwitchArea.cpp"
+  ]
+}
