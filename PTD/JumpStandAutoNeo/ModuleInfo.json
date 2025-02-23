@@ -1,0 +1,16 @@
+{
+    "Name": "JumpStandAutoNeo",
+    "Author": "Bavario",
+    "Description": "Allows you to use custom player launch values.",
+    "ModuleData" : [
+      {
+        "NameObjFactory" : [
+          {
+            "Name" : "JumpStandAutoNeo",
+            "Function" : "createExtActor<JumpStandAutoNeo>",
+            "Include" : "JumpStandAutoNeo.h"
+          }
+        ]
+      }
+    ]
+}
