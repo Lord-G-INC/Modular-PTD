@@ -1,7 +1,7 @@
 {
     "Name": "JumpStandAutoNeo",
     "Author": "Bavario",
-    "Description": "Allows you to use custom player launch values.",
+    "Description": "Overhauls the vanilla JumpStandAuto object, adding support for many things such as custom launch heights, colors, switch and rail support.",
     "ModuleData" : [
       {
         "NameObjFactory" : [
