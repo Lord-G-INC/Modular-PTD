@@ -2,8 +2,6 @@
 #include "BlueCoinUtil.h"
 #include "Game/Screen/BackButton.h"
 
-
-
 class BlueCoinList : public LayoutActor {
 public:
     BlueCoinList(const char* pName);
@@ -66,3 +64,6 @@ namespace NrvBlueCoinList {
     NERVE(NrvWait);
     NERVE(NrvClose);
 };
+
+// This symbol is unknown
+void unkButtonPaneControllerFunction(ButtonPaneController*);

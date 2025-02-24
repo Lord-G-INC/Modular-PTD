@@ -78,6 +78,16 @@ void BlueCoinList::appear() {
 void BlueCoinList::control() {
     mArrowRight->update();
     mArrowLeft->update();
+
+    if (mArrowRight->isWait() && mArrowRight->getNerveStep() == 1 && mArrowLeft->isWait()) {
+        f32 frameLeft = MR::getPaneAnimFrame(this, "Left", 0);
+        MR::setPaneAnimFrame(this, "Right", frameLeft, 0);
+    }
+
+    if (mArrowLeft->isWait() && mArrowLeft->getNerveStep() == 1 && mArrowRight->isWait()) {
+        f32 frameRight = MR::getPaneAnimFrame(this, "Right", 0);
+        MR::setPaneAnimFrame(this, "Left", frameRight, 0);
+    }
 }
 
 void BlueCoinList::exeAppear() {
@@ -132,12 +142,31 @@ void BlueCoinList::exeAppear() {
 }
 
 void BlueCoinList::exeChange() {
-    populateListEntries();
-    updateTextBoxes();
-    setCursorPosition(mCursorPosition);
-    updateBlueCoinTextPane();
+    if (MR::isFirstStep(this)) {
+        MR::startSystemSE("SE_SY_STAR_RESULT_PANEL_SLIDE", -1, -1);
 
-    setNerve(&NrvBlueCoinList::NrvWait::sInstance);
+        const char* animName = "NextPage";
+            if (mPageDirection == -1) 
+                animName = "PreviousPage";
+
+        MR::startAnim(this, animName, 0);
+    }
+
+    if (MR::isStep(this, 11)) {
+        populateListEntries();
+        updateTextBoxes();
+
+        while (mCursorPosition != 7 && mCursorPosition != -1 && isEntryBlank(getEntry(mCursorPosition))) {
+            mCursorPosition = (mCursorPosition-1) % 8;
+        }
+
+        setCursorPosition(mCursorPosition);
+        updateBlueCoinTextPane();
+    }
+
+    if (MR::isStep(this, 26)) {
+        setNerve(&NrvBlueCoinList::NrvWait::sInstance);
+    }
 }
 
 void BlueCoinList::exeWait() {
@@ -150,16 +179,24 @@ void BlueCoinList::exeWait() {
     if (mBackButton->_30)
         setNerve(&NrvBlueCoinList::NrvClose::sInstance);
 
-    s32 mPageDirection = 0;
+    mPageDirection = 0;
     s32 cursorDirection = 0;
 
     if (mArrowRight->isPointingTrigger() || mArrowLeft->isPointingTrigger())
         MR::startSystemSE("SE_SY_SELECT_PAUSE_ITEM", -1, -1);
 
-    if (MR::testCorePadTriggerLeft(0) || MR::testSubPadStickTriggerLeft(0) || mArrowLeft->trySelect())
+    if (MR::testCorePadTriggerLeft(0) || MR::testSubPadStickTriggerLeft(0) || mArrowLeft->trySelect()) {
         mPageDirection = -1;
-    if (MR::testCorePadTriggerRight(0) || MR::testSubPadStickTriggerRight(0) || mArrowRight->trySelect())
+
+        if (!mArrowLeft->isDecidedWait())
+            unkButtonPaneControllerFunction(mArrowLeft);
+    }
+    if (MR::testCorePadTriggerRight(0) || MR::testSubPadStickTriggerRight(0) || mArrowRight->trySelect()) {
         mPageDirection = +1;
+
+        if (!mArrowRight->isDecidedWait())
+            unkButtonPaneControllerFunction(mArrowRight);
+    }
 
     if (mPageDirection != 0) {
         mCurrentPage = mCurrentPage + mPageDirection;

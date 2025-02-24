@@ -1,1 +1,2 @@
 unkPauseMenuReturnToSelect__FP9PauseMenu=0x80487540
+unkButtonPaneControllerFunction__FP20ButtonPaneController=0x80461860
