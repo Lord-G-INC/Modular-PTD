@@ -118,13 +118,15 @@ void BlueCoinList::exeAppear() {
 
         MR::setTextBoxFormatRecursive(this, "ShaCompleteT", completeTotalStr);
 
+        MR::setTextBoxGameMessageRecursive(this, "ShaNoData", "BlueCoinList_NoData");
+
         MR::setTextBoxGameMessageRecursive(this, "ShaProgress", "BlueCoinList_Progress");
 
         MR::setTextBoxGameMessageRecursive(this, "InfoPage", "BlueCoinList_Page");
         MR::setTextBoxArgNumberRecursive(this, "InfoPage", mCurrentPage, 0);
         MR::setTextBoxArgNumberRecursive(this, "InfoPage", mMaxPages, 1);
 
-        MR::startPaneAnimAndSetFrameAndStop(this, "WinGalaxy", "TotalsVisibility", 0.0f, 0);
+        MR::startPaneAnimAndSetFrameAndStop(this, "WinGalaxy", "Visibility", 0.0f, 0);
 
         MR::setTextBoxGameMessageRecursive(this, "ShaBlueCoinT", "BlueCoinList_Counter");
         MR::setTextBoxArgNumberRecursive(this, "ShaBlueCoinT", BlueCoinUtil::getTotalBlueCoinNumCurrentFile(false), 0);
@@ -176,8 +178,12 @@ void BlueCoinList::exeWait() {
         if (!mArrowLeft->isWait())
             mArrowLeft->forceToWait();
     }
-    if (mBackButton->_30)
-        setNerve(&NrvBlueCoinList::NrvClose::sInstance);
+    if (unkBackButtonIsSelected(mBackButton)) {
+        if (mBackButton->isHidden()) {
+            setNerve(&NrvBlueCoinList::NrvClose::sInstance);
+        }
+    }
+    else {
 
     mPageDirection = 0;
     s32 cursorDirection = 0;
@@ -189,13 +195,13 @@ void BlueCoinList::exeWait() {
         mPageDirection = -1;
 
         if (!mArrowLeft->isDecidedWait())
-            unkButtonPaneControllerFunction(mArrowLeft);
+            unkButtonPaneControllerForceSelect(mArrowLeft);
     }
     if (MR::testCorePadTriggerRight(0) || MR::testSubPadStickTriggerRight(0) || mArrowRight->trySelect()) {
         mPageDirection = +1;
 
         if (!mArrowRight->isDecidedWait())
-            unkButtonPaneControllerFunction(mArrowRight);
+            unkButtonPaneControllerForceSelect(mArrowRight);
     }
 
     if (mPageDirection != 0) {
@@ -230,6 +236,7 @@ void BlueCoinList::exeWait() {
         setCursorPosition(mCursorPosition);
         updateBlueCoinTextPane();
     }
+}
 }
 
 void BlueCoinList::exeClose() {
@@ -276,22 +283,20 @@ void BlueCoinList::populateListEntries() {
             MR::getCsvDataS32(&slotNum, mRangeTable, "ListSlot", i);
             
             if (slotNum < 8) {
-                const char* name = 0;
-                MR::getCsvDataStrOrNULL(&name, mRangeTable, "StageName", i);
+                const char* pName = 0;
+                MR::getCsvDataStrOrNULL(&pName, mRangeTable, "StageName", i);
 
-                if (name) {
+                if (pName) {
                     ListEntry* entry = getEntry(slotNum-1);
-                    MR::copyString(entry->pStageName, name, 48);
-                    entry->rangeMax = BlueCoinUtil::getBlueCoinRange(name, true);
-                    entry->rangeMin = BlueCoinUtil::getBlueCoinRange(name, false);
-                    entry->coinNum = BlueCoinUtil::getBlueCoinRangeData(name, true);
+                    MR::copyString(entry->pStageName, pName, 48);
+                    entry->rangeMax = BlueCoinUtil::getBlueCoinRange(pName, true);
+                    entry->rangeMin = BlueCoinUtil::getBlueCoinRange(pName, false);
+                    entry->coinNum = BlueCoinUtil::getBlueCoinRangeData(pName, true);
                     entry->isBlankSlot = false;
-                    mTotalCoinsInPage = mTotalCoinsInPage + BlueCoinUtil::getBlueCoinRangeData(name, false);
-                    mTotalCollectedCoinsInPage = mTotalCollectedCoinsInPage + BlueCoinUtil::getBlueCoinRangeData(name, true);
-
-                    GalaxyStatusAccessor accessor = MR::makeGalaxyStatusAccessor(name);
+                    mTotalCoinsInPage = mTotalCoinsInPage + BlueCoinUtil::getBlueCoinRangeData(pName, false);
+                    mTotalCollectedCoinsInPage = mTotalCollectedCoinsInPage + BlueCoinUtil::getBlueCoinRangeData(pName, true);
                     
-                    if (accessor.isOpened()) {
+                    if (MR::isEqualStageName(pName) || MR::getPowerStarNumOwnedInStage(pName) || entry->coinNum > 0) {
                         entry->state = STATE_GALAXY_OPENED;
 
                         if (entry->coinNum == (entry->rangeMax-entry->rangeMin)+1)
@@ -369,41 +374,45 @@ void BlueCoinList::updateTextBoxes() {
 }
 
 void BlueCoinList::updateBlueCoinTextPane() {
-    wchar_t IDListStr[32];
-    s32 pos = mCursorPosition;
-    if (pos == 7)
-        pos = 6;
     
-    ListEntry* entry = getEntry(pos);
-    s32 newLineOff = 0;
-    bool newLineAdded = 0;
+    if (mCursorPosition != 7) {
+        wchar_t IDListStr[32];
+        ListEntry* entry = getEntry(mCursorPosition);
+        s32 newLineOff = 0;
 
-    if (!isEntryBlank(entry)) {
-        s32 totalCoins = (entry->rangeMax-entry->rangeMin)+1;
-        for (s32 i = 0; i < totalCoins + (s32)(totalCoins > 15); i++) {
-            newLineAdded = 0;
+        if (!isEntryBlank(entry)) {
+            s32 coinId = entry->rangeMin;
+            s32 totalCoins = (entry->rangeMax-entry->rangeMin)+1;
+            for (s32 i = 0; i < totalCoins + (s32)(totalCoins > 15); i++) {
 
-            if (i == totalCoins/2 && totalCoins > 15) {
-                MR::addNewLine(&IDListStr[i]);
-                newLineOff++;
-                newLineAdded = true;
-            }
+                if (i == totalCoins/2 && totalCoins > 15) {
+                    MR::addNewLine(&IDListStr[i]);
+                    newLineOff++;
+                }
+                else {
+                    bool isGot = BlueCoinUtil::isBlueCoinGotCurrentFile(coinId);
+                    int icon = 0xC0;
 
-            if (!newLineAdded) {
-                bool isGot = BlueCoinUtil::isBlueCoinGotCurrentFile((i+entry->rangeMin)-newLineOff);
-                int icon = 0xC0;
+                    if (isGot)
+                        icon = 0x8A;
 
-                if (isGot)
-                    icon = 0x8A;
-
-                MR::addPictureFontCode(&IDListStr[i], icon);
+                    MR::addPictureFontCode(&IDListStr[i], icon);
+                    coinId++;
+                }
             }
         }
+
+        MR::setTextBoxFormatRecursive(this, "CoinListWin", IDListStr);
     }
 
-    MR::setTextBoxFormatRecursive(this, "CoinListWin", IDListStr);
+    f32 frame = 0.0f;
 
-    MR::startPaneAnimAndSetFrameAndStop(this, "WinGalaxy", "TotalsVisibility", (f32)(mCursorPosition == 7), 0);
+    if (mCursorPosition == 7)
+        frame = 1.0f;
+    else if (getEntry(mCursorPosition)->state == STATE_GALAXY_LOCKED)
+        frame = 2.0f;
+
+    MR::startPaneAnimAndSetFrameAndStop(this, "WinGalaxy", "Visibility", frame, 0);
 }
 
 BlueCoinList::ListEntry* BlueCoinList::getEntry(s32 slot) {

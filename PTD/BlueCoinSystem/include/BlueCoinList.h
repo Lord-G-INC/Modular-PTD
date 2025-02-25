@@ -65,5 +65,6 @@ namespace NrvBlueCoinList {
     NERVE(NrvClose);
 };
 
-// This symbol is unknown
-void unkButtonPaneControllerFunction(ButtonPaneController*);
+// These symbols are unknown
+void unkButtonPaneControllerForceSelect(ButtonPaneController*);
+bool unkBackButtonIsSelected(BackButton*);
