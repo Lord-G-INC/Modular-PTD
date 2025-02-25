@@ -184,6 +184,10 @@ bool PauseMenuIsNewButtonPointingTrigger(PauseMenuExt* pPauseMenu) {
     return (pPauseMenu->mButtonTop && pPauseMenu->mButtonTop->isPointingTrigger());
 }
 
+PauseMenuExt::~PauseMenuExt() {
+
+}
+
 kmWrite32(0x80487714+REGIONOFF, 0x7F63DB78); // mr r3, r27 (PauseMenuExt* into r3)
 kmCall(0x80487720+REGIONOFF, PauseMenuIsNewButtonPointingTrigger);
 
@@ -196,26 +200,6 @@ void PauseMenuMoveButtonForBlueCoin(PauseMenuExt* pPauseMenu, const char* pStr1,
 
 kmCall(0x804874D4+REGIONOFF, PauseMenuMoveButtonForBlueCoin); // bl PauseMenuMoveButtonForBlueCoin
 #endif
-
-void unkPauseMenuReturnToSelect(PauseMenu*); // sub_80487540
-
-void PauseMenuExt::exeBlueCoinList() {
-
-    if (MR::isFirstStep(this))
-        mBlueCoinList->appear();
-
-    if (MR::isDead(mBlueCoinList))
-        unkPauseMenuReturnToSelect(this);
-}
-
-namespace NrvPauseMenuExt {
-    void NrvPauseMenuExtBlueCoinList::execute(Spine* pSpine) const {
-        ((PauseMenuExt*)pSpine->mExecutor)->exeBlueCoinList();
-    }
-
-    NrvPauseMenuExtBlueCoinList(NrvPauseMenuExtBlueCoinList::sInstance);
-}
-
 
 void unkPauseMenuReturnToSelect(PauseMenu*); // sub_80487540
 
