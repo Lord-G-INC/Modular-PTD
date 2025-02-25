@@ -201,6 +201,15 @@ void PauseMenuMoveButtonForBlueCoin(PauseMenuExt* pPauseMenu, const char* pStr1,
 kmCall(0x804874D4+REGIONOFF, PauseMenuMoveButtonForBlueCoin); // bl PauseMenuMoveButtonForBlueCoin
 #endif
 
+void setPauseMenuNerve(PauseMenuExt* pPauseMenu, const Nerve* pNerve) {
+    if (pPauseMenu->mDisplayMode == 1)
+        pNerve = &NrvPauseMenuExt::NrvPauseMenuExtBlueCoinList::sInstance;
+
+    pPauseMenu->setNerve(pNerve);
+}
+
+kmCall(0x80487BD0, setPauseMenuNerve);
+
 void unkPauseMenuReturnToSelect(PauseMenu*); // sub_80487540
 
 void PauseMenuExt::exeBlueCoinList() {
