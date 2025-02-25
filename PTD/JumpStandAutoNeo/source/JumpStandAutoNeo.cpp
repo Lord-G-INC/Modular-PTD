@@ -68,7 +68,7 @@ void JumpStandAutoNeo::jumpPlayer (f32 force) {
     TVec3f myUp;
     MR::calcUpVec(&myUp, this);
     myUp.scale(force);
-    MR::startBckPlayerJ("ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½vB");
+    MR::startBckPlayerJ("ƒWƒƒƒ“ƒvB");
     MR::forceJumpPlayer(myUp);
 }
 
