@@ -3,7 +3,8 @@
   "Author": "Evanbowl and Lord-Giganticus",
   "Description": "PTD: Full Blue Coin System",
   "CompilerFlags" : [
-    "-DBLUECOINSYSTEM"
+    "-DBLUECOINSYSTEM",
+    "-DBLUECOINBOARD"
   ],
   "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init", "CustomCoinSpawns", "PTUtils"],
   "ModuleData" : [

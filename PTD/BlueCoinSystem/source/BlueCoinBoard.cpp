@@ -1,3 +1,4 @@
+#ifdef BLUECOINBOARD
 #include "BlueCoinBoard.h"
 #include "BlueCoinUtil.h"
 /*
@@ -563,3 +564,4 @@ namespace NrvBlueCoinBoard {
     NrvChangeButtonText(NrvChangeButtonText::sInstance);
     NrvConfirmPlayStage(NrvConfirmPlayStage::sInstance);
 }
+#endif
