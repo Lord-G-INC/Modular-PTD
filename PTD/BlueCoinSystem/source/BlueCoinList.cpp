@@ -23,7 +23,7 @@ BlueCoinList::BlueCoinList(const char* pName) : LayoutActor(pName, false) {
     mPageDirection = 0;
     mCursorPosition = 0;
     mMaxPages = 1;
-    mDefaultCursorPosition = 7;
+    mDefaultCursorPosition = 1;
     mDefaultPage = 1;
 }
 
@@ -64,7 +64,7 @@ void BlueCoinList::init(const JMapInfoIter& rIter) {
 
             if (MR::isEqualStageName(pStageName)) {
                 mDefaultPage = pageNum;
-                mDefaultCursorPosition = slotNum-1;
+                mDefaultCursorPosition = slotNum+1;
             }
         }
     }

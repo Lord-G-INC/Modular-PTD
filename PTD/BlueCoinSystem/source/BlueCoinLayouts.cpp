@@ -30,6 +30,7 @@ void setPauseMenuBlueCoinStageCount(PauseMenuExt* pPauseMenu) {
 
     MR::setTextBoxArgNumberRecursive(pPauseMenu, "ShaBlueCoinTotal", BlueCoinUtil::getTotalBlueCoinNumCurrentFile(false), 0);
     MR::setTextBoxNumberRecursive(pPauseMenu, "ShaBlueCoinNum", rangeTotal);
+    MR::setTextBoxFormatRecursive(pPauseMenu, "ShaCoinListWin", L"");
 
     if (rangeCollected > -1) {
         MR::setTextBoxArgNumberRecursive(pPauseMenu, "ShaBlueCoinStage", rangeCollected, 0);
@@ -128,8 +129,8 @@ s32 setUpBlueCoinInfoOnAppear(PauseMenuExt* pPauseMenu) {
     return MR::getCoinNum();
 }
 
-kmWrite32(0x80486D14, 0x38A00002+REGIONOFF); // li r5, 2
-kmWrite32(0x80486D54, 0x38A00002+REGIONOFF); // li r5, 2
+kmWrite32(0x80486D14+REGIONOFF, 0x38A00002); // li r5, 2
+kmWrite32(0x80486D54+REGIONOFF, 0x38A00002); // li r5, 2
 kmCall(0x80487090+REGIONOFF, setUpBlueCoinInfoOnAppear); // bl setUpBlueCoinInfo
 
 void PauseMenuIDListControls(PauseMenuExt* pPauseMenu) {
