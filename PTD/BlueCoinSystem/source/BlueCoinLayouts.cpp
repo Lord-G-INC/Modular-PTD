@@ -179,6 +179,23 @@ PauseMenuExt::PauseMenuExt() : PauseMenu() {
     mButtonNewFollowPos = TVec2f(0.0f, 0.0f);
     mIsUsedNewButton = false;
 }
+bool PauseMenuIsNewButtonPointingTrigger(PauseMenuExt* pPauseMenu) {
+    PauseMenuIDListControls(pPauseMenu);
+    return (pPauseMenu->mButtonTop && pPauseMenu->mButtonTop->isPointingTrigger());
+}
+
+kmWrite32(0x80487714+REGIONOFF, 0x7F63DB78); // mr r3, r27 (PauseMenuExt* into r3)
+kmCall(0x80487720+REGIONOFF, PauseMenuIsNewButtonPointingTrigger);
+
+void PauseMenuMoveButtonForBlueCoin(PauseMenuExt* pPauseMenu, const char* pStr1, const char* pStr2, f32 frame, u32 u) {
+    if (BlueCoinUtil::getBlueCoinRangeData(MR::getCurrentStageName(), false) != -1) {
+        frame = 2.0f;
+    }
+    MR::startPaneAnimAndSetFrameAndStop(pPauseMenu, pStr1, pStr2, frame, u);
+}
+
+kmCall(0x804874D4+REGIONOFF, PauseMenuMoveButtonForBlueCoin); // bl PauseMenuMoveButtonForBlueCoin
+#endif
 
 void unkPauseMenuReturnToSelect(PauseMenu*); // sub_80487540
 
@@ -199,23 +216,6 @@ namespace NrvPauseMenuExt {
     NrvPauseMenuExtBlueCoinList(NrvPauseMenuExtBlueCoinList::sInstance);
 }
 
-bool PauseMenuIsNewButtonPointingTrigger(PauseMenuExt* pPauseMenu) {
-    PauseMenuIDListControls(pPauseMenu);
-    return (pPauseMenu->mButtonTop && pPauseMenu->mButtonTop->isPointingTrigger());
-}
-
-kmWrite32(0x80487714+REGIONOFF, 0x7F63DB78); // mr r3, r27 (PauseMenuExt* into r3)
-kmCall(0x80487720+REGIONOFF, PauseMenuIsNewButtonPointingTrigger);
-
-void PauseMenuMoveButtonForBlueCoin(PauseMenuExt* pPauseMenu, const char* pStr1, const char* pStr2, f32 frame, u32 u) {
-    if (BlueCoinUtil::getBlueCoinRangeData(MR::getCurrentStageName(), false) != -1) {
-        frame = 2.0f;
-    }
-    MR::startPaneAnimAndSetFrameAndStop(pPauseMenu, pStr1, pStr2, frame, u);
-}
-
-kmCall(0x804874D4+REGIONOFF, PauseMenuMoveButtonForBlueCoin); // bl PauseMenuMoveButtonForBlueCoin
-#endif
 
 void unkPauseMenuReturnToSelect(PauseMenu*); // sub_80487540
 
