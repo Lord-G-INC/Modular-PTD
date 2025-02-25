@@ -6,12 +6,20 @@ class PauseMenuExt : public PauseMenu {
 public: 
     PauseMenuExt();
     virtual ~PauseMenuExt();
-    void exeBlueCoinList();
 
+    #ifdef BLUECOINSYSTEM
+    void exeBlueCoinList();
+    #endif
+    
     // BCS
     BlueCoinList* mBlueCoinList;
     s32 mDisplayMode;
     bool mIsInvalidBack;
+    
+    // PMNB
+    ButtonPaneController* mButtonNew;
+    TVec2f mButtonNewFollowPos;
+    bool mIsUsedNewButton;
 
 };
 

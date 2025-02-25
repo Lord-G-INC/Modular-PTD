@@ -168,23 +168,16 @@ PauseMenuExt* createPauseMenuExt() {
 kmCall(0x804712C0, createPauseMenuExt); // bl createPauseMenuExt
 kmWrite32(0x804712C4, 0x48000010); // b 0x10
 
-void setPauseMenuNerve(PauseMenuExt* pPauseMenu, const Nerve* pNerve) {
-    if (pPauseMenu->mDisplayMode == 1)
-        pNerve = &NrvPauseMenuExt::NrvPauseMenuExtBlueCoinList::sInstance;
-
-    pPauseMenu->setNerve(pNerve);
-}
-kmCall(0x80487BD0, setPauseMenuNerve);
 // EXTENDED PAUSEMENU
 PauseMenuExt::PauseMenuExt() : PauseMenu() {
     // BCS
     mBlueCoinList = 0;
     mDisplayMode = 0;
     mIsInvalidBack = 0;
-}
 
-PauseMenuExt::~PauseMenuExt() {
-
+    mButtonNew = 0;
+    mButtonNewFollowPos = TVec2f(0.0f, 0.0f);
+    mIsUsedNewButton = false;
 }
 
 void unkPauseMenuReturnToSelect(PauseMenu*); // sub_80487540
@@ -223,6 +216,25 @@ void PauseMenuMoveButtonForBlueCoin(PauseMenuExt* pPauseMenu, const char* pStr1,
 
 kmCall(0x804874D4+REGIONOFF, PauseMenuMoveButtonForBlueCoin); // bl PauseMenuMoveButtonForBlueCoin
 #endif
+
+void unkPauseMenuReturnToSelect(PauseMenu*); // sub_80487540
+
+void PauseMenuExt::exeBlueCoinList() {
+
+    if (MR::isFirstStep(this))
+        mBlueCoinList->appear();
+
+    if (MR::isDead(mBlueCoinList))
+        unkPauseMenuReturnToSelect(this);
+}
+
+namespace NrvPauseMenuExt {
+    void NrvPauseMenuExtBlueCoinList::execute(Spine* pSpine) const {
+        ((PauseMenuExt*)pSpine->mExecutor)->exeBlueCoinList();
+    }
+
+    NrvPauseMenuExtBlueCoinList(NrvPauseMenuExtBlueCoinList::sInstance);
+}
 
 void initBlueCoinCounterFileInfo(LayoutActor* pLayout) {
     MR::connectToSceneLayout(pLayout);
