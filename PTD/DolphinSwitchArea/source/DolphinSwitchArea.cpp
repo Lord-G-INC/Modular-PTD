@@ -14,6 +14,17 @@ void DolphinSwitchArea::init (const JMapInfoIter &rIter) {
 }
 
 void DolphinSwitchArea::movement () {
-    if (isInVolume(*MR::getPlayerPos()) && pt::getIOSVersion() != 37) 
+    if (isInVolume(*MR::getPlayerPos()) && isDolphinEmulator()) 
         onSwitchA();
+}
+
+bool DolphinSwitchArea::isDolphinEmulator () {
+    s32 fd = IOS_Open("/dev/dolphin", 0);
+    if (fd >= 0) {
+        IOS_Close(fd);
+        return true;
+    }
+    if (pt::getIOSVersion() != 37) 
+        return true;
+    return false;
 }
