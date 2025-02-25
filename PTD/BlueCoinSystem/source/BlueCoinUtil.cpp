@@ -1,5 +1,5 @@
 #include "BlueCoin.h"
-#include "BlueCoinLayouts.h"
+#include "BlueCoinCounter.h"
 #include "BlueCoinUtil.h"
 #include "Game/Screen/GameSceneLayoutHolder.h"
 #include "Game/Screen/CounterLayoutControllerExt.h"
@@ -327,6 +327,12 @@ namespace BlueCoinUtil {
             return val;
         }
         return -1;
+    }
+
+    JMapInfo* getBlueCoinIDRangeTable() {
+        JMapInfo* table = new JMapInfo();
+        table->attach(gBlueCoinIDRangeTable);
+        return table;
     }
 
     bool tryCreateBlueCoinForSpawningActorActionKeeper(LiveActor* pSourceActor, s32 id) {
