@@ -11,7 +11,7 @@ Other obj_args are the same as in the vanilla game.
 |obj_arg2|Number of child Boos|int|4|The amount of child Boos that TeresaAtomic should have. Without making any other changes, specifying any number above 4 will crash the game.|
 
 ## Having more than 4 child Boos
-*A video guide is available [here](https://youtu.be/xs4kj9pUgXs?t=12m07s).*
+*A video guide is available [here](https://youtu.be/xs4kj9pUgXs?t=02m05s).*
 
 To have more than 4 child Boos, you need to add a position for each new child Boo. Here is how:
 1. Open the `TeresaAtomic.arc` file and open the ActorInfo folder in it.
