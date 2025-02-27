@@ -64,7 +64,7 @@ void BlueCoinList::init(const JMapInfoIter& rIter) {
 
             if (MR::isEqualStageName(pStageName)) {
                 mDefaultPage = pageNum;
-                mDefaultCursorPosition = slotNum+1;
+                mDefaultCursorPosition = slotNum - 1;
             }
         }
     }
