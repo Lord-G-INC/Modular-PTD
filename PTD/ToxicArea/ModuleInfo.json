@@ -2,7 +2,7 @@
   "Name": "Toxic Area",
   "Author": "VTXG, Bavario",
   "Description": "PTD: The Toxic Gas from SM64 makes its way into SMG2!\n - Obj_Arg0: The time (in frames) it takes for the player to die inside this area.\n - Obj_Arg1: Coin restore amount, from 0 to 100.\n - Obj_Arg2: Bubble restore amount, from 0 to 100.\n\n - SW_A: Enable/disable area.",
-  "InstallDependencies": ["Syati_ObjectFactories", "Syati_CommonFunctionHooks", "ExtAreaObjMgr"],
+  "InstallDependencies": ["Syati_ObjectFactories", "Syati_CommonFunctionHooks"],
   "ModuleData" : [
     {
       "NameObjFactory" : [

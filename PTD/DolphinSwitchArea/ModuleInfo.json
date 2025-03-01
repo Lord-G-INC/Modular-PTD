@@ -2,7 +2,7 @@
   "Name": "DolphinSwitchArea",
   "Author": "Bavario",
   "Description": "A custom area that enables its SW_A when Mario enters it and if the game is played on Dolphin emulator.",
-  "InstallDependencies": ["Syati_ObjectFactories", "ExtAreaObjMgr", "PTUtils"],
+  "InstallDependencies": ["Syati_ObjectFactories", "PTUtils"],
   "ModuleData" : [
     {
       "NameObjFactory": [

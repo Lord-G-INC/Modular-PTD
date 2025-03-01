@@ -2,7 +2,7 @@
   "Name": "NumberedSwitchArea",
   "Author": "Gabbo",
   "Description": "PTD: NumberedSwitchArea",
-  "InstallDependencies": ["Syati_ObjectFactories", "ExtAreaObjMgr"],
+  "InstallDependencies": ["Syati_ObjectFactories"],
   "ModuleData" : [
     {
       "NameObjFactory": [
