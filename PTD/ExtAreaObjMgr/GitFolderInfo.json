@@ -1,7 +1,0 @@
-{
-  "Version": 1,
-  "Files": [
-    "codegen/GEN_ExtAreaObjMgr.h",
-    "source/ExtAreaObjMgr.cpp"
-  ]
-}
