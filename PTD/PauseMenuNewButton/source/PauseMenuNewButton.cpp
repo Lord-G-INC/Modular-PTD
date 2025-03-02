@@ -18,6 +18,10 @@ PauseMenuExt::PauseMenuExt() : PauseMenu() {
     mIsUsedNewButton = false;
 }
 
+PauseMenuExt::~PauseMenuExt() {
+
+}
+
 #if defined TWN || defined KOR
 #define REGIONOFF 0x10
 #else
@@ -233,11 +237,6 @@ void setupButtonConnection(PauseMenuExt* pPauseMenu) {
 
 #ifdef BLUECOINSYSTEM
 extern void PauseMenuIDListControls(PauseMenuExt* pPauseMenu);
-
-PauseMenuExt::~PauseMenuExt() {
-
-}
-
 #endif
 
 kmWrite32(0x804876C0+REGIONOFF, 0x7FC3F378); // mr r3, r30

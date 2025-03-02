@@ -65,10 +65,12 @@ void TamakoroCreateDummyModel(TamakoroExt* pTamakoro, const JMapInfoIter& rIter)
         case 3:
             RedCoinUtil::tryLinkToChildRedCoin(pTamakoro, rIter);
         break;
+        #ifdef BLUECOINSYSTEM
         case 4:
             if (pTamakoro->mDummyDisplayModel)
                 BlueCoinUtil::tryCreateBlueCoinForSpawningActorActionKeeper(pTamakoro, pTamakoro->mDummyDisplayModel->mColorFrame);
         break;
+        #endif
     }
 }
 
@@ -153,9 +155,11 @@ void TamakoroStopStageBgm(TamakoroExt* pTamakoro) {
         case 3:
             RedCoinUtil::tryAppearLinkedRedCoin(pTamakoro, pTamakoro->mTranslation);
         break;
+        #ifdef BLUECOINSYSTEM
         case 4:
             BlueCoinUtil::appearBlueCoinActionKeeper(pTamakoro, pTamakoro->mTranslation);
         break;
+        #endif
     }
 }
 
