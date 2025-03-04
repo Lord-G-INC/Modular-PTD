@@ -1,0 +1,2 @@
+- needs docs
+- check if PAL/JPN are supported
