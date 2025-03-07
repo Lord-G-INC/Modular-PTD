@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Files": [
+    "include/CycleController.h",
+    "include/CycleObj.h",
+    "include/CycleTransitionObj.h",
+    "source/CycleController.cpp",
+    "source/CycleObj.cpp",
+    "source/CycleTransitionObj.cpp"
+  ]
+}

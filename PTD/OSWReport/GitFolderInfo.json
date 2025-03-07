@@ -1,0 +1,8 @@
+{
+  "Version": 1,
+  "Files": [
+    "include/oswreport.h",
+    "README.md",
+    "source/oswreport.cpp"
+  ]
+}

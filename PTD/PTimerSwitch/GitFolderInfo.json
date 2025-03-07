@@ -1,0 +1,8 @@
+{
+  "Version": 1,
+  "Files": [
+    "disc/ObjectData/PTimerSwitch.arc",
+    "include/PTimerSwitch.h",
+    "source/PTimerSwitch.cpp"
+  ]
+}

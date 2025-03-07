@@ -1,0 +1,6 @@
+{
+  "Name": "Screen Keyboard",
+  "Author": "VTXG",
+  "Description": "An on-screen keyboard layout.",
+  "InstallDependencies": ["Syati_Init"]
+}

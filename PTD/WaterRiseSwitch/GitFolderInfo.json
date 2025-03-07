@@ -1,0 +1,8 @@
+{
+  "Version": 1,
+  "Files": [
+    "disc/ObjectData/WaterRiseSwitch.arc",
+    "include/WaterRiseSwitch.h",
+    "source/WaterRiseSwitch.cpp"
+  ]
+}

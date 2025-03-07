@@ -2,7 +2,7 @@
   "Name": "GCaptureBreakArea",
   "Author": "Bavario",
   "Description": "PTD: Breaks the current GCapture bubble when entered.",
-  "InstallDependencies": ["Syati_ObjectFactories", "ExtAreaObjMgr"],
+  "InstallDependencies": ["Syati_ObjectFactories"],
   "ModuleData" : [
     {
       "NameObjFactory" : [

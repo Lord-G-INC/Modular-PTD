@@ -1,0 +1,9 @@
+{
+  "Version": 1,
+  "Files": [
+    "disc/ObjectData/LanternClipArea.arc",
+    "disc/ParticleData/Effect.arc",
+    "include/LanternClipArea.h",
+    "source/LanternClipArea.cpp"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "Version": 1,
+  "Files": [
+    "include/DeadLeaves.h",
+    "source/DeadLeaves.cpp"
+  ]
+}

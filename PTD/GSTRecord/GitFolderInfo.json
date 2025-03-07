@@ -1,0 +1,7 @@
+{
+  "Version": 1,
+  "Files": [
+    "include/GSTRecord.h",
+    "source/GSTRecord.cpp"
+  ]
+}

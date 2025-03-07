@@ -1,0 +1,26 @@
+{
+  "Name": "MarioStateSwitchArea",
+  "Author": "Bavario",
+  "Description": "A custom area that enables its SW_A when Mario enters it and is in the given state.",
+  "InstallDependencies": ["Syati_ObjectFactories"],
+  "ModuleData" : [
+    {
+      "NameObjFactory": [
+        {
+          "Name" : "MarioStateSwitchArea",
+          "Function" : "createExtActor<MarioStateSwitchArea>",
+          "Include" : "MarioStateSwitchArea.h"
+        }
+      ]
+    },
+    {
+      "AreaObjMgr" : [
+        {
+          "Name" : "MarioStateSwitchArea",
+          "MaxCount" : "64",
+          "Function" : "AreaObjContainer::createManager<AreaObjMgr>"
+        }
+      ]
+    }
+  ]
+}

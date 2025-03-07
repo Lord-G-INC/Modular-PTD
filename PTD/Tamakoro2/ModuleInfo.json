@@ -1,5 +1,10 @@
 {
   "Name": "Extended Tamakoro",
   "Author": "Evanbowl and AwesomeTMC",
-  "Description": "Adds various features to the Star Ball to allow for more unique uses of the object."
+  "Description": "Adds various features to the Star Ball to allow for more unique uses of the object.",
+  "BuildTasks": [{
+    "Task": "Copy",
+    "From": "disc/",
+    "To": "../../Output/disc/"
+  }]
 }

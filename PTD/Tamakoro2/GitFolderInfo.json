@@ -1,0 +1,7 @@
+{
+  "Version": 2,
+  "Files": [
+    "include/Game/MapObj/Tamakoro2.h",
+    "source/Tamakoro2.cpp"
+  ]
+}

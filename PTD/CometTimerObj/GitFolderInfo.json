@@ -1,0 +1,9 @@
+{
+  "Version": 1,
+  "Files": [
+    "include/CometTimerObj.h",
+    "include/Game/MapObj/TimeAttackClockExt.h",
+    "source/CometTimerObj.cpp",
+    "source/TimeAttackClockPatches.cpp"
+  ]
+}

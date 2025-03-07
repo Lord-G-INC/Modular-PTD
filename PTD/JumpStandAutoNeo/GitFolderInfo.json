@@ -1,0 +1,8 @@
+{
+  "Version": 1,
+  "Files": [
+    "disc/ObjectData/JumpStandAutoNeo.arc",
+    "include/JumpStandAutoNeo.h",
+    "source/JumpStandAutoNeo.cpp"
+  ]
+}

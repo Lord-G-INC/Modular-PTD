@@ -1,0 +1,13 @@
+{
+  "Version": 1,
+  "Files": [
+    "disc/AudioRes/Info/StageInstrumentTable.arc",
+    "include/StageInstrumentTable.h",
+    "source/StageInstrumentTable.cpp",
+    "symbols/JPN.txt",
+    "symbols/KOR.txt",
+    "symbols/PAL.txt",
+    "symbols/TWN.txt",
+    "symbols/USA.txt"
+  ]
+}

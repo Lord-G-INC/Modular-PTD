@@ -1,0 +1,7 @@
+{
+  "Version": 1,
+  "Files": [
+    "include/TimerLayout.h",
+    "source/TimerLayout.cpp"
+  ]
+}

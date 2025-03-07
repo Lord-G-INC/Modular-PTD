@@ -1,0 +1,9 @@
+{
+  "Version": 1,
+  "Files": [
+    "disc/ObjectData/BenefitItemMoon.arc",
+    "disc/ParticleData/Effect.arc",
+    "include/BenefitItemMoon.h",
+    "source/BenefitItemMoon.cpp"
+  ]
+}

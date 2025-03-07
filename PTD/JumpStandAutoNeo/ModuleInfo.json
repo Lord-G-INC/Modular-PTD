@@ -1,0 +1,16 @@
+{
+    "Name": "JumpStandAutoNeo",
+    "Author": "Bavario",
+    "Description": "Overhauls the vanilla JumpStandAuto object, adding support for many things such as custom launch heights, colors, switch and rail support.",
+    "ModuleData" : [
+      {
+        "NameObjFactory" : [
+          {
+            "Name" : "JumpStandAutoNeo",
+            "Function" : "createExtActor<JumpStandAutoNeo>",
+            "Include" : "JumpStandAutoNeo.h"
+          }
+        ]
+      }
+    ]
+}

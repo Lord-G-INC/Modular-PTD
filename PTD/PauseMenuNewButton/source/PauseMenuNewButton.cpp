@@ -9,10 +9,17 @@ kmCall(0x804712C0, createPauseMenuExt);
 kmWrite32(0x804712C4, 0x48000010); // b 0x10
 
 PauseMenuExt::PauseMenuExt() : PauseMenu() {
+    mBlueCoinList = 0;
+    mDisplayMode = 0;
+    mIsInvalidBack = 0;
+
     mButtonNew = 0;
     mButtonNewFollowPos = TVec2f(0.0f, 0.0f);
-    mDisplayMode = 0;
     mIsUsedNewButton = false;
+}
+
+PauseMenuExt::~PauseMenuExt() {
+
 }
 
 #if defined TWN || defined KOR

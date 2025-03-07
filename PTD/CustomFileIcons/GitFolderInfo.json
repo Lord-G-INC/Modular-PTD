@@ -1,0 +1,9 @@
+{
+  "Version": 1,
+  "Files": [
+    "disc/ObjectData/FileSelectData.arc",
+    "include/FileSelectData.h",
+    "README.md",
+    "source/FileSelectData.cpp"
+  ]
+}
