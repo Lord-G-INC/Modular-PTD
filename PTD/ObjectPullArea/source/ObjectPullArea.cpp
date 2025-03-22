@@ -41,7 +41,7 @@ const char *ObjectPullArea::getManagerName() const {
 bool ObjectPullConfig::isPullItem (MarioActor *pMarioActor, u32 sensorType) {
 	if (!gIsEnabled)
 		return false;
-	if (!((MarioActor *)pMarioActor->_1080)->isActionOk("ÔøΩJÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ")) 
+	if (!((MarioActor *)pMarioActor->_1080)->isActionOk("ÉJÉÅéùÇø")) 
 		return false;
 	for (s32 i = 0; i < 7; i++) {
 		if (gCheckTypes[i] == sensorType) 
@@ -95,81 +95,3 @@ kmWrite32(0x803CBEE8, 0x2C030000); // cmpwi r3, 0
 kmWrite32(0x803CBEF0, 0x60000000); // nop
 kmWrite32(0x803CBEF4, 0x60000000); // nop
 kmWrite32(0x803CBEF8, 0x60000000); // nop
-
-/*
-extern "C" {
-	bool sub_803B2880(Mario *, const TVec3f &, const TVec3f &);
-}
-
-bool isActionOk(MarioActor *, const char *);
-
-void tryTornadoPullO(MarioActor *pMarioActor, HitSensor *pSensor)
-{
-	if (isActionOk((MarioActor *)pMarioActor->_1080, "ÔøΩRÔøΩCÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ"))
-	{
-		u32 sensorType = pSensor->mSensorType;
-		if (!strcmp(MR::getSensorHost(pSensor)->mName, "ÔøΩJÔøΩÔøΩÔøΩbÔøΩNÔøΩrÔøΩ[ÔøΩÔøΩÔøΩpÔøΩJÔøΩÔøΩ")) 
-			sensorType = 5555;
-		if (sensorType - 18 > 1) {
-			if (sensorType != ATYPE_STAR_PIECE) {
-				newCoinPull(pMarioActor, sensorType, pSensor);
-				if (sensorType != 5555) 
-					return;
-				if (isActionOk((MarioActor *)pMarioActor->_1080, "ÔøΩJÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ") && pSensor->receiveMessage(ACTMES_IS_PULL_ENABLE, pMarioActor->getSensor("Body"))) {
-					LiveActor *pSensorHost = MR::getSensorHost(pSensor);
-					pMarioActor->tryPullTrans(&pSensorHost->mVelocity, *MR::getSensorPos(pSensor));
-					pSensor->receiveMessage(ACTMES_ITEM_PULL, pMarioActor->getSensor("Body"));
-				}
-			} else {
-				if (pMarioActor->mPlayerMode != PLAYER_MODE_FOO && !pMarioActor->mMario->isSwimming()) 
-					return;
-				TVec3f v0(pMarioActor->_5F4);
-				TVec3f v1 = pMarioActor->mMario->_488;
-				if (pMarioActor->mMario->isSwimming()) {
-					TVec3f v2(pMarioActor->_7A8);
-					v2.scale(600.0f);
-					TVec3f v3(v0);
-					v3 -= v2;
-					v1 = v3;
-				}
-				TVec3f v4(pMarioActor->mMario->_1F0);
-				v4.scale(200.0f);
-				v0.add(v4);
-				TVec3f v5(*MR::getSensorPos(pSensor));
-				TVec3f v6;
-				f32 footPoint = MR::getFootPoint(v0, v1, v5, &v6);
-				if (footPoint < -0.1f || footPoint > 2.0f || PSVECDistance(v6, v5) > 600.0f) 
-					return;
-				Mario *pMario = pMarioActor->mMario;
-				TVec3f v7(*MR::getSensorPos(pSensor));
-				v7 -= pMarioActor->_5F4;
-				if (sub_803B2880(pMario, pMarioActor->_5F4, v7)) 
-					return;
-				for (s32 i = 0; i < 128; i++) {
-					if (pMarioActor->_7C0[i] == pSensor) 
-						return;
-				}
-				pSensor->receiveMessage(ACTMES_ITEM_PULL, pMarioActor->getSensor("Body"));
-				if (!pSensor->receiveMessage(ACTMES_ITEM_PULL, pMarioActor->getSensor("Body"))) 
-					return;
-				for (s32 i = 0; i < 128; i++) {
-					if (!pMarioActor->_7C0[i]) {
-						pMarioActor->_7C0[i] = pSensor;
-						return;
-					}
-				}
-			}
-		} else if (isActionOk((MarioActor *)pMarioActor->_1080, "ÔøΩJÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ") && pSensor->receiveMessage(ACTMES_IS_PULL_ENABLE, pMarioActor->getSensor("Body"))) {
-			if (PSVECDistance(pMarioActor->mTranslation, *MR::getSensorPos(pSensor)) < 120.0f) 
-				tryGetItem((MarioActor *)pMarioActor->_1088, pSensor);
-			else {
-				LiveActor *pSensorHost = MR::getSensorHost(pSensor);
-				pMarioActor->tryPullTrans(&pSensorHost->mVelocity, *MR::getSensorPos(pSensor));
-				pSensor->receiveMessage(ACTMES_ITEM_PULL, pMarioActor->getSensor("Body"));
-				pMarioActor->_70C = pSensor;
-			}
-		}
-	}
-}
-
-kmBranch(0x803BA230, tryTornadoPullO);*/
