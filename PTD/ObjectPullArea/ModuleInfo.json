@@ -1,6 +1,6 @@
 {
     "Name": "ObjectPullArea",
-    "Author": "Bavario",
+    "Author": "Bavario, AwesomeTMC",
     "Description": "An area that when entered, allows objects to be pulled towards the player.",
     "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init"],
     "ModuleData" : [
