@@ -25,6 +25,7 @@ public:
 
 namespace ObjectPullConfig {
     static bool isPullItem(MarioActor *pMarioActor, u32 sensorType);
+    void clear();
     static bool gIsEnabled;
 	static bool gSpinRequired;
     static s32 gCheckTypes[7];

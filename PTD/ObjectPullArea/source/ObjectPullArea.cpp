@@ -2,6 +2,9 @@
 
 ObjectPullArea::ObjectPullArea (const char *pName) : AreaObj(pName) {
 	mNoSpinning = false;
+	for (s32 i = 0; i < 7; i++) {
+		mCheckTypes[i] = 0;
+	}
 	mCheckTypes[0] = ATYPE_COIN;
 }
 
@@ -48,6 +51,13 @@ bool ObjectPullConfig::isPullItem (MarioActor *pMarioActor, u32 sensorType) {
 			return true;
 	}
 	return false;
+}
+
+void ObjectPullConfig::clear () {
+	gIsEnabled = false;
+	gSpinRequired = true;
+	for (s32 i = 0; i < 7; i++) 
+		gCheckTypes[i] = 0;
 }
 
 LiveActor *newCoinPull (HitSensor *pSensor) {
