@@ -1,5 +1,5 @@
 {
-    "Version": 1,
+    "Version": 2,
     "Files": [
       "include/ObjectPullArea.h",
       "source/ObjectPullArea.cpp"
