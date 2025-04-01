@@ -1,0 +1,7 @@
+{
+  "Version": 1,
+  "Files": [
+    "include/AnmModelSwitchMultiMove.h",
+    "source/AnmModelSwitchMultiMove.cpp"
+  ]
+}
