@@ -27,10 +27,10 @@ void loadFileDataTable(LiveActor *pActor)
   }
   else
   {
-    u32 fg = 0xFFFFFFFF;
-    u32 bg = 0x00000000;
+    GXColor bg = { 0, 0, 0, 0 };
+    GXColor fg = { 255, 255, 255, 255 };
     const char *msg = "Please check PTD Wiki for FileSelectData.arc template";
-    OSFatal(&fg, &bg, msg);
+    OSFatal(fg, bg, msg);
   }
 }
 kmCall(0x8024F3C0, loadFileDataTable);
