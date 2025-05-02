@@ -1,0 +1,7 @@
+{
+  "Version": 1,
+  "Files": [
+    "disc/LayoutData/CometScreenFilter.arc",
+    "source/ExtCometScreenFilter.cpp"
+  ]
+}
