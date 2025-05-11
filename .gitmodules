@@ -10,9 +10,3 @@
 [submodule "Syati_ObjectFactories"]
 	path = PTD/Syati_ObjectFactories
 	url = https://www.github.com/SMGCommunity/Syati_ObjectFactories
-[submodule "BlueCoinSystem"]
-	path = PTD/BlueCoinSystem
-	url = https://www.github.com/Evanbowl/BlueCoinSystem
-[submodule "CustomCoinSpawns"]
-	path = PTD/CustomCoinSpawns
-	url = https://www.github.com/Evanbowl/CustomCoinSpawns
