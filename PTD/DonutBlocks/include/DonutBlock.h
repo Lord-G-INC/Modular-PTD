@@ -7,7 +7,7 @@ public:
     ~DonutBlock();
 
     virtual void init(const JMapInfoIter &rIter);
-    virtual void control();
+    virtual void attackSensor(HitSensor *pReceiver, HitSensor *pSender);
 
     void exeWait();
     void exeFallStart();
@@ -23,6 +23,8 @@ public:
     f32 mFallSpeed;
     f32 mRailSpeed;
     s32 mRailDelay;
+    bool mAllowEnemyFall;
+    bool mAllowWallFall;
 
     TVec3f mOriginalPos;
     s32 mRailDelayTimer;

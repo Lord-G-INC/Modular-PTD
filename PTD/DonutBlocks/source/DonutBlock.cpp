@@ -1,4 +1,5 @@
 #include "DonutBlock.h"
+#include "syati.h"
 
 namespace pt {
     extern void initRailToNearestAndRepositionWithGravity(LiveActor* pActor);
@@ -13,6 +14,8 @@ DonutBlock::DonutBlock(const char *pName) : LiveActor(pName) {
 
     mRailSpeed = 5.0f;
     mRailDelay = 0;
+    mAllowEnemyFall = true;
+    mAllowWallFall = false;
 
     mOriginalPos = TVec3f();
     mRailDelayTimer = 0;
@@ -30,6 +33,8 @@ void DonutBlock::init(const JMapInfoIter &rIter) {
     MR::getJMapInfoArg3NoInit(rIter, &mFallSpeed);
     MR::getJMapInfoArg4NoInit(rIter, &mRailSpeed);
     MR::getJMapInfoArg5NoInit(rIter, &mRailDelay);
+    MR::getJMapInfoArg6NoInit(rIter, &mAllowEnemyFall);
+    MR::getJMapInfoArg7NoInit(rIter, &mAllowWallFall);
 
     if (MR::isConnectedWithRail(rIter)) {
         initRailRider(rIter);
@@ -40,13 +45,14 @@ void DonutBlock::init(const JMapInfoIter &rIter) {
 
     MR::useStageSwitchReadA(this, rIter);
     MR::useStageSwitchWriteB(this, rIter);
-    
+    MR::syncStageSwitchAppear(this, rIter);
+
     if (MR::isValidSwitchA(this))
         MR::listenStageSwitchOnA(this, MR::Functor(this, &startFall));
 
     initHitSensor(1);
-    MR::addHitSensorMapObj(this, "Platform");
-    MR::initCollisionParts(this, "DonutBlock", getSensor("Platform"), NULL);
+    MR::addHitSensorMapObj(this, "Body", 8, 50.0f, TVec3f(0.0f, 0.0f, 0.0f));
+    MR::initCollisionParts(this, "DonutBlock", getSensor("Body"), NULL);
 
     initNerve(&NrvDonutBlock::NrvWait::sInstance, 0);
 
@@ -54,17 +60,16 @@ void DonutBlock::init(const JMapInfoIter &rIter) {
     makeActorAppeared();
 }
 
-void DonutBlock::control() {
-    if (mRailRider == NULL)
-        return;
+void DonutBlock::attackSensor(HitSensor *pReceiver, HitSensor *pSender) {
+    if (MR::isBindedGround(pSender->mActor) || mAllowWallFall && MR::isBindedWall(pSender->mActor)) {
+        if (mAllowEnemyFall || MR::isSensorPlayer(pSender))
+            startFall();
+    }
+}
 
-    if (isNerve(&NrvDonutBlock::NrvFallStart::sInstance)) {
-        f32 decel = (mFallDelay - mSpine->mStep) / mFallDelay;
-        mRailRider->setSpeed(mRailSpeed * decel);
-    }
-    else if (!isNerve(&NrvDonutBlock::NrvWait::sInstance)) {
-        return;
-    }
+bool DonutBlock::tryMoveOnRail() {
+    if (!MR::isExistRail(this)) 
+        return false;
 
     if (mRailDelayTimer <= 0) {
         mRailRider->move();
@@ -81,14 +86,19 @@ void DonutBlock::control() {
         if (mRailDelayTimer <= 0)
             mRailRider->setSpeed(-mRailRider->mSpeed);
     }
+    return true;
 }
 
 void DonutBlock::exeWait() {
-    if (MR::isOnPlayer(this))
-        startFall();
+    
 }
 
 void DonutBlock::exeFallStart() {
+    if (MR::isExistRail(this)) {
+        f32 decel = (mFallDelay - mSpine->mStep) / mFallDelay;
+        mRailRider->setSpeed(mRailSpeed * decel);
+        tryMoveOnRail();
+    }
     if (MR::isStep(this, mFallDelay)) {
         mOriginalPos.set(mTranslation);
 
@@ -101,8 +111,9 @@ void DonutBlock::exeFallStart() {
 }
 
 void DonutBlock::exeFall() {
+    tryMoveOnRail();
     if (MR::isFirstStep(this)) {
-        if (mRailRider != NULL)
+        if (MR::isExistRail(this))
             mRailRider->setSpeed(0);
             
         TVec3f upVec;
@@ -137,7 +148,7 @@ void DonutBlock::exeRespawn() {
         MR::showModel(this);
         MR::validateCollisionParts(this);
 
-        if (mRailRider != NULL)
+        if (MR::isExistRail(this))
             mRailRider->setSpeed(mRailSpeed);
 
         if (MR::isValidSwitchB(this))
