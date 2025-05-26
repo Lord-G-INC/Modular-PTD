@@ -1,0 +1,5 @@
+{
+    "Name": "Localized Object Data Extension",
+    "Author": "Bavario",
+    "Description": "Allows you to localize objects per language. Simply place the ObjectData .arc files in LocalizeData/<language here>/ObjectData/."
+}
