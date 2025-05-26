@@ -84,17 +84,5 @@ namespace pt {
 		}
 		kmCall(0x802E99E8, initializeMapObjActorWithColorAndTexChange);
 		kmCall(0x802FFC2C, initializeMapObjActorWithColorAndTexChange);
-
-		/*****************************************************************************************************************/
-		/* Fix BenefitItemObj's HitSensor invalidation failing when using SW_APPEAR. */
-		/*****************************************************************************************************************/
-		void invalidateBenefitItemObjHitSensorIfNotAppeared (BenefitItemObj *pObj) {
-			if (pObj->_90[0x66]) 
-				MR::invalidateHitSensors(pObj);
-			else 
-				MR::validateHitSensors(pObj);
-			MR::calcGravityOrZero(pObj);
-		}
-		kmCall(0x80276E0C, invalidateBenefitItemObjHitSensorIfNotAppeared);
 	}
 }
