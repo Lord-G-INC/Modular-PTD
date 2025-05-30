@@ -16,17 +16,18 @@ class TamakoroExt : public Tamakoro {
     bool mIsBind;
 };
 
-class RedCoin;
+class CoinBase;
 
 namespace RedCoinUtil {
-    extern RedCoin* tryLinkToChildRedCoin(LiveActor* pSourceActor, const JMapInfoIter& rIter);
+    extern CoinBase* tryLinkToChildRedCoin(LiveActor* pSourceActor, const JMapInfoIter& rIter, s32 arg);
     extern bool tryAppearLinkedRedCoin(LiveActor* pSourceActor, const TVec3f& pPosition);
-}
+};
 
 namespace BlueCoinUtil {
-    extern bool tryCreateBlueCoinForSpawningActorActionKeeper(LiveActor* pSourceActor, s32 id);
-    extern void appearBlueCoinActionKeeper(LiveActor* pSourceActor, TVec3f& rPos);
+    extern CoinBase* tryCreateBlueCoinForSpawningActorActionKeeper(LiveActor* pSourceActor, const JMapInfoIter& rIter, s32 id);
+    extern bool tryAppearBlueCoinActionKeeper(LiveActor* pSourceActor, const TVec3f& rPosition);
 };
+
 
 //TamakoroBgmParamEntry gTamakoroBgmParamTable[] = {
 //    {"BGM_TAMAKORO",   0x6B, 0x1E, 0x1E, 134.0f, 73.700005f, 163.48001f, 198.052f, 0, 0, 2.996985f, 0xE, 0xFFFFFFFF},

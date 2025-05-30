@@ -18,6 +18,16 @@
 * Death Area Extensions
 * Repeat Timer Switch Sound Effects Control
 */
+
+namespace nw4r {
+	namespace ut {
+		class CharWriter {
+			public:
+			void UpdateVertexColor();
+		};
+	};
+};
+
 namespace pt {
 	/*
 	* Error Message Fallback
@@ -95,9 +105,11 @@ namespace pt {
 	* This is useful for debugging certain things!
 	*/
 
-	void printFileNameIfMissing(const char* fileName) {
+	bool printFileNameIfMissing(const char* fileName) {
 		if (!MR::isFileExist(fileName, 0))
 			OSPanic("FileRipper.cpp", 118, "File \"%s\" isn't exist.", fileName);
+
+		return true;
 	}
 
 	#if defined TWN || defined KOR
@@ -241,4 +253,5 @@ namespace pt {
 		pConsole->print("--------------------------------\n");
 	}
 	kmCall(0x80510578, funcTest);
+
 }

@@ -16,13 +16,13 @@ namespace RedCoinUtil {
 		return pObj;
     }
 
-	RedCoin* tryLinkToChildRedCoin(LiveActor* pSourceActor, const JMapInfoIter& rIter) {
+	CoinBase* tryLinkToChildRedCoin(LiveActor* pSourceActor, const JMapInfoIter& rIter, s32 arg) {
 		if (MR::getChildObjNum(rIter) == 1) {
 			RedCoin* pCoin = (RedCoin*)NameObjFactory::initChildObj(rIter, 0);
 
 			if (pCoin) {
 				pCoin->requestHide();
-        		((ExtActorActionKeeper*)pSourceActor->mActionKeeper)->mRedCoin = pCoin;
+        		((ExtActorActionKeeper*)pSourceActor->mActionKeeper)->mNewActor = pCoin;
 				pSourceActor->mActionKeeper->mItemGenerator = 0;
        			return pCoin;
 			}
@@ -32,15 +32,21 @@ namespace RedCoinUtil {
 	}
 
 	bool tryAppearLinkedRedCoin(LiveActor* pSourceActor, const TVec3f& pPosition) {
-		RedCoin* pCoin = ((ExtActorActionKeeper*)pSourceActor->mActionKeeper)->mRedCoin;
+		OSReport("Red Coin Spawning for %s\n", pSourceActor->mName);
+		ExtActorActionKeeper* pKeeper = (ExtActorActionKeeper*)pSourceActor->mActionKeeper;
+		RedCoin* pCoin = (RedCoin*)pKeeper->mNewActor;
 
 		if (pCoin) {
 			MR::setPosition(pCoin, pPosition);
-			pCoin->appearAndMove();
+			pCoin->appearAndMove(25.0f, "SE_SY_RED_COIN_APPEAR");
 
 			return true;
 		}
 
 		return false;
+	}
+
+	NameObj* createRedCoin(const char* pName) {
+		return new RedCoin(pName);
 	}
 }

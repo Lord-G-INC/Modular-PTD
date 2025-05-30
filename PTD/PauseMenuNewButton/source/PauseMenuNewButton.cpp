@@ -84,6 +84,8 @@ void PauseMenuInitNewButton(PauseMenuExt* pPauseMenu, const Nerve* pNerve) {
 
 kmCall(0x8048702C+REGIONOFF, PauseMenuInitNewButton);
 
+
+// Crashing?
 void ButtonControl(TVec2f* pPos, PauseMenuExt* pPauseMenu, const char* pStr) {
     MR::copyPaneTrans(&pPauseMenu->mButtonTopFollowPos, pPauseMenu, pStr);
 

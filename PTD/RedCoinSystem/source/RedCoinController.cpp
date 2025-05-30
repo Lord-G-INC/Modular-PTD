@@ -1,6 +1,7 @@
 #include "RedCoinController.h"
 #include "RedCoinLayouts.h"
 #include "RedCoinUtil.h"
+#include "RedCoin.h"
 
 RedCoinController::RedCoinController(const char* pName) : LiveActor(pName) {
     mNumCoins = 0;
@@ -161,8 +162,6 @@ void RedCoinController::resetAllRedCoins() {
         if (MR::isEqualString(group->getActor(i)->mName, "RedCoin")) {
             RedCoin* coin = ((RedCoin*)group->getActor(i));
             coin->appear();
-
-            coin->mIsCollected = false;
 
             if (coin->mIsInBubble)
                 coin->mAirBubble->makeActorAppeared();

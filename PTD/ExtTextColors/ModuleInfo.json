@@ -1,0 +1,60 @@
+{
+  "Name": "My Syati Module",
+  "Author": "YourNameHere",
+  "Description": "My Syati Module is awesome!",
+  "ModuleExtensionDefinition" : [
+    {
+      "Name" : "TextColors",
+      "CodeGenSource": "GEN_ExtTextColors.h",
+      "CodeGenDestination": "codebuild/ModuleData_ExtTextColors.h",
+      "Variables": [
+        "PrimaryColor",
+        "SecondaryColor"
+      ],
+      "CodeGenData": [
+        {
+          "ReplaceTargetName": "PrimaryColorTable",
+          "ReplaceFormatData": "    {{{0}}},"
+        },
+        {
+          "ReplaceTargetName": "SecondaryColorTable",
+          "ReplaceFormatData": "    {{{1}}},"
+        }
+      ]
+    }
+  ],
+  "ModuleData": [
+    {
+      "TextColors" : [
+        {
+          "PrimaryColor": "0xDC, 0x82, 0x82, 0xFF",
+          "SecondaryColor": "0xDC, 0x82, 0x82, 0xFF"
+        },
+        {
+          "PrimaryColor": "0x50, 0xAA, 0x50, 0xFF",
+          "SecondaryColor": "0x50, 0xAA, 0x50, 0xFF"
+        },
+        {
+          "PrimaryColor": "0x50, 0x8C, 0xD2, 0xFF",
+          "SecondaryColor": "0x50, 0x8C, 0xD2, 0xFF"
+        },
+        {
+          "PrimaryColor": "0xEB, 0xC8, 0x00, 0xFF",
+          "SecondaryColor": "0xEB, 0xC8, 0x00, 0xFF"
+        },
+        {
+          "PrimaryColor": "0xB4, 0x6E, 0xC8, 0xFF",
+          "SecondaryColor": "0xB4, 0x6E, 0xC8, 0xFF"
+        },
+        {
+          "PrimaryColor": "0xFF, 0xA0, 0x64, 0xFF",
+          "SecondaryColor": "0xFF, 0xA0, 0x64, 0xFF"
+        },
+        {
+          "PrimaryColor": "0xBE, 0xBE, 0xC8, 0xFF",
+          "SecondaryColor": "0xBE, 0xBE, 0xC8, 0xFF"
+        }
+      ]
+    }
+  ]
+}
