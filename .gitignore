@@ -6,7 +6,11 @@ out
 SyatiModuleTemplate
 SyatiModuleBuildTool
 codebuild
+.vs
+.gitignore
+PTD/GalaxyToolkit
+PTD/SMG2_SimpleMirrorObj
+PTD/BlueCoinSystem
 PTD/Starshine
 PTD/SuperFlag
 PTD/.moduleignore
-.vs
