@@ -83,6 +83,7 @@ namespace pt {
         MR::getJMapInfoArg0NoInit(rIter, &mSpeed);
         MR::getJMapInfoArg1NoInit(rIter, &mOffsetY);
         MR::getJMapInfoArg2NoInit(rIter, &mWaterRiseGroup);
+        MR::initShadowVolumeSphere(this, 75.0f);
 
         initHitSensor(1);
         MR::addHitSensorMapObj(this, "WaterRise", 8, 25.0f, TVec3f(0));
