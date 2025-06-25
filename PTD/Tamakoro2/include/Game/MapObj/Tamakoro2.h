@@ -23,10 +23,12 @@ namespace RedCoinUtil {
     extern bool tryAppearLinkedRedCoin(LiveActor* pSourceActor, const TVec3f& pPosition);
 };
 
+#ifdef BLUECOINSYSTEM
 namespace BlueCoinUtil {
     extern CoinBase* tryCreateBlueCoinForSpawningActorActionKeeper(LiveActor* pSourceActor, const JMapInfoIter& rIter, s32 id);
     extern bool tryAppearBlueCoinActionKeeper(LiveActor* pSourceActor, const TVec3f& rPosition);
 };
+#endif
 
 
 //TamakoroBgmParamEntry gTamakoroBgmParamTable[] = {

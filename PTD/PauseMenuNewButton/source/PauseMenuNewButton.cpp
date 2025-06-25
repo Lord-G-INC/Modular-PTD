@@ -71,10 +71,6 @@ void PauseMenuInitNewButton(PauseMenuExt* pPauseMenu, const Nerve* pNerve) {
         MR::setFollowPos(&pPauseMenu->mButtonNewFollowPos, pPauseMenu, "NewButton");
         MR::setFollowTypeReplace(pPauseMenu, "NewButton");
         MR::showPaneRecursive(pPauseMenu, "NewButton");
-        
-        setButtonAnimNames(pPauseMenu->mButtonTop);
-        setButtonAnimNames(pPauseMenu->mButtonBottom);
-        setButtonAnimNames(pPauseMenu->mButtonNew);
     }
     else
         MR::hidePaneRecursive(pPauseMenu, "NBackNew");
@@ -103,7 +99,7 @@ void PauseMenuSetButtonPosition(PauseMenuExt* pPauseMenu, const char* pStr1, con
         frame = 2.0f;
     }
     #endif
-    MR::startPaneAnimAndSetFrameAndStop(pPauseMenu, pStr1, pPauseMenu->mButtonNew ? "ButtonPosition_restartbutton" : pStr2, frame, u);
+    MR::startPaneAnimAndSetFrameAndStop(pPauseMenu, pStr1, pPauseMenu->mButtonNew ? "ButtonPosition" : pStr2, frame, u);
 }
 
 kmCall(0x804874D4+REGIONOFF, PauseMenuSetButtonPosition);

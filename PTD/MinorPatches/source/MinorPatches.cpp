@@ -193,7 +193,7 @@ namespace pt {
     kmWrite32(0x80342BA4, 0x3860002C); // li r3, 0x2C
     
     void RepeatTimerSwitchGetNewArg(LiveActor* pActor, const JMapInfoIter& rIter) {
-        ((s32*)pActor)[0xA] = -1; // stw r0, 0x28(r3)
+		*((int*)pActor + 0xA) = -1; // stw r0, 0x28(r3)
         MR::connectToSceneMapObjMovement(pActor);
         MR::getJMapInfoArg2NoInit(rIter, &((s32*)pActor)[0xA]); // addi r4, r30, 0x28
     }
@@ -232,6 +232,26 @@ namespace pt {
     kmWrite32(0x80266CE8, 0x2C030000); // cmpwi r3, 0
     kmWrite32(0x80266CEC, 0x41820008); // beq 0x8
 
+	extern s32 getIOSVersion();
+
+	extern "C" {
+	    s32 IOS_Open(const char *path, u32 flags);
+	    s32 IOS_Close(s32 fd);
+	}
+
+	bool isDolphinEmulator () {
+    	s32 fd = IOS_Open("/dev/dolphin", 0);
+    	if (fd >= 0) {
+    	    IOS_Close(fd);
+    	    return true;
+    	}
+    	if (pt::getIOSVersion() != 37) 
+    	    return true;
+    	return false;
+	}
+
+	static bool gIsDolphin = isDolphinEmulator();
+
 	void funcTest(JUTConsole* pConsole, const char* pStr) {
 		const char* region = 0;
 
@@ -247,11 +267,20 @@ namespace pt {
 			region = "KOR";
 		#endif
 
+		char binPath[35];
+		char mapPath[35];
+		snprintf(binPath, 35, "/CustomCode/CustomCode_%s.bin", region);
+		snprintf(mapPath, 35, "/CustomCode/CustomCode_%s.map", region);
+
 		pConsole->print("-------------------------------- SYATI\n");
 		pConsole->print_f("Build Date: %s\nBuild Time: %s\n", __DATE__, __TIME__);
 		pConsole->print_f("Region: %s\n", region);
+		pConsole->print_f("Binary Size: %d bytes\n", MR::getFileSize(binPath, 0));
+		pConsole->print_f("Has Map? %s\n", MR::isFileExist(mapPath, 0) ? "Yes" : "No");
+		pConsole->print_f("Is Dolphin? %s\n", gIsDolphin ? "Yes" : "No");
 		pConsole->print("--------------------------------\n");
 	}
+	\
 	kmCall(0x80510578, funcTest);
 
 }

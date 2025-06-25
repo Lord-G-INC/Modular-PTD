@@ -25,6 +25,14 @@
           "Function" : "createExtActor<RedCoinSwitch>",
           "Include" : "RedCoinSwitch.h"
         }
+      ],
+      "CoinBaseSpawning": [
+        {
+          "ID" : "0",
+          "CoinCreateFunc" : "RedCoinUtil::tryLinkToChildRedCoin",
+          "CoinAppearFunc" : "RedCoinUtil::tryAppearLinkedRedCoin",
+          "Include" : "RedCoinUtil.h"
+        }
       ]
     }
   ]
