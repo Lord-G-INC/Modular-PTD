@@ -2,24 +2,6 @@
 
 #include "syati.h"
 
-#define DARKCOMETEXIST_FALSE false
-#define DARKCOMETEXIST_TRUE true
-
-#define PLAYSOUND_FALSE false
-#define PLAYSOUND_TRUE true
-
-#define SWAPPEAR_FALSE false
-#define SWAPPEAR_TRUE true
-
-#define SWB_FALSE false
-#define SWB_TRUE true
-
-#define SENSORSCALING_FALSE false
-#define SENSORSCALING_TRUE true
-
-#define INITFUNCTION_FALSE false
-#define INITFUNCTION_TRUE true
-
 typedef struct CoinInfo {
     void setDefault();
 
