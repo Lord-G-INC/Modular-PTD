@@ -90,10 +90,7 @@ void CoinBase::makeActorAppeared() {
         mFlashingCtrl->end();
         setCalcShadowMode();
         MR::validateShadow(this, 0);
-        if (mIsPurple) {
-            mCoinHostInfo->mAppearedCount++;
-        }
-        
+
         mInWater = MR::isInWater(mTranslation);
     }
 }
