@@ -15,6 +15,7 @@ public:
     BlueCoinList* mBlueCoinList;
     s32 mDisplayMode;
     bool mIsInvalidBack;
+    bool mIsExistBlueCoins;
     
     // PMNB
     ButtonPaneController* mButtonNew;

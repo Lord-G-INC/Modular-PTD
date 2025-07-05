@@ -166,4 +166,3 @@ void CoinBase::appearAndMove(f32 vel, const char* soundName) {
 
 CoinBase::~CoinBase() {
 }
-
