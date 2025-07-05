@@ -27,14 +27,14 @@ PauseMenuExt::~PauseMenuExt() {
 #else
 #define REGIONOFF 0
 #endif
-/*
+
 #ifdef SMSS
     #define STAGE_CHECK MR::isStageMarioFaceShipOrWorldMap() || MR::isEqualStageName("PrisonGalaxy")
 #else
     #define STAGE_CHECK MR::isStageMarioFaceShipOrWorldMap() || MR::isEqualStageName("PeachCastleGalaxy")
 #endif
-*/
-#define STAGE_CHECK 0
+
+
 void PauseMenuInitNewButton(PauseMenuExt* pPauseMenu, const Nerve* pNerve) { 
     pPauseMenu->mButtonNew = 0;
     pPauseMenu->mIsUsedNewButton = false;
