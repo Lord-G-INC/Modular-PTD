@@ -1,10 +1,8 @@
-	#pragma once
-
-	#include "syati.h"
-    #include "Game/Screen/CountUpPaneRumbler.h"
-    #include "RedCoin.h"
-    #include "RedCoinLayouts.h"
-    #include "RedCoinSwitch.h"
+#pragma once
+#include "syati.h"
+#include "Game/Screen/CountUpPaneRumbler.h"
+#include "RedCoinLayouts.h"
+#include "RedCoinSwitch.h"
 
 class RedCoinController : public LiveActor {
 public:

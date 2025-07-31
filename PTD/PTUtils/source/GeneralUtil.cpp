@@ -65,4 +65,16 @@ namespace pt {
 	    u16 revision = vercode & 0xFFFF;
 	    return revision;
     }
+
+    void str2wcsfullwidth(wchar_t* dest, s32 src) {
+        wchar_t buf[32];
+        swprintf(buf, 32, L"%d", src);
+
+        size_t len = wcslen(buf);
+
+        for (s32 i = 0; i < len; i++) {
+            dest[i] = buf[i] + 0xFEE0;
+        };
+        dest[len] = 0;
+    }
 };

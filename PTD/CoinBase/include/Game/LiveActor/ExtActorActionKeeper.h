@@ -9,6 +9,6 @@ public:
         ActorHitReactionCtrl *pHitReactionCtrl, ActorItemGenerator *pItemGenerator, ActorParam *pActorParam, ActionScreenBlurCtrl *pScreenBlurCtrl,
         ActionFootPrintCtrl *pFootPrintCtrl, ActionBgmCtrl *pBgmCtrl);
 
-    BlueCoin* mBlueCoin;
-    RedCoin* mRedCoin;
+    LiveActor* mNewActor;
+    s32 mType;
 };
