@@ -254,6 +254,22 @@ namespace pt {
     kmWrite32(0x80266CE8, 0x2C030000); // cmpwi r3, 0
     kmWrite32(0x80266CEC, 0x41820008); // beq 0x8
 
+	// Allow Skeeters to be killed by a fire ball
+
+	bool menboFireBallCheck (u32 msg) {
+		return msg == ACTMES_FIREBALL_ATTACK || MR::isMsgJetTurtleAttack(msg);
+	}
+
+	kmCall(0x801C5008, menboFireBallCheck);
+
+	// Allow Piranha Plants to be blown up by a Bob-omb
+
+	bool packunPetitExplosionCheck (u32 msg) {
+		return msg == ACTMES_ENEMY_ATTACK_EXPLOSION || MR::isMsgToEnemyAttackBlow(msg);
+	}
+
+	kmCall(0x801E3A04, packunPetitExplosionCheck);
+
 	extern s32 getIOSVersion();
 
 	extern "C" {
