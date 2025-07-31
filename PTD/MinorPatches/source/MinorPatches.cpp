@@ -19,15 +19,6 @@
 * Repeat Timer Switch Sound Effects Control
 */
 
-namespace nw4r {
-	namespace ut {
-		class CharWriter {
-			public:
-			void UpdateVertexColor();
-		};
-	};
-};
-
 namespace pt {
 	/*
 	* Error Message Fallback
@@ -118,16 +109,47 @@ namespace pt {
 		kmCall(0x804B1FE0, printFileNameIfMissing);
 	#endif
 
-	const char* YesNoDialogueExtensions(const TalkMessageCtrl* msg) {
-		u16 selectTxt = ((u16*)msg->mTalkNodeCtrl->getNextNodeBranch())[4];
 
-		char str[7];
-		sprintf(str, "New%d", selectTxt - 18);
-
-		return selectTxt < 18 ? msg->getBranchID() : str;
+	extern "C" {
+		void __kAutoMap_80059F90(char*, char*);
 	}
 
-	kmCall(0x80379A84, YesNoDialogueExtensions);
+	void YesNoDialogueExtensions(int* pTalkDirector, const TalkMessageCtrl* pCtrl) {
+		u32* pNodeBranch = (u32*)pCtrl->mTalkNodeCtrl->getNextNodeBranch();
+		u16 selectTxt = *((u16*)pNodeBranch+4);
+
+		char bufName[32];
+		
+		if (selectTxt < 18) {
+			const char* pStr = pCtrl->getBranchID();
+			MR::copyString(bufName, pStr, strlen(pStr)+1);
+		}
+		else {
+			char bufNew[10];
+			snprintf(bufNew, 10, "New%d", selectTxt - 18);
+			MR::copyString(bufName, bufNew, 32);
+		}
+
+		char bufYes[256];
+		char bufNo[256];
+
+		snprintf(bufYes, 256, "Select_%s_Yes", bufName);
+		snprintf(bufNo, 256, "Select_%s_No", bufName);
+
+		if (pCtrl->isSelectYesNo()) {
+			MR::resetYesNoSelectorSE();
+		}
+		else {
+			const char* pSeStr = "SE_SY_TALK_SELECT";
+			MR::setYesNoSelectorSE("SE_SY_TALK_FOCUS_ITEM", pSeStr, pSeStr);
+		}
+		LayoutActor* pLayout = (LayoutActor*)MR::getGameSceneLayoutHolder()->mYesNoLayout;
+		MR::requestMovementOn(pLayout);
+		__kAutoMap_80059F90(bufYes, bufNo);
+	}
+
+	kmCall(0x80379F84, YesNoDialogueExtensions);
+
 
 	const wchar_t* CustomGreenStarNames(GalaxyStatusAccessor accessor, const char* pStageName, s32 starid) {
 		char textName[256];
@@ -280,7 +302,7 @@ namespace pt {
 		pConsole->print_f("Is Dolphin? %s\n", gIsDolphin ? "Yes" : "No");
 		pConsole->print("--------------------------------\n");
 	}
-	\
+	
 	kmCall(0x80510578, funcTest);
 
 }
