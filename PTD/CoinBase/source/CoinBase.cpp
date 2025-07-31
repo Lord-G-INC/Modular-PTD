@@ -77,9 +77,11 @@ void CoinBase::makeActorAppeared() {
             LiveActor::makeActorAppeared();
         }
 
-        if (!mCoinInfo.mIgnoreSensorScaling) {
+        if (mIsInBubble)
+            mAirBubble->appear();
+
+        if (!mCoinInfo.mIgnoreSensorScaling || mIsInBubble) {
             if (mIsInBubble) {
-                mAirBubble->appear();
                 MR::setSensorRadius(this, "coin", 150.0f);
             }
             else {
