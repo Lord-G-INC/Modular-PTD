@@ -13,8 +13,7 @@ TamakoroExt::TamakoroExt(const char *pName) : Tamakoro(pName)
 
 TamakoroExt::~TamakoroExt() {}
 
-TamakoroExt *createTamakoroExt(const char *pName)
-{
+TamakoroExt *createTamakoroExt(const char *pName) {
     return new TamakoroExt(pName);
 }
 
@@ -43,8 +42,7 @@ kmWrite32(0x804444BC, 0x7F64DB78);            // mr r4, r27
 kmCall(0x804444C0, TamakoroDeclarePowerStar); // bl TamakoroDeclarePowerStar
 kmWrite32(0x804444C4, 0x48000014);            // b 0x14
 
-void TamakoroCreateDummyModel(TamakoroExt *pTamakoro, const JMapInfoIter &rIter)
-{
+void TamakoroCreateDummyModel(TamakoroExt *pTamakoro, const JMapInfoIter &rIter) {
     if (pTamakoro->mBvaFrame != -2)
         MR::startBva(pTamakoro, "Tamakoro");
 
@@ -92,8 +90,7 @@ void TamakoroCreateDummyModel(TamakoroExt *pTamakoro, const JMapInfoIter &rIter)
 kmWrite32(0x8044458C, 0x7F84E378);            // mr r4, r28
 kmCall(0x80444590, TamakoroCreateDummyModel); // bl TamakoroCreateDummyModel
 
-void TamakoroPurpleCoinSetBrkFrame(TamakoroExt *pTamakoro)
-{
+void TamakoroPurpleCoinSetBrkFrame(TamakoroExt *pTamakoro) {
     if (pTamakoro->mBrkFrame == -1.0f)
         MR::setBrkFrameAndStop(pTamakoro, 1.0f);
     else
@@ -102,17 +99,11 @@ void TamakoroPurpleCoinSetBrkFrame(TamakoroExt *pTamakoro)
 
 kmCall(0x804445DC, TamakoroPurpleCoinSetBrkFrame);
 
-void TamakoroDetermineAnimFrame(TamakoroExt *pTamakoro, const JMapInfoIter &rIter)
-{
-    if (pTamakoro->mBvaFrame != -2)
-    {
-        if (pTamakoro->mItemType == -1)
-        {
+void TamakoroDetermineAnimFrame(TamakoroExt *pTamakoro, const JMapInfoIter &rIter) {
+    if (pTamakoro->mBvaFrame != -2) {
+        if (pTamakoro->mItemType == -1) {
             if (pTamakoro->mBvaFrame == -1.0f)
                 pTamakoro->mBvaFrame = (f32)MR::hasPowerStarInCurrentStageWithDeclarer(pTamakoro->mName, -1);
-
-            if (pTamakoro->mBrkFrame == -1.0f)
-                pTamakoro->mBrkFrame = 0.0f;
         }
 
         MR::setBvaFrameAndStop(pTamakoro, pTamakoro->mBvaFrame);
@@ -126,8 +117,7 @@ kmWrite32(0x804445E8, 0x7F84E378);              // mr r4, r28
 kmCall(0x804445EC, TamakoroDetermineAnimFrame); // bl TamakoroDetermineAnimFrame
 kmWrite32(0x804445F0, 0x48000034);              // b 0x54
 
-void TamakoroHandleBreak(TamakoroExt *pTamakoro)
-{
+void TamakoroHandleBreak(TamakoroExt *pTamakoro) {
     if (pTamakoro->mMusicNum != -2) // only stop music if there is star ball music playing
         MR::stopStageBGM(10);
 }
@@ -135,15 +125,12 @@ void TamakoroHandleBreak(TamakoroExt *pTamakoro)
 kmWrite32(0x804452A0, 0x7FC3F378); // change it to pass a star ball ptr
 kmCall(0x804452A4, TamakoroHandleBreak);
 
-void TamakoroHandleAppearPowerStar(TamakoroExt *pTamakoro)
-{
+void TamakoroHandleAppearPowerStar(TamakoroExt *pTamakoro) {
     if (pTamakoro->mMusicNum != -2) // only start last stage music if there is star ball music playing
         MR::startLastStageBGM();
 
     if (pTamakoro->mItemType == -1)
-    {
         MR::requestAppearPowerStar(pTamakoro, pTamakoro->mTranslation);
-    }
 }
 
 kmWrite32(0x80446C0C, 0x60000000); // nop
@@ -151,8 +138,7 @@ kmWrite32(0x80446C10, 0x7FC3F378); // mr r3, r30
 kmCall(0x80446C14, TamakoroHandleAppearPowerStar);
 kmWrite32(0x80446C18, 0x48000010); // b 0x10
 
-void TamakoroStopStageBgm(TamakoroExt *pTamakoro)
-{
+void TamakoroStopStageBgm(TamakoroExt *pTamakoro) {
     MR::emitEffect(pTamakoro, "Break");
     MR::startActionSound(pTamakoro, "SmRideEnd", -1, -1, -1);
     MR::startSoundPlayer("SE_PV_JUMP_S", -1, -1);
@@ -161,9 +147,7 @@ void TamakoroStopStageBgm(TamakoroExt *pTamakoro)
         MR::onSwitchDead(pTamakoro);
 
     if (pTamakoro->mMusicNum != -2)
-    {
         MR::stopStageBGM(40);
-    }
 
     pTamakoro->mIsBind = false;
 
@@ -191,17 +175,13 @@ void TamakoroStopStageBgm(TamakoroExt *pTamakoro)
 kmCall(0x80446B48, TamakoroStopStageBgm); // bl TamakoroStopStageBgm
 kmWrite32(0x80446B4C, 0x48000034);        // b 0x34
 
-void TamakoroStartStageBgm(TamakoroExt *pTamakoro)
-{
+void TamakoroStartStageBgm(TamakoroExt *pTamakoro) {
     TamakoroBgmParamEntry *pEntry = &gTamakoroBgmParamTable[0];
 
     if (pTamakoro->mMusicNum < -2)
-    {
         pEntry = &gTamakoroBgmParamTable[pTamakoro->mMusicNum];
-    }
 
-    if (pTamakoro->mMusicNum != -2)
-    {
+    if (pTamakoro->mMusicNum != -2) {
         MR::startStageBGM(pEntry->mName, false);
         pTamakoro->mAudioCtrl->mBgmParam = pEntry;
         pTamakoro->mAudioCtrl->init(pEntry->mName);
@@ -215,12 +195,9 @@ kmBranch(0x80447790, TamakoroStartStageBgm); // b TamakoroStartStageBgm
 kmWrite32(0x80222400, 0x48000038); // b 0x38
 kmWrite32(0x80222438, 0x807B0020); // lwz r3, 0x20(r27)
 
-void TamakoroControlBgm(TamakoroExt *pTamakoro, f32 f, bool b, s32 l)
-{
+void TamakoroControlBgm(TamakoroExt *pTamakoro, f32 f, bool b, s32 l) {
     if (pTamakoro->mIsBind)
-    {
         pTamakoro->mAudioCtrl->control(f, b, l);
-    }
 }
 
 kmWrite32(0x8044486C, 0x7FE3FB78);      // mr r3, r31
