@@ -1,0 +1,68 @@
+{
+  "Name": "MessageSystemExpansions",
+  "Author": "Evanbowl",
+  "Description": "",
+    "ModuleExtensionDefinition" : [
+    {
+      "Name" : "BranchFlow",
+      "CodeGenSource": "GEN_CustomMessageBranchNodes.h",
+      "CodeGenDestination": "codebuild/ModuleData_CustomMessageBranchNodes.h",
+      "Variables": [
+        "ID",
+        "BranchFunc",
+        "Include"
+      ],
+      "CodeGenData": [
+        {
+          "ReplaceTargetName": "BranchFuncDef",
+          "ReplaceFormatData": "    {{ {0}, {1} }},"
+        },
+        {
+          "ReplaceTargetName": "Includes",
+          "ReplaceFormatData": "#include \"{2}\""
+        }
+      ]
+    },
+    {
+      "Name" : "EventFlow",
+      "CodeGenSource": "GEN_CustomMessageEventNodes.h",
+      "CodeGenDestination": "codebuild/ModuleData_CustomMessageEventNodes.h",
+      "Variables": [
+        "ID",
+        "EventFunc",
+        "Include"
+      ],
+      "CodeGenData": [
+        {
+          "ReplaceTargetName": "EventFuncDef",
+          "ReplaceFormatData": "    {{ {0}, {1} }},"
+        },
+        {
+          "ReplaceTargetName": "Includes",
+          "ReplaceFormatData": "#include \"{2}\""
+        }
+      ]
+    },
+    {
+      "Name" : "ReplaceTag",
+      "CodeGenSource": "GEN_CustomReplaceTagFunctions.h",
+      "CodeGenDestination": "codebuild/ModuleData_CustomReplaceTagFunctions.h",
+      "Variables": [
+        "ByteData",
+        "ReplaceFunc",
+        "Include"
+      ],
+      "CodeGenData": [
+        {
+          "ReplaceTargetName": "ReplaceTagDef",
+          "ReplaceFormatData": "    {{ {0}, {1} }},"
+        },
+        {
+          "ReplaceTargetName": "Includes",
+          "ReplaceFormatData": "#include \"{2}\""
+        }
+      ]
+    }
+  ]
+}
+ 
