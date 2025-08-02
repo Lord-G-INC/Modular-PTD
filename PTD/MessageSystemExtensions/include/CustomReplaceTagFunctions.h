@@ -13,8 +13,12 @@ namespace ReplaceTagProcessor {
     u32 exeLocalizeGroup(wchar_t*, const MessageEditorMessageTag&);
 };
 
-namespace NewReplaceTagFunctions {
+namespace NewReplaceTagFunction {
     u32 getPowerStarNum(wchar_t* pStr, const MessageEditorMessageTag& rTag);
+    inline u32 getReplaceParam(const MessageEditorMessageTag& rTag);
     u32 getTicoCoinNum(wchar_t* pStr, const MessageEditorMessageTag& rTag);
     u32 getMissCount(wchar_t* pStr, const MessageEditorMessageTag& rTag);
+    u32 getCoinNum(wchar_t* pStr, const MessageEditorMessageTag& rTag);
+    u32 getStarPieceNum(wchar_t* pStr, const MessageEditorMessageTag& rTag);
+    u32 getPurpleCoinNum(wchar_t* pStr, const MessageEditorMessageTag& rTag);
 };

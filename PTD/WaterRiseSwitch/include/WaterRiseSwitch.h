@@ -24,10 +24,11 @@ namespace pt {
 		virtual void control();
 		void exeRiseWater();
 
+		s32 mWaterRiseGroup;
 		f32 mSpeed;
 		f32 mOffsetY;
-		s32 mWaterRiseGroup;
-		bool mIsRiseActive;
 		f32 mCurrentBckFrame;
+		bool mIsRiseActive;
+		bool mIsValidDist;
     };
 };
