@@ -153,6 +153,9 @@ void CoinBase::noticeGetCoin() {
     if (mCoinInfo.mPlaySound)
         MR::startActionSound(this, "SyCoin", -1, -1, -1);
 
+    if (MR::isValidSwitchA(this))
+        MR::onSwitchA(this);
+
     mCoinHostInfo->mCollectedCount++;
 }
 
