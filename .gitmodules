@@ -7,6 +7,3 @@
 [submodule "Syati_GlobalLayouts"]
 	path = PTD/Syati_GlobalLayouts
 	url = https://www.github.com/SMGCommunity/Syati_GlobalLayouts
-[submodule "Syati_ObjectFactories"]
-	path = PTD/Syati_ObjectFactories
-	url = https://www.github.com/SMGCommunity/Syati_ObjectFactories
