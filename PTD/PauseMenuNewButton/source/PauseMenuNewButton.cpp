@@ -12,6 +12,7 @@ PauseMenuExt::PauseMenuExt() : PauseMenu() {
     mBlueCoinList = 0;
     mDisplayMode = 0;
     mIsInvalidBack = 0;
+    mIsExistBlueCoins = 0;
 
     mButtonNew = 0;
     mButtonNewFollowPos = TVec2f(0.0f, 0.0f);
@@ -139,19 +140,10 @@ kmWrite32(0x804877B4+REGIONOFF, 0x7F63DB78); // mr r3, r27 (PauseMenuExt* into r
 kmCall(0x804877C0+REGIONOFF, IsNewButtonPressed);
 
 void PauseMenuSetInfoWindowStr(PauseMenuExt* pPauseMenu, const char* pStr) {
+    if (pPauseMenu->mIsUsedNewButton)
+        pStr = "PauseMenu_ConfirmRestartStage";
+
     pPauseMenu->mSysInfoWindow->appear(pStr, SysInfoWindow::SysInfoType_2, SysInfoWindow::SysInfoTextPos_0, SysInfoWindow::SysInfoMessageType_1);
-
-    if (pPauseMenu->mIsUsedNewButton) {
-        const wchar_t* pStr = L"Restart current stage?";
-        
-        TalkMessageInfo info;
-        MessageSystem::getGameMessageDirect(&info, "PauseMenu_ConfirmRestartStage");
-
-        if (info.mMessage)
-            pStr = info.mMessage;
-
-        MR::setTextBoxFormatRecursive(pPauseMenu->mSysInfoWindow, "TxtConfirm", pStr);
-    }
 }
 
 kmWrite32(0x80487C4C+REGIONOFF, 0x7FE3FB78); // mr r3, r31 (PauseMenuExt* into r4)
