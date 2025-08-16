@@ -12,6 +12,7 @@ PauseMenuExt::PauseMenuExt() : PauseMenu() {
     mBlueCoinList = 0;
     mDisplayMode = 0;
     mIsInvalidBack = 0;
+    mIsExistBlueCoins = 0;
 
     mButtonNew = 0;
     mButtonNewFollowPos = TVec2f(0.0f, 0.0f);
@@ -28,8 +29,6 @@ PauseMenuExt::~PauseMenuExt() {
 #define REGIONOFF 0
 #endif
 
-//SMSS #define STAGE_CHECK MR::isStageMarioFaceShipOrWorldMap() || (MR::isEqualStageName("YosshiHomeGalaxy") && MR::getCurrentScenarioNo() == 1) || MR::isEqualStageName("PrisonGalaxy")
-
 #ifdef SMSS
     #define STAGE_CHECK MR::isStageMarioFaceShipOrWorldMap() || MR::isEqualStageName("PrisonGalaxy")
 #else
@@ -37,20 +36,9 @@ PauseMenuExt::~PauseMenuExt() {
 #endif
 
 
-void setButtonAnimNames(ButtonPaneController* pButton) {
-    if (pButton) {
-        pButton->mAnimNameAppear = "ButtonAppear_restartbutton";
-        pButton->mAnimNameDecide = "ButtonDecide_restartbutton";
-        pButton->mAnimNameEnd = "ButtonEnd_restartbutton";
-        pButton->mAnimNameSelectIn = "ButtonSelectIn_restartbutton";
-        pButton->mAnimNameSelectOut = "ButtonSelectOut_restartbutton";
-        pButton->mAnimNameWait = "ButtonWait_restartbutton";
-    }
-}
-
 void PauseMenuInitNewButton(PauseMenuExt* pPauseMenu, const Nerve* pNerve) { 
     pPauseMenu->mButtonNew = 0;
-    pPauseMenu->mIsUsedNewButton = 0;
+    pPauseMenu->mIsUsedNewButton = false;
     pPauseMenu->mButtonNewFollowPos = TVec2f(0.0f, 0.0f);
 
     MR::createAndAddPaneCtrl(pPauseMenu, "NewButton", 1);
@@ -66,15 +54,19 @@ void PauseMenuInitNewButton(PauseMenuExt* pPauseMenu, const Nerve* pNerve) {
         pPauseMenu->mButtonNew = new ButtonPaneController(pPauseMenu, "NBackNew", "BoxButton4", 0, 1);
         pPauseMenu->mButtonNew->mFadeAfterSelect = false;
     
-        MR::setTextBoxFormatRecursive(pPauseMenu, "Text4", L"Restart Stage");
+        const wchar_t* pStr = L"Restart Stage";
+        
+        TalkMessageInfo info;
+        MessageSystem::getGameMessageDirect(&info, "PauseMenu_ButtonRestartStage");
+
+        if (info.mMessage)
+            pStr = info.mMessage;
+
+        MR::setTextBoxFormatRecursive(pPauseMenu, "Text4", pStr);
 
         MR::setFollowPos(&pPauseMenu->mButtonNewFollowPos, pPauseMenu, "NewButton");
         MR::setFollowTypeReplace(pPauseMenu, "NewButton");
         MR::showPaneRecursive(pPauseMenu, "NewButton");
-        
-        setButtonAnimNames(pPauseMenu->mButtonTop);
-        setButtonAnimNames(pPauseMenu->mButtonBottom);
-        setButtonAnimNames(pPauseMenu->mButtonNew);
     }
     else
         MR::hidePaneRecursive(pPauseMenu, "NBackNew");
@@ -84,9 +76,12 @@ void PauseMenuInitNewButton(PauseMenuExt* pPauseMenu, const Nerve* pNerve) {
 
 kmCall(0x8048702C+REGIONOFF, PauseMenuInitNewButton);
 
+
+// Crashing?
 void ButtonControl(TVec2f* pPos, PauseMenuExt* pPauseMenu, const char* pStr) {
     MR::copyPaneTrans(&pPauseMenu->mButtonTopFollowPos, pPauseMenu, pStr);
-
+    //OSReport("Top: %.0f, %.0f Bottom: %.0f, %.0f, New: %.0f, %.0f\n", pPauseMenu->mButtonTopFollowPos.x, pPauseMenu->mButtonTopFollowPos.y, pPauseMenu->mButtonBottomFollowPos.x, pPauseMenu->mButtonBottomFollowPos.y, pPauseMenu->mButtonNewFollowPos.x, pPauseMenu->mButtonNewFollowPos.y);
+    
     if (pPauseMenu->mButtonNew) {
         MR::copyPaneTrans(&pPauseMenu->mButtonNewFollowPos, pPauseMenu, "NewButtonPos");
         pPauseMenu->mButtonNew->update();
@@ -95,13 +90,12 @@ void ButtonControl(TVec2f* pPos, PauseMenuExt* pPauseMenu, const char* pStr) {
 
 kmCall(0x8048727C+REGIONOFF, ButtonControl);
 
-void PauseMenuSetButtonPosition(PauseMenuExt* pPauseMenu, const char* pStr1, const char* pStr2, f32 frame, u32 u) {
-    #ifdef BLUECOINSYSTEM
-    if (pPauseMenu->mDisplayMode != 2) {
-        frame = 2.0f;
-    }
-    #endif
-    MR::startPaneAnimAndSetFrameAndStop(pPauseMenu, pStr1, pPauseMenu->mButtonNew ? "ButtonPosition_restartbutton" : pStr2, frame, u);
+void PauseMenuSetButtonPosition(PauseMenuExt* pPauseMenu, const char* pStr1, const char* pStr2, f32 frame, u32 u) { 
+    if (pPauseMenu->mButtonNew)
+        pStr2 = "ButtonPositionR";
+
+    OSReport("Coins? %d, Display: %d, Frame %f, %s\n", pPauseMenu->mIsExistBlueCoins, pPauseMenu->mDisplayMode, frame, pStr2);
+    MR::startPaneAnimAndSetFrameAndStop(pPauseMenu, pStr1, pStr2, frame, u);
 }
 
 kmCall(0x804874D4+REGIONOFF, PauseMenuSetButtonPosition);
@@ -146,10 +140,10 @@ kmWrite32(0x804877B4+REGIONOFF, 0x7F63DB78); // mr r3, r27 (PauseMenuExt* into r
 kmCall(0x804877C0+REGIONOFF, IsNewButtonPressed);
 
 void PauseMenuSetInfoWindowStr(PauseMenuExt* pPauseMenu, const char* pStr) {
-    pPauseMenu->mSysInfoWindow->appear(pStr, SysInfoWindow::SysInfoType_2, SysInfoWindow::SysInfoTextPos_0, SysInfoWindow::SysInfoMessageType_1);
+    if (pPauseMenu->mIsUsedNewButton)
+        pStr = "PauseMenu_ConfirmRestartStage";
 
-    if (pPauseMenu->mIsUsedNewButton) 
-        MR::setTextBoxFormatRecursive(pPauseMenu->mSysInfoWindow, "TxtConfirm", L"Restart current stage?");
+    pPauseMenu->mSysInfoWindow->appear(pStr, SysInfoWindow::SysInfoType_2, SysInfoWindow::SysInfoTextPos_0, SysInfoWindow::SysInfoMessageType_1);
 }
 
 kmWrite32(0x80487C4C+REGIONOFF, 0x7FE3FB78); // mr r3, r31 (PauseMenuExt* into r4)
@@ -207,6 +201,7 @@ kmCall(0x80487CAC+REGIONOFF, DoNewButtonAction);
 kmWrite32(0x80487CB0+REGIONOFF, 0x48000008); // b 0x8 (Skip useless instructions)
 
 void addStarPointerMovePositionNewButton(PauseMenuExt* pPauseMenu, const char* pStr, TVec2f* pOffsetVec) {
+    s32 f = MR::getPaneAnimFrame(pPauseMenu, "ButtonPosition", 0);
     StarPointerUtil::addStarPointerMovePositionFromPane(pPauseMenu, pStr, pOffsetVec);
     
     if (pPauseMenu->mButtonNew)
@@ -216,7 +211,9 @@ void addStarPointerMovePositionNewButton(PauseMenuExt* pPauseMenu, const char* p
 kmCall(0x804875F0+REGIONOFF, addStarPointerMovePositionNewButton);
 
 void setupNewConnection1to2(PauseMenuExt* pPauseMenu) {
-    if (pPauseMenu->mButtonNew)
+    s32 f = MR::getPaneAnimFrame(pPauseMenu, "ButtonPosition", 0);
+
+    if (pPauseMenu->mButtonNew && (f == 1 || f == 2))
         StarPointerUtil::setConnectionMovePositionDown2Way("BoxButton4", "BoxButton2");
 
     StarPointerUtil::setConnectionMovePositionDown2Way("BoxButton1", "BoxButton2");
@@ -229,9 +226,21 @@ kmCall(0x80487648+REGIONOFF, setupNewConnection1to2);
 
 void setupButtonConnection(PauseMenuExt* pPauseMenu) {
     StarPointerUtil::setDefaultAllMovePosition("BoxButton1");
+    s32 f = MR::getPaneAnimFrame(pPauseMenu, "ButtonPosition", 0);
+    OSReport("f: %d\n", f);
 
     if (pPauseMenu->mButtonTop && pPauseMenu->mButtonNew) {
-        StarPointerUtil::setConnectionMovePositionRight2Way("BoxButton1", "BoxButton4");
+        switch ((s32)f) {
+            case 0:
+            case 3:
+            case 4:
+            StarPointerUtil::setConnectionMovePositionDown2Way("BoxButton1", "BoxButton4");
+            break;
+            case 1:
+            case 2:
+            StarPointerUtil::setConnectionMovePositionRight2Way("BoxButton1", "BoxButton4");
+            break;
+        }
     }
 }
 

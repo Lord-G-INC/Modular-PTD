@@ -2,7 +2,8 @@
   "Name": "Red Coin System",
   "Author": "Evanbowl",
   "Description": "PTD: Red Coin System",
-  "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init", "CustomCoinSpawns"],
+  "InstallDependancies": ["Syati_ObjectFactories", "Syati_Init", "CustomCoinSpawns", "CoinBase"],
+  "ModuleDependancies": ["CoinBase_API"],
   "CompilerFlags" : [
     "-DREDCOINSYSTEM"
   ],
@@ -11,8 +12,8 @@
       "NameObjFactory": [
         {
           "Name" : "RedCoin",
-          "Function" : "createExtActor<RedCoin>",
-          "Include" : "RedCoin.h"
+          "Function" : "RedCoinUtil::createRedCoin",
+          "Include" : "RedCoinUtil.h"
         },
         {
           "Name" : "RedCoinController",
@@ -23,6 +24,14 @@
           "Name" : "RedCoinSwitch",
           "Function" : "createExtActor<RedCoinSwitch>",
           "Include" : "RedCoinSwitch.h"
+        }
+      ],
+      "CoinBaseSpawning": [
+        {
+          "ID" : "0",
+          "CoinCreateFunc" : "RedCoinUtil::tryLinkToChildRedCoin",
+          "CoinAppearFunc" : "RedCoinUtil::tryAppearLinkedRedCoin",
+          "Include" : "RedCoinUtil.h"
         }
       ]
     }

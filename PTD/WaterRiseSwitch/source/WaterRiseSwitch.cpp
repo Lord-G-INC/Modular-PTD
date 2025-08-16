@@ -70,7 +70,7 @@ namespace pt {
         mOffsetY = -350.0f;
         mWaterRiseGroup = 0;
         mCurrentBckFrame = 0.0f;
-
+        mIsValidDist = true;
         if (!MR::isExistSceneObj(EXT_SCENE_OBJ_WATER_RISE_HOLDER))
             MR::createSceneObj(EXT_SCENE_OBJ_WATER_RISE_HOLDER);
     }
@@ -83,6 +83,7 @@ namespace pt {
         MR::getJMapInfoArg0NoInit(rIter, &mSpeed);
         MR::getJMapInfoArg1NoInit(rIter, &mOffsetY);
         MR::getJMapInfoArg2NoInit(rIter, &mWaterRiseGroup);
+
         MR::initShadowVolumeSphere(this, 75.0f);
 
         initHitSensor(1);
@@ -93,10 +94,13 @@ namespace pt {
     void WaterRiseSwitch::attackSensor(HitSensor *pReceiver, HitSensor *pSender) {
         if (MR::isSensorPlayer(pSender)) {
             if (!mIsRiseActive) {
-                MR::startSystemSE("SE_SY_READ_RIDDLE_SS", -1, -1);
-                MR::startBck(this, "WaterRiseSpin", NULL);
-                MR::setBckFrame(this, mCurrentBckFrame);
-                exeRiseWater();
+                exeRiseWater(); 
+                
+                if (mIsValidDist && !MR::isBckPlaying(this, "WaterRiseSpin")) {
+                    MR::startSystemSE("SE_SY_READ_RIDDLE_SS", -1, -1);
+                    MR::startBck(this, "WaterRiseSpin", NULL);
+                    MR::setBckFrame(this, mCurrentBckFrame);
+                }
             }
         }
     }
@@ -109,9 +113,13 @@ namespace pt {
         LiveActorGroup* pGroup = getWaterRiseHolder()->mGroups[mWaterRiseGroup];
         s32 numWaters = pGroup->mNumObjs;
         for (int i = 0; i < numWaters; i++) {
-            OSReport("%d: %s\n", i, pGroup->getActor(i)->mName);
             mIsRiseActive = true;
             f32 dist = this->mTranslation.y - pGroup->getActor(i)->mTranslation.y + mOffsetY;
+            
+            mIsValidDist = !MR::isNearZero(dist, 6.0f);
+
+            OSReport("%d\n", mIsValidDist);
+
             if (dist < mSpeed && dist > -mSpeed) 
                 mIsRiseActive = false;
             else if (dist < 0.0f) 

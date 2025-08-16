@@ -12,4 +12,5 @@ namespace pt {
     void setSubBGMState(s32 state, u32 fadeTime);
     s32 getIOSVersion();
     s32 getIOSRevision();
+    void str2wcsfullwidth(wchar_t* dest, s32 src);
 };

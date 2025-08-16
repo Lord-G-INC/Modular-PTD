@@ -5,7 +5,6 @@
     "disc/LayoutData/RedCoinCounterPlayer.arc",
     "disc/ObjectData/RedCoin.arc",
     "disc/ObjectData/RedCoinSwitch.arc",
-    "include/Game/LiveActor/ExtActorActionKeeper.h",
     "include/RedCoin.h",
     "include/RedCoinController.h",
     "include/RedCoinLayouts.h",

@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Files": [
+    "codegen/GEN_Spawns.h",
+    "include/Game/LiveActor/ExtActorActionKeeper.h",
+    "include/CoinBase.h",
+    "source/CoinBase.cpp",
+    "source/ExtActorActionKeeper.cpp",
+    "source/Spawns.cpp"
+  ]
+}
