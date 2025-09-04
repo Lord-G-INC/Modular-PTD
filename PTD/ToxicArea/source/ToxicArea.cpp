@@ -11,124 +11,28 @@ PTD: The Toxic Gas from SM64 makes its way into SMG2!
   (SW_A) Enable/disable area.
 */
 
-f32 gToxic = 1.0f;
-u32 gTimeInside;
-bool gIsMeterActive;
-bool gIsSoundActive;
-
-namespace ToxicController {
-    void main() {
-        if (MR::isPlayerDead())
-            return;
-
-        ToxicArea* pToxicArea = (ToxicArea*)MR::getAreaObjAtPlayerPos("ToxicArea");
-
-        if (pToxicArea != NULL) {
-            gToxic -= pToxicArea->mIncAmount;
-            gTimeInside++;
-        }
-        else {
-            gToxic += TOXIC_RESTORE_EXIT;
-
-            if (gTimeInside != 0) {
-                gIsSoundActive = true;
-                MR::startSystemSE("SE_SY_LV_INC_AIR_WALK_TIMER", -1, -1);
-            }
-
-            gTimeInside = 0;
-        }
-
-        if (gToxic < 1.0f) {
-            MarioSubMeter* pMarioSubMeter = MR::getGameSceneLayoutHolder()->mMarioSubMeter;
-
-            if (gToxic <= 0.0f) {
-                pMarioSubMeter->frameOutSubMeter();
-                MarioAccess::forceKill(ACTMES_ENEMY_ATTACK_EXTRA_DAMAGE, 0);
-
-                gToxic = 1.0f;
-                gTimeInside = 0;
-                return;
-            }
-            
-            if (gTimeInside % 60 == 0) {
-                MR::startSoundPlayer("SE_PV_TIRED", -1, -1);
-            }
-
-            if (!gIsMeterActive) {
-                pMarioSubMeter->activeSubMeterWater();
-                gIsMeterActive = true;
-            }
-
-            pMarioSubMeter->setWaterLifeRatio(gToxic);
-            MarioAccess::getPlayerActor()->mMarioAnimator->changeTrackAnim(3, TRACK_DAMAGE_WAIT);            
-        }
-        else {
-            if (gToxic > 1.0f) {
-                gToxic = 1.0f;
-            }
-
-            if (gIsSoundActive) {
-                gIsSoundActive = false;
-                
-                MR::stopSystemSE("SE_SY_LV_INC_AIR_WALK_TIMER", 0);
-                MR::startSystemSE("SE_SY_INC_AIR_WALK_TIMER_F", -1, -1);
-            }
-
-            if (gIsMeterActive) {
-                gIsMeterActive = false;
-                MR::getGameSceneLayoutHolder()->mMarioSubMeter->frameOutSubMeter();
-            }
-        }
-    }
-    
-    inline f32 getToxic() {
-        return gToxic;
-    }
-
-    inline void setToxic(f32 value) {
-        gToxic = value;
-    }
-
-    inline void incToxic(f32 value) {
-        gToxic -= value;
-    }
-
-    inline void decToxic(f32 value) {
-        gToxic += value;
-    }
-
-    void decToxicCoin() {
-        ToxicArea* pToxicArea = (ToxicArea*)MR::getAreaObjAtPlayerPos("ToxicArea");
-
-        if (pToxicArea != NULL)
-            gToxic += pToxicArea->mCoinRestore;
-    }
-
-    void decToxicBubble() {
-        ToxicArea* pToxicArea = (ToxicArea*)MR::getAreaObjAtPlayerPos("ToxicArea");
-
-        if (pToxicArea != NULL)
-            gToxic += pToxicArea->mBubbleRestore;
-    }
+ToxicArea::ToxicArea(const char *pName) : AreaObj(pName) {
+    mIncAmount = 0.002f;
+    mCoinRestore = 0.2f;
+    mBubbleRestore = 0.3f;
 }
-
-kmBranch(0x8028D1D4, ToxicController::decToxicCoin);   // Coin Get
-kmBranch(0x8026E9A4, ToxicController::decToxicBubble); // Bubble Break
-
-ToxicArea::ToxicArea(const char *pName) : AreaObj(pName) { }
 
 void ToxicArea::init(const JMapInfoIter &rIter) {
     AreaObj::init(rIter);
+
+    if (mObjArg0 >= -1) {
+        mIncAmount = 1.0f / mObjArg0;
+    }
+
+    if (mObjArg1 >= -1) {
+        mCoinRestore = mObjArg1 / 100.0f;
+    }
+
+    if (mObjArg2 >= -1) {
+        mBubbleRestore = mObjArg2 / 100.0f;
+    }
+
     MR::connectToSceneAreaObj(this);
-
-    if (mObjArg0 == -1) mIncAmount = 0.002f; // = 1 / 500
-    else mIncAmount = 1.0f / mObjArg0;
-
-    if (mObjArg1 == -1) mCoinRestore = 0.2f;
-    else mCoinRestore = mObjArg1 / 100.0f;
-
-    if (mObjArg2 == -1) mBubbleRestore = 0.3f;
-    else mBubbleRestore = mObjArg2 / 100.0f;
 }
 
 bool ToxicArea::isInVolume(const TVec3f &mTranslation) const {
@@ -142,3 +46,104 @@ bool ToxicArea::isInVolume(const TVec3f &mTranslation) const {
 const char* ToxicArea::getManagerName() const {
     return "ToxicArea";
 }
+
+#define TRACK_DAMAGE_WAIT "\x83\x5F\x83\x81\x81\x5B\x83\x57\x83\x45\x83\x47\x83\x43\x83\x67"
+#define TOXIC_RESTORE 0.015f // ~= 1 / 60
+
+struct {
+    f32 toxic;
+    u32 time;
+    bool isMeterActive;
+    bool isSoundActive;
+} gToxicInfo;
+
+void initToxic() {
+    gToxicInfo.toxic = 0.0f;
+    gToxicInfo.time = 0;
+    gToxicInfo.isMeterActive = false;
+    gToxicInfo.isSoundActive = false;
+}
+
+bool updateToxic(const char *pAreaName, const TVec3f &rPosition) {
+    bool isInCometHopperArea = MR::isInAreaObj(pAreaName, rPosition); // original call
+
+    ToxicArea *pToxicArea = (ToxicArea *)MR::getAreaObjAtPlayerPos("ToxicArea");
+    if (pToxicArea) {
+        gToxicInfo.toxic += pToxicArea->mIncAmount;
+        gToxicInfo.time++;
+    }
+    else {
+        if (gToxicInfo.toxic > 0.0f) {
+            gToxicInfo.toxic -= TOXIC_RESTORE;
+        }        
+
+        if (gToxicInfo.time != 0) {
+            gToxicInfo.time = 0;
+            gToxicInfo.isSoundActive = true;
+
+            MR::startSystemSE("SE_SY_LV_INC_AIR_WALK_TIMER", -1, -1);
+        }
+    }
+
+    MarioSubMeter *pMarioSubMeter = MR::getGameSceneLayoutHolder()->mMarioSubMeter;
+
+    if (gToxicInfo.toxic > 0.0f) {
+        if (gToxicInfo.toxic >= 1.0f) {
+            pMarioSubMeter->frameOutSubMeter();
+            MR::forceKillPlayerByGroundRace();
+
+            initToxic();
+            return isInCometHopperArea;
+        }
+
+        if (gToxicInfo.time % 60 == 0) {
+            MR::startSoundPlayer("SE_PV_TIRED", -1, -1);
+        }
+
+        if (!gToxicInfo.isMeterActive) {
+            gToxicInfo.isMeterActive = true;
+            pMarioSubMeter->activeSubMeterWater();
+        }
+
+        pMarioSubMeter->setWaterLifeRatio(1.0f - gToxicInfo.toxic);
+        MarioAccess::getPlayerActor()->mMarioAnimator->changeTrackAnim(3, TRACK_DAMAGE_WAIT);   
+    }
+    else {
+        if (gToxicInfo.isSoundActive) {
+            gToxicInfo.isSoundActive = false;
+            
+            MR::stopSystemSE("SE_SY_LV_INC_AIR_WALK_TIMER", 0);
+            MR::startSystemSE("SE_SY_INC_AIR_WALK_TIMER_F", -1, -1);
+        }
+
+        if (gToxicInfo.isMeterActive) {
+            gToxicInfo.isMeterActive = false;
+            pMarioSubMeter->frameOutSubMeter();
+        }
+
+        if (gToxicInfo.toxic < 0.0f) {
+            gToxicInfo.toxic = 0.0f;
+        }
+    }
+
+    return isInCometHopperArea;
+}
+
+void decToxicCoin() {
+    ToxicArea *pToxicArea = (ToxicArea*)MR::getAreaObjAtPlayerPos("ToxicArea");
+
+    if (pToxicArea)
+        gToxicInfo.toxic -= pToxicArea->mCoinRestore;
+}
+
+void decToxicBubble() {
+    ToxicArea *pToxicArea = (ToxicArea*)MR::getAreaObjAtPlayerPos("ToxicArea");
+
+    if (pToxicArea)
+        gToxicInfo.toxic -= pToxicArea->mBubbleRestore;
+}
+
+kmBranch(0x803B7BAC, initToxic);
+kmCall(0x803B26A0, updateToxic);
+kmBranch(0x8028D1D4, decToxicCoin);
+kmBranch(0x8026E9A4, decToxicBubble);
