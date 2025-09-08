@@ -9,5 +9,8 @@ public:
     virtual void movement();
 
     TVec3f mStoredPos;
-    bool mWasPosStored;
+    u16 mMode;
+    s16 mMorphTimer;
+    s32 mLifeNum;
+    bool mWasStored;
 };
