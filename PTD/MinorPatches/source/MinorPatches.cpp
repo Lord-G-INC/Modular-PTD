@@ -6,6 +6,7 @@
 #include "JSystem/JUtility/JUTException.h"
 #include "JSystem/JUtility/JUTConsole.h"
 #include "JSystem/JUtility/JUTConsoleManager.h"
+#include "Game/MapObj/TreasureBoxCracked.h"
 /*
 * Error Message Fallback
 * PictureFont Redirection
@@ -321,4 +322,15 @@ namespace pt {
 	
 	kmCall(0x80510578, funcTest);
 
+
+
+
 }
+
+bool TreasureBoxCrackedOpenSwitch(TreasureBoxCracked* pActor, const char* pStr) {
+	if (MR::isValidSwitchB(pActor) && MR::isOnSwitchB(pActor))
+		pActor->makeOpen();
+		
+	return MR::isFirstStep(pActor);
+}
+kmCall(0x80325030, TreasureBoxCrackedOpenSwitch);
