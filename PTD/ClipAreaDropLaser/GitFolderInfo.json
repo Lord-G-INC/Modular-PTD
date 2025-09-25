@@ -6,6 +6,8 @@
     "source/ClipAreaDropScaleHolder.cpp",
     "source/ClipAreaDropLaser.h",
     "source/ClipAreaDropScale.h",
-    "source/ClipAreaDropScaleHolder.h"
+    "source/ClipAreaDropScaleHolder.h",
+    "Particles/Effects/Splash.json",
+    "Particles/Particles/ClipAreaDropLaserSplash00.json"
   ]
 }
