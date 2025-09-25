@@ -1,7 +1,7 @@
 {
   "Name": "ClipAreaDropLaser",
   "Author": "Evanbowl, Aba gamer",
-  "Description": "A port of the bouncing Matter Splatter light seen in Matter Splatter Galaxy in SMG1\nNote to other Module Developers: This module uses SceneObj Slot 90.",
+  "Description": "A port of the bouncing Matter Splatter light seen in Matter Splatter Galaxy in SMG1.\nNote to other Module Developers: This module uses SceneObj Slot 90.",
   "ModuleData": [
     {
       "NameObjFactory" : [

@@ -33,8 +33,11 @@ void ClipAreaDropLaser::init(const JMapInfoIter& rIter) {
     MR::getJMapInfoArg3NoInit(rIter, &b);
     MR::getJMapInfoArg4NoInit(rIter, &a);
     Color8 color = Color8(r, g, b, a);
-    mTrailColor = color.mColor;
-    mInitialTrailColor = color.mColor;
+
+    if (color.mColor != 0) {
+        mTrailColor = color.mColor;
+        mInitialTrailColor = color.mColor;
+    }
 
     if (MR::useStageSwitchReadAppear(this, rIter)) {
         setNerve(&NrvClipAreaDropLaser::ClipAreaDropLaserNrvWait::sInstance);
