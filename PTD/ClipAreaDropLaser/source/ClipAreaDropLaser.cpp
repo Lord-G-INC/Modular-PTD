@@ -107,8 +107,6 @@ void ClipAreaDropLaser::exeMove() {
     }
     _90[_398].set(mTranslation);
 
-    OSReport("%d\n", railPoint);
-
     if (railPoint != -1) {
         TVec3f pos;
         MR::calcRailPointPos(&pos, this, railPoint);

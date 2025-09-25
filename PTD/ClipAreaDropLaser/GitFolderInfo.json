@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Files": [
+    "source/ClipAreaDropLaser.cpp",
+    "source/ClipAreaDropScale.cpp",
+    "source/ClipAreaDropScaleHolder.cpp",
+    "source/ClipAreaDropLaser.h",
+    "source/ClipAreaDropScale.h",
+    "source/ClipAreaDropScaleHolder.h"
+  ]
+}
