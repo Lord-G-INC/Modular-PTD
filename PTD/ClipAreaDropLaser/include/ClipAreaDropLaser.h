@@ -12,6 +12,7 @@ public:
     void exeWait();
     void exeMove();
     void incrementDrawCount();
+    u32 getRgba(s32 railPoint);
 
     TVec3f _90[0x40];
     f32 _390;

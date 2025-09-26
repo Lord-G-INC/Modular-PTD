@@ -36,16 +36,15 @@ void ClipAreaDropScale::setBaseSize(f32 v1) {
 
 void ClipAreaDropScale::exeWait() {
     f32 f = 0;
-    if (MR::isLessStep(this, 15)) {
+    if (MR::isLessStep(this, 15))
         f = MR::calcNerveEaseOutValue(this, 15, 0.0f, _C4);
-    }
-    else {
+    else
         f = MR::calcNerveEaseInOutValue(this, 0x3C, 0xF0, _C4, 0.0);
-    }
+
     _C0->mRadius = f;
-    if (MR::isGreaterStep(this, 240)) {
+    
+    if (MR::isGreaterStep(this, 240))
         kill();
-    }
 }
 
 ClipAreaDropScale::~ClipAreaDropScale() {}
