@@ -18,8 +18,9 @@ public:
     int _394;
     int _398;
     f32 _39C;
-    u32 mInitialTrailColor;
     u32 mTrailColor;
+    s32 mCooldown;
+    s32 mCooldownTimer;
 };
 
 namespace NrvClipAreaDropLaser {

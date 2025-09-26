@@ -4,7 +4,7 @@
 ClipAreaDropScale::ClipAreaDropScale(const char* pName) : ClipArea(pName) {
     _C0 = 0;
     _C4 = 0.0f;
-    setShape(_C0 = new ClipAreaShapeSphere("VolumeSphereLow"));
+    setShape(_C0 = new ClipAreaShapeSphere("VolumeSphere"));
 }
 
 void ClipAreaDropScale::init(const JMapInfoIter& rIter) {

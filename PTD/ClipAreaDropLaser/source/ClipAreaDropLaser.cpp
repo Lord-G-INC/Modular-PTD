@@ -7,8 +7,9 @@ ClipAreaDropLaser::ClipAreaDropLaser(const char* pName) : LiveActor(pName) {
     _394 = -1;
     _398 = -1;
     _39C = 20.0f;
-    mInitialTrailColor = 0x40F080;
     mTrailColor = 0x40F080;
+    mCooldown = 0;
+    mCooldownTimer = 0;
     MR::createClipAreaDropScaleHolder();
 }
 
@@ -17,27 +18,11 @@ void ClipAreaDropLaser::init(const JMapInfoIter& rIter) {
     MR::connectToScene(this, 0x22, -1, -1, 0x14);
     initRailRider(rIter);
     MR::moveCoordAndTransToRailStartPoint(this);
-    _39C = 20.0f;
-    MR::getJMapInfoArg0NoInit(rIter, &_39C);
+    MR::getJMapInfoArg0NoInit(rIter, &mCooldown);
     initEffectKeeper(0, "ClipAreaDropLaser", false);
     initSound(4, "ClipAreaDropLaser", &mTranslation, TVec3f(0.0f, 0.0f, 0.0f));
     initNerve(&NrvClipAreaDropLaser::ClipAreaDropLaserNrvMove::sInstance, 0);
     MR::invalidateClipping(this);
-
-    s32 r = 0;
-    s32 g = 0;
-    s32 b = 0;
-    s32 a = 0;
-    MR::getJMapInfoArg1NoInit(rIter, &r);
-    MR::getJMapInfoArg2NoInit(rIter, &g);
-    MR::getJMapInfoArg3NoInit(rIter, &b);
-    MR::getJMapInfoArg4NoInit(rIter, &a);
-    Color8 color = Color8(r, g, b, a);
-
-    if (color.mColor != 0) {
-        mTrailColor = color.mColor;
-        mInitialTrailColor = color.mColor;
-    }
 
     if (MR::useStageSwitchReadAppear(this, rIter)) {
         setNerve(&NrvClipAreaDropLaser::ClipAreaDropLaserNrvWait::sInstance);
@@ -90,48 +75,70 @@ bool getRailPointArgS32AtPoint(const LiveActor* pActor, s32 pnt, s32 l, s32* pL)
     return __kAutoMap_8023DB60(pActor->mRailRider, pntName, pL, l);
 }
 
+u32 getRgba(ClipAreaDropLaser* pActor, s32 railPoint) {
+    s32 def = 0;
+    getRailPointArgS32AtPoint(pActor, 6, railPoint, &def);
+
+    if (def != 0)
+        return 0x40F080;
+
+    s32 r = 0;
+    s32 g = 0;
+    s32 b = 0;
+    s32 a = 0;
+    getRailPointArgS32AtPoint(pActor, 2, railPoint, &r);
+    getRailPointArgS32AtPoint(pActor, 3, railPoint, &g);
+    getRailPointArgS32AtPoint(pActor, 4, railPoint, &b);
+    getRailPointArgS32AtPoint(pActor, 5, railPoint, &a);
+
+    Color8 color = Color8(r, g, b, a);
+    u32 color2 = color.mColor;
+
+    if (color2 == 0)
+        color2 = pActor->mTrailColor;
+
+    return color2;
+}
+
 void ClipAreaDropLaser::exeMove() {
     if (MR::isFirstStep(this)) {
         MR::moveCoordAndTransToRailStartPoint(this);
         _390 = 0.0f;
+        mTrailColor = getRgba(this, 0);
+        f32 speedInitial = 20.0f;
+        __kAutoMap_80053D90(this, 1, 0, &speedInitial);
+        _39C = speedInitial;
     }
     s32 railPoint = 0;
-    railPoint = MR::moveCoordAndCheckPassPointNo(this, _39C);
-    MR::moveTransToCurrentRailPos(this);
+    
+    if (mCooldownTimer == 0) {
+        railPoint = MR::moveCoordAndCheckPassPointNo(this, _39C);
+        MR::moveTransToCurrentRailPos(this);
+    }
     incrementDrawCount();
+
     if (MR::isRailReachedGoal(this)) {
         _394 = _398;
-        railPoint = MR::getRailPointNum(this)-1;
         MR::moveCoordAndTransToRailStartPoint(this);
-        mTrailColor = mInitialTrailColor;
+        railPoint = MR::getRailPointNum(this)-1;
+        mCooldownTimer = mCooldown;
     }
+
     _90[_398].set(mTranslation);
 
     if (railPoint != -1) {
         TVec3f pos;
         MR::calcRailPointPos(&pos, this, railPoint);
         f32 arg = -1.0;
-
         __kAutoMap_80053D90(this, 0, railPoint, &arg);
 
-        s32 r = 0;
-        s32 g = 0;
-        s32 b = 0;
-        s32 a = 0;
-        s32 def = 0;
-        getRailPointArgS32AtPoint(this, 1, railPoint, &r);
-        getRailPointArgS32AtPoint(this, 2, railPoint, &g);
-        getRailPointArgS32AtPoint(this, 3, railPoint, &b);
-        getRailPointArgS32AtPoint(this, 4, railPoint, &a);
-        getRailPointArgS32AtPoint(this, 5, railPoint, &def);
+        f32 speed = -1.0f;
+        __kAutoMap_80053D90(this, 1, railPoint, &speed);
+
+        if (speed >= 0.0f)
+            _39C = speed;
         
-        Color8 color = Color8(r,g,b,a);
-        
-        if (def)
-            mTrailColor = 0x40F080;
-        else if (color.mColor != 0)
-            mTrailColor = color.mColor;
-        
+        mTrailColor = getRgba(this, railPoint);
         
         if (arg > 0.0f) {
             MR::emitEffectHit(this, pos, "Splash");
@@ -139,6 +146,11 @@ void ClipAreaDropLaser::exeMove() {
             MR::appearClipAreaDropScale(pos, arg);
         }
     }
+
+    if (mCooldownTimer > 0)
+        mCooldownTimer--;
+
+    OSReport("%d\n", mCooldownTimer);
 
     if (MR::isValidSwitchAppear(this) && !MR::isOnSwitchAppear(this))
         setNerve(&NrvClipAreaDropLaser::ClipAreaDropLaserNrvWait::sInstance);
