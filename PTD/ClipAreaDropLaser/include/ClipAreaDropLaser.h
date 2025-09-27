@@ -14,14 +14,15 @@ public:
     void incrementDrawCount();
     u32 getRgba(s32 railPoint);
 
-    TVec3f _90[0x40];
-    f32 _390;
-    int _394;
-    int _398;
-    f32 _39C;
+    TVec3f mDrawPoints[0x40];
+    s32 mNumPointsToDraw;
+    s32 mPointIndexToSkipDraw;
+    s32 mDrawCount;
+    f32 mSpeed;
     u32 mTrailColor;
     s32 mCooldown;
     s32 mCooldownTimer;
+    u32 mTimerToResetDraw;
 };
 
 namespace NrvClipAreaDropLaser {

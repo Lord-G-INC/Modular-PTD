@@ -3,7 +3,7 @@
 ClipAreaDropScaleHolder::ClipAreaDropScaleHolder() : DeriveActorGroup<ClipAreaDropScale>("クリップエリアのしずく管理", 32) {
     ClipAreaDropScale* pClipArea = 0;
     for (int i = 0; i < 32; i++) {
-        pClipArea = new ClipAreaDropScale("クリップエリアのしずくS");
+        pClipArea = new ClipAreaDropScale("クリップエリアのしずくS", "VolumeSphere");
         pClipArea->initWithoutIter();
         registerActor(pClipArea);
     }

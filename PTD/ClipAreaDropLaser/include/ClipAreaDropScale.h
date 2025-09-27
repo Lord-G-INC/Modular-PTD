@@ -4,7 +4,7 @@
 
 class ClipAreaDropScale : public ClipArea {
 public:
-    ClipAreaDropScale(const char*);
+    ClipAreaDropScale(const char*, const char*);
     virtual void init(const JMapInfoIter&);
     virtual void appear();
     virtual void control();
@@ -20,4 +20,3 @@ public:
 namespace NrvClipAreaDropScale {
     NERVE_DECL_EXE(ClipAreaDropScaleNrvWait, ClipAreaDropScale, Wait);
 }
-

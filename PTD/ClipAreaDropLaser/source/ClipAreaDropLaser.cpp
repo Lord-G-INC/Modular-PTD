@@ -3,13 +3,14 @@
 #include "Game/Util/DirectDraw.h"
 
 ClipAreaDropLaser::ClipAreaDropLaser(const char* pName) : LiveActor(pName) {
-    _390 = 0.0f;
-    _394 = -1;
-    _398 = -1;
-    _39C = 20.0f;
+    mNumPointsToDraw = 0;
+    mPointIndexToSkipDraw = -1;
+    mDrawCount = -1;
+    mSpeed = 20.0f;
     mTrailColor = 0x40F080;
     mCooldown = 0;
     mCooldownTimer = 0;
+    mTimerToResetDraw = 0;
     MR::createClipAreaDropScaleHolder();
 }
 
@@ -27,10 +28,16 @@ void ClipAreaDropLaser::init(const JMapInfoIter& rIter) {
     if (MR::useStageSwitchReadAppear(this, rIter)) {
         setNerve(&NrvClipAreaDropLaser::ClipAreaDropLaserNrvWait::sInstance);
     }
+
     makeActorAppeared();
 }
 void ClipAreaDropLaser::control() {
+    if(mPointIndexToSkipDraw != -1 && mTimerToResetDraw != 0)
+        mTimerToResetDraw--; 
 
+    if (mTimerToResetDraw == 0) {
+        mPointIndexToSkipDraw = -1;
+    }
 }
 
 void ClipAreaDropLaser::draw() const {
@@ -39,25 +46,24 @@ void ClipAreaDropLaser::draw() const {
     GXSetLineWidth(0x14, GX_TO_ZERO);
     GXSetZMode(GX_TRUE, GX_LEQUAL, GX_FALSE);
 
-    for (int r29 = 1; r29 < _390; r29++) {
-        int u1 = _398-(r29-1);
-        int u2 = _398-r29;
-        
-        if (u1 < 0)
-            u1 += 0x40;
-        if (u2 < 0)
-            u2 += 0x40;
+    for (int i = 1; i < mNumPointsToDraw; i++) {
+        int point1st = mDrawCount-(i-1);
+        int point2nd = mDrawCount-i;
 
-        if (u1 != _394) {
-            TDDraw::drawLine(_90[u1], _90[u2], mTrailColor);
+        if (point1st < 0)
+            point1st += 0x40;
+        if (point2nd < 0)
+            point2nd += 0x40;
+
+        if (point1st != mPointIndexToSkipDraw) {
+            TDDraw::drawLine(mDrawPoints[point1st], mDrawPoints[point2nd], mTrailColor);
         }
     }
 }
 
 void ClipAreaDropLaser::exeWait() {
-    if (_390 > 0.0f) {
-        _390 = _390 - 1.0f;
-    }
+    if (mNumPointsToDraw != 0)
+        mNumPointsToDraw--;
 
     if (MR::isValidSwitchAppear(this) && MR::isOnSwitchAppear(this))
         setNerve(&NrvClipAreaDropLaser::ClipAreaDropLaserNrvMove::sInstance);
@@ -78,28 +84,33 @@ bool getRailPointArgS32AtPoint(const LiveActor* pActor, s32 pnt, s32 l, s32* pL)
 void ClipAreaDropLaser::exeMove() {
     if (MR::isFirstStep(this)) {
         MR::moveCoordAndTransToRailStartPoint(this);
-        _390 = 0.0f;
-        mTrailColor = getRgba(0);
+        mNumPointsToDraw = 0;
+
+        u32 color = getRgba(0);
+        if (color)
+            mTrailColor = color;
+            
         f32 speedInitial = 20.0f;
         __kAutoMap_80053D90(this, 1, 0, &speedInitial);
-        _39C = speedInitial;
+        mSpeed = speedInitial;
     }
     s32 railPoint = 0;
     
     if (mCooldownTimer == 0) {
-        railPoint = MR::moveCoordAndCheckPassPointNo(this, _39C);
+        railPoint = MR::moveCoordAndCheckPassPointNo(this, mSpeed);
         MR::moveTransToCurrentRailPos(this);
     }
     incrementDrawCount();
-
+    
     if (MR::isRailReachedGoal(this)) {
-        _394 = _398;
+        mPointIndexToSkipDraw = mDrawCount;
+        mTimerToResetDraw = 64;
         MR::moveCoordAndTransToRailStartPoint(this);
         railPoint = MR::getRailPointNum(this)-1;
         mCooldownTimer = mCooldown;
     }
-
-    _90[_398].set(mTranslation);
+    
+    mDrawPoints[mDrawCount].set(mTranslation);
 
     if (railPoint != -1) {
         TVec3f pos;
@@ -111,9 +122,11 @@ void ClipAreaDropLaser::exeMove() {
         __kAutoMap_80053D90(this, 1, railPoint, &speed);
 
         if (speed >= 0.0f)
-            _39C = speed;
-        
-        mTrailColor = getRgba(railPoint);
+            mSpeed = speed;
+
+        u32 colorForMove = getRgba(railPoint);
+        if (colorForMove)
+            mTrailColor = colorForMove;
         
         if (arg > 0.0f) {
             MR::emitEffectHit(this, pos, "Splash");
@@ -130,13 +143,12 @@ void ClipAreaDropLaser::exeMove() {
 }
 
 void ClipAreaDropLaser::incrementDrawCount() {
-    _398+= 1;
-    if (_398 >= 0x40) {
-        _398 += -0x40;
-    }
-    if (_390 < 64.0f) {
-        _390 += 1.0f;
-    }
+    mDrawCount++;
+    if (mDrawCount >= 64)
+        mDrawCount += -64;
+
+    if (mNumPointsToDraw < 64)
+        mNumPointsToDraw++;
 }
 
 u32 ClipAreaDropLaser::getRgba(s32 railPoint) {
@@ -150,12 +162,7 @@ u32 ClipAreaDropLaser::getRgba(s32 railPoint) {
     getRailPointArgS32AtPoint(this, 5, railPoint, &a);
 
     Color8 color = Color8(r, g, b, a);
-    u32 color2 = color.mColor;
-
-    if (color2 == 0)
-        color2 = mTrailColor;
-
-    return color2;
+    return color.mColor;
 }
 
 ClipAreaDropLaser::~ClipAreaDropLaser() {

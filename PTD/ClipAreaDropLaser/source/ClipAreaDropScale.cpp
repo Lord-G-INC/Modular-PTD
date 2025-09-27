@@ -1,10 +1,9 @@
 #include "ClipAreaDropScale.h"
 
-
-ClipAreaDropScale::ClipAreaDropScale(const char* pName) : ClipArea(pName) {
+ClipAreaDropScale::ClipAreaDropScale(const char* pName, const char* pModel) : ClipArea(pName) {
     _C0 = 0;
     _C4 = 0.0f;
-    setShape(_C0 = new ClipAreaShapeSphere("VolumeSphere"));
+    setShape(_C0 = new ClipAreaShapeSphere(pModel));
 }
 
 void ClipAreaDropScale::init(const JMapInfoIter& rIter) {
