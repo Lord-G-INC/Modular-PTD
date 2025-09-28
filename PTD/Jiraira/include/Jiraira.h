@@ -21,6 +21,10 @@ namespace pt {
         void exeRecover();
 
         CollisionParts* mButtonCollision;
+        bool mNoRecover;
+        s32 mStepExplodeTimer;
+        s32 mRecoverTimer;
+        f32 mExplodeSensorSize;
     };
 
     namespace NrvJiraira {

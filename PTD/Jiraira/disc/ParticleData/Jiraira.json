@@ -1,0 +1,28 @@
+[
+    {
+        "GroupName": "Jiraira",
+        "UniqueName": "Explosion",
+        "EffectName": [
+            "BossStinkBugExplosion00",
+            "ExplosionHemisphere00",
+            "ExplosionHemisphere01",
+            "ExplosionHemisphere02",
+            "ExplosionHemisphere03",
+            "ExplosionHemisphere04",
+            "ExplosionHemisphere05",
+            "BossStinkBugExplosion01",
+            "BossStinkBugExplosion02"
+        ],
+        "OffsetX": 0.0,
+        "OffsetY": 0.0,
+        "OffsetZ": 0.0,
+        "EndFrame": 0,
+        "ScaleValue": 1.5,
+        "RateValue": 1.0,
+        "LightAffectValue": 0.0,
+        "DrawOrder": "3D",
+        "Affect": [
+            "T"
+        ]
+    }
+]

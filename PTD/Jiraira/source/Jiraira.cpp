@@ -13,6 +13,9 @@
 namespace pt {
 	Jiraira::Jiraira(const char *pName) : LiveActor(pName) {
 		mButtonCollision = NULL;
+		mNoRecover = false;
+		mStepExplodeTimer = 30;
+		mRecoverTimer = 188;
 	}
 
 	void Jiraira::init(const JMapInfoIter &rIter) {
@@ -37,6 +40,13 @@ namespace pt {
 		initEffectKeeper(0, NULL, false);
 		MR::invalidateClipping(this);
 		MR::useStageSwitchAwake(this, rIter);
+		MR::useStageSwitchReadA(this, rIter);
+		MR::useStageSwitchWriteB(this, rIter);
+
+		// New obj_args
+		MR::getJMapInfoArg0NoInit(rIter, &mNoRecover);
+		MR::getJMapInfoArg2NoInit(rIter, &mStepExplodeTimer);
+		MR::getJMapInfoArg3NoInit(rIter, &mRecoverTimer);
 
 		// Setup nerve and make appeared
 		initNerve(&NrvJiraira::NrvWait::sInstance, NULL);
@@ -105,6 +115,8 @@ namespace pt {
 		if (MR::isOnPlayer(getSensor("Body")) && !MR::isPlayerFlying()) {
 			setNerve(&NrvJiraira::NrvStepped::sInstance);
 		}
+		if (MR::isValidSwitchA(this) && MR::isOnSwitchA(this)) 
+			setNerve(&NrvJiraira::NrvSteppedExplode::sInstance);
 	}
 
 	void Jiraira::exeStepped() {
@@ -116,7 +128,7 @@ namespace pt {
 
 		MR::startActionSound(this, "OjLvJirairaCharge", -1, -1, -1);
 
-		if (MR::isGreaterStep(this, 30)) {
+		if (MR::isGreaterStep(this, mStepExplodeTimer)) {
 			setNerve(&NrvJiraira::NrvSteppedExplode::sInstance);
 		}
 	}
@@ -128,6 +140,8 @@ namespace pt {
 			MR::startAction(this, "Down");
 			MR::validateHitSensor(this, "Explode");
 			MR::tryRumblePadAndCameraDistanceStrong(this, 800.0f, 1200.0f, 2000.0f);
+			if (MR::isValidSwitchB(this)) 
+				MR::onSwitchB(this);
 		}
 
 		if (MR::isStep(this, 8)) {
@@ -137,7 +151,7 @@ namespace pt {
 			getSensor("Explode")->mRadius = 500.0f * getNerveStep() * 0.125f;
 		}
 
-		if (MR::isGreaterStep(this, 188)) {
+		if (MR::isGreaterStep(this, mRecoverTimer) && !mNoRecover) {
 			setNerve(&NrvJiraira::NrvPreRecover::sInstance);
 		}
 	}
@@ -146,6 +160,8 @@ namespace pt {
 		if (MR::isFirstStep(this)) {
 			MR::startAction(this, "Down");
 			MR::startBrk(this, "RecoveryLoop");
+			if (MR::isValidSwitchB(this)) 
+				MR::offSwitchB(this);
 		}
 
 		MR::startActionSound(this, "OjLvJirairaRecovering", -1, -1, -1);
