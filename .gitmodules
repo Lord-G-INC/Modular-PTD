@@ -10,3 +10,6 @@
 [submodule "Syati_ObjectFactories"]
 	path = PTD/Syati_ObjectFactories
 	url = https://www.github.com/SMGCommunity/Syati_ObjectFactories
+[submodule "Syati_ClassExtensions"]
+	path = PTD/Syati_ClassExtensions
+	url = https://www.github.com/SMGCommunity/Syati_ClassExtensions
