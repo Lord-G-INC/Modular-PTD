@@ -1,43 +1,42 @@
 {
   "Name": "Custom Launch Star Colors",
-  "Author": "Aurum, Evanbowl, Lord-Giganticus",
-  "Description": "PTD: Custom Launch Star Colors",
-  "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init"],
-  "ModuleData" : [
+  "Author": "Aurum (V1), Evanbowl & Lord-Giganticus (V2), Super Hackio (V3)",
+  "Description": "Custom Launch Star Colors via ShapeModelNo",
+  "InstallDependencies": [ "Syati_ClassExtensions", "Syati_ObjectFactories", "Syati_Init" ],
+  "ModuleDependancies": [
+    "Syati_ClassExtensions_API"
+  ],
+  "ModuleData": [
     {
+      "ClassExtensions": [
+        {
+          "ClassName": "SpinDriverPathDrawInit",
+          "FuncOrVar": "JUTTexture** mTextures;",
+          "HookAddr": "0x8045A29C",
+          "Include": "Game/MapObj/SpinDriverPathDrawer.h",
+          "Extern": "class JUTTexture;"
+        },
+        {
+          "ClassName": "SpinDriverPathDrawInit",
+          "FuncOrVar": "s32 mTextureCount;",
+          "HookAddr": "0x8045A29C",
+          "Include": "Game/MapObj/SpinDriverPathDrawer.h",
+          "Extern": ""
+        }
+      ],
       "NameObjFactory": [
         {
-          "Name" : "SuperSpinDriverGreen",
-          "Function" : "pt::createSuperSpinDriverCustomColor<1>",
-          "Include" : "SuperSpinDriverCustomColors.h"
-        },
+          "Name": "SuperSpinDriverGreen",
+          "Function": "MR::createSuperSpinDriverGreen",
+          "Include": "SuperSpinDriverGreen.h"
+        }
+      ],
+      "ModelChangableObj": [
         {
-          "Name" : "SuperSpinDriverRed",
-          "Function" : "pt::createSuperSpinDriverCustomColor<3>"
-        },
-        {
-          "Name" : "SuperSpinDriverBlue",
-          "Function" : "pt::createSuperSpinDriverCustomColor<4>"
-        },
-        {
-          "Name" : "SuperSpinDriverRainbow",
-          "Function" : "pt::createSuperSpinDriverCustomColor<5>"
-        },
-        {
-          "Name" : "SuperSpinDriverPurple",
-          "Function" : "pt::createSuperSpinDriverCustomColor<6>"
-        },
-        {
-          "Name" : "SuperSpinDriverBlack",
-          "Function" : "pt::createSuperSpinDriverCustomColor<7>"
-        },
-        {
-          "Name" : "SuperSpinDriverWhite",
-          "Function" : "pt::createSuperSpinDriverCustomColor<8>"
-        },
-        {
-          "Name" : "SuperSpinDriverYellow",
-          "Function" : "pt::createSuperSpinDriverCustomColor<9>"
+          "Name": "SuperSpinDriver",
+          "ArchiveName": "NULL",
+          "Function": "MR::createSuperSpinDriverYellow",
+          "Include": "Game/MapObj/SuperSpinDriver.h"
         }
       ]
     }
