@@ -1,0 +1,46 @@
+[
+    {
+        "GroupName": "RedCoinCounter",
+        "UniqueName": "RedCoinCounterLight",
+        "EffectName": [
+            "RedCoinCounterLight"
+        ],
+        "JointName": "PicCoin",
+        "OffsetX": 0.0,
+        "OffsetY": 0.0,
+        "OffsetZ": 0.0,
+        "ScaleValue": 1.0,
+        "RateValue": 1.0,
+        "PrmColor": "#ff7f7f",
+        "LightAffectValue": 0.0,
+        "DrawOrder": "2D",
+        "Affect": [
+            "T"
+        ],
+        "Follow": [
+            "T"
+        ]
+    },
+    {
+        "GroupName": "RedCoinCounter",
+        "UniqueName": "RedCoinCounterLight",
+        "EffectName": [
+            "RedCoinCounterLight"
+        ],
+        "JointName": "PicCoin",
+        "OffsetX": 0.0,
+        "OffsetY": 0.0,
+        "OffsetZ": 0.0,
+        "ScaleValue": 1.0,
+        "RateValue": 1.0,
+        "PrmColor": "#ff7f7f",
+        "LightAffectValue": 0.0,
+        "DrawOrder": "2D",
+        "Affect": [
+            "T"
+        ],
+        "Follow": [
+            "T"
+        ]
+    }
+]
