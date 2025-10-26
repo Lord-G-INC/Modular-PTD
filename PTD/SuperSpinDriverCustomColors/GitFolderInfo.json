@@ -1,10 +1,10 @@
 {
-  "Version": 2,
+  "Version": 1,
   "Files": [
     "disc/ObjectData/SpinDriverPath.arc",
     "disc/ObjectData/SuperSpinDriver.arc",
     "disc/ObjectData/SuperSpinDriverEmpty.arc",
-    "include/SuperSpinDriverCustomColors.h",
+    "include/SuperSpinDriverGreen.h",
     "source/SuperSpinDriverCustomColors.cpp"
   ]
 }
