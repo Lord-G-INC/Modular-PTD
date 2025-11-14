@@ -178,7 +178,7 @@ kmWrite32(0x80446B4C, 0x48000034);        // b 0x34
 void TamakoroStartStageBgm(TamakoroExt *pTamakoro) {
     TamakoroBgmParamEntry *pEntry = &gTamakoroBgmParamTable[0];
 
-    if (pTamakoro->mMusicNum < -2)
+    if (pTamakoro->mMusicNum > -1)
         pEntry = &gTamakoroBgmParamTable[pTamakoro->mMusicNum];
 
     if (pTamakoro->mMusicNum != -2) {
