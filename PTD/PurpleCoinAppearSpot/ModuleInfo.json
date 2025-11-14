@@ -1,0 +1,16 @@
+{
+  "Name": "My Syati Module",
+  "Author": "YourNameHere",
+  "Description": "My Syati Module is awesome!",
+  "ModuleData": [
+    {
+      "NameObjFactory": [
+        {
+          "Name": "PurpleCoinAppearSpot",
+          "Function": "createExtActor<PurpleCoinAppearSpot>",
+          "Include": "PurpleCoinAppearSpot.h"
+        }
+      ]
+    }
+  ]
+}
