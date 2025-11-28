@@ -1,5 +1,5 @@
 {
-  "Version": 1,
+  "Version": 2,
   "Files": [
     "include/CometTimerObj.h",
     "include/Game/MapObj/TimeAttackClockExt.h",
