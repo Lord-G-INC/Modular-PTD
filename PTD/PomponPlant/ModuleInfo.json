@@ -12,7 +12,7 @@
     {
       "NameObjFactory" : [
         {
-          "Name" : "PomponPlant",
+          "Name" : "Pompon2Plant",
           "Function" : "createExtActor<pt::PomponPlant>",
           "Include" : "PomponPlant.h"
         }
