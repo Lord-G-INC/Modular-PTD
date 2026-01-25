@@ -7,9 +7,9 @@
       {
         "NameObjFactory" : [
           {
-            "Name" : "PlayerSwitchCtrl",
-            "Function" : "createExtActor<pt::PlayerSwitchCtrl>",
-            "Include" : "PlayerSwitchCtrl.h"
+            "Name" : "DeadLeaves",
+            "Function" : "createExtActor<pt::DeadLeaves>",
+            "Include" : "DeadLeaves.h"
           }
         ]
       }
