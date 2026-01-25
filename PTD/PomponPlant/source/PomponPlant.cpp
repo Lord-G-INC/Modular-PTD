@@ -2,13 +2,14 @@
 
 /*
 * Authors: Someone, Aurum
-* Objects: Pompon2Plant
+* Objects: PomponPlant
 * Parameters:
 *  - Obj_arg0, list, -1: Item type
-*   *: nothing
-*   0: Coins
-*   1: Star Bits
+*  	-1: Coins
+*  	 0: Star Bits
+*  	 *: nothing
 *  - Obj_arg1, long, 1, Item amount
+*    > upper limit is 10
 *  - SW_AWAKE
 * 
 * This is the bubbly plant from Honeyhive Galaxy. When touched, it can spawn Coins or Star Bits. It is compatible with
