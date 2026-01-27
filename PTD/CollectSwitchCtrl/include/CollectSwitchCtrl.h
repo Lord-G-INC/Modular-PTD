@@ -4,7 +4,7 @@
 
 #ifdef BLUECOINSYSTEM
 namespace BlueCoinUtil {
-	extern u16 getTotalBlueCoinNumCurrentFile(bool);
+	extern s32 getTotalBlueCoinNumCurrentFile(bool ignoreSpent);
 };
 #endif
 

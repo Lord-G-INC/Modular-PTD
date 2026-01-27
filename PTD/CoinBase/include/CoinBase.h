@@ -2,16 +2,17 @@
 
 #include "syati.h"
 
+
 typedef struct CoinInfo {
     void setDefault();
-
+    
+    s32 mCoinAddNo;
     bool mExistInDarkComet;
     bool mPlaySound;
     bool mUseSyncAppear;
     bool mUseReadSwitchB;
     bool mIgnoreSensorScaling;
     bool mInitFunction;
-    s32 mCoinAddNo;
     char mMirrorActorName[32];
 };
 
@@ -23,8 +24,7 @@ public:
     virtual void makeActorAppeared();
     virtual bool receiveOtherMsg(u32 msg, HitSensor* pSender, HitSensor* pReceiver);
 
-
-    virtual bool vRequestGetCoin();
+    virtual bool requestGetCoin();
     void noticeGetCoin();
     void appearAndMove(f32 vel, const char* soundName);
 

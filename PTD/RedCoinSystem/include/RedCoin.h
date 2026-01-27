@@ -10,7 +10,7 @@ public:
     RedCoin(const char* pName);
     virtual void init(const JMapInfoIter& rIter);
     virtual void control();
-    virtual bool vRequestGetCoin();
+    virtual bool requestGetCoin();
 
 
     LiveActorGroup* mGroup;

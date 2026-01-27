@@ -322,9 +322,23 @@ namespace pt {
 	
 	kmCall(0x80510578, funcTest);
 
+	bool OceanSphereTexturePatch1(const JMapInfoIter& rIter) {
+		bool arg = false;
+		MR::getJMapInfoArg0NoInit(rIter, &arg);
+		return arg;
+	}
 
+	kmWrite32(0x8025CE18, PPC_MR(3, 30));
+	kmCall(0x8025CE1C, OceanSphereTexturePatch1);
 
+	bool OceanSphereTexturePatch2(const JMapInfoIter& rIter) {
+		bool arg = false;
+		MR::getJMapInfoArg1NoInit(rIter, &arg);
+		return arg;
+	}
 
+	kmWrite32(0x8025CE34, PPC_MR(3, 30));
+	kmCall(0x8025CE38, OceanSphereTexturePatch2);
 }
 
 bool TreasureBoxCrackedOpenSwitch(TreasureBoxCracked* pActor, const char* pStr) {

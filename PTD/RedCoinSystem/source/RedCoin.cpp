@@ -39,7 +39,7 @@ void RedCoin::control() {
         MR::zeroVelocity(this);
 }
 
-bool RedCoin::vRequestGetCoin() {
+bool RedCoin::requestGetCoin() {
     MR::emitEffect(this, "RedCoinGet");
     mFlashingCtrl->end();
     setNerve(&NrvCoin::CoinNrvGot::sInstance);

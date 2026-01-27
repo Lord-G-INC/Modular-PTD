@@ -123,8 +123,6 @@ void CometTimerObj::exeTimeUp() {
 }
 
 void CometTimerObj::addTime(u32 timeAdd) {
-    mTime + timeAdd;
-
     if (mTimeLimitLayout)
         mTimeLimitLayout->addTimeLimit(timeAdd);
     else {

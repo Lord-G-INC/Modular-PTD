@@ -8,6 +8,7 @@ void CoinInfo::setDefault() {
     mIgnoreSensorScaling = false;
     mInitFunction = true;
     mCoinAddNo = 1;
+    
     strcpy(mMirrorActorName, "Coin");
 }
 
@@ -33,7 +34,6 @@ void CoinBase::init(const JMapInfoIter& rIter) {
         mGravity.set(-actorAxis);
     }
 
-
     if (mIsInBubble) {
         mAirBubble = MR::createPartsModelNoSilhouettedMapObj(this, "アワ", "AirBubble", 0);
         mAirBubble->initFixedPosition(TVec3f(0.0f, 70.0f, 0.0f), TVec3f(0.0f, 0.0f, 0.0f), 0);
@@ -42,7 +42,7 @@ void CoinBase::init(const JMapInfoIter& rIter) {
         MR::startAction(mAirBubble, "Move");
     }
     
-    mFlashingCtrl = new FlashingCtrl(this, 1);
+    mFlashingCtrl = new FlashingCtrl(this, true);
 
     MR::tryCreateMirrorActor(this, mCoinInfo.mMirrorActorName);
     
@@ -99,28 +99,28 @@ void CoinBase::makeActorAppeared() {
 
 bool CoinBase::receiveOtherMsg(u32 msg, HitSensor* pSender, HitSensor* pReceiver) {
     if (MR::isMsgItemGet(msg))
-        vRequestGetCoin();
+        this->requestGetCoin();
 
     if (MR::isMsgItemShow(msg))
-        requestShow();
+        return requestShow();
 
     if (MR::isMsgItemHide(msg))
-        requestHide();
+        return requestHide();
 
     if (MR::isMsgItemNigeroTake(msg))
-        canStartMove();
+        return canStartMove();
 
     if (MR::isMsgItemStartMove(msg))
-        requestStartControl();
+        return requestStartControl();
 
     if (MR::isMsgItemEndMove(msg))
-        requestEndControl();
+        return requestEndControl();
 
     if (MR::isMsgItemNigeroDrop(msg))
-        requestMove();
+        return requestMove();
 
     if (MR::isMsgItemSupportTicoDrop(msg))
-        requestThrow();
+        return requestThrow();
 
     if (MR::isMsgInhaleBlackHole(msg)) {
         kill();
@@ -130,13 +130,8 @@ bool CoinBase::receiveOtherMsg(u32 msg, HitSensor* pSender, HitSensor* pReceiver
     return false;
 }
 
-bool CoinBase::vRequestGetCoin() {
-    noticeGetCoin();
-    MR::emitEffect(this, "CoinGet");
-    mFlashingCtrl->end();
-    setNerve(&NrvCoin::CoinNrvGot::sInstance);
-    makeActorDead();
-    return true;
+bool CoinBase::requestGetCoin() {
+    return Coin::requestGetCoin();
 }
 
 void CoinBase::noticeGetCoin() {
