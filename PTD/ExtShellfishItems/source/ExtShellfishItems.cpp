@@ -34,7 +34,7 @@ namespace pt {
 	}
 
 	kmCall(0x802FC034, initNewShellfishItem); // redirect call to initItem in init
-	kmWrite32(0x802FC79C, 0x41820030);        // skip the repetitive check for blue chips
+	kmWrite32(0x802FC79C, PPC_COND_BRANCH(PPC_COND_EQ, 0x30));        // skip the repetitive check for blue chips
 
 	/*
 	* Shellfish::putItem is used to set the item's position. The blue chip's offset is still part of Shellfish::putItem,

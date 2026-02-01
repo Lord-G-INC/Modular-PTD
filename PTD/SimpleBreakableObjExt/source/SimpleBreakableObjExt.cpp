@@ -8,4 +8,4 @@ void setBehaviorSimpleBreakableObj (SimpleBreakableObj *pActor, const JMapInfoIt
 }
 
 kmCall(0x802FD744, setBehaviorSimpleBreakableObj);
-kmWrite32(0x802FD7A4, 0x480001D4); // b loc_802FD978
+kmWrite32(0x802FD7A4, PPC_B(0x1D4)); // b loc_802FD978

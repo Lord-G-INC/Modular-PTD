@@ -8,4 +8,4 @@ void ClipAreaMovableReadSwitchAppear(LiveActor* pActor, const JMapInfoIter& rIte
 }
 
 kmCall(0x8028672C, ClipAreaMovableReadSwitchAppear);
-kmWrite32(0x80286730, 0x48000014); // b 0x14
+kmWrite32(0x80286730, PPC_B(0x14)); // b 0x14

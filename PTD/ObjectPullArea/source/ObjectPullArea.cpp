@@ -44,7 +44,7 @@ const char *ObjectPullArea::getManagerName() const {
 bool ObjectPullConfig::isPullItem (MarioActor *pMarioActor, u32 sensorType) {
 	if (!gIsEnabled)
 		return false;
-	if (!((MarioActor *)pMarioActor->_1080)->isActionOk("ƒJƒŽ‚¿")) 
+	if (!((MarioActor *)pMarioActor->_1080)->isActionOk("ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")) 
 		return false;
 	for (s32 i = 0; i < 7; i++) {
 		if (gCheckTypes[i] == sensorType) 
@@ -104,10 +104,10 @@ bool checkForSpin () {
 }
 
 kmCall(0x803CBEE4, checkForSpin);
-kmWrite32(0x803CBEE8, 0x2C030000); // cmpwi r3, 0
-kmWrite32(0x803CBEF0, 0x60000000); // nop
-kmWrite32(0x803CBEF4, 0x60000000); // nop
-kmWrite32(0x803CBEF8, 0x60000000); // nop
+kmWrite32(0x803CBEE8, PPC_CMPWI(3, 0)); // cmpwi r3, 0
+kmWrite32(0x803CBEF0, PPC_NOP); // nop
+kmWrite32(0x803CBEF4, PPC_NOP); // nop
+kmWrite32(0x803CBEF8, PPC_NOP); // nop
 
 /*
 extern "C" {
@@ -118,17 +118,17 @@ bool isActionOk(MarioActor *, const char *);
 
 void tryTornadoPullO(MarioActor *pMarioActor, HitSensor *pSensor)
 {
-	if (isActionOk((MarioActor *)pMarioActor->_1080, "ƒRƒCƒ“ˆø‚Á’£‚è"))
+	if (isActionOk((MarioActor *)pMarioActor->_1080, "ï¿½Rï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"))
 	{
 		u32 sensorType = pSensor->mSensorType;
-		if (!strcmp(MR::getSensorHost(pSensor)->mName, "ƒJƒƒbƒNƒr[ƒ€—pƒJƒ")) 
+		if (!strcmp(MR::getSensorHost(pSensor)->mName, "ï¿½Jï¿½ï¿½ï¿½bï¿½Nï¿½rï¿½[ï¿½ï¿½ï¿½pï¿½Jï¿½ï¿½")) 
 			sensorType = 5555;
 		if (sensorType - 18 > 1) {
 			if (sensorType != ATYPE_STAR_PIECE) {
 				newCoinPull(pMarioActor, sensorType, pSensor);
 				if (sensorType != 5555) 
 					return;
-				if (isActionOk((MarioActor *)pMarioActor->_1080, "ƒJƒŽ‚¿") && pSensor->receiveMessage(ACTMES_IS_PULL_ENABLE, pMarioActor->getSensor("Body"))) {
+				if (isActionOk((MarioActor *)pMarioActor->_1080, "ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½") && pSensor->receiveMessage(ACTMES_IS_PULL_ENABLE, pMarioActor->getSensor("Body"))) {
 					LiveActor *pSensorHost = MR::getSensorHost(pSensor);
 					pMarioActor->tryPullTrans(&pSensorHost->mVelocity, *MR::getSensorPos(pSensor));
 					pSensor->receiveMessage(ACTMES_ITEM_PULL, pMarioActor->getSensor("Body"));
@@ -172,7 +172,7 @@ void tryTornadoPullO(MarioActor *pMarioActor, HitSensor *pSensor)
 					}
 				}
 			}
-		} else if (isActionOk((MarioActor *)pMarioActor->_1080, "ƒJƒŽ‚¿") && pSensor->receiveMessage(ACTMES_IS_PULL_ENABLE, pMarioActor->getSensor("Body"))) {
+		} else if (isActionOk((MarioActor *)pMarioActor->_1080, "ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½") && pSensor->receiveMessage(ACTMES_IS_PULL_ENABLE, pMarioActor->getSensor("Body"))) {
 			if (PSVECDistance(pMarioActor->mTranslation, *MR::getSensorPos(pSensor)) < 120.0f) 
 				tryGetItem((MarioActor *)pMarioActor->_1088, pSensor);
 			else {

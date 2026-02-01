@@ -27,5 +27,5 @@ bool TalkEventFlowExtensions(TalkMessageCtrl* pCtrl) {
     return pCtrl->mTalkNodeCtrl->isExistNextNode();
 }
 
-kmWrite32(0x8037B388, 0x7FA3EB78); // mr r3, r29
+kmWrite32(0x8037B388, PPC_MR(3, 29)); // mr r3, r29
 kmCall(0x8037B38C, TalkEventFlowExtensions); // bl TalkEventFlowExtensions

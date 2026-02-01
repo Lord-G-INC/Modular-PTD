@@ -20,7 +20,7 @@ const char* createAndAddNewStationed() {
     return pEntry->pPath;
 }
 
-kmWrite32(0x804CDF40 + REGIONOFF, 0x2C030000);
+kmWrite32(0x804CDF40 + REGIONOFF, PPC_CMPWI(3, 0));
 kmCall(0x804CDF44 + REGIONOFF, createAndAddNewStationed);
 
 
@@ -38,8 +38,8 @@ const char* loadNewResources() {
     return pEntry->pPath;
 }
 
-kmWrite32(0x804CDE68 + REGIONOFF, 0x2C030000);
+kmWrite32(0x804CDE68 + REGIONOFF, PPC_CMPWI(3, 0));
 kmCall(0x804CDE6C + REGIONOFF, loadNewResources);
 
-kmWrite32(0x804CDD14 + REGIONOFF, 0x2C030000);
+kmWrite32(0x804CDD14 + REGIONOFF, PPC_CMPWI(3, 0));
 kmCall(0x804CDD18 + REGIONOFF, loadNewResources);

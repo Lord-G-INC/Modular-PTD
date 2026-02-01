@@ -71,8 +71,8 @@ namespace pt {
 		return MR::loadTexFromArc(pActor, outArcStr, outTexStr);
 	}
 
-	kmWrite32(0x80254880, 0x60000000); // nop
-	kmWrite32(0x80254884, 0x7FA5EB78); // mr r5, r29
+	kmWrite32(0x80254880, PPC_NOP); // nop
+	kmWrite32(0x80254884, PPC_MR(5, 29)); // mr r5, r29
 	kmCall(0x8025488C, CustomFlagTextures);
 
 
@@ -167,10 +167,10 @@ namespace pt {
 	    return MR::getGameMessageDirect(textName);
 	}
 	
-	kmWrite32(0x8004159C, 0x7FC4F378); // mr r4, r30
-	kmWrite32(0x800415A0, 0x7FE5FB78); // mr r5, r31
+	kmWrite32(0x8004159C, PPC_MR(4, 30)); // mr r4, r30
+	kmWrite32(0x800415A0, PPC_MR(5, 31)); // mr r5, r31
 	kmCall(0x800415A4, CustomGreenStarNames);
-	kmWrite32(0x800415A8, 0x48000050); // b 0x50
+	kmWrite32(0x800415A8, PPC_B(0x50)); // b 0x50
 
 
 	/*
@@ -197,7 +197,7 @@ namespace pt {
 	}
 
 	kmCall(0x8007401C, DeathAreaExtensions);
-	kmWrite32(0x8007402C, 0x60000000);
+	kmWrite32(0x8007402C, PPC_NOP);
 
 
 	bool isInDeathFix(const char* name, const TVec3f& pos) {
@@ -213,7 +213,7 @@ namespace pt {
 
     // Repeat Timer Switch Sound Effect Control
 
-    kmWrite32(0x80342BA4, 0x3860002C); // li r3, 0x2C
+    kmWrite32(0x80342BA4, PPC_LI(3, 0x2C)); // li r3, 0x2C
     
     void RepeatTimerSwitchGetNewArg(LiveActor* pActor, const JMapInfoIter& rIter) {
 		*((int*)pActor + 0xA) = -1; // stw r0, 0x28(r3)
@@ -244,16 +244,16 @@ namespace pt {
     }
 
     kmCall(0x80266C8C, RepeatTimerSwitchPlaySound);
-    kmWrite32(0x80266C94, 0x2C030000); // cmpwi r3, 0
-    kmWrite32(0x80266C98, 0x4182005C); // beq 0x5C
+    kmWrite32(0x80266C94, PPC_CMPWI(3, 0)); // cmpwi r3, 0
+    kmWrite32(0x80266C98, PPC_COND_BRANCH(PPC_COND_EQ, 0x5C)); // beq 0x5C
 
     kmCall(0x80266CC0, RepeatTimerSwitchPlaySound);
-    kmWrite32(0x80266CC8, 0x2C030000); // cmpwi r3, 0
-    kmWrite32(0x80266CCC, 0x41820028); // beq 0x28
+    kmWrite32(0x80266CC8, PPC_CMPWI(3, 0)); // cmpwi r3, 0
+    kmWrite32(0x80266CCC, PPC_COND_BRANCH(PPC_COND_EQ, 0x28)); // beq 0x28
 
     kmCall(0x80266CE0, RepeatTimerSwitchPlaySound);
-    kmWrite32(0x80266CE8, 0x2C030000); // cmpwi r3, 0
-    kmWrite32(0x80266CEC, 0x41820008); // beq 0x8
+    kmWrite32(0x80266CE8, PPC_CMPWI(3, 0)); // cmpwi r3, 0
+    kmWrite32(0x80266CEC, PPC_COND_BRANCH(PPC_COND_EQ, 0x8)); // beq 0x8
 
 	// Allow Skeeters to be killed by a fire ball
 

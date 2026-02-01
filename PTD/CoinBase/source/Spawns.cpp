@@ -71,7 +71,7 @@ s32 TeresaSetUpCustomCoin(const JMapInfoIter& rIter, Teresa* pTeresa) {
     return modelId;
 }
 
-kmWrite32(0x8020C15C, 0x7F84E378); // mr r4, r28
+kmWrite32(0x8020C15C, PPC_MR(4, 28)); // mr r4, r28
 kmCall(0x8020C160, TeresaSetUpCustomCoin);
 
 void TeresaAppearCustomCoin(Teresa* pTeresa) {
@@ -81,9 +81,9 @@ void TeresaAppearCustomCoin(Teresa* pTeresa) {
     CoinBaseSpawnUtil::appearCustomCoin(pTeresa, pTeresa->mTranslation);
 }
 
-kmWrite32(0x8020C394, 0x7FE3FB78); // mr r3, r31
+kmWrite32(0x8020C394, PPC_MR(3, 31)); // mr r3, r31
 kmCall(0x8020C398, TeresaAppearCustomCoin);
-kmWrite32(0x8020C39C, 0x48000014); // b 0x14
+kmWrite32(0x8020C39C, PPC_B(0x14)); // b 0x14
 
 namespace CoinBaseSpawnUtil {
     CoinBase* createCustomCoin(LiveActor* pSourceActor, const JMapInfoIter& rIter, s32 arg, s32 type) {

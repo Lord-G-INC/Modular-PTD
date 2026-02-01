@@ -48,8 +48,8 @@ namespace pt {
 		MR::startActionSound(this, "OjMorphItemAppear", -1, -1, -1);
 	}
 
-	kmWrite32(0x80024104, 0x48000010); // set first collection flag
-	kmWrite32(0x80024584, 0x60000000); // skip collection flag check
+	kmWrite32(0x80024104, PPC_B(0x10)); // set first collection flag
+	kmWrite32(0x80024584, PPC_NOP); // skip collection flag check
 
 
 	/*

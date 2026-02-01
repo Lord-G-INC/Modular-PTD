@@ -51,8 +51,8 @@ const wchar_t *getFileIconMessage(int iconID)
 }
 
 // replacing the original way of getting the message
-kmWrite32(0x8024C6AC, 0x60000000);
-kmWrite32(0x8024C6B0, 0x60000000);
+kmWrite32(0x8024C6AC, PPC_NOP);
+kmWrite32(0x8024C6B0, PPC_NOP);
 kmCall(0x8024C6B4, getFileIconMessage);
 
 /* ---------------------------------------------------------------------
@@ -78,9 +78,9 @@ void createFellows(FileSelectItem item)
 
 kmBranch(0x8024D5F0, createFellows);
 // adjust slots to allow for X icons
-kmWrite32(0x8024c9e4, 0x38600000 + (4 * MAX_SLOT_NUM));
-kmWrite32(0x80483EF0, 0x38600070);
-kmWrite32(0x8024c9ec, 0x38000000 + MAX_SLOT_NUM);
+kmWrite32(0x8024c9e4, PPC_LI(3, 4 * MAX_SLOT_NUM));
+kmWrite32(0x80483EF0, PPC_LI(3, 0x70));
+kmWrite32(0x8024c9ec, PPC_LI(0, MAX_SLOT_NUM));
 
 // 1:1 decompilation if you change "tableNum" to 7.
 void killAllModels(FileSelectItem item)
@@ -95,8 +95,8 @@ void killAllModels(FileSelectItem item)
 kmBranch(0x8024E030, killAllModels);
 
 // Remove value clamping
-kmWrite32(0x80250E54, 0x60000000);
-kmWrite32(0x80250E58, 0x60000000);
+kmWrite32(0x80250E54, PPC_NOP);
+kmWrite32(0x80250E58, PPC_NOP);
 
 /* ---------------------------------------------------------------------
    File Icon Particles
@@ -174,11 +174,11 @@ void invalidateAllUnusedIcon(MiiSelect pSelect, bool isGet120StarEnding)
 }
 
 // modify code so it passes the bool onto invalidateAllUsedIcon
-kmWrite32(0x8025220c, 0x7c641b78); // mr r4, r3
-kmWrite32(0x80252210, 0x60000000); // nop
-kmWrite32(0x80252218, 0x60000000); // nop
+kmWrite32(0x8025220c, PPC_MR(4, 3)); // mr r4, r3
+kmWrite32(0x80252210, PPC_NOP); // nop
+kmWrite32(0x80252218, PPC_NOP); // nop
 
-kmWrite32(0x804831e8, 0x38800000 + MAX_SLOT_NUM);
+kmWrite32(0x804831e8, PPC_LI(4, MAX_SLOT_NUM));
 kmCall(0x8025221C, invalidateAllUnusedIcon);
 
 float getIconFloat(int fellowID)
@@ -190,7 +190,7 @@ float getIconFloat(int fellowID)
   return fellowFloat;
 }
 kmCall(0x80484A90, getIconFloat);
-kmWrite32(0x80484A94, 0x60000000);
-kmWrite32(0x80484A98, 0xD0210008);
-kmWrite32(0x80484AA0, 0x60000000);
-kmWrite32(0x80484ad0, 0xc0210008);
+kmWrite32(0x80484A94, PPC_NOP);
+kmWrite32(0x80484A98, PPC_STFS(1, 0x8, 1));
+kmWrite32(0x80484AA0, PPC_NOP);
+kmWrite32(0x80484ad0, PPC_LFS(1, 0x8, 1));

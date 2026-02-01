@@ -48,7 +48,7 @@ namespace {
 
 		pActor->mColor = pActor->mSpinDriverPathDrawer->mColor = (ShapeModelNo | 0xF0000000); //Surely, nothing can go wrong here... :clueless:
 	}
-	kmWrite32(0x8031E294, 0x60000000); // nop
+	kmWrite32(0x8031E294, PPC_NOP); // nop
 	kmCall(0x8031E29C, init_SuperSpinDriver_Ext);
 
 
@@ -57,7 +57,7 @@ namespace {
 	// Disables Empty launch stars from being created (and thus wasting memory), as they cannot be used in Vanilla.
 	// GLE's empty launch star system overrules this automatically.
 	// However, that system won't support the custom colors of this newer module, so the function just under this fixes that.
-	kmWrite32(0x8031E2A4, 0x60000000); // nop
+	kmWrite32(0x8031E2A4, PPC_NOP); // nop
 	void initEmptyModel_SuperSpinDriver_Ext(LiveActor* pActor, const char* pAnimName) // Defaults to SuperSpinDriverEmpty
 	{
 		register SuperSpinDriver* pSpinDriver;
@@ -69,7 +69,7 @@ namespace {
 		MR::startBtpAndSetFrameAndStop(pActor, pAnimName, static_cast<f32>(pSpinDriver->mColor & 0x0FFFFFFF));
 	}
 	kmCall(0x8031E688, initEmptyModel_SuperSpinDriver_Ext);
-	kmWrite32(0x8031E6B4, 0x60000000); // nop
+	kmWrite32(0x8031E6B4, PPC_NOP); // nop
 
 
 

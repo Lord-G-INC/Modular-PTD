@@ -9,7 +9,7 @@ namespace pt {
     }
 
     kmCall(0x8033EF04, createCollapsePlaneExt);
-    kmWrite32(0x8033EF08, 0x48000014);
+    kmWrite32(0x8033EF08, PPC_B(0x14));
 
 
 	void CollapsePlaneInit(CollapsePlaneExt* pActor, const JMapInfoIter& rIter, MapObjActorInitInfo& rInfo) {

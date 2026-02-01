@@ -7,10 +7,10 @@ asm void CustomTagProcessorGetNewColor() {
 }
 
 kmCall(0x80469F08, CustomTagProcessorGetNewColor);
-kmWrite32(0x80469F10, 0x60000000);
+kmWrite32(0x80469F10, PPC_NOP);
 
 kmCall(0x804664F8, CustomTagProcessorGetNewColor);
-kmWrite32(0x80466504, 0x60000000);
+kmWrite32(0x80466504, PPC_NOP);
 
-kmWrite32(0x80469EC4, 0x2C1E0000+cTextColorTableColors); // Last Color (Exclusive)
-kmWrite32(0x80469ECC, 0x3BDE0000+(cTextColorTableColors-1)); // Offset? Last Color (Inclusive)
+kmWrite32(0x80469EC4, PPC_CMPWI(30, cTextColorTableColors)); // Last Color (Exclusive)
+kmWrite32(0x80469ECC, PPC_ADDI(30, 30, cTextColorTableColors-1)); // Offset? Last Color (Inclusive)

@@ -71,7 +71,8 @@ namespace pt {
 		pActor->initLayoutManager(layoutName, 2);
 	}
 
-	kmWrite32(0x80283894, 0x7F63DB78);   // "mr r3, r27" so that r3 becomes "this->"
+	kmWrite32(0x80283894, PPC_MR(3, 27));   // "mr r3, r27" so that r3 becomes "this->"
 	kmCall(0x80283898, initChipCounter); // redirect hook
-	kmWrite32(0x8028389C, 0x48000014);   // skip useless instructions
+	kmWrite32(0x8028389C, PPC_B(0x14));   // skip useless instructions
+	
 }

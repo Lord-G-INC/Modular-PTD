@@ -30,5 +30,5 @@ void setCometType(LayoutActor *pFilter, CometEventKeeper *pKeeper) {
     MR::setAnimFrameAndStop(pFilter, getCometFilterFrame(pKeeper), 0);
 }
 
-kmWrite32(0x80372958, 0x7FA4EB78); // mr r4, r29
+kmWrite32(0x80372958, PPC_MR(4, 29)); // mr r4, r29
 kmCall(0x8037295C, setCometType);

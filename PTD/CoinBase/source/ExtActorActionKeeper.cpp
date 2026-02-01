@@ -17,5 +17,5 @@ ExtActorActionKeeper* createExtActorActionKeeper(s32 l, LiveActor *pActor, Actor
     return new ExtActorActionKeeper(pActor, pAnimKeeper, pFlagCtrl, pPadAndCameraCtrl, pHitReactionCtrl, pItemGenerator, pActorParam, pScreenBlurCtrl, pFootPrintCtrl, pBgmCtrl);
 }
 
-kmWrite32(0x8022A9AC, 0x48000010); // b 0x10
+kmWrite32(0x8022A9AC, PPC_B(0x10)); // b 0x10
 kmCall(0x8022A9E4, createExtActorActionKeeper); // bl createExtActorActionKeeper

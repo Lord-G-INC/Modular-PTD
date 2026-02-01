@@ -26,7 +26,7 @@ void TalkBranchFlowExtensions(bool b, TalkMessageCtrl* pCtrl) {
 	pCtrl->mTalkNodeCtrl->forwardCurrentBranchNode(b);
 }
 
-kmWrite32(0x8037B134, 0x7CC33378); // mr r3, r6
-kmWrite32(0x8037B138, 0x7F84E378); // mr r4, r28
+kmWrite32(0x8037B134, PPC_MR(3, 6)); // mr r3, r6
+kmWrite32(0x8037B138, PPC_MR(4, 28)); // mr r4, r28
 kmCall(0x8037B13C, TalkBranchFlowExtensions); // bl TalkBranchFlowExtensions
-kmWrite32(0x8037B140, 0x4BFFFE9C); // b -0x164
+kmWrite32(0x8037B140, PPC_B(-0x164)); // b -0x164

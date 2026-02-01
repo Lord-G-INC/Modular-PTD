@@ -32,7 +32,7 @@ PurpleCoinHolderExt::~PurpleCoinHolderExt() {}
 
 
 kmCall(0x8045A124, createPurpleCoinCounterExt);
-kmWrite32(0x8045A128, 0x480007F4);
+kmWrite32(0x8045A128, PPC_B(0x7F4));
 
 namespace PurpleCoinUtil {
     void declareCoin(const NameObj* pObj, s32 amount) {
