@@ -3,7 +3,12 @@
   "Author": "Evanbowl",
   "Description": "Base Class for Custom Coins\nCustom Coin Spawns\n\nCurrently Supported (Blue Coin)\nKuribo (Obj_arg2)\nSamboHead (Obj_arg1)\nTeresa (Obj_arg6 and Obj_arg7)\n\nCurrently Supported (Red Coin)\nKuribo (Obj_arg3)\nSamboHead (Obj_arg2)\nTeresa (Obj_arg7)",
   "APIId": "CoinBase_API",
-    "ModuleExtensionDefinition" : [
+  "SupportedGames": [
+    "SB4E",
+    "SB4P",
+    "SB4J"
+  ],
+  "ModuleExtensionDefinition" : [
     {
       "Name" : "CoinBaseSpawning",
       "CodeGenSource": "GEN_Spawns.h",

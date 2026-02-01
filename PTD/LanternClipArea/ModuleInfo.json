@@ -3,6 +3,11 @@
   "Author": "Gabbo",
   "Description": "A custom lantern that evokes a spherical matter splatter when it is selected with the player's cursor.",
   "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init"],
+  "SupportedGames": [
+    "SB4E",
+    "SB4P",
+    "SB4J"
+  ],
   "BuildTasks": [{
     "Task": "Copy",
     "From": "disc/",

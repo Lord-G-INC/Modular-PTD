@@ -3,6 +3,11 @@
   "Author": "Aurum",
   "Description": "SMG1 Enemy Port: JumpGuarder",
   "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init", "PTUtils"],
+  "SupportedGames": [
+    "SB4E",
+    "SB4P",
+    "SB4J"
+  ],
   "BuildTasks": [{
     "Task": "Copy",
     "From": "disc/",

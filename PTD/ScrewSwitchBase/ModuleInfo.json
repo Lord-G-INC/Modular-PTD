@@ -2,7 +2,11 @@
   "Name": "Screw Switches in SMG2",
   "Author": "Aurum",
   "Description": "The screwable screws from Toy Time Galaxy",
-
+  "SupportedGames": [
+    "SB4E",
+    "SB4P",
+    "SB4J"
+  ],
   "ModuleData": [
     {
       "NameObjFactory": [

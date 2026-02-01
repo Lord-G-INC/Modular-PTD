@@ -3,6 +3,11 @@
   "Author": "AwesomeTMC",
   "Description": "Allows you to change what icons are on the File Select.",
   "InstallDependencies": ["Syati_Init"],
+  "SupportedGames": [
+    "SB4E",
+    "SB4P",
+    "SB4J"
+  ],
   "BuildTasks": [{
     "Task": "Copy",
     "From": "disc/",

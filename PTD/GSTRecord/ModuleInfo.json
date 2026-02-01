@@ -3,6 +3,11 @@
   "Author": "Aurum",
   "Description": "Aurum's Syati: GSTRecord",
   "InstallDependencies": ["Syati_ObjectFactories", "Syati_CommonFunctionHooks", "Syati_Init"],
+  "SupportedGames": [
+    "SB4E",
+    "SB4P",
+    "SB4J"
+  ],
   "ModuleData" : [
     {
       "NameObjFactory" : [

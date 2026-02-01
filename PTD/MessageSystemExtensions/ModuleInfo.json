@@ -2,6 +2,11 @@
   "Name": "MessageSystemExpansions",
   "Author": "Evanbowl",
   "Description": "",
+  "SupportedGames": [
+    "SB4E",
+    "SB4P",
+    "SB4J"
+  ],
     "ModuleExtensionDefinition" : [
     {
       "Name" : "BranchFlow",

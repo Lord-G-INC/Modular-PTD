@@ -1,5 +1,10 @@
 {
-    "Name": "SimpleBreakableObjExt",
-    "Author": "Bavario",
-    "Description": "Allows for the creation of custom SimpleBreakableObjs."
+  "Name": "SimpleBreakableObjExt",
+  "Author": "Bavario",
+  "Description": "Allows for the creation of custom SimpleBreakableObjs.",
+  "SupportedGames": [
+    "SB4E",
+    "SB4P",
+    "SB4J"
+  ]
 }

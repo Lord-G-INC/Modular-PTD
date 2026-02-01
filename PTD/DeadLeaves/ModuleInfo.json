@@ -1,17 +1,22 @@
 {
-    "Name": "Dead Leaves",
-    "Author": "Aurum",
-    "Description": "A pile of autumn leaves from Gold Leaf Galaxy.",
-    "InstallDependencies": ["Syati_ObjectFactories"],
-    "ModuleData" : [
-      {
-        "NameObjFactory" : [
-          {
-            "Name" : "DeadLeaves",
-            "Function" : "createExtActor<pt::DeadLeaves>",
-            "Include" : "DeadLeaves.h"
-          }
-        ]
-      }
-    ]
+  "Name": "Dead Leaves",
+  "Author": "Aurum",
+  "Description": "A pile of autumn leaves from Gold Leaf Galaxy.",
+  "InstallDependencies": ["Syati_ObjectFactories"],
+  "SupportedGames": [
+    "SB4E",
+    "SB4P",
+    "SB4J"
+  ],
+  "ModuleData" : [
+    {
+      "NameObjFactory" : [
+        {
+          "Name" : "DeadLeaves",
+          "Function" : "createExtActor<pt::DeadLeaves>",
+          "Include" : "DeadLeaves.h"
+        }
+      ]
+    }
+  ]
 }

@@ -1,6 +1,11 @@
 {
-    "Name": "TeresaAtomicPatch",
-    "Author": "Bavario",
-    "Description": "Unhardcodes the amount of child Boos a TeresaAtomic can have.",
-    "InstallDependencies": ["Syati_Init"]
+  "Name": "TeresaAtomicPatch",
+  "Author": "Bavario",
+  "Description": "Unhardcodes the amount of child Boos a TeresaAtomic can have.",
+  "InstallDependencies": ["Syati_Init"],
+  "SupportedGames": [
+    "SB4E",
+    "SB4P",
+    "SB4J"
+  ]
 }

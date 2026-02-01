@@ -3,7 +3,12 @@
   "Author": "Evanbowl",
   "Description": "PTD: Red Coin System",
   "InstallDependancies": ["Syati_ObjectFactories", "Syati_Init", "CustomCoinSpawns", "CoinBase"],
-  "ModuleDependancies": ["CoinBase_API"],
+  "RequiredAPIs": ["CoinBase_API"],
+  "SupportedGames": [
+    "SB4E",
+    "SB4P",
+    "SB4J"
+  ],
   "CompilerFlags" : [
     "-DREDCOINSYSTEM"
   ],

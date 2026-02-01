@@ -1,17 +1,22 @@
 {
-    "Name": "PTimerSwitch",
-    "Author": "Evanbowl",
-    "Description": "PTD: A switch that can be jumped on.",
-    "InstallDependencies": ["Syati_ObjectFactories"],
-    "ModuleData" : [
-      {
-        "NameObjFactory" : [
-          {
-            "Name" : "PTimerSwitch",
-            "Function" : "createExtActor<PTimerSwitch>",
-            "Include" : "PTimerSwitch.h"
-          }
-        ]
-      }
-    ]
+  "Name": "PTimerSwitch",
+  "Author": "Evanbowl",
+  "Description": "PTD: A switch that can be jumped on.",
+  "InstallDependencies": ["Syati_ObjectFactories"],
+  "SupportedGames": [
+    "SB4E",
+    "SB4P",
+    "SB4J"
+  ],
+  "ModuleData" : [
+    {
+      "NameObjFactory" : [
+        {
+          "Name" : "PTimerSwitch",
+          "Function" : "createExtActor<PTimerSwitch>",
+          "Include" : "PTimerSwitch.h"
+        }
+      ]
+    }
+  ]
 }

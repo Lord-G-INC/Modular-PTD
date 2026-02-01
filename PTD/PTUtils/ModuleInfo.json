@@ -2,5 +2,10 @@
   "Name": "PTUtils",
   "Author": "Aurum and Evanbowl",
   "Description": "PT/PTD Utility Functions",
-  "APIId": "PTUtils"
+  "APIId": "PTUtils",
+  "SupportedGames": [
+    "SB4E",
+    "SB4P",
+    "SB4J"
+  ]
 }

@@ -2,6 +2,11 @@
   "Name": "SMG1 Text Color Pack",
   "Author": "Evanbowl",
   "Description": "Adds the unique text colors from SMG1.",
+  "SupportedGames": [
+    "SB4E",
+    "SB4P",
+    "SB4J"
+  ],
   "ModuleData": [
         {
             "TextColors": [

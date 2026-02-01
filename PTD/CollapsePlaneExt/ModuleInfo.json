@@ -2,5 +2,10 @@
   "Name": "CollapsePlaneExt",
   "Author": "Evanbowl",
   "Description": "PTD: CollapsePlane Custom Behaviors",
-  "InstallDependencies": ["Syati_Init"]
+  "InstallDependencies": ["Syati_Init"],
+  "SupportedGames": [
+    "SB4E",
+    "SB4P",
+    "SB4J"
+  ]
 }

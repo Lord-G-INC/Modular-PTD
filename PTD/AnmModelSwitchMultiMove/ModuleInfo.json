@@ -1,17 +1,22 @@
 {
-    "Name": "AnmModelSwitchMultiMove",
-    "Author": "Bavario",
-    "Description": "A new ProductMapObj class that has multiple animations based on the switch that is active.",
-    "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init"],
-    "ModuleData" : [
-      {
-        "ProductMapObj" : [
-          {
-            "Name" : "AnmModelSwitchMultiMove",
-            "Function" : "createExtActor<AnmModelSwitchMultiMove>",
-            "Include" : "AnmModelSwitchMultiMove.h"
-          }
-        ]
-      }
-    ]
+  "Name": "AnmModelSwitchMultiMove",
+  "Author": "Bavario",
+  "Description": "A new ProductMapObj class that has multiple animations based on the switch that is active.",
+  "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init"],
+  "SupportedGames": [
+    "SB4E",
+    "SB4P",
+    "SB4J"
+  ],
+  "ModuleData" : [
+    {
+      "ProductMapObj" : [
+        {
+          "Name" : "AnmModelSwitchMultiMove",
+          "Function" : "createExtActor<AnmModelSwitchMultiMove>",
+          "Include" : "AnmModelSwitchMultiMove.h"
+        }
+      ]
+    }
+  ]
 }

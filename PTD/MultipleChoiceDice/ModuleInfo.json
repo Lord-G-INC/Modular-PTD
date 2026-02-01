@@ -3,6 +3,11 @@
   "Author": "Aurum",
   "Description": "A throwable dice cube with four red circles and two blue crosses on its sides. It activates a different switch depending on the side that it lands on.",
   "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init"],
+  "SupportedGames": [
+    "SB4E",
+    "SB4P",
+    "SB4J"
+  ],
   "ModuleData" : [
     {
       "NameObjFactory" : [

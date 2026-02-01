@@ -1,6 +1,11 @@
 {
-    "Name": "Earthen Pipe Extensions",
-    "Author": "Bavario",
-    "Description": "Adds path support and a proper appear cutscene to the Pipe.",
-    "InstallDependencies": ["Syati_Init"]
+  "Name": "Earthen Pipe Extensions",
+  "Author": "Bavario",
+  "Description": "Adds path support and a proper appear cutscene to the Pipe.",
+  "InstallDependencies": ["Syati_Init"],
+  "SupportedGames": [
+    "SB4E",
+    "SB4P",
+    "SB4J"
+  ]
 }

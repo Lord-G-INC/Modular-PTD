@@ -1,7 +1,7 @@
 {
-  "Name": "PomponPlant",
-  "Author": "Someone",
-  "Description": "SMG1 Actor Port: PomponPlant",
+  "Name": "DemoKoopaJrShip",
+  "Author": "Evanbowl (Port) and ThatNintendoNerd (Decompilation)",
+  "Description": "DemoKoopaJrShip",
   "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init"],
   "SupportedGames": [
     "SB4E",
@@ -17,9 +17,9 @@
     {
       "NameObjFactory" : [
         {
-          "Name" : "Pompon2Plant",
-          "Function" : "createExtActor<pt::PomponPlant>",
-          "Include" : "PomponPlant.h"
+          "Name" : "DemoKoopaJrShip",
+          "Function" : "createExtActor<DemoKoopaJrShip>",
+          "Include" : "DemoKoopaJrShip.h"
         }
       ]
     }

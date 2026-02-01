@@ -3,6 +3,11 @@
   "Author": "Evanbowl, Aurum",
   "Description": "PTD: A controller switch that de/activates when the player has selected the specified character",
   "InstallDependencies": ["Syati_ObjectFactories"],
+  "SupportedGames": [
+    "SB4E",
+    "SB4P",
+    "SB4J"
+  ],
   "ModuleData" : [
     {
       "NameObjFactory" : [

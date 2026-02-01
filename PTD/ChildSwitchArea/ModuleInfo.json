@@ -3,6 +3,11 @@
   "Author": "AwesomeTMC",
   "Description": "PTD: ChildSwitchArea",
   "InstallDependencies": ["Syati_ObjectFactories"],
+  "SupportedGames": [
+    "SB4E",
+    "SB4P",
+    "SB4J"
+  ],
   "ModuleData" : [
     {
       "NameObjFactory": [

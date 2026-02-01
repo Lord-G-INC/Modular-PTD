@@ -2,7 +2,11 @@
   "Name": "Banekiti",
   "Author": "Aurum",
   "Description": "The yellow spring dudes from Boo's Boneyard",
-
+  "SupportedGames": [
+    "SB4E",
+    "SB4P",
+    "SB4J"
+  ],
   "ModuleData": [
     {
       "NameObjFactory": [

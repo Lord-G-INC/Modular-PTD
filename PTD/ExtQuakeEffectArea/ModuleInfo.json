@@ -3,6 +3,11 @@
   "Author": "Aurum",
   "Description": "PT: Restored QuakeEffectArea",
   "InstallDependencies": ["Syati_ObjectFactories"],
+  "SupportedGames": [
+    "SB4E",
+    "SB4P",
+    "SB4J"
+  ],
   "ModuleData" : [
     {
       "NameObjFactory" : [

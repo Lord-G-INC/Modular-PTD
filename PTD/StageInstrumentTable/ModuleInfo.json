@@ -1,5 +1,10 @@
 {
   "Name": "Stage Instrument Table",
   "Author": "Evanbowl",
-  "Description": "Allows use of BGM_DASH_YOSHI and BGM_SLIDER in any stage."
+  "Description": "Allows use of BGM_DASH_YOSHI and BGM_SLIDER in any stage.",
+  "SupportedGames": [
+    "SB4E",
+    "SB4P",
+    "SB4J"
+  ]
 }

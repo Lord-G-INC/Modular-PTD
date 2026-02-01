@@ -1,16 +1,21 @@
 {
-    "Name": "JumpStandAutoNeo",
-    "Author": "Bavario",
-    "Description": "Overhauls the vanilla JumpStandAuto object, adding support for many things such as custom launch heights, colors, switch and rail support.",
-    "ModuleData" : [
-      {
-        "NameObjFactory" : [
-          {
-            "Name" : "JumpStandAutoNeo",
-            "Function" : "createExtActor<JumpStandAutoNeo>",
-            "Include" : "JumpStandAutoNeo.h"
-          }
-        ]
-      }
-    ]
+  "Name": "JumpStandAutoNeo",
+  "Author": "Bavario",
+  "Description": "Overhauls the vanilla JumpStandAuto object, adding support for many things such as custom launch heights, colors, switch and rail support.",
+  "SupportedGames": [
+    "SB4E",
+    "SB4P",
+    "SB4J"
+  ],
+  "ModuleData" : [
+    {
+      "NameObjFactory" : [
+        {
+          "Name" : "JumpStandAutoNeo",
+          "Function" : "createExtActor<JumpStandAutoNeo>",
+          "Include" : "JumpStandAutoNeo.h"
+        }
+      ]
+    }
+  ]
 }

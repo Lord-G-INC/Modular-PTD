@@ -3,7 +3,12 @@
   "Author": "Aurum (V1), Evanbowl & Lord-Giganticus (V2), Super Hackio (V3)",
   "Description": "Custom Launch Star Colors via ShapeModelNo",
   "InstallDependencies": [ "Syati_ClassExtensions", "Syati_ObjectFactories", "Syati_Init" ],
-  "ModuleDependancies": [
+  "SupportedGames": [
+    "SB4E",
+    "SB4P",
+    "SB4J"
+  ],
+  "RequiredAPIs": [
     "Syati_ClassExtensions_API"
   ],
   "ModuleData": [
