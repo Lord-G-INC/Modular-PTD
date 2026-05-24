@@ -1,0 +1,114 @@
+{
+    "Categories": [
+        {
+            "Description": "Items",
+            "Key": "item"
+        }
+    ],
+    "Objects": [
+        {
+            "Progress": 2,
+            "Category": "item",
+            "ClassNameSMG2": "MorphItemNeoIce",
+            "IsLeftover": false,
+            "ClassNameSMG1": "MorphItemNeoIce",
+            "InternalName": "MorphItemNeoIce",
+            "ListSMG1": "ObjInfo",
+            "ListSMG2": "ObjInfo",
+            "Name": "Ice Flower",
+            "IsUnused": false,
+            "AreaShape": "Any",
+            "Games": 2,
+            "File": "Map",
+            "Notes": "An Ice Flower that transforms the player into an Ice character."
+        }
+    ],
+    "Timestamp": 0,
+    "Classes": [
+	
+        {
+            "Progress": 2,
+            "Parameters": {
+                "SW_B": {
+                    "Description": "Activated or deactivated depending on the used event flow node.",
+                    "Exclusives": [],
+                    "Games": 2,
+                    "Needed": false
+                },
+                "SW_A": {
+                    "Description": "Activated or deactivated depending on the used event flow node.",
+                    "Exclusives": [],
+                    "Games": 2,
+                    "Needed": false
+                },
+                "Message": {
+                    "Description": "The text dialogue's label formats are SuperDreamer%03d and SuperDreamerEnd%03d, where %03d is the text message ID. If set to -1, the default dialogue from SceneCommonMessage will be used.",
+                    "Exclusives": [],
+                    "Games": 2,
+                    "Needed": false
+                },
+                "EventFunc": {
+                    "Description": "Object-specific behavior for EventFunc event flow nodes.",
+                    "Exclusives": [],
+                    "Games": 2,
+                    "Values": [
+                        {
+                            "Value": "2",
+                            "Notes": "Randomly change idle animation"
+                        }
+                    ]
+                },
+                "YoshiTargetable": {
+                    "Description": "Can be targeted and licked by Yoshi.",
+                    "Exclusives": [],
+                    "Games": 2
+                },
+                "KillFunc": {
+                    "Description": "Object-specific behavior for KillFunc event flow nodes.",
+                    "Exclusives": [],
+                    "Games": 2,
+                    "Values": [
+                        {
+                            "Value": "0",
+                            "Notes": "Start transformation"
+                        }
+                    ]
+                },
+                "Obj_arg0": {
+                    "Type": "Integer",
+                    "Description": "Specifies how the item appears after SW_APPEAR gets activated.",
+                    "Exclusives": [],
+                    "Games": 2,
+                    "Values": [{"Value": "-1", "Notes": "Appears in place"}, {"Value": "1", "Notes": "Appears above and falls down"}
+                    "Needed": false,
+                    "Name": "Appearance Type"
+                },
+                "Obj_arg1": {
+                    "Type": "Integer",
+                    "Description": "Enables or disables collision binding.",
+                    "Exclusives": [],
+                    "Games": 2,
+                    "Values": [-1 Deactivated, 1 Activated],
+                    "Needed": false,
+                    "Name": "Binder Type"
+                },
+                "SW_APPEAR": {
+                    "Description": "Appears when this switch is activated.",
+                    "Exclusives": [],
+                    "Games": 2,
+                    "Needed": false
+                },
+				"SW_AWAKE": {
+                    "Description": "Enables rendering and resumes updates when this switch is active.",
+                    "Exclusives": [],
+                    "Games": 2,
+                    "Needed": false
+                }
+            },
+            "Games": 2,
+            "InternalName": "MorphItemNeoIce",
+            "Notes": "A collectable item that turns the player into an Ice character. This temporary power-up state lasts for 20 seconds, and allows the player to create ice platforms while touching water surface.",
+            "Name": "MorphItemNeoIce"
+        }
+    ]
+}
