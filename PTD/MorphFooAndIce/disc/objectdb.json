@@ -26,89 +26,327 @@
     "Timestamp": 0,
     "Classes": [
 	
-        {
-            "Progress": 2,
-            "Parameters": {
-                "SW_B": {
-                    "Description": "Activated or deactivated depending on the used event flow node.",
-                    "Exclusives": [],
-                    "Games": 2,
-                    "Needed": false
-                },
-                "SW_A": {
-                    "Description": "Activated or deactivated depending on the used event flow node.",
-                    "Exclusives": [],
-                    "Games": 2,
-                    "Needed": false
-                },
-                "Message": {
-                    "Description": "The text dialogue's label formats are SuperDreamer%03d and SuperDreamerEnd%03d, where %03d is the text message ID. If set to -1, the default dialogue from SceneCommonMessage will be used.",
-                    "Exclusives": [],
-                    "Games": 2,
-                    "Needed": false
-                },
-                "EventFunc": {
-                    "Description": "Object-specific behavior for EventFunc event flow nodes.",
-                    "Exclusives": [],
-                    "Games": 2,
-                    "Values": [
-                        {
-                            "Value": "2",
-                            "Notes": "Randomly change idle animation"
-                        }
-                    ]
-                },
-                "YoshiTargetable": {
-                    "Description": "Can be targeted and licked by Yoshi.",
-                    "Exclusives": [],
-                    "Games": 2
-                },
-                "KillFunc": {
-                    "Description": "Object-specific behavior for KillFunc event flow nodes.",
-                    "Exclusives": [],
-                    "Games": 2,
-                    "Values": [
-                        {
-                            "Value": "0",
-                            "Notes": "Start transformation"
-                        }
-                    ]
-                },
-                "Obj_arg0": {
-                    "Type": "Integer",
-                    "Description": "Specifies how the item appears after SW_APPEAR gets activated.",
-                    "Exclusives": [],
-                    "Games": 2,
-                    "Values": [{"Value": "-1", "Notes": "Appears in place"}, {"Value": "1", "Notes": "Appears above and falls down"}
-                    "Needed": false,
-                    "Name": "Appearance Type"
-                },
-                "Obj_arg1": {
-                    "Type": "Integer",
-                    "Description": "Enables or disables collision binding.",
-                    "Exclusives": [],
-                    "Games": 2,
-                    "Values": [-1 Deactivated, 1 Activated],
-                    "Needed": false,
-                    "Name": "Binder Type"
-                },
-                "SW_APPEAR": {
-                    "Description": "Appears when this switch is activated.",
-                    "Exclusives": [],
-                    "Games": 2,
-                    "Needed": false
-                },
+		{
+			"InternalName": "MorphItemNeoIce",
+			"Name": "MorphItemNeoIce",
+			"Notes": "A collectable item that turns the player into a Fire character. This temporary power-up state lasts for 20 seconds, and allows the player to shoot fireballs. In SMG1, it may appear inside of a rotating crystal, which can be destroyed by a spin attack, ground pound, or koopa shell.",
+			"Games": 3,
+			"Progress": 2,
+			"Parameters": {
+				"Obj_arg0": {
+					"Name": "Appearance Type",
+					"Type": "Integer",
+					"Games": 3,
+					"Needed": false,
+					"Description": "Specifies how the item appears after SW_APPEAR gets activated.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Appears in place"
+						},
+						{
+							"Value": "1",
+							"Notes": "Appears above and falls down"
+						}
+					],
+					"Exclusives": []
+				},
+				"Obj_arg1": {
+					"Name": "Binder Type",
+					"Type": "Integer",
+					"Games": 3,
+					"Needed": false,
+					"Description": "Enables or disables collision binding.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Deactivated"
+						},
+						{
+							"Value": "1",
+							"Notes": "Activated"
+						}
+					],
+					"Exclusives": []
+				},
+				"Obj_arg2": {
+					"Name": "Landing Type",
+					"Type": "Integer",
+					"Games": 3,
+					"Needed": false,
+					"Description": "Specifies whether the power-up falls down after appearing or not.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Lands when it appears"
+						},
+						{
+							"Value": "1",
+							"Notes": "Stays in position where it appeared (Bounces up first in SMG1 if in a crystal)"
+						}
+					],
+					"Exclusives": []
+				},
+				"Obj_arg3": {
+					"Name": "Container",
+					"Type": "Integer",
+					"Games": 3,
+					"Needed": false,
+					"Description": "Specifies the container the item appears in. In SMG1, if SW_APPEAR is set, the container will not appear until the item respawns.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Contained in a crystal (SMG1)/None (SMG2)"
+						},
+						{
+							"Value": "0",
+							"Notes": "Contained in a bubble"
+						},
+						{
+							"Value": "1",
+							"Notes": "None"
+						}
+					],
+					"Exclusives": []
+				},
+				"Obj_arg4": {
+					"Name": "Shadow & Clipping Type",
+					"Type": "Integer",
+					"Games": 3,
+					"Needed": false,
+					"Description": "Specifies the shadow and clipping properties.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Calculate shadow drop direction from gravity once"
+						},
+						{
+							"Value": "0",
+							"Notes": "Use no shadow"
+						},
+						{
+							"Value": "1",
+							"Notes": "Calculate shadow"
+						},
+						{
+							"Value": "2",
+							"Notes": "Calculate shadow drop and direction from gravity"
+						},
+						{
+							"Value": "3",
+							"Notes": "Use spherical clipping and calculate shadow drop direction from gravity once"
+						},
+						{
+							"Value": "4",
+							"Notes": "Use spherical clipping and calculate shadow drop direction from gravity once"
+						}
+					],
+					"Exclusives": []
+				},
+				"Obj_arg5": {
+					"Name": "Appearance Camera Type",
+					"Type": "Integer",
+					"Games": 3,
+					"Needed": false,
+					"Description": "Specifies what appearance event cameras are to be used.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "No cameras"
+						},
+						{
+							"Value": "1",
+							"Notes": "Use 出現1"
+						},
+						{
+							"Value": "2",
+							"Notes": "Use 出現1 and 出現2"
+						}
+					],
+					"Exclusives": []
+				},
+				"Obj_arg6": {
+					"Name": "Rotation Type",
+					"Type": "Integer",
+					"Games": 3,
+					"Needed": false,
+					"Description": "Specifies how the item rotates. It never visibly rotates while inside a bubble, and always visibly rotates inside of a crystal.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Always rotates"
+						},
+						{
+							"Value": "0",
+							"Notes": "Don't rotate"
+						},
+						{
+							"Value": "1",
+							"Notes": "Rotation updates while outside container"
+						},
+						{
+							"Value": "2",
+							"Notes": "Rotation updates while inside container"
+						}
+					],
+					"Exclusives": []
+				},
+				"Path_arg4": {
+					"Name": "Initial Position Type",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The object's initial position.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Start at nearest position on path"
+						},
+						{
+							"Value": "1",
+							"Notes": "Start at nearest path point"
+						},
+						{
+							"Value": "2",
+							"Notes": "Start at first path point"
+						}
+					],
+					"Exclusives": []
+				},
+				"Path_arg5": {
+					"Name": "Snapping Speed",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "If used, the object stays at its original position and moves to its actual position on the path. This setting specifies how fast the object snaps back into its original position. The higher the value is, the slower it moves.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Point_arg0": {
+					"Name": "Movement Speed / Time",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The movement speed the object has starting from this point. If Point_arg7 is set to 1, this specifies the time in frames it takes to reach the next point.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Point_arg1": {
+					"Name": "Acceleration Time",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The time in frames it takes for the object to reach the movement speed set at this point.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Point_arg5": {
+					"Name": "Stop Time",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The time in frames the object waits at this point before it continues moving again.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Point_arg7": {
+					"Name": "Speed Type",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "Decides whether Point_arg0 specifies the movement speed or the time it takes to reach the next point.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Point_arg0 specifies movement speed"
+						},
+						{
+							"Value": "1",
+							"Notes": "Point_arg0 specifies time until next point"
+						}
+					],
+					"Exclusives": []
+				},
+				"SignMotionType": {
+					"Name": "Shake Start Type",
+					"Games": 2,
+					"Description": "Specifies whether the object will shake before it starts moving or not.",
+					"Values": [
+						{
+							"Value": "0",
+							"Notes": "Don't shake"
+						},
+						{
+							"Value": "1",
+							"Notes": "Shakes before moving"
+						},
+						{
+							"Value": "2",
+							"Notes": "Shakes before moving"
+						},
+						{
+							"Value": "3",
+							"Notes": "Don't shake"
+						},
+						{
+							"Value": "4",
+							"Notes": "Shakes before moving"
+						},
+						{
+							"Value": "5",
+							"Notes": "Shakes before moving"
+						}
+					],
+					"Exclusives": []
+				},
+				"SW_APPEAR": {
+					"Games": 3,
+					"Needed": false,
+					"Description": "Appears when this switch is activated.",
+					"Exclusives": []
+				},
+				"SW_DEAD": {
+					"Games": 3,
+					"Needed": false,
+					"Description": "Gets activated after it is destroyed.",
+					"Exclusives": []
+				},
+				"SW_PARAM": {
+					"Games": 2,
+					"Description": "The path movement speed is adjusted with ParamScale while this switch is activated.",
+					"Exclusives": []
+				},
 				"SW_AWAKE": {
-                    "Description": "Enables rendering and resumes updates when this switch is active.",
-                    "Exclusives": [],
-                    "Games": 2,
-                    "Needed": false
-                }
-            },
-            "Games": 2,
-            "InternalName": "MorphItemNeoIce",
-            "Notes": "A collectable item that turns the player into an Ice character. This temporary power-up state lasts for 20 seconds, and allows the player to create ice platforms while touching water surface.",
-            "Name": "MorphItemNeoIce"
+					"Games": 3,
+					"Description": "Enables rendering and resumes updates when this switch is active.",
+					"Exclusives": []
+				},
+				"Rail": {
+					"Games": 2,
+					"Needed": false,
+					"Description": "The optional path that it can move on. This object will only move on a path if Obj_arg3 is set to 0.",
+					"Exclusives": []
+				},
+				"Camera": {
+					"Games": 3,
+					"Needed": false,
+					"Description": "Used when the item appears.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"DemoCast": {
+					"Games": 3,
+					"Needed": false,
+					"Description": "Can take part in a cutscene.",
+					"Exclusives": []
+				},
+				"MarioFaceShipNpcRegister": {
+					"Games": 2,
+					"Needed": false,
+					"Description": "Can be registered to a Starship Mario object appearance event.",
+					"Exclusives": []
+				}
+			}
         }
     ]
 }
