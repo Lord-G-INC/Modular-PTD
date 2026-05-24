@@ -1,0 +1,64 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+        {
+			"InternalName": "Anagon",
+			"ClassNameSMG1": "Anagon",
+			"ClassNameSMG2": "Anagon",
+			"Name": "Swimming Gringill",
+			"Notes": "A swimming eel-like enemy.",
+			"Category": "enemy",
+			"AreaShape": "Any",
+			"ListSMG1": "ObjInfo",
+			"ListSMG2": "ObjInfo",
+			"File": "Map",
+			"Games": 2,
+			"Progress": 2,
+			"IsUnused": false,
+			"IsLeftover": false
+		}
+    ],
+    "Timestamp": 0,
+    "Classes": [
+		{
+			"InternalName": "Anagon",
+			"Name": "Anagon",
+			"Notes": "An eel-like enemy that follows a path.",
+			"Games": 2,
+			"Progress": 2,
+			"Parameters": {
+				"Obj_arg0": {
+					"Name": "Movement Speed",
+					"Type": "Float",
+					"Games": 2,
+					"Needed": false,
+					"Description": "Specifies the movement speed. Default is 20.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Rail": {
+					"Games": 2,
+					"Needed": true,
+					"Description": "The path that it moves on.",
+					"Exclusives": []
+				},
+				"SW_DEAD": {
+					"Games": 2,
+					"Description": "Gets activated when it dies.",
+					"Exclusives": []
+				},
+				"SW_APPEAR": {
+					"Games": 2,
+					"Description": "Appears when this switch is activated.",
+					"Exclusives": []
+				},
+				"SW_AWAKE": {
+					"Games": 2,
+					"Description": "Enables rendering and resumes updates when this switch is active.",
+					"Exclusives": []
+				}
+			}
+		}
+    ]
+}

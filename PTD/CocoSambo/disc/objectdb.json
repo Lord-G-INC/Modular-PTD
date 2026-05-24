@@ -1,0 +1,86 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+        {
+			"InternalName": "CocoSambo",
+			"ClassNameSMG1": "CocoSambo",
+			"ClassNameSMG2": "CocoSambo",
+			"Name": "Spiky Pokey",
+			"Notes": "A yellow cactus enemy with spikes on its body that appears in Good Egg Galaxy and Dusty Dune Galaxy.",
+			"Category": "enemy",
+			"AreaShape": "Any",
+			"ListSMG1": "ObjInfo",
+			"ListSMG2": "ObjInfo",
+			"File": "Map",
+			"Games": 2,
+			"Progress": 2,
+			"IsUnused": false,
+			"IsLeftover": false
+		}
+    ],
+    "Timestamp": 0,
+    "Classes": [
+		{
+			"InternalName": "CocoSambo",
+			"Name": "CocoSambo",
+			"Notes": "A spiky cactus enemy that damages the player upon contact. It can be stunned using coconuts or the Rainbow power-up. Goombas and Topman enemies can stun it as well. On the other hand, it can stomp Goombas. After stunning it, its vulnerable head remains, which can be destroyed using most of the player's attacks. It can be scaled as well.",
+			"Games": 2,
+			"Progress": 2,
+			"Parameters": {
+				"Obj_arg0": {
+					"Name": "Appearance Range",
+					"Type": "Float",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The valid range in which it appears from the ground. Default is 1800.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg1": {
+					"Name": "Disable Items?",
+					"Type": "Boolean",
+					"Games": 2,
+					"Needed": false,
+					"Description": "If set, no items will drop.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg2": {
+					"Name": "Show Ground Flower?",
+					"Type": "Boolean",
+					"Games": 2,
+					"Needed": false,
+					"Description": "If set, the Pokey's flower will appear in the ground.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg3": {
+					"Name": "Hitback Velocity",
+					"Type": "Float",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The velocity in which it launches backwards upon being hit. Default is -100.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"SW_DEAD": {
+					"Games": 2,
+					"Needed": false,
+					"Description": "Gets activated when it dies.",
+					"Exclusives": []
+				},
+				"SW_AWAKE": {
+					"Games": 2,
+					"Description": "Enables rendering and resumes updates when this switch is active.",
+					"Exclusives": []
+				},
+				"Player2Targetable": {
+					"Games": 1,
+					"Description": "Can be targeted and frozen by player 2.",
+					"Exclusives": []
+				}
+			}
+		}
+    ]
+}

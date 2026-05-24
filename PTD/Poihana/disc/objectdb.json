@@ -1,0 +1,155 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+        {
+			"InternalName": "Poihana",
+			"ClassNameSMG1": "Poihana",
+			"ClassNameSMG2": "Poihana",
+			"Name": "Cataquack",
+			"Notes": "A blue duck-like enemy that can toss the player high into the air.",
+			"Category": "enemy",
+			"AreaShape": "Any",
+			"ListSMG1": "ObjInfo",
+			"ListSMG2": "ObjInfo",
+			"File": "Map",
+			"Games": 2,
+			"Progress": 2,
+			"IsUnused": false,
+			"IsLeftover": false
+		}
+    ],
+    "Timestamp": 0,
+    "Classes": [
+		{
+			"InternalName": "Poihana",
+				"Name": "Poihana",
+				"Notes": "A strange duck-like enemy that moves around passively and chases after the player if they are nearby. It will then try to fling the player upwards. It cannot be defeated through any means, but the player can stun it using most attacks. Furthermore, it will always try to return to its initial position if it walks too far away from it. It uses a mirror model.",
+				"Games": 2,
+				"Progress": 2,
+				"Parameters": {
+				"Obj_arg0": {
+					"Name": "Launch Intensity",
+					"Type": "Float",
+					"Games": 2,
+					"Needed": false,
+					"Description": "How far the player moves upwards when flung. Default is 1000.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg1": {
+					"Name": "Active Range",
+					"Type": "Float",
+					"Games": 2,
+					"Needed": false,
+					"Description": "How far the object can move while remaining active. Default is 3500.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg2": {
+					"Name": "Color Frame",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The color frame to be used.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Blue"
+						},
+						{
+							"Value": "1",
+							"Notes": "Red"
+						},
+						{
+							"Value": "2",
+							"Notes": "Green"
+						},
+						{
+							"Value": "3",
+							"Notes": "Purple"
+						}
+					],
+					"Exclusives": []
+				},
+				"Obj_arg3": {
+					"Name": "Behavior",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "Specifies its general behavior.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Walk around"
+						},
+						{
+							"Value": "1",
+							"Notes": "Sleeping"
+						},
+						{
+							"Value": "2",
+							"Notes": "Walk around and reset home position when it flings the player up"
+						}
+					],
+					"Exclusives": []
+				},
+				"Obj_arg4": {
+					"Name": "Can Drown?",
+					"Type": "Boolean",
+					"Games": 2,
+					"Needed": false,
+					"Description": "If set, it can and will drown if it's inside water.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg7": {
+					"Name": "Use Small Binder?",
+					"Type": "Boolean",
+					"Games": 2,
+					"Needed": false,
+					"Description": "If set, it will use a smaller collision binder.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"ClippingGroup": {
+					"Games": 2,
+					"Description": "Objects in this group are always clipped together.",
+					"Exclusives": []
+				},
+				"Camera": {
+					"Games": 2,
+					"Needed": false,
+					"Description": "Used when it flings the player upwards.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Player2Targetable": {
+					"Games": 2,
+					"Description": "Can be targeted and frozen by player 2.",
+					"Exclusives": []
+				},
+				"SearchTurtle": {
+					"Games": 2,
+					"Description": "Red Koopa Shells and Gold Shells home in on this object.",
+					"Exclusives": []
+				},
+				"MirrorActor": {
+					"Games": 2,
+					"Description": "A mirrored version of this object is created for mirror reflection setups if placed inside a MirrorArea.",
+					"Exclusives": []
+				},
+				"SW_AWAKE": {
+					"Games": 2,
+					"Description": "Enables rendering and resumes updates when this switch is active.",
+					"Exclusives": []
+				},
+				"MoveLimitCollision": {
+					"Games": 2,
+					"Description": "The collision binder also checks for MoveLimit collision.",
+					"Exclusives": []
+				}
+			}
+		}
+    ]
+}
