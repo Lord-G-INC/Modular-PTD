@@ -1,0 +1,41 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+        {
+			"InternalName": "ShellfishBlueChip",
+			"ClassNameSMG1": "Shellfish",
+			"ClassNameSMG2": "Shellfish",
+			"Name": "Clampy with Blue Star Chip",
+			"Notes": "An underwater clam that opens its mouth periodically; contains a Blue Star Chip inside. (This also requires a proper setup of the BlueChip module)",
+			"Category": "enemy",
+			"AreaShape": "Any",
+			"ListSMG1": "ObjInfo",
+			"ListSMG2": "ObjInfo",
+			"File": "Map",
+			"Games": 2,
+			"Progress": 2,
+			"IsUnused": false,
+			"IsLeftover": false
+		},
+		{
+			"InternalName": "ShellfishPurpleCoin",
+			"ClassNameSMG1": "Shellfish",
+			"ClassNameSMG2": "Shellfish",
+			"Name": "Clampy with Purple Coin",
+			"Notes": "An underwater clam that opens its mouth periodically; contains a Purple Coin inside.",
+			"Category": "enemy",
+			"AreaShape": "Any",
+			"ListSMG1": "ObjInfo",
+			"ListSMG2": "ObjInfo",
+			"File": "Map",
+			"Games": 2,
+			"Progress": 2,
+			"IsUnused": false,
+			"IsLeftover": false
+		}
+    ],
+    "Timestamp": 0,
+    "Classes": [
+    ]
+}

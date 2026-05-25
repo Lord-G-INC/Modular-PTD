@@ -1,0 +1,118 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+        {
+			"InternalName": "BallBeamer",
+			"ClassNameSMG1": "BallBeamer",
+			"ClassNameSMG2": "BallBeamer",
+			"Name": "Ball Beamer",
+			"Notes": "A yellow enemy with a metal nut on its head that periodically emits spherical rings of electricity.",
+			"Category": "enemy",
+			"AreaShape": "Any",
+			"ListSMG1": "ObjInfo",
+			"ListSMG2": "ObjInfo",
+			"File": "Map",
+			"Games": 2,
+			"Progress": 2,
+			"IsUnused": false,
+			"IsLeftover": false
+		}
+    ],
+    "Timestamp": 0,
+    "Classes": [
+		{
+			"InternalName": "BallBeamer",
+			"Name": "BallBeamer",
+			"Notes": "A variant of a Ring Beamer which periodically emits \"spherical\" rings that scale along with gravity. The rings will shock the player upon contact. It cannot be destroyed through normal means.",
+			"Games": 2,
+			"Progress": 2,
+			"Parameters": {
+				"Obj_arg0": {
+					"Name": "Ring Speed",
+					"Type": "Float",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The rate at which the individual rings grow. Default is 12.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg1": {
+					"Name": "Ring Duration",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The lifetime of an individual ring before it disappears. Default is 530.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg2": {
+					"Name": "Shadow Type",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "Specifies whether to use a special model for the shadow or not.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Use normal shadow"
+						},
+						{
+							"Value": "0",
+							"Notes": "Use JumpBeamerBeamShadow"
+						}
+					],
+					"Exclusives": []
+				},
+				"Obj_arg3": {
+					"Name": "Color Frame",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The color frame to be used by the individual rings.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Red"
+						},
+						{
+							"Value": "1",
+							"Notes": "Yellow"
+						}
+					],
+					"Exclusives": []
+				},
+				"Obj_arg4": {
+					"Name": "Activation Range",
+					"Type": "Float",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The range the player must be within in order for this object to emit its rings. Default is 3000.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg5": {
+					"Name": "Max Ring Count",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The maximum amount of rings that can exist at once. Default is 3. Must be between 3 and 11 inclusive.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"SW_A": {
+					"Games": 2,
+					"Needed": false,
+					"Description": "If used, it will only be able to emit rings while this switch is activated.",
+					"Exclusives": []
+				},
+				"SW_B": {
+					"Games": 2,
+					"Needed": false,
+					"Description": "If used, this object will be killed once this switch gets activated.",
+					"Exclusives": []
+				}
+			}
+		}
+    ]
+}

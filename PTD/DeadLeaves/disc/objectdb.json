@@ -1,0 +1,67 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+        {
+			"InternalName": "DeadLeaves",
+			"ClassNameSMG1": "DeadLeaves",
+			"ClassNameSMG2": "DeadLeaves",
+			"Name": "Autumn Leaves",
+			"Notes": "A pile of brown leaves that spawn an item when using the Spin Attack on it.",
+			"Category": "levelfeature",
+			"AreaShape": "Any",
+			"ListSMG1": "ObjInfo",
+			"ListSMG2": "ObjInfo",
+			"File": "Map",
+			"Games": 2,
+			"Progress": 2,
+			"IsUnused": false,
+			"IsLeftover": false
+		}
+    ],
+    "Timestamp": 0,
+    "Classes": [
+		{
+			"InternalName": "DeadLeaves",
+			"Name": "DeadLeaves",
+			"Notes": "A pile of decorative leaves. If the player uses the Spin Attack on it, it can make some items appear.",
+			"Games": 2,
+			"Progress": 2,
+			"Parameters": {
+				"Obj_arg0": {
+					"Name": "Item Type",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The item to be spawned after spinning near it.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "No item"
+						},
+						{
+							"Value": "0",
+							"Notes": "1 Coin"
+						},
+						{
+							"Value": "1",
+							"Notes": "3 Star Bits"
+						}
+					],
+					"Exclusives": []
+				},
+				"SW_A": {
+					"Games": 2,
+					"Needed": false,
+					"Description": "Activated when the player uses a spin attack on this object.",
+					"Exclusives": []
+				},
+				"SW_AWAKE": {
+					"Games": 2,
+					"Description": "Enables rendering and resumes updates when this switch is active.",
+					"Exclusives": []
+				}
+			}
+		}
+    ]
+}
