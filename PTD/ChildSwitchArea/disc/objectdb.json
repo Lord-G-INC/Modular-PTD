@@ -1,0 +1,84 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+        {
+			"InternalName": "ChildSwitchArea",
+			"ClassNameSMG1": "ChildSwitchArea",
+			"ClassNameSMG2": "ChildSwitchArea",
+			"Name": "Child Switch Area",
+			"Notes": "An area that performs checks on the number of objects inside of it and activates a switch.",
+			"Category": "area",
+			"AreaShape": "Any",
+			"ListSMG1": "AreaObjInfo",
+			"ListSMG2": "AreaObjInfo",
+			"File": "Map",
+			"Games": 2,
+			"Progress": 2,
+			"IsUnused": false,
+			"IsLeftover": false
+		}
+    ],
+    "Timestamp": 0,
+    "Classes": [
+		{
+			"InternalName": "ChildSwitchArea",
+			"Name": "ChildSwitchArea",
+			"Notes": "An area that activates when the specified amount of child objects connected is in the area.",
+			"Games": 2,
+			"Progress": 2,
+			"Parameters": {
+				"Obj_arg0": {
+					"Name": "Object Count",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "Specifies the number of objects to check. Default is the number of child objects.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg1": {
+					"Name": "Operator",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "Specifies the operator to compare between the number of child objects and Obj_arg0. Default is =.",
+					"Values": [
+						{
+							"Value": "0",
+							"Notes": "="
+						},
+						{
+							"Value": "1",
+							"Notes": "<"
+						},
+						{
+							"Value": "2",
+							"Notes": ">"
+						},
+						{
+							"Value": "3",
+							"Notes": "≠"
+						}
+					],
+					"Exclusives": []
+				},
+				"Obj_arg2": {
+					"Name": "Deactivate Otherwise?",
+					"Type": "Boolean",
+					"Games": 2,
+					"Needed": false,
+					"Description": "If set, the switch will deactivate again if the comparison is false.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"SW_A": {
+					"Games": 2,
+					"Needed": true,
+					"Description": "Activates when the specified amount of child objects connected is in the area.",
+					"Exclusives": []
+				}
+			}
+		}
+    ]
+}
