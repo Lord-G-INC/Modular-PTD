@@ -1,0 +1,128 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+        {
+			"InternalName": "MorphSwitchCtrl",
+			"ClassNameSMG1": "MorphSwitchCtrl",
+			"ClassNameSMG2": "MorphSwitchCtrl",
+			"Name": "[Module] Power-up Switch",
+			"Notes": "A controller that activates a switch if a certain power-up condition is met.",
+			"Category": "controller",
+			"AreaShape": "Any",
+			"ListSMG1": "ObjInfo",
+			"ListSMG2": "ObjInfo",
+			"File": "Map",
+			"Games": 2,
+			"Progress": 2,
+			"IsUnused": false,
+			"IsLeftover": false
+		}
+    ],
+    "Timestamp": 0,
+    "Classes": [
+		{
+			"InternalName": "MorphSwitchCtrl",
+			"Name": "MorphSwitchCtrl",
+			"Notes": "A controller that activates a switch if a certain power-up condition is met. Yoshi and his power-ups can also be checked.",
+			"Games": 2,
+			"Progress": 2,
+			"Parameters": {
+				"Obj_arg0": {
+					"Name": "Power-up Type",
+					"Type": "Int",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The item counter that will be checked. Default is 0.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Normal"
+						},
+						{
+							"Value": "0",
+							"Notes": "Bee Mushroom"
+						},
+						{
+							"Value": "1",
+							"Notes": "Boo Mushroom (Obj_arg2 checks if player is invisible)"
+						},
+						{
+							"Value": "2",
+							"Notes": "Cloud Flower"
+						},
+						{
+							"Value": "3",
+							"Notes": "Spin Drill (Obj_arg2 checks if player is drilling)"
+						},
+						{
+							"Value": "4",
+							"Notes": "Red Star (Obj_arg2 checks if player is flying)"
+						},
+						{
+							"Value": "5",
+							"Notes": "Fire Flower"
+						},
+						{
+							"Value": "6",
+							"Notes": "Ice Flower"
+						},
+						{
+							"Value": "7",
+							"Notes": "Rainbow Star"
+						},
+						{
+							"Value": "8",
+							"Notes": "Rock Mushroom (Obj_arg2 checks if player is rolling)"
+						},
+						{
+							"Value": "9",
+							"Notes": "Spring Mushroom"
+						},
+						{
+							"Value": "10",
+							"Notes": "Yoshi"
+						},
+						{
+							"Value": "11",
+							"Notes": "Blimp Fruit"
+						},
+						{
+							"Value": "12",
+							"Notes": "Bulb Berry"
+						},
+						{
+							"Value": "13",
+							"Notes": "Dash Pepper"
+						},
+					],
+					"Exclusives": []
+				},
+				"Obj_arg1": {
+					"Name": "Deactivate if Lost?",
+					"Type": "Boolean",
+					"Games": 2,
+					"Needed": false,
+					"Description": "If set, SW_A will be deactivated when the condition is no longer met.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg2": {
+					"Name": "Extra Condition?",
+					"Type": "Boolean",
+					"Games": 2,
+					"Needed": false,
+					"Description": "If set, an additional condition is needed in order for the switch to activate. The condition depends on the chosen power-up.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"SW_A": {
+					"Games": 2,
+					"Needed": true,
+					"Description": "The switch to be activated.",
+					"Exclusives": []
+				}
+			}
+		}
+    ]
+}

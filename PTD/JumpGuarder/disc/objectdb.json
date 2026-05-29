@@ -6,7 +6,7 @@
 			"InternalName": "JumpGuarder",
 			"ClassNameSMG1": "JumpGuarder",
 			"ClassNameSMG2": "JumpGuarder",
-			"Name": "Jump Guarder",
+			"Name": "[Module] Jump Guarder",
 			"Notes": "A stationary green robot enemy that launches several Topminis when the player comes near it. The head can be bounced off by the player.",
 			"Category": "enemy",
 			"AreaShape": "Any",

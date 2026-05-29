@@ -1,0 +1,95 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+        {
+			"InternalName": "FirePressureRadiate",
+			"ClassNameSMG1": "FirePressureRadiate",
+			"ClassNameSMG2": "FirePressureRadiate",
+			"Name": "[Module] Flame Shooter",
+			"Notes": "A red nozzle that shoots flames.",
+			"Category": "levelfeature",
+			"AreaShape": "Any",
+			"ListSMG1": "ObjInfo",
+			"ListSMG2": "ObjInfo",
+			"File": "Map",
+			"Games": 2,
+			"Progress": 2,
+			"IsUnused": false,
+			"IsLeftover": false
+		}
+    ],
+    "Timestamp": 0,
+    "Classes": [
+		{
+			"InternalName": "FirePressureRadiate",
+			"Name": "FirePressureRadiate",
+			"Notes": "A red cannon that periodically shoots a long burning flame that damages the player and compatible enemies upon contact. It cannot be destroyed through any means.",
+			"Games": 2,
+			"Progress": 2,
+			"Parameters": {
+				"Obj_arg0": {
+					"Name": "Cannon Rotation",
+					"Type": "Float",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The rotation of the cannon in degrees. Default is 0.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg1": {
+					"Name": "Wait Time",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The time in frames before it starts shooting again. Default is 300.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg2": {
+					"Name": "Shoot Time",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "How long it will shoot its flame in frames. Default is 300.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"SW_APPEAR": {
+					"Games": 2,
+					"Needed": false,
+					"Description": "Appears when this switch is activated.",
+					"Exclusives": []
+				},
+				"SW_A": {
+					"Games": 2,
+					"Needed": false,
+					"Description": "If used, it will only be able to shoot its flame while this switch is activated.",
+					"Exclusives": []
+				},
+				"SW_AWAKE": {
+					"Games": 2,
+					"Description": "Enables rendering and resumes updates when this switch is active.",
+					"Exclusives": []
+				},
+				"Group": {
+					"Games": 2,
+					"Needed": false,
+					"Description": "Groups several other FirePressureRadiate instances. The one with the longest wait time becomes the \"group leader\". All instances will start shooting its flame once the group leader is ready.",
+					"Exclusives": []
+				},
+				"ClippingGroup": {
+					"Games": 2,
+					"Description": "Objects in this group are always clipped together.",
+					"Exclusives": []
+				},
+				"DemoCast": {
+					"Games": 2,
+					"Needed": false,
+					"Description": "Can take part in a cutscene. Its special cutscene functor action makes it stop shooting its flame.",
+					"Exclusives": []
+				}
+			}
+		}
+    ]
+}

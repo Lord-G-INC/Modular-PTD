@@ -6,7 +6,7 @@
 			"InternalName": "Anagon",
 			"ClassNameSMG1": "Anagon",
 			"ClassNameSMG2": "Anagon",
-			"Name": "Swimming Gringill",
+			"Name": "[Module] Swimming Gringill",
 			"Notes": "A swimming eel-like enemy.",
 			"Category": "enemy",
 			"AreaShape": "Any",

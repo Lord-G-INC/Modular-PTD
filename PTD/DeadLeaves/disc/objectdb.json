@@ -6,7 +6,7 @@
 			"InternalName": "DeadLeaves",
 			"ClassNameSMG1": "DeadLeaves",
 			"ClassNameSMG2": "DeadLeaves",
-			"Name": "Autumn Leaves",
+			"Name": "[Module] Autumn Leaves",
 			"Notes": "A pile of brown leaves that spawn an item when using the Spin Attack on it.",
 			"Category": "levelfeature",
 			"AreaShape": "Any",

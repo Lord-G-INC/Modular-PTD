@@ -6,7 +6,7 @@
 			"InternalName": "Mogu",
 			"ClassNameSMG1": "Mogu",
 			"ClassNameSMG2": "Mogu",
-			"Name": "Monty",
+			"Name": "[Module] Monty",
 			"Notes": "A mole that resides in a metal hatch and throws wrenches at the player.",
 			"Category": "enemy",
 			"AreaShape": "Any",

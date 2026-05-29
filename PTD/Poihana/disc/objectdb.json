@@ -6,7 +6,7 @@
 			"InternalName": "Poihana",
 			"ClassNameSMG1": "Poihana",
 			"ClassNameSMG2": "Poihana",
-			"Name": "Cataquack",
+			"Name": "[Module] Cataquack",
 			"Notes": "A blue duck-like enemy that can toss the player high into the air.",
 			"Category": "enemy",
 			"AreaShape": "Any",

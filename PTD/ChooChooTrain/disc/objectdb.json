@@ -6,7 +6,7 @@
 			"InternalName": "ChooChooTrain",
 			"ClassNameSMG1": "ChooChooTrain",
 			"ClassNameSMG2": "ChooChooTrain",
-			"Name": "Toy Time -- Train",
+			"Name": "[Module] Toy Time -- Train",
 			"Notes": "A moving toy train located in Toy Time Galaxy.",
 			"Category": "stagepart",
 			"AreaShape": "Any",

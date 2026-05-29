@@ -1,0 +1,103 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+        {
+			"InternalName": "PowerStarSpawner",
+			"ClassNameSMG1": "PowerStarSpawner",
+			"ClassNameSMG2": "PowerStarSpawner",
+			"Name": "[Module] Power Star Spawner",
+			"Notes": "A controller that spawns a power star through switches.",
+			"Category": "controller",
+			"AreaShape": "Any",
+			"ListSMG1": "ObjInfo",
+			"ListSMG2": "ObjInfo",
+			"File": "Map",
+			"Games": 2,
+			"Progress": 2,
+			"IsUnused": false,
+			"IsLeftover": false
+		}
+    ],
+    "Timestamp": 0,
+    "Classes": [
+		{
+            "InternalName": "PowerStarSpawner",
+            "Notes": "An object that causes a Power Star to appear once its SW_A gets activated. The Power Star will appear from the object's position or the player's position if Obj_arg4 is set.",
+            "Games": 2,
+            "Progress": 2,
+            "Parameters": {
+                "Obj_arg0": {
+					"Name": "Power Star ID",
+					"Type": "Integer",
+                    "Games": 2,
+					"Description": "The ID of the Power Star to be spawned."
+                },
+                "Obj_arg1": {
+					"Name": "Spawn Type",
+					"Type": "Integer",
+                    "Games": 2,
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Normal"
+						},
+						{
+							"Value": "0",
+							"Notes": "Normal (Gameplay doesn't pause)"
+						},
+						{
+							"Value": "1",
+							"Notes": "Appears instantly"
+						},
+						{
+							"Value": "2",
+							"Notes": "Normal (With post-Squizzard sound effects)"
+						}
+					],
+					"Description": "How the Power Star spawns."
+                },
+                "Obj_arg2": {
+					"Name": "Spawn Delay",
+					"Type": "Integer",
+                    "Games": 2,
+					"Description": "How long it takes for the star to spawn once activated."
+                },
+                "Obj_arg3": {
+					"Name": "Use Sound Effect?",
+					"Type": "Boolean",
+                    "Games": 2,
+					"Description": "If set, the star appearance sound will play."
+                },
+                "Obj_arg4": {
+					"Name": "Use Mario's Position?",
+					"Type": "Boolean",
+                    "Games": 2,
+					"Description": "If set, the star will appear from the player's position."
+                },
+                "Obj_arg5": {
+					"Name": "Use Display Model",
+					"Type": "Integer",
+                    "Games": 2,
+					"Description": "no idea tbh"
+                },
+                "Obj_arg6": {
+					"Name": "Y Offset",
+					"Type": "Integer",
+                    "Games": 2,
+					"Description": "The Y offset for spawning from the player's position. Requires obj_arg4 to be set. Default is 300."
+                },
+                "SW_A": {
+                    "Games": 2,
+					"Needed": true,
+                    "Description": "Causes the Power Star to appear once this switch gets activated."
+                },
+                "AppearPowerStar": {
+                    "Games": 2,
+					"Needed": true,
+                    "Description": "Spawns once its SW_A gets activated."
+                }
+            }
+        }
+    ]
+}

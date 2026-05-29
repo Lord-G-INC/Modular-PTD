@@ -1,0 +1,123 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+        {
+			"InternalName": "LanternClipArea",
+			"ClassNameSMG1": "LanternClipArea",
+			"ClassNameSMG2": "LanternClipArea",
+			"Name": "[Module] Matter Splatter Lantern",
+			"Notes": "A lantern that creates a matter splatter hole when the player selects it.",
+			"Category": "levelfeature",
+			"AreaShape": "Any",
+			"ListSMG1": "ObjInfo",
+			"ListSMG2": "ObjInfo",
+			"File": "Map",
+			"Games": 2,
+			"Progress": 2,
+			"IsUnused": false,
+			"IsLeftover": false
+		}
+    ],
+    "Timestamp": 0,
+    "Classes": [
+		{
+			"InternalName": "LanternClipArea",
+			"Name": "LanternClipArea",
+			"Notes": "A lantern that evokes a spherical matter splatter hole when it is selected with the player's cursor, and disappears after a specified amount of time.",
+			"Games": 2,
+			"Progress": 2,
+			"Parameters": {
+				"Obj_arg0": {
+					"Name": "Sphere Size",
+					"Type": "Float",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The size of the spherical matter splatter hole to be created. Default is 750.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg1": {
+					"Name": "Grow Time",
+					"Type": "Float",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The amount of time in frames it takes for the matter splatter hole to grow when selected. Default is 30.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg2": {
+					"Name": "Lifetime",
+					"Type": "Float",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The amount of time in frames the matter splatter hole will stay at its maximum size for. Default is 180.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg3": {
+					"Name": "Shrink Time",
+					"Type": "Float",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The amount of time in frames it takes for the matter splatter hole to shrink at the end of its lifetime. Default is 120.",
+					"Values": [],
+					"Exclusives": []
+				},
+
+				"Obj_arg4": {
+					"Name": "Color Frame",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The color frame to be used. Default is 0.",
+					"Values": [
+						{
+							"Value": "0",
+							"Notes": "Black"
+						},
+						{
+							"Value": "1",
+							"Notes": "Red"
+						},
+						{
+							"Value": "2",
+							"Notes": "Green"
+						},
+						{
+							"Value": "3",
+							"Notes": "Blue"
+						},
+						{
+							"Value": "4",
+							"Notes": "Purple"
+						},
+						{
+							"Value": "5",
+							"Notes": "Cyan"
+						},
+						{
+							"Value": "6",
+							"Notes": "Gold"
+						},
+						{
+							"Value": "7",
+							"Notes": "Silver"
+						}
+					],
+					"Exclusives": []
+				},
+				"SW_A": {
+					"Games": 2,
+					"Description": "If used, the lantern cannot be selected until this switch is activated.",
+					"Exclusives": []
+				},
+				"SW_B": {
+					"Games": 2,
+					"Description": "Activates when the matter splatter hole is fully grown. Deactivates when the hole starts to shrink.",
+					"Exclusives": []
+				}
+			}
+		}
+    ]
+}

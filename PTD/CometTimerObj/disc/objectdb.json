@@ -1,0 +1,78 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+        {
+			"InternalName": "CometTimerObj",
+			"ClassNameSMG1": "CometTimerObj",
+			"ClassNameSMG2": "CometTimerObj",
+			"Name": "[Module] Comet Timer",
+			"Notes": "Creates a timer layout once activated.",
+			"Category": "controller",
+			"AreaShape": "Any",
+			"ListSMG1": "ObjInfo",
+			"ListSMG2": "ObjInfo",
+			"File": "Map",
+			"Games": 2,
+			"Progress": 2,
+			"IsUnused": false,
+			"IsLeftover": false
+		}
+    ],
+    "Timestamp": 0,
+    "Classes": [
+		{
+            "InternalName": "CometTimerObj",
+            "Notes": "An object that creates a timer when SW_A is activated.",
+            "Games": 2,
+            "Progress": 2,
+            "Parameters": {
+                "Obj_arg0": {
+					"Name": "Timer",
+					"Type": "Integer",
+                    "Games": 2,
+					"Description": "How long the timer is in seconds."
+                },
+                "Obj_arg1": {
+					"Name": "Don't Kill Player?",
+					"Type": "Boolean",
+                    "Games": 2,
+					"Description": "If set, the player will not lose a life upon the timer ending."
+                },
+                "Obj_arg2": {
+					"Name": "Loop Timer?",
+					"Type": "Integer",
+                    "Games": 2,
+					"Description": "If set, when the timer expires, it will loop back to its initial time."
+                },
+                "Obj_arg3": {
+					"Name": "Initialize SW_DEAD?",
+					"Type": "Boolean",
+                    "Games": 2,
+					"Description": "If set, the timer will trigger SW_DEAD once expired."
+                },
+                "Obj_arg4": {
+					"Name": "Use Bomb Timer Layout?",
+					"Type": "Boolean",
+                    "Games": 2,
+					"Description": "If set, the bomb timer layout will be displayed instead of the ususal one."
+                },
+                "SW_A": {
+                    "Games": 2,
+					"Needed": true,
+                    "Description": "Starts the timer once activated."
+                },
+                "SW_B": {
+                    "Games": 2,
+					"Needed": false,
+                    "Description": "Kills the timer if activated."
+                },
+                "SW_DEAD": {
+                    "Games": 2,
+					"Needed": false,
+                    "Description": "Activates once the timer expires if Obj_arg3 is set."
+                }
+            }
+        }
+    ]
+}

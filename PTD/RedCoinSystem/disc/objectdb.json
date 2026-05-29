@@ -1,0 +1,232 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+        {
+			"InternalName": "RedCoin",
+			"ClassNameSMG1": "RedCoin",
+			"ClassNameSMG2": "RedCoin",
+			"Name": "[Module] Red Coin",
+			"Notes": "A collectable red coin, similar to that of Super Mario 64. Usually, eight of them have to be collected.",
+			"Category": "item",
+			"AreaShape": "Any",
+			"ListSMG1": "ObjInfo",
+			"ListSMG2": "ObjInfo",
+			"File": "Map",
+			"Games": 2,
+			"Progress": 2,
+			"IsUnused": false,
+			"IsLeftover": false
+		},
+		{
+			"InternalName": "RedCoinController",
+			"ClassNameSMG1": "RedCoinController",
+			"ClassNameSMG2": "RedCoinController",
+			"Name": "[Module] Red Coin Group",
+			"Notes": "Controls a collection of Red Coins and activates something once all are collected.",
+			"Category": "item",
+			"AreaShape": "Any",
+			"ListSMG1": "ObjInfo",
+			"ListSMG2": "ObjInfo",
+			"File": "Map",
+			"Games": 2,
+			"Progress": 2,
+			"IsUnused": false,
+			"IsLeftover": false
+		}
+    ],
+    "Timestamp": 0,
+    "Classes": [
+		{
+			"InternalName": "RedCoin",
+			"Name": "RedCoin",
+			"Notes": "A collectable Red Coin. Usually, eight of these are linked together by a RedCoinController to trigger a switch, but more can be added.",
+			"Games": 2,
+			"Progress": 2,
+			"Parameters": {
+				"Obj_arg0": {
+					"Name": "SW_B Launch Velocity",
+					"Type": "Float",
+					"Games": 2,
+					"Needed": true,
+					"Description": "The upward velocity of the coin when it spawns through SW_B. Default is 250.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg1": {
+					"Name": "Player Collect Layout?",
+					"Type": "Boolean",
+					"Games": 2,
+					"Needed": false,
+					"Description": "If set, the number layout will appear at the player rather than the coin.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg3": {
+					"Name": "Shadow Calculation",
+					"Type": "Boolean",
+					"Games": 2,
+					"Needed": false,
+					"Description": "If set, the shadow will be calculated at all times and the game takes the shadow range into account when clipping.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg4": {
+					"Name": "Pose Type",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "Defines how to position and rotate the Coin. May also connect the Coin to the collision below in SMG2.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Rotation & shadow direction affected by gravity"
+						},
+						{
+							"Value": "0",
+							"Notes": "Rotation ignores gravity & shadow direction affected by gravity"
+						},
+						{
+							"Value": "1",
+							"Notes": "Attach to collision below & shadow direction not affected by gravity (SMG2 only)"
+						}
+					],
+					"Exclusives": []
+				},
+				"Obj_arg5": {
+					"Name": "Shadow Length",
+					"Type": "Float",
+					"Games": 2,
+					"Needed": false,
+					"Description": "Sets the shadow drop length. Default is 1000.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg6": {
+					"Name": "Shadow Type",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "Specifies the shadow model type.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Sphere"
+						},
+						{
+							"Value": "0",
+							"Notes": "Circle"
+						},
+						{
+							"Value": "1",
+							"Notes": "Cylinder"
+						}
+					],
+					"Exclusives": []
+				},
+				"Obj_arg7": {
+					"Name": "Inside Bubble?",
+					"Type": "Boolean",
+					"Games": 2,
+					"Needed": false,
+					"Description": "If true, the Coin will be placed inside an Air Bubble.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"SW_APPEAR": {
+					"Games": 2,
+					"Needed": false,
+					"Description": "Appears when this switch is activated.",
+					"Exclusives": []
+				},
+				"SW_AWAKE": {
+					"Games": 2,
+					"Description": "Enables rendering and resumes updates when this switch is active.",
+					"Exclusives": []
+				},
+				"SW_A": {
+					"Games": 2,
+					"Description": "Activates upon collecting the coin.",
+					"Exclusives": []
+				},
+				"SW_B": {
+					"Games": 2,
+					"Description": "Appears and pops up when this switch is activated.",
+					"Exclusives": []
+				},
+				"Group": {
+					"Games": 2,
+					"Needed": false,
+					"Description": "The group of red coins and their controller.",
+					"Exclusives": []
+				}
+			}
+		},
+		{
+			"InternalName": "RedCoinController",
+			"Name": "RedCoinController",
+			"Notes": "Controls a group of Star Chips (BlueChip) and activates SW_A once all of them have been collected. It is recommended to have five Star Chips per group. The group for this object and the individual Blue Star Chips has to be specified using Obj_arg0. This controller is also responsible for displaying the counter layout at the top of the screen.",
+			"Games": 2,
+			"Progress": 2,
+			"Parameters": {
+				"Obj_arg0": {
+					"Name": "Reward Coins?",
+					"Type": "Boolean",
+					"Games": 2,
+					"Needed": false,
+					"Description": "If set, collecting any Red Coin linked to this object will reward the player with 2 coins.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg1": {
+					"Name": "Power Star ID",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The scenario ID of the Power Star to be spawned. -1 does not register a Power Star.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg2": {
+					"Name": "PictureFont Icon ID",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "Specifies the icon to use from PictureFont. Default is 55, which is a Power Star icon.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg3": {
+					"Name": "Layout Behavior",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "Specifies what condition needs to be met for the Red Coin layout to appear.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "At least 1 coin required"
+						},
+						{
+							"Value": "0",
+							"Notes": "Always appeared"
+						}
+					],
+					"Exclusives": []
+				},
+				"SW_A": {
+					"Games": 2,
+					"Needed": false,
+					"Description": "Gets activated when all linked Red Coins have been collected.",
+					"Exclusives": []
+				},
+				"Group": {
+					"Games": 2,
+					"Needed": false,
+					"Description": "The group of the red coin controller and its coins.",
+					"Exclusives": []
+				}
+			}
+		}
+    ]
+}

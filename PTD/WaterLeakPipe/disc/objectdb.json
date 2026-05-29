@@ -1,0 +1,48 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+        {
+			"InternalName": "WaterLeakPipe",
+			"ClassNameSMG1": "WaterLeakPipe",
+			"ClassNameSMG2": "WaterLeakPipe",
+			"Name": "[Module] Leaking Pipe",
+			"Notes": "A blue pipe with some visual water leaking out of it. Can be used to create ice platforms when touched while using the Ice power-up.",
+			"Category": "levelfeature",
+			"AreaShape": "Any",
+			"ListSMG1": "ObjInfo",
+			"ListSMG2": "ObjInfo",
+			"File": "Map",
+			"Games": 2,
+			"Progress": 2,
+			"IsUnused": false,
+			"IsLeftover": false
+		}
+    ],
+    "Timestamp": 0,
+    "Classes": [
+		{
+			"InternalName": "WaterLeakPipe",
+			"Name": "WaterLeakPipe",
+			"Notes": "A long pipe with a splashing water spout on the top. If the player touches the spout while using the Ice power-up, an ice platform appears. The player can stand on the platform while the power-up is active. If the player goes off the platform or loses their power-up, the platform disappears again. This object does not come with its own collision model.",
+			"Games": 2,
+			"Progress": 2,
+			"Parameters": {
+				"Obj_arg0": {
+					"Name": "Pipe Height",
+					"Type": "Float",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The pipe's length. Default is 500.",
+					"Values": [],
+					"Exclusives": []
+				}
+				"SW_AWAKE": {
+					"Games": 2,
+					"Description": "Enables rendering and resumes updates when this switch is active.",
+					"Exclusives": []
+				}
+			}
+		}
+    ]
+}

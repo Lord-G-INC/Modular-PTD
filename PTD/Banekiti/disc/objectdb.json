@@ -1,0 +1,144 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+		{
+			"InternalName": "Banekiti",
+			"ClassNameSMG1": "Banekiti",
+			"ClassNameSMG2": "Banekiti",
+			"Name": "[Module] Banekiti",
+			"Notes": "A mechanical spring enemy that bounces off Boo Mario upon contact. It is used in Boo's Boneyard Galaxy.",
+			"Category": "enemy",
+			"AreaShape": "Any",
+			"ListSMG1": "MapPartsInfo",
+			"ListSMG2": "MapPartsInfo",
+			"File": "Map",
+			"Games": 2,
+			"Progress": 2,
+			"IsUnused": false,
+			"IsLeftover": false
+		}
+    ],
+    "Timestamp": 0,
+    "Classes": [
+		{
+			"InternalName": "Banekiti",
+			"Name": "Banekiti",
+			"Notes": "A strange enemy whose bouncy springs repel the player when they are using the Boo power-up. It cannot be defeated through any means.",
+			"Games": 2,
+			"Progress": 2,
+			"Parameters": {
+				"Path_arg4": {
+					"Name": "Initial Position Type",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The object's initial position.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Start at nearest position on path"
+						},
+						{
+							"Value": "1",
+							"Notes": "Start at nearest path point"
+						},
+						{
+							"Value": "2",
+							"Notes": "Start at first path point"
+						}
+					],
+					"Exclusives": []
+				},
+				"Point_arg0": {
+					"Name": "Movement Speed / Time",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The movement speed the object has starting from this point. If Point_arg7 is set to 1, this specifies the time in frames it takes to reach the next point.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Point_arg1": {
+					"Name": "Acceleration Time",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The time in frames it takes for the object to reach the movement speed set at this point.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Point_arg5": {
+					"Name": "Stop Time",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The time in frames the object waits at this point before it continues moving again.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Point_arg7": {
+					"Name": "Speed Type",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "Decides whether Point_arg0 specifies the movement speed or the time it takes to reach the next point.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Point_arg0 specifies movement speed"
+						},
+						{
+							"Value": "1",
+							"Notes": "Point_arg0 specifies time until next point"
+						}
+					],
+					"Exclusives": []
+				},
+				"SignMotionType": {
+					"Name": "Shake Start Type",
+					"Games": 2,
+					"Description": "Specifies whether the object will shake before it starts moving or not.",
+					"Values": [
+						{
+							"Value": "0",
+							"Notes": "Don't shake"
+						},
+						{
+							"Value": "1",
+							"Notes": "Shakes before moving"
+						},
+						{
+							"Value": "2",
+							"Notes": "Shakes before moving"
+						},
+						{
+							"Value": "3",
+							"Notes": "Don't shake"
+						},
+						{
+							"Value": "4",
+							"Notes": "Shakes before moving"
+						},
+						{
+							"Value": "5",
+							"Notes": "Shakes before moving"
+						}
+					],
+					"Exclusives": []
+				},
+				"Rail": {
+					"Games": 2,
+					"Needed": true,
+					"Description": "The optional path that it can move on.",
+					"Exclusives": []
+				},
+				"Player2Targetable": {
+					"Games": 2,
+					"Description": "Can be targeted and frozen by player 2.",
+					"Exclusives": []
+				}
+			}
+		}
+    ]
+}

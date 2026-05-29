@@ -6,7 +6,7 @@
 			"InternalName": "DharmaSambo",
 			"ClassNameSMG1": "DharmaSambo",
 			"ClassNameSMG2": "DharmaSambo",
-			"Name": "Red Pokey",
+			"Name": "[Module] Red Pokey",
 			"Notes": "A red cactus enemy with several segments that is used in Dusty Dune Galaxy.",
 			"Category": "enemy",
 			"AreaShape": "Any",

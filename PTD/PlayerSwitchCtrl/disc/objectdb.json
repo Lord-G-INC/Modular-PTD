@@ -1,0 +1,63 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+        {
+			"InternalName": "PlayerSwitchCtrl",
+			"ClassNameSMG1": "PlayerSwitchCtrl",
+			"ClassNameSMG2": "PlayerSwitchCtrl",
+			"Name": "[Module] Character Switch",
+			"Notes": "A switch that checks the player's current character.",
+			"Category": "controller",
+			"AreaShape": "Any",
+			"ListSMG1": "ObjInfo",
+			"ListSMG2": "ObjInfo",
+			"File": "Map",
+			"Games": 1,
+			"Progress": 2,
+			"IsUnused": true,
+			"IsLeftover": false
+		}
+    ],
+    "Timestamp": 0,
+    "Classes": [
+		{
+			"InternalName": "PlayerSwitchCtrl",
+			"Name": "PlayerSwitchCtrl",
+			"Notes": "A switch controller that activates or deactivates SW_A when the player has selected the specified player character. By default, this switch only activates if the player is playing as Mario.",
+			"Games": 2,
+			"Progress": 2,
+			"Parameters": {
+				"Obj_arg0": {
+					"Name": "Check Luigi?",
+					"Type": "Boolean",
+					"Games": 2,
+					"Needed": false,
+					"Description": "If set, the switch will activate when the player is playing as Luigi.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg1": {
+					"Name": "Negate Output?",
+					"Type": "Boolean",
+					"Games": 2,
+					"Needed": false,
+					"Description": "If set, SW_A will be deactivated instead.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"SW_B": {
+					"Games": 2,
+					"Description": "If set, SW_A will not be activated until this switch is activated.",
+					"Exclusives": []
+				},
+				"SW_A": {
+					"Games": 2,
+					"Needed": true,
+					"Description": "The switch to be activated or deactivated.",
+					"Exclusives": []
+				}
+			}
+		}
+    ]
+}

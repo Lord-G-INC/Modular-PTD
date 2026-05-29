@@ -1,0 +1,76 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+        {
+			"InternalName": "HitWallTimerSwitch",
+			"ClassNameSMG1": "HitWallTimerSwitch",
+			"ClassNameSMG2": "HitWallTimerSwitch",
+			"Name": "[Module] Timed Wall Button",
+			"Notes": "A button that activates a switch for a set amount of time when hit.",
+			"Category": "levelfeature",
+			"AreaShape": "Any",
+			"ListSMG1": "ObjInfo",
+			"ListSMG2": "ObjInfo",
+			"File": "Map",
+			"Games": 1,
+			"Progress": 2,
+			"IsUnused": true,
+			"IsLeftover": false
+		}
+    ],
+    "Timestamp": 0,
+    "Classes": [
+		{
+			"InternalName": "HitWallTimerSwitch",
+			"Name": "HitWallTimerSwitch",
+			"Notes": "An unused button that activates a switch for a set amount of time. The button can be activated using most of the player's attacks. After the time runs out, it will reset itself.",
+			"Games": 2,
+			"Progress": 2,
+			"Parameters": {
+				"Obj_arg0": {
+					"Name": "Timer",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "How long the switch will remain activated before it resets again. Default is 300.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg1": {
+					"Name": "Screen Effect Type",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The special screen effect to be used when activating the button.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "No effect"
+						},
+						{
+							"Value": "1",
+							"Notes": "SwitchingScreenEffect (crashes due to missing file)"
+						},
+						{
+							"Value": "2",
+							"Notes": "Slow-down effect (TimeStopScreenEffect)"
+						}
+					],
+					"Exclusives": []
+				},
+				"SW_AWAKE": {
+					"Games": 2,
+					"Description": "Enables rendering and resumes updates when this switch is active.",
+					"Exclusives": []
+				},
+				"SW_A": {
+					"Games": 2,
+					"Needed": true,
+					"Description": "Gets activated when pressing the button.",
+					"Exclusives": []
+				}
+			}
+		}
+    ]
+}

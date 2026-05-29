@@ -6,9 +6,9 @@
 			"InternalName": "ChildSwitchArea",
 			"ClassNameSMG1": "ChildSwitchArea",
 			"ClassNameSMG2": "ChildSwitchArea",
-			"Name": "Child Switch Area",
+			"Name": "[Module] Child Switch Area",
 			"Notes": "An area that performs checks on the number of objects inside of it and activates a switch.",
-			"Category": "area",
+			"Category": "areas",
 			"AreaShape": "Any",
 			"ListSMG1": "AreaObjInfo",
 			"ListSMG2": "AreaObjInfo",
@@ -38,11 +38,11 @@
 					"Exclusives": []
 				},
 				"Obj_arg1": {
-					"Name": "Operator",
+					"Name": "Comparator",
 					"Type": "Integer",
 					"Games": 2,
 					"Needed": false,
-					"Description": "Specifies the operator to compare between the number of child objects and Obj_arg0. Default is =.",
+					"Description": "Specifies the method to compare between the number of child objects and Obj_arg0. Default is 0.",
 					"Values": [
 						{
 							"Value": "0",
@@ -64,7 +64,7 @@
 					"Exclusives": []
 				},
 				"Obj_arg2": {
-					"Name": "Deactivate Otherwise?",
+					"Name": "Deactivate when false?",
 					"Type": "Boolean",
 					"Games": 2,
 					"Needed": false,

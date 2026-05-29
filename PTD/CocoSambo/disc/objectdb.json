@@ -6,7 +6,7 @@
 			"InternalName": "CocoSambo",
 			"ClassNameSMG1": "CocoSambo",
 			"ClassNameSMG2": "CocoSambo",
-			"Name": "Spiky Pokey",
+			"Name": "[Module] Spiky Pokey",
 			"Notes": "A yellow cactus enemy with spikes on its body that appears in Good Egg Galaxy and Dusty Dune Galaxy.",
 			"Category": "enemy",
 			"AreaShape": "Any",
