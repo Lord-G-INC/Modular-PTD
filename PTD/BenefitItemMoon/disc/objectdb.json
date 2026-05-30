@@ -1,0 +1,39 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+        {
+			"InternalName": "BenefitItemMoon",
+			"ClassNameSMG1": "BenefitItemMoon",
+			"ClassNameSMG2": "BenefitItemMoon",
+			"Name": "[Module] 3-Up Moon",
+			"Notes": "A collectable moon that gives tree extra lives.",
+			"Category": "item",
+			"AreaShape": "Any",
+			"ListSMG1": "ObjInfo",
+			"ListSMG2": "ObjInfo",
+			"File": "Map",
+			"Games": 2,
+			"Progress": 2,
+			"IsUnused": false,
+			"IsLeftover": false
+		}
+    ],
+    "Timestamp": 0,
+    "Classes": [
+		{
+			"InternalName": "BenefitItemMoon",
+			"Name": "BenefitItemMoon",
+			"Notes": "An item that grants the player three extra lives when collected.",
+			"Games": 2,
+			"Progress": 2,
+			"Parameters": {
+				"SW_APPEAR": {
+					"Games": 2,
+					"Description": "Appears when this switch is activated.",
+					"Exclusives": []
+				}
+			}
+		}
+    ]
+}

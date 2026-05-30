@@ -1,0 +1,707 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+    ],
+    "Timestamp": 0,
+    "Classes": [
+		{
+			"InternalName": "CrystalCage",
+			"Name": "CrystalCage",
+			"Notes": "A destroyable crystal that can contain a variety of different items. Except for Coins, Star Bits and Power Stars (SMG2 only), the items are only cosmetic. If the item is set to Power Star, the object also requires a proper setup in the galaxy's Scenario file. The crystal can be destroyed with most of the player's attacks as well as all enemy attacks. If a crystal object is placed inside a PlaneCollisionCube area, it will always load the CrystalCage2D model instead.",
+			"Games": 3,
+			"Progress": 2,
+			"Parameters": {
+				"Obj_arg0": {
+					"Name": "Hide Remains?",
+					"Type": "Boolean",
+					"Games": 3,
+					"Needed": false,
+					"Description": "If set, the crystals that remain after destroying it will be hidden.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg1": {
+					"Name": "Play Riddle SFX?",
+					"Type": "Boolean",
+					"Games": 3,
+					"Needed": false,
+					"Description": "If enabled, it will play the \"riddle solved\" jingle when destroyed.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg2": {
+					"Name": "Use Binder?",
+					"Type": "Boolean",
+					"Games": 3,
+					"Needed": false,
+					"Description": "Enables collision binding if set.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg3": {
+					"Name": "SW_A Disappear?",
+					"Type": "Boolean",
+					"Games": 3,
+					"Needed": false,
+					"Description": "If set, it will simply disappear if SW_A gets activated while it is out of view.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg4": {
+					"Name": "Is Falling?",
+					"Type": "Boolean",
+					"Games": 2,
+					"Needed": false,
+					"Description": "Determines if the crystal falls when it spawns via SW_APPEAR.",
+					"Values": [],
+					"Exclusives": [
+						"CrystalCageS"
+					]
+				},
+				"Obj_arg6": {
+					"Name": "Toad/Luma Color",
+					"Type": "Integer",
+					"Games": 3,
+					"Needed": false,
+					"Description": "The color frame of the Toad or Luma contained inside the cage.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg7": {
+					"Name": "Item Type",
+					"Type": "Integer",
+					"Games": 3,
+					"Needed": false,
+					"Description": "The item that is displayed inside the cage. 1 Coin, 5 Star Bits and Power Stars can be spawned directly. It will play special sound effects if it contains a Toad or a Luma.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Nothing"
+						},
+						{
+							"Value": "0",
+							"Notes": "Coin"
+						},
+						{
+							"Value": "1",
+							"Notes": "Toad"
+						},
+						{
+							"Value": "2",
+							"Notes": "Sling Star"
+						},
+						{
+							"Value": "3",
+							"Notes": "Launch Star"
+						},
+						{
+							"Value": "4",
+							"Notes": "Star Bits"
+						},
+						{
+							"Value": "5",
+							"Notes": "Luma"
+						},
+						{
+							"Value": "6",
+							"Notes": "Key"
+						},
+						{
+							"Value": "7",
+							"Notes": "Power Star"
+						},
+						{
+							"Value": "8",
+							"Notes": "1-Up Mushroom"
+						},
+						{
+							"Value": "9",
+							"Notes": "Goomba"
+						},
+						{
+							"Value": "10",
+							"Notes": "Blue Star Chip"
+						},
+						{
+							"Value": "11",
+							"Notes": "Yellow Star Chip"
+						},
+						{
+							"Value": "12",
+							"Notes": "Silver Star"
+						},
+						{
+							"Value": "13",
+							"Notes": "Grand Star"
+						},
+						{
+							"Value": "14",
+							"Notes": "Life Mushroom"
+						},
+						{
+							"Value": "15",
+							"Notes": "[Module] Fire Flower"
+						},
+						{
+							"Value": "16",
+							"Notes": "[Module] Ice Flower"
+						},
+						{
+							"Value": "17",
+							"Notes": "[Module] Bee Mushroom"
+						},
+						{
+							"Value": "18",
+							"Notes": "[Module] Spring Mushroom"
+						},
+						{
+							"Value": "19",
+							"Notes": "[Module] Boo Mushroom"
+						},
+						{
+							"Value": "20",
+							"Notes": "[Module] Red Star"
+						},
+						{
+							"Value": "21",
+							"Notes": "[Module] Cloud Flower"
+						},
+						{
+							"Value": "22",
+							"Notes": "[Module] Rock Mushroom"
+						},
+						{
+							"Value": "23",
+							"Notes": "[Module] Rainbow Star"
+						}
+					],
+					"Exclusives": []
+				},
+				"SW_APPEAR": {
+					"Games": 3,
+					"Needed": false,
+					"Description": "Appears when this switch is activated.",
+					"Exclusives": []
+				},
+				"SW_DEAD": {
+					"Games": 3,
+					"Needed": false,
+					"Description": "Gets activated once it is destroyed.",
+					"Exclusives": []
+				},
+				"SW_A": {
+					"Games": 3,
+					"Needed": false,
+					"Description": "Forces the Crystal to be destroyed once this switch gets activated.",
+					"Exclusives": []
+				},
+				"SW_AWAKE": {
+					"Games": 3,
+					"Description": "Enables rendering and resumes updates when this switch is active.",
+					"Exclusives": []
+				},
+				"Group": {
+					"Games": 3,
+					"Needed": false,
+					"Description": "Registers crystals of the same object type, but the group is never used for anything.",
+					"Exclusives": []
+				},
+				"ClippingGroup": {
+					"Games": 2,
+					"Description": "Objects in this group are always clipped together.",
+					"Exclusives": [
+						"CrystalCageS"
+					]
+				},
+				"AppearPowerStar": {
+					"Games": 2,
+					"Needed": false,
+					"Description": "Spawned after destroying it. Requires Obj_arg7 to be set to 7.",
+					"Exclusives": []
+				},
+				"DemoCast": {
+					"Games": 3,
+					"Needed": false,
+					"Description": "Can take part in a cutscene.",
+					"Exclusives": []
+				},
+				"Player2Targetable": {
+					"Games": 2,
+					"Description": "Can be targeted and destroyed by player 2.",
+					"Exclusives": []
+				}
+			}
+		},
+		{
+			"InternalName": "BreakableCage",
+			"Name": "BreakableCage",
+			"Notes": "A destroyable obstacle that can be destroyed using Koopa Shells, Yoshi's projectiles or any enemy attack except enemy fire damage. Most of its variants can contain an item. Except for Star Bits and Power Stars, the items are only cosmetic. If the item is set to Power Star, the object also requires a proper setup in the galaxy's Scenario file. When BreakableCageL gets destroyed, it will always play the \"riddle solved\" jingle.",
+			"Games": 3,
+			"Progress": 2,
+			"Parameters": {
+				"Obj_arg0": {
+					"Name": "Rotation Speed",
+					"Type": "Float",
+					"Games": 3,
+					"Needed": false,
+					"Description": "The rate at which the cage rotates. Negative values invert the direction.",
+					"Values": [],
+					"Exclusives": [
+						"BreakableCageRotate"
+					]
+				},
+				"Obj_arg1": {
+					"Name": "Ignore Gravity?",
+					"Type": "Boolean",
+					"Games": 3,
+					"Needed": false,
+					"Description": "If enabled, the rotation will not be affected by gravity.",
+					"Values": [],
+					"Exclusives": [
+						"BreakableCage",
+						"BreakableCageRotate",
+						"BreakableCageL",
+						"BreakableCapsuleCage",
+						"BreakableTrash"
+					]
+				},
+				"Obj_arg2": {
+					"Name": "Delay SW_DEAD Activation?",
+					"Type": "Boolean",
+					"Games": 3,
+					"Needed": false,
+					"Description": "When enabled, SW_DEAD will be activated immediately instead of having to wait for the breaking animation to finish.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg3": {
+					"Name": "Play Riddle SFX?",
+					"Type": "Boolean",
+					"Games": 2,
+					"Needed": false,
+					"Description": "If enabled, it will play the \"riddle solved\" jingle when destroyed.",
+					"Values": [],
+					"Exclusives": [
+						"BreakableCage",
+						"BreakableCageRotate"
+					]
+				},
+				"Obj_arg6": {
+					"Name": "Toad/Luma Color",
+					"Type": "Integer",
+					"Games": 3,
+					"Needed": false,
+					"Description": "The color frame of the Toad or Luma contained inside the cage.",
+					"Values": [],
+					"Exclusives": [
+						"BreakableCage",
+						"BreakableCageRotate",
+						"BreakableCageL",
+						"BreakableCapsuleCage",
+						"BreakableTrash"
+					]
+				},
+				"Obj_arg7": {
+					"Name": "Item Type",
+					"Type": "Integer",
+					"Games": 3,
+					"Needed": false,
+					"Description": "The item that is displayed inside the cage. 5 Star Bits and Power Stars can be spawned directly.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Nothing"
+						},
+						{
+							"Value": "0",
+							"Notes": "Coin"
+						},
+						{
+							"Value": "1",
+							"Notes": "Toad"
+						},
+						{
+							"Value": "2",
+							"Notes": "Sling Star"
+						},
+						{
+							"Value": "3",
+							"Notes": "Launch Star"
+						},
+						{
+							"Value": "4",
+							"Notes": "Star Bits"
+						},
+						{
+							"Value": "5",
+							"Notes": "Luma"
+						},
+						{
+							"Value": "6",
+							"Notes": "Key"
+						},
+						{
+							"Value": "7",
+							"Notes": "Power Star"
+						},
+						{
+							"Value": "8",
+							"Notes": "1-Up Mushroom"
+						},
+						{
+							"Value": "9",
+							"Notes": "Goomba"
+						},
+						{
+							"Value": "10",
+							"Notes": "Blue Star Chip"
+						},
+						{
+							"Value": "11",
+							"Notes": "Yellow Star Chip"
+						},
+						{
+							"Value": "12",
+							"Notes": "Silver Star"
+						},
+						{
+							"Value": "13",
+							"Notes": "Grand Star"
+						},
+						{
+							"Value": "14",
+							"Notes": "Life Mushroom"
+						},
+						{
+							"Value": "15",
+							"Notes": "[Module] Fire Flower"
+						},
+						{
+							"Value": "16",
+							"Notes": "[Module] Ice Flower"
+						},
+						{
+							"Value": "17",
+							"Notes": "[Module] Bee Mushroom"
+						},
+						{
+							"Value": "18",
+							"Notes": "[Module] Spring Mushroom"
+						},
+						{
+							"Value": "19",
+							"Notes": "[Module] Boo Mushroom"
+						},
+						{
+							"Value": "20",
+							"Notes": "[Module] Red Star"
+						},
+						{
+							"Value": "21",
+							"Notes": "[Module] Cloud Flower"
+						},
+						{
+							"Value": "22",
+							"Notes": "[Module] Rock Mushroom"
+						},
+						{
+							"Value": "23",
+							"Notes": "[Module] Rainbow Star"
+						}
+					],
+					"Exclusives": [
+						"BreakableCage",
+						"BreakableCageRotate",
+						"BreakableCageL",
+						"BreakableCapsuleCage",
+						"BreakableTrash"
+					]
+				},
+				"SW_APPEAR": {
+					"Games": 3,
+					"Needed": false,
+					"Description": "Appears when this switch is activated.",
+					"Exclusives": []
+				},
+				"SW_DEAD": {
+					"Games": 3,
+					"Needed": false,
+					"Description": "Gets activated after destroying this object.",
+					"Exclusives": []
+				},
+				"SW_A": {
+					"Games": 3,
+					"Needed": false,
+					"Description": "Registered to be set but never used.",
+					"Exclusives": []
+				},
+				"SW_B": {
+					"Games": 3,
+					"Needed": false,
+					"Description": "Gets deactivated after destroying this object.",
+					"Exclusives": []
+				},
+				"SW_AWAKE": {
+					"Games": 3,
+					"Description": "Enables rendering and resumes updates when this switch is active.",
+					"Exclusives": []
+				},
+				"Group": {
+					"Games": 3,
+					"Needed": false,
+					"Description": "Used to group several trash piles for use with the Gearmo mini-game.",
+					"Exclusives": [
+						"BreakableTrash"
+					]
+				},
+				"ClippingGroup": {
+					"Games": 3,
+					"Description": "Objects in this group are always clipped together.",
+					"Exclusives": []
+				},
+				"AppearPowerStar": {
+					"Games": 3,
+					"Needed": false,
+					"Description": "Spawned after destroying it. Requires Obj_arg7 to be set to 7.",
+					"Exclusives": [
+						"BreakableCage",
+						"BreakableCageRotate",
+						"BreakableCageL",
+						"BreakableCapsuleCage",
+						"BreakableTrash"
+					]
+				},
+				"Camera": {
+					"Games": 3,
+					"Needed": false,
+					"Description": "Used when it gets destroyed.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"DemoCast": {
+					"Games": 3,
+					"Needed": false,
+					"Description": "Can take part in a cutscene.",
+					"Exclusives": []
+				},
+				"SearchTurtle": {
+					"Games": 3,
+					"Description": "Red Koopa Shells and Gold Shells home in on this object.",
+					"Exclusives": []
+				}
+			}
+		},
+		{
+			"InternalName": "Teresa",
+			"Name": "Teresa",
+			"Notes": "A ghost enemy that will hide when looked at by the player. If the player turns away, it will go after the player to attack them. When the player is using the Boo power-up, it will chase the player. It can be defeated using fireballs, the Rainbow power-up and Koopa Shell light rays. Furthermore, it will be defeated when it enters a GlaringLightArea or a SunLightArea. If the object is called TeresaChief, it will spawn a Power Star when defeated, however, this requires a properly configured Scenario entry.",
+			"Games": 3,
+			"Progress": 2,
+			"Parameters": {
+				"Obj_arg0": {
+					"Name": "Appearance Type",
+					"Type": "Integer",
+					"Games": 3,
+					"Needed": false,
+					"Description": "How the Boo appears.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Normal"
+						},
+						{
+							"Value": "0",
+							"Notes": "From ground"
+						},
+						{
+							"Value": "1",
+							"Notes": "From wall"
+						}
+					],
+					"Exclusives": []
+				},
+				"Obj_arg1": {
+					"Name": "Matter Splatter Drop Size",
+					"Type": "Float",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The radius of the Matter Splatter drop. Default is 0 which disables the drop.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg6": {
+					"Name": "Toad/Luma Color",
+					"Type": "Integer",
+					"Games": 3,
+					"Needed": false,
+					"Description": "The color frame of the Toad or Luma contained inside the cage.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg7": {
+					"Name": "Item Type",
+					"Type": "Integer",
+					"Games": 3,
+					"Needed": false,
+					"Description": "The item that is displayed inside the cage. 6 also creates a Key, all other values create a Coin. If the object is TeresaChief, it will always spawn a Power Star instead.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Nothing"
+						},
+						{
+							"Value": "0",
+							"Notes": "Coin"
+						},
+						{
+							"Value": "1",
+							"Notes": "Toad"
+						},
+						{
+							"Value": "2",
+							"Notes": "Sling Star"
+						},
+						{
+							"Value": "3",
+							"Notes": "Launch Star"
+						},
+						{
+							"Value": "4",
+							"Notes": "Star Bits"
+						},
+						{
+							"Value": "5",
+							"Notes": "Luma"
+						},
+						{
+							"Value": "6",
+							"Notes": "Key"
+						},
+						{
+							"Value": "7",
+							"Notes": "Power Star"
+						},
+						{
+							"Value": "8",
+							"Notes": "1-Up Mushroom"
+						},
+						{
+							"Value": "9",
+							"Notes": "Goomba"
+						},
+						{
+							"Value": "10",
+							"Notes": "Blue Star Chip"
+						},
+						{
+							"Value": "11",
+							"Notes": "Yellow Star Chip"
+						},
+						{
+							"Value": "12",
+							"Notes": "Silver Star"
+						},
+						{
+							"Value": "13",
+							"Notes": "Grand Star"
+						},
+						{
+							"Value": "14",
+							"Notes": "Life Mushroom"
+						},
+						{
+							"Value": "15",
+							"Notes": "[Module] Fire Flower"
+						},
+						{
+							"Value": "16",
+							"Notes": "[Module] Ice Flower"
+						},
+						{
+							"Value": "17",
+							"Notes": "[Module] Bee Mushroom"
+						},
+						{
+							"Value": "18",
+							"Notes": "[Module] Spring Mushroom"
+						},
+						{
+							"Value": "19",
+							"Notes": "[Module] Boo Mushroom"
+						},
+						{
+							"Value": "20",
+							"Notes": "[Module] Red Star"
+						},
+						{
+							"Value": "21",
+							"Notes": "[Module] Cloud Flower"
+						},
+						{
+							"Value": "22",
+							"Notes": "[Module] Rock Mushroom"
+						},
+						{
+							"Value": "23",
+							"Notes": "[Module] Rainbow Star"
+						}
+					],
+					"Exclusives": []
+				},
+				"SW_APPEAR": {
+					"Games": 3,
+					"Needed": false,
+					"Description": "Appears when this switch is activated.",
+					"Exclusives": []
+				},
+				"SW_DEAD": {
+					"Games": 3,
+					"Needed": false,
+					"Description": "Gets activated when it dies.",
+					"Exclusives": []
+				},
+				"SW_A": {
+					"Games": 3,
+					"Needed": false,
+					"Description": "Activated by the Key that will be spawned if Obj_arg7 is set to 6.",
+					"Exclusives": []
+				},
+				"SW_AWAKE": {
+					"Games": 2,
+					"Description": "Enables rendering and resumes updates when this switch is active.",
+					"Exclusives": []
+				},
+				"Rail": {
+					"Games": 3,
+					"Needed": false,
+					"Description": "The optional path that it can move on.",
+					"Exclusives": []
+				},
+				"ClippingGroup": {
+					"Games": 2,
+					"Description": "Objects in this group are always clipped together.",
+					"Exclusives": []
+				},
+				"AppearPowerStar": {
+					"Games": 3,
+					"Needed": true,
+					"Description": "Spawned after defeating it.",
+					"Exclusives": [
+						"TeresaChief"
+					]
+				},
+				"Player2Targetable": {
+					"Games": 3,
+					"Description": "Can be targeted and frozen by player 2.",
+					"Exclusives": []
+				},
+				"YoshiTargetable": {
+					"Games": 2,
+					"Description": "Can be targeted and licked by Yoshi.",
+					"Exclusives": []
+				}
+			}
+		}
+    ]
+}

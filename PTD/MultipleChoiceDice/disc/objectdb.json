@@ -1,0 +1,25 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+        {
+			"InternalName": "MultipleChoiceDice",
+			"ClassNameSMG1": "MultipleChoiceDice",
+			"ClassNameSMG2": "MultipleChoiceDice",
+			"Name": "[Module] Multiple Choice Dice",
+			"Notes": "A die block that can activate different switches depending on the side it lands on.",
+			"Category": "levelfeature",
+			"AreaShape": "Any",
+			"ListSMG1": "ObjInfo",
+			"ListSMG2": "ObjInfo",
+			"File": "Map",
+			"Games": 2,
+			"Progress": 2,
+			"IsUnused": false,
+			"IsLeftover": false
+		}
+    ],
+    "Timestamp": 0,
+    "Classes": [
+    ]
+}

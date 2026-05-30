@@ -1,0 +1,25 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+        {
+			"InternalName": "ForbidWaterSearchArea",
+			"ClassNameSMG1": "ForbidWaterSearchArea",
+			"ClassNameSMG2": "ForbidWaterSearchArea",
+			"Name": "[Module] No Edge Dive Area",
+			"Notes": "This prevents the player from performing a special dive action when jumping off an edge while above a WaterArea.",
+			"Category": "areas",
+			"AreaShape": "Any",
+			"ListSMG1": "AreaObjInfo",
+			"ListSMG2": "AreaObjInfo",
+			"File": "Map",
+			"Games": 2,
+			"Progress": 2,
+			"IsUnused": false,
+			"IsLeftover": false
+		}
+    ],
+    "Timestamp": 0,
+    "Classes": [
+    ]
+}
