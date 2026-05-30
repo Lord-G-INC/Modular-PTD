@@ -1,0 +1,7 @@
+{
+  "Version": 1,
+  "Files": [
+    "include/MoguStone.h",
+    "source/MoguStone.cpp"
+  ]
+}

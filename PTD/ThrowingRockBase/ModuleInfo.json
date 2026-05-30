@@ -1,0 +1,8 @@
+{
+  "Name": "Throwable Projectile base",
+  "Author": "Aurum, Super Hackio",
+  "Description": "Base module for throwable projectiles",
+  "InstallDependencies": [ "Syati_Init" ],
+  "APIId": "ThrowableProjectile_API",
+  "SupportedGames": [ "SB4" ]
+}

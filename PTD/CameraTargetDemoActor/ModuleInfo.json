@@ -1,0 +1,7 @@
+{
+  "Name": "CameraTargetDemoActor",
+  "Author": "Bavario, Super Hackio",
+  "Description": "",
+  "APIId": "CameraTargetDemoActor_API",
+  "SupportedGames": [ "SB4" ]
+}
