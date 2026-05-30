@@ -3,79 +3,49 @@
     ],
     "Objects": [
         {
-            "Progress": 2,
-            "Category": "item",
-            "ClassNameSMG2": "MorphItemNeoIce",
-            "IsLeftover": false,
-            "ClassNameSMG1": "MorphItemNeoIce",
             "InternalName": "MorphItemNeoIce",
-            "ListSMG1": "ObjInfo",
-            "ListSMG2": "ObjInfo",
             "Name": "[Module] Ice Flower",
-            "IsUnused": false,
-            "AreaShape": "Any",
-            "Games": 2,
-            "File": "Map",
-            "Notes": "An Ice Flower that transforms the player into an Ice character."
+            "Games": 3
         },
 		{
-            "Progress": 2,
-            "Category": "item",
-            "ClassNameSMG2": "MorphItemNeoFoo",
-            "IsLeftover": false,
-            "ClassNameSMG1": "MorphItemNeoFoo",
             "InternalName": "MorphItemNeoFoo",
-            "ListSMG1": "ObjInfo",
-            "ListSMG2": "ObjInfo",
             "Name": "[Module] Red Star",
-            "IsUnused": false,
-            "AreaShape": "Any",
-            "Games": 2,
-            "File": "Map",
-            "Notes": "A Red Star that transforms the player into a Flying character."
+            "Games": 3
         },
 		{
-            "Progress": 2,
+			"InternalName": "MorphItemCollectionIce",
+			"ClassNameSMG1": "MorphItemCollection",
+			"ClassNameSMG2": "MorphItemCollection",
+			"Name": "[Module] Decorative Ice Flower",
+			"Notes": "An Ice Flower meant to be used in the power-up display room of Starship Mario.",
             "Category": "levelfeature",
-            "ClassNameSMG2": "MorphItemCollection",
-            "IsLeftover": false,
-            "ClassNameSMG1": "MorphItemCollection",
-            "InternalName": "MorphItemCollectionIce",
-            "ListSMG1": "ObjInfo",
-            "ListSMG2": "ObjInfo",
-            "Name": "[Module] Decorative Ice Flower",
-            "IsUnused": false,
             "AreaShape": "Any",
+			"ListSMG1": "ObjInfo",
+            "ListSMG2": "ObjInfo",
+			"File": "Map",
             "Games": 2,
-            "File": "Map",
-            "Notes": "An Ice Flower meant to be used in the power-up display room of Starship Mario."
+			"Progress": 2
         },
 		{
-            "Progress": 2,
+			"InternalName": "MorphItemCollectionFoo",
+			"ClassNameSMG1": "MorphItemCollection",
+			"ClassNameSMG2": "MorphItemCollection",
+			"Name": "[Module] Decorative Red Star",
+			"Notes": "A Red Star meant to be used in the power-up display room of Starship Mario.",
             "Category": "levelfeature",
-            "ClassNameSMG2": "MorphItemCollection",
-            "IsLeftover": false,
-            "ClassNameSMG1": "MorphItemCollection",
-            "InternalName": "MorphItemCollectionFoo",
-            "ListSMG1": "ObjInfo",
-            "ListSMG2": "ObjInfo",
-            "Name": "[Module] Decorative Red Star",
-            "IsUnused": false,
             "AreaShape": "Any",
+			"ListSMG1": "ObjInfo",
+            "ListSMG2": "ObjInfo",
+			"File": "Map",
             "Games": 2,
-            "File": "Map",
-            "Notes": "A Red Star meant to be used in the power-up display room of Starship Mario."
-        }
+			"Progress": 2
+        },
     ],
     "Timestamp": 0,
     "Classes": [
-	
 		{
 			"InternalName": "MorphItemNeoIce",
-			"Name": "MorphItemNeoIce",
-			"Notes": "A collectable item that turns the player into an Ice character. This temporary power-up state lasts for 20 seconds, and allows the player to create ice platforms while touching water surface.",
 			"Games": 3,
-			"Progress": 2,
 			"Parameters": {
 				"Obj_arg0": {
 					"Name": "Appearance Type",
@@ -96,144 +66,22 @@
 					"Exclusives": []
 				},
 				"Obj_arg1": {
-					"Name": "Binder Type",
-					"Type": "Integer",
-					"Games": 3,
-					"Needed": false,
-					"Description": "Enables or disables collision binding.",
-					"Values": [
-						{
-							"Value": "-1",
-							"Notes": "Deactivated"
-						},
-						{
-							"Value": "1",
-							"Notes": "Activated"
-						}
-					],
-					"Exclusives": []
+					"Games": 3
 				},
 				"Obj_arg2": {
-					"Name": "Landing Type",
-					"Type": "Integer",
-					"Games": 3,
-					"Needed": false,
-					"Description": "Specifies whether the power-up falls down after appearing or not.",
-					"Values": [
-						{
-							"Value": "-1",
-							"Notes": "Lands when it appears"
-						},
-						{
-							"Value": "1",
-							"Notes": "Stays in position where it appeared (Bounces up first in SMG1 if in a crystal)"
-						}
-					],
-					"Exclusives": []
+					"Games": 3
 				},
 				"Obj_arg3": {
-					"Name": "Container",
-					"Type": "Integer",
-					"Games": 3,
-					"Needed": false,
-					"Description": "Specifies the container the item appears in. In SMG1, if SW_APPEAR is set, the container will not appear until the item respawns.",
-					"Values": [
-						{
-							"Value": "-1",
-							"Notes": "Contained in a crystal (SMG1)/None (SMG2)"
-						},
-						{
-							"Value": "0",
-							"Notes": "Contained in a bubble"
-						},
-						{
-							"Value": "1",
-							"Notes": "None"
-						}
-					],
-					"Exclusives": []
+					"Games": 3
 				},
 				"Obj_arg4": {
-					"Name": "Shadow & Clipping Type",
-					"Type": "Integer",
-					"Games": 3,
-					"Needed": false,
-					"Description": "Specifies the shadow and clipping properties.",
-					"Values": [
-						{
-							"Value": "-1",
-							"Notes": "Calculate shadow drop direction from gravity once"
-						},
-						{
-							"Value": "0",
-							"Notes": "Use no shadow"
-						},
-						{
-							"Value": "1",
-							"Notes": "Calculate shadow"
-						},
-						{
-							"Value": "2",
-							"Notes": "Calculate shadow drop and direction from gravity"
-						},
-						{
-							"Value": "3",
-							"Notes": "Use spherical clipping and calculate shadow drop direction from gravity once"
-						},
-						{
-							"Value": "4",
-							"Notes": "Use spherical clipping and calculate shadow drop direction from gravity once"
-						}
-					],
-					"Exclusives": []
+					"Games": 3
 				},
 				"Obj_arg5": {
-					"Name": "Appearance Camera Type",
-					"Type": "Integer",
-					"Games": 3,
-					"Needed": false,
-					"Description": "Specifies what appearance event cameras are to be used.",
-					"Values": [
-						{
-							"Value": "-1",
-							"Notes": "No cameras"
-						},
-						{
-							"Value": "1",
-							"Notes": "Use 出現1"
-						},
-						{
-							"Value": "2",
-							"Notes": "Use 出現1 and 出現2"
-						}
-					],
-					"Exclusives": []
+					"Games": 3
 				},
 				"Obj_arg6": {
-					"Name": "Rotation Type",
-					"Type": "Integer",
-					"Games": 3,
-					"Needed": false,
-					"Description": "Specifies how the item rotates. It never visibly rotates while inside a bubble, and always visibly rotates inside of a crystal.",
-					"Values": [
-						{
-							"Value": "-1",
-							"Notes": "Always rotates"
-						},
-						{
-							"Value": "0",
-							"Notes": "Don't rotate"
-						},
-						{
-							"Value": "1",
-							"Notes": "Rotation updates while outside container"
-						},
-						{
-							"Value": "2",
-							"Notes": "Rotation updates while inside container"
-						}
-					],
-					"Exclusives": []
+					"Games": 3
 				},
 				"Path_arg4": {
 					"Name": "Initial Position Type",
@@ -344,16 +192,10 @@
 					"Exclusives": []
 				},
 				"SW_APPEAR": {
-					"Games": 3,
-					"Needed": false,
-					"Description": "Appears when this switch is activated.",
-					"Exclusives": []
+					"Games": 3
 				},
 				"SW_DEAD": {
-					"Games": 3,
-					"Needed": false,
-					"Description": "Gets activated after it is destroyed.",
-					"Exclusives": []
+					"Games": 3
 				},
 				"SW_PARAM": {
 					"Games": 2,
@@ -361,9 +203,7 @@
 					"Exclusives": []
 				},
 				"SW_AWAKE": {
-					"Games": 3,
-					"Description": "Enables rendering and resumes updates when this switch is active.",
-					"Exclusives": []
+					"Games": 3
 				},
 				"Rail": {
 					"Games": 2,
@@ -372,17 +212,10 @@
 					"Exclusives": []
 				},
 				"Camera": {
-					"Games": 3,
-					"Needed": false,
-					"Description": "Used when the item appears.",
-					"Values": [],
-					"Exclusives": []
+					"Games": 3
 				},
 				"DemoCast": {
-					"Games": 3,
-					"Needed": false,
-					"Description": "Can take part in a cutscene.",
-					"Exclusives": []
+					"Games": 3
 				},
 				"MarioFaceShipNpcRegister": {
 					"Games": 2,
@@ -400,180 +233,28 @@
 			"Progress": 2,
 			"Parameters": {
 				"Obj_arg0": {
-					"Name": "Appearance Type",
-					"Type": "Integer",
-					"Games": 3,
-					"Needed": false,
-					"Description": "Specifies how the item appears after SW_APPEAR gets activated.",
-					"Values": [
-						{
-							"Value": "-1",
-							"Notes": "Appears in place"
-						},
-						{
-							"Value": "1",
-							"Notes": "Appears above and falls down"
-						}
-					],
-					"Exclusives": []
+					"Games": 3
 				},
 				"Obj_arg1": {
-					"Name": "Binder Type",
-					"Type": "Integer",
-					"Games": 3,
-					"Needed": false,
-					"Description": "Enables or disables collision binding.",
-					"Values": [
-						{
-							"Value": "-1",
-							"Notes": "Deactivated"
-						},
-						{
-							"Value": "1",
-							"Notes": "Activated"
-						}
-					],
-					"Exclusives": []
+					"Games": 3
 				},
 				"Obj_arg2": {
-					"Name": "Landing Type",
-					"Type": "Integer",
-					"Games": 3,
-					"Needed": false,
-					"Description": "Specifies whether the power-up falls down after appearing or not.",
-					"Values": [
-						{
-							"Value": "-1",
-							"Notes": "Lands when it appears"
-						},
-						{
-							"Value": "1",
-							"Notes": "Stays in position where it appeared (Bounces up first in SMG1 if in a crystal)"
-						}
-					],
-					"Exclusives": []
+					"Games": 3
 				},
 				"Obj_arg3": {
-					"Name": "Container",
-					"Type": "Integer",
-					"Games": 3,
-					"Needed": false,
-					"Description": "Specifies the container the item appears in. In SMG1, if SW_APPEAR is set, the container will not appear until the item respawns.",
-					"Values": [
-						{
-							"Value": "-1",
-							"Notes": "Contained in a crystal (SMG1)/None (SMG2)"
-						},
-						{
-							"Value": "0",
-							"Notes": "Contained in a bubble"
-						},
-						{
-							"Value": "1",
-							"Notes": "None"
-						}
-					],
-					"Exclusives": []
+					"Games": 3
 				},
 				"Obj_arg4": {
-					"Name": "Shadow & Clipping Type",
-					"Type": "Integer",
-					"Games": 3,
-					"Needed": false,
-					"Description": "Specifies the shadow and clipping properties.",
-					"Values": [
-						{
-							"Value": "-1",
-							"Notes": "Calculate shadow drop direction from gravity once"
-						},
-						{
-							"Value": "0",
-							"Notes": "Use no shadow"
-						},
-						{
-							"Value": "1",
-							"Notes": "Calculate shadow"
-						},
-						{
-							"Value": "2",
-							"Notes": "Calculate shadow drop and direction from gravity"
-						},
-						{
-							"Value": "3",
-							"Notes": "Use spherical clipping and calculate shadow drop direction from gravity once"
-						},
-						{
-							"Value": "4",
-							"Notes": "Use spherical clipping and calculate shadow drop direction from gravity once"
-						}
-					],
-					"Exclusives": []
+					"Games": 3
 				},
 				"Obj_arg5": {
-					"Name": "Appearance Camera Type",
-					"Type": "Integer",
-					"Games": 3,
-					"Needed": false,
-					"Description": "Specifies what appearance event cameras are to be used.",
-					"Values": [
-						{
-							"Value": "-1",
-							"Notes": "No cameras"
-						},
-						{
-							"Value": "1",
-							"Notes": "Use 出現1"
-						},
-						{
-							"Value": "2",
-							"Notes": "Use 出現1 and 出現2"
-						}
-					],
-					"Exclusives": []
+					"Games": 3
 				},
 				"Obj_arg6": {
-					"Name": "Rotation Type",
-					"Type": "Integer",
-					"Games": 3,
-					"Needed": false,
-					"Description": "Specifies how the item rotates. It never visibly rotates while inside a bubble, and always visibly rotates inside of a crystal.",
-					"Values": [
-						{
-							"Value": "-1",
-							"Notes": "Always rotates"
-						},
-						{
-							"Value": "0",
-							"Notes": "Don't rotate"
-						},
-						{
-							"Value": "1",
-							"Notes": "Rotation updates while outside container"
-						},
-						{
-							"Value": "2",
-							"Notes": "Rotation updates while inside container"
-						}
-					],
-					"Exclusives": []
+					"Games": 3
 				},
 				"Obj_arg7": {
-					"Name": "Unlocking Type",
-					"Type": "Integer",
-					"Games": 1,
-					"Needed": false,
-					"Description": "Specifies the unlocking criteria needed for it to appear. If used in SMG2, it will never appear at all. This argument is ignored if SW_APPEAR is set.",
-					"Values": [
-						{
-							"Value": "-1",
-							"Notes": "No special requirement"
-						},
-						{
-							"Value": "1",
-							"Notes": "Gateway's Red Power Star needs to be collected"
-						}
-					],
-					"Exclusives": []
+					"Games": 3
 				},
 				"Path_arg4": {
 					"Name": "Initial Position Type",
@@ -684,16 +365,10 @@
 					"Exclusives": []
 				},
 				"SW_APPEAR": {
-					"Games": 3,
-					"Needed": false,
-					"Description": "Appears when this switch is activated.",
-					"Exclusives": []
+					"Games": 3
 				},
 				"SW_DEAD": {
-					"Games": 3,
-					"Needed": false,
-					"Description": "Gets activated after it is destroyed.",
-					"Exclusives": []
+					"Games": 3
 				},
 				"SW_PARAM": {
 					"Games": 2,
@@ -701,9 +376,7 @@
 					"Exclusives": []
 				},
 				"SW_AWAKE": {
-					"Games": 3,
-					"Description": "Enables rendering and resumes updates when this switch is active.",
-					"Exclusives": []
+					"Games": 3
 				},
 				"Rail": {
 					"Games": 2,
@@ -712,17 +385,10 @@
 					"Exclusives": []
 				},
 				"Camera": {
-					"Games": 3,
-					"Needed": false,
-					"Description": "Used when the item appears.",
-					"Values": [],
-					"Exclusives": []
+					"Games": 3
 				},
 				"DemoCast": {
-					"Games": 3,
-					"Needed": false,
-					"Description": "Can take part in a cutscene.",
-					"Exclusives": []
+					"Games": 3
 				},
 				"MarioFaceShipNpcRegister": {
 					"Games": 2,

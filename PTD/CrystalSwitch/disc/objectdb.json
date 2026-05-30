@@ -3,24 +3,26 @@
     ],
     "Objects": [
         {
-			"InternalName": "WaterLeakPipe",
-			"Name": "[Module] Leaking Pipe",
+			"InternalName": "CrystalSwitch",
+			"Name": "[Module] Crystal Switch",
 			"Games": 3
 		}
     ],
     "Timestamp": 0,
     "Classes": [
 		{
-			"InternalName": "WaterLeakPipe",
+			"InternalName": "CrystalSwitch",
 			"Games": 3,
 			"Parameters": {
 				"Obj_arg0": {
 					"Games": 3
-				}
+				},
 				"SW_AWAKE": {
 					"Games": 2,
-					"Description": "Enables rendering and resumes updates when this switch is active.",
-					"Exclusives": []
+					"Description": "Enables rendering and resumes updates when this switch is active."
+				},
+				"SW_A": {
+					"Games": 3
 				}
 			}
 		}

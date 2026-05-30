@@ -4,38 +4,18 @@
     "Objects": [
         {
 			"InternalName": "CocoSambo",
-			"ClassNameSMG1": "CocoSambo",
-			"ClassNameSMG2": "CocoSambo",
 			"Name": "[Module] Spiky Pokey",
-			"Notes": "A yellow cactus enemy with spikes on its body that appears in Good Egg Galaxy and Dusty Dune Galaxy.",
-			"Category": "enemy",
-			"AreaShape": "Any",
-			"ListSMG1": "ObjInfo",
-			"ListSMG2": "ObjInfo",
-			"File": "Map",
-			"Games": 2,
-			"Progress": 2,
-			"IsUnused": false,
-			"IsLeftover": false
+			"Games": 3
 		}
     ],
     "Timestamp": 0,
     "Classes": [
 		{
 			"InternalName": "CocoSambo",
-			"Name": "CocoSambo",
-			"Notes": "A spiky cactus enemy that damages the player upon contact. It can be stunned using coconuts or the Rainbow power-up. Goombas and Topman enemies can stun it as well. On the other hand, it can stomp Goombas. After stunning it, its vulnerable head remains, which can be destroyed using most of the player's attacks. It can be scaled as well.",
-			"Games": 2,
-			"Progress": 2,
+			"Games": 3,
 			"Parameters": {
 				"Obj_arg0": {
-					"Name": "Appearance Range",
-					"Type": "Float",
-					"Games": 2,
-					"Needed": false,
-					"Description": "The valid range in which it appears from the ground. Default is 1800.",
-					"Values": [],
-					"Exclusives": []
+					"Games": 3
 				},
 				"Obj_arg1": {
 					"Name": "Disable Items?",
@@ -65,10 +45,7 @@
 					"Exclusives": []
 				},
 				"SW_DEAD": {
-					"Games": 2,
-					"Needed": false,
-					"Description": "Gets activated when it dies.",
-					"Exclusives": []
+					"Games": 3
 				},
 				"SW_AWAKE": {
 					"Games": 2,
@@ -76,9 +53,7 @@
 					"Exclusives": []
 				},
 				"Player2Targetable": {
-					"Games": 1,
-					"Description": "Can be targeted and frozen by player 2.",
-					"Exclusives": []
+					"Games": 3
 				}
 			}
 		}

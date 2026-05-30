@@ -4,29 +4,15 @@
     "Objects": [
         {
 			"InternalName": "DharmaSambo",
-			"ClassNameSMG1": "DharmaSambo",
-			"ClassNameSMG2": "DharmaSambo",
 			"Name": "[Module] Red Pokey",
-			"Notes": "A red cactus enemy with several segments that is used in Dusty Dune Galaxy.",
-			"Category": "enemy",
-			"AreaShape": "Any",
-			"ListSMG1": "ObjInfo",
-			"ListSMG2": "ObjInfo",
-			"File": "Map",
-			"Games": 2,
-			"Progress": 2,
-			"IsUnused": false,
-			"IsLeftover": false
+			"Games": 3
 		}
     ],
     "Timestamp": 0,
     "Classes": [
 		{
 			"InternalName": "DharmaSambo",
-			"Name": "DharmaSambo",
-			"Notes": "A red cactus enemy that consists of four body parts, including the head. It can be defeated by hitting its head with a Spin Attack or by stomping it. The individual body parts can be destroyed with a Spin Attack. It usually moves away from the player, but it will try to fling its head on the player to damage them. It always drops six Star Bits when defeated.",
-			"Games": 2,
-			"Progress": 2,
+			"Games": 3,
 			"Parameters": {
 				"Obj_arg0": {
 					"Name": "Appearance Range",
@@ -38,15 +24,10 @@
 					"Exclusives": []
 				},
 				"SW_DEAD": {
-					"Games": 2,
-					"Needed": false,
-					"Description": "Gets activated when it dies.",
-					"Exclusives": []
+					"Games": 3
 				},
 				"SW_APPEAR": {
-					"Games": 2,
-					"Description": "Appears when this switch is activated.",
-					"Exclusives": []
+					"Games": 3
 				},
 				"SW_AWAKE": {
 					"Games": 2,
@@ -54,9 +35,7 @@
 					"Exclusives": []
 				},
 				"Player2Targetable": {
-					"Games": 2,
-					"Description": "Can be targeted and frozen by player 2.",
-					"Exclusives": []
+					"Games": 3
 				}
 			}
 		}

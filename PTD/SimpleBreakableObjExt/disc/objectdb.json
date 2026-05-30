@@ -1,0 +1,304 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+    ],
+    "Timestamp": 0,
+    "Classes": [
+		{
+			"InternalName": "SimpleBreakableObj",
+			"Notes": "A basic object that can be destroyed through various means. It needs the animation Break.bck that will be used when the object gets destroyed. In addition, it also supports an optional visibility animation called Break.bva. Finally, it may use sound or particle effects when it gets destroyed. These go by the names MapObjActorBreak and Break, respectively.",
+			"Games": 3,
+			"Parameters": {
+				"Obj_arg4": {
+					"Name": "Break Conditions",
+					"Type": "Bitfield",
+					"Games": 2,
+					"Description": "Specifies the methods in which the object can be destroyed.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "None"
+						},
+						{
+							"Value": "2",
+							"Notes": "Spin Attack"
+						},
+						{
+							"Value": "4",
+							"Notes": "Ground Pound"
+						},
+						{
+							"Value": "8",
+							"Notes": "Explosions"
+						},
+						{
+							"Value": "16",
+							"Notes": "Koopa Shells"
+						},
+						{
+							"Value": "32",
+							"Notes": "Player Fireballs"
+						},
+						{
+							"Value": "64",
+							"Notes": "Enemy Attacks"
+						},
+						{
+							"Value": "128",
+							"Notes": "Tamakoro Dash (Wall)"
+						},
+						{
+							"Value": "256",
+							"Notes": "Tamakoro Dash (Ground)"
+						},
+						{
+							"Value": "512",
+							"Notes": "Spin Drill"
+						},
+						{
+							"Value": "1024",
+							"Notes": "Rock Mushroom Roll"
+						}
+					]
+				}
+			}
+		},
+		{
+			"InternalName": "SimpleBreakableIndirectObj",
+			"Notes": "A basic object that can be destroyed through various means. Unlike other variants, it registers to the indirect map object draw buffer. It needs the animation Break.bck that will be used when the object gets destroyed. In addition, it also supports an optional visibility animation called Break.bva. Finally, it may use sound or particle effects when it gets destroyed. These go by the names MapObjActorBreak and Break, respectively.",
+			"Games": 3,
+			"Parameters": {
+				"Obj_arg4": {
+					"Name": "Break Conditions",
+					"Type": "Bitfield",
+					"Games": 2,
+					"Description": "Specifies the methods in which the object can be destroyed.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "None"
+						},
+						{
+							"Value": "2",
+							"Notes": "Spin Attack"
+						},
+						{
+							"Value": "4",
+							"Notes": "Ground Pound"
+						},
+						{
+							"Value": "8",
+							"Notes": "Explosions"
+						},
+						{
+							"Value": "16",
+							"Notes": "Koopa Shells"
+						},
+						{
+							"Value": "32",
+							"Notes": "Player Fireballs"
+						},
+						{
+							"Value": "64",
+							"Notes": "Enemy Attacks"
+						},
+						{
+							"Value": "128",
+							"Notes": "Tamakoro Dash (Wall)"
+						},
+						{
+							"Value": "256",
+							"Notes": "Tamakoro Dash (Ground)"
+						},
+						{
+							"Value": "512",
+							"Notes": "Spin Drill"
+						},
+						{
+							"Value": "1024",
+							"Notes": "Rock Mushroom Roll"
+						}
+					]
+				}
+			}
+		},
+		{
+			"InternalName": "SimpleBreakableDeleteShadowObj",
+			"Notes": "A basic object that can be destroyed through various means. Unlike other variants, its shadows will be invalidated after destroying it. It needs the animation Break.bck that will be used when the object gets destroyed. In addition, it also supports an optional visibility animation called Break.bva. Finally, it may use sound or particle effects when it gets destroyed. These go by the names MapObjActorBreak and Break, respectively.",
+			"Games": 2,
+			"Parameters": {
+				"Obj_arg4": {
+					"Name": "Break Conditions",
+					"Type": "Bitfield",
+					"Games": 2,
+					"Description": "Specifies the methods in which the object can be destroyed.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "None"
+						},
+						{
+							"Value": "2",
+							"Notes": "Spin Attack"
+						},
+						{
+							"Value": "4",
+							"Notes": "Ground Pound"
+						},
+						{
+							"Value": "8",
+							"Notes": "Explosions"
+						},
+						{
+							"Value": "16",
+							"Notes": "Koopa Shells"
+						},
+						{
+							"Value": "32",
+							"Notes": "Player Fireballs"
+						},
+						{
+							"Value": "64",
+							"Notes": "Enemy Attacks"
+						},
+						{
+							"Value": "128",
+							"Notes": "Tamakoro Dash (Wall)"
+						},
+						{
+							"Value": "256",
+							"Notes": "Tamakoro Dash (Ground)"
+						},
+						{
+							"Value": "512",
+							"Notes": "Spin Drill"
+						},
+						{
+							"Value": "1024",
+							"Notes": "Rock Mushroom Roll"
+						}
+					]
+				}
+			}
+		},
+		{
+			"InternalName": "SimpleBreakableCollisionObj",
+			"Notes": "A basic object that can be destroyed through various means. Unlike other variants, it comes with an additional collision mesh named Break that will be used after destroying it. It needs the animation Break.bck that will be used when the object gets destroyed. In addition, it also supports an optional visibility animation called Break.bva. Finally, it may use sound or particle effects when it gets destroyed. These go by the names MapObjActorBreak and Break, respectively.",
+			"Games": 2,
+			"Parameters": {
+				"Obj_arg4": {
+					"Name": "Break Conditions",
+					"Type": "Bitfield",
+					"Games": 2,
+					"Description": "Specifies the methods in which the object can be destroyed.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "None"
+						},
+						{
+							"Value": "2",
+							"Notes": "Spin Attack"
+						},
+						{
+							"Value": "4",
+							"Notes": "Ground Pound"
+						},
+						{
+							"Value": "8",
+							"Notes": "Explosions"
+						},
+						{
+							"Value": "16",
+							"Notes": "Koopa Shells"
+						},
+						{
+							"Value": "32",
+							"Notes": "Player Fireballs"
+						},
+						{
+							"Value": "64",
+							"Notes": "Enemy Attacks"
+						},
+						{
+							"Value": "128",
+							"Notes": "Tamakoro Dash (Wall)"
+						},
+						{
+							"Value": "256",
+							"Notes": "Tamakoro Dash (Ground)"
+						},
+						{
+							"Value": "512",
+							"Notes": "Spin Drill"
+						},
+						{
+							"Value": "1024",
+							"Notes": "Rock Mushroom Roll"
+						}
+					]
+				}
+			}
+		},
+		{
+			"InternalName": "SimpleBreakableStrongLightObj",
+			"Notes": "A basic object that can be destroyed through various means. Unlike other variants, it gets rendered after most other objects. It needs the animation Break.bck that will be used when the object gets destroyed. In addition, it also supports an optional visibility animation called Break.bva. Finally, it may use sound or particle effects when it gets destroyed. These go by the names MapObjActorBreak and Break, respectively.",
+			"Games": 2,
+			"Parameters": {
+				"Obj_arg4": {
+					"Name": "Break Conditions",
+					"Type": "Bitfield",
+					"Games": 2,
+					"Description": "Specifies the methods in which the object can be destroyed.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "None"
+						},
+						{
+							"Value": "2",
+							"Notes": "Spin Attack"
+						},
+						{
+							"Value": "4",
+							"Notes": "Ground Pound"
+						},
+						{
+							"Value": "8",
+							"Notes": "Explosions"
+						},
+						{
+							"Value": "16",
+							"Notes": "Koopa Shells"
+						},
+						{
+							"Value": "32",
+							"Notes": "Player Fireballs"
+						},
+						{
+							"Value": "64",
+							"Notes": "Enemy Attacks"
+						},
+						{
+							"Value": "128",
+							"Notes": "Tamakoro Dash (Wall)"
+						},
+						{
+							"Value": "256",
+							"Notes": "Tamakoro Dash (Ground)"
+						},
+						{
+							"Value": "512",
+							"Notes": "Spin Drill"
+						},
+						{
+							"Value": "1024",
+							"Notes": "Rock Mushroom Roll"
+						}
+					]
+				}
+			}
+		}
+    ]
+}

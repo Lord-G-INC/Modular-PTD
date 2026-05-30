@@ -4,29 +4,15 @@
     "Objects": [
         {
 			"InternalName": "Jiraira",
-			"ClassNameSMG1": "Jiraira",
-			"ClassNameSMG2": "Jiraira",
 			"Name": "[Module] Bowser Land Mine",
-			"Notes": "A land mine with Bowser's emblem on the trigger that charges and explodes upon contact. It regenerates after a few seconds.",
-			"Category": "levelfeature",
-			"AreaShape": "Any",
-			"ListSMG1": "ObjInfo",
-			"ListSMG2": "ObjInfo",
-			"File": "Map",
-			"Games": 2,
-			"Progress": 2,
-			"IsUnused": false,
-			"IsLeftover": false
+			"Games": 3
 		}
     ],
     "Timestamp": 0,
     "Classes": [
 		{
 			"InternalName": "Jiraira",
-			"Name": "Jiraira",
-			"Notes": "A land mine that quickly charges and explodes when stepping on its large trigger. It regenerates after a few seconds. The explosion also causes nearby land mines to charge and explode when they are hit by its explosion. It does not get clipped.",
-			"Games": 2,
-			"Progress": 2,
+			"Games": 3,
 			"Parameters": {
 				"SW_AWAKE": {
 					"Games": 2,

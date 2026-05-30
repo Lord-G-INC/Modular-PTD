@@ -4,59 +4,33 @@
     "Objects": [
         {
 			"InternalName": "JumpGuarder",
-			"ClassNameSMG1": "JumpGuarder",
-			"ClassNameSMG2": "JumpGuarder",
 			"Name": "[Module] Jump Guarder",
-			"Notes": "A stationary green robot enemy that launches several Topminis when the player comes near it. The head can be bounced off by the player.",
-			"Category": "enemy",
-			"AreaShape": "Any",
-			"ListSMG1": "ObjInfo",
-			"ListSMG2": "ObjInfo",
-			"File": "Map",
-			"Games": 2,
-			"Progress": 2,
-			"IsUnused": false,
-			"IsLeftover": false
+			"Games": 3
 		}
     ],
     "Timestamp": 0,
     "Classes": [
 		{
 			"InternalName": "JumpGuarder",
-			"Name": "JumpGuarder",
-			"Notes": "A green stationary robot enemy with a spring head. It remains in the ground passively before the player approaches it. If the player is nearby, it jumps out of the ground and emits several Topmini. It will keep regenerating Topmini even if the player has defeated some of them. The player can bounce off of its spring head. It gets stunned when using a Spin Attack. This fully expands its spring head. It is not possible to destroy it through any means.",
-			"Games": 2,
-			"Progress": 2,
+			"Games": 3,
 			"Parameters": {
 				"Obj_arg1": {
 					"Name": "Launch Velocity",
 					"Type": "Float",
 					"Games": 2,
 					"Needed": false,
-					"Description": "The speed at which the Topmini are launched from this object.",
+					"Description": "The speed at which the Topmini are launched from this object. Default is 16.",
 					"Values": [],
 					"Exclusives": []
 				},
 				"Obj_arg2": {
-					"Name": "Number of Topmini",
-					"Type": "Integer",
-					"Games": 2,
-					"Needed": false,
-					"Description": "Defines the number of Topmini to be spawned. Default is 4.",
-					"Values": [],
-					"Exclusives": []
+					"Games": 3
 				},
 				"SW_A": {
-					"Games": 2,
-					"Needed": false,
-					"Description": "If used, it will remain passive until this switch gets activated.",
-					"Exclusives": []
+					"Games": 3
 				},
 				"SW_B": {
-					"Games": 2,
-					"Needed": false,
-					"Description": "If used, it will become passive after activating this switch.",
-					"Exclusives": []
+					"Games": 3
 				},
 				"SW_AWAKE": {
 					"Games": 2,
@@ -64,11 +38,7 @@
 					"Exclusives": []
 				},
 				"Camera": {
-					"Games": 2,
-					"Needed": false,
-					"Description": "Used when player gets bounced off.",
-					"Values": [],
-					"Exclusives": []
+					"Games": 3
 				}
 			}
 		}

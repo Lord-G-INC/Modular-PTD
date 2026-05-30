@@ -4,29 +4,16 @@
     "Objects": [
         {
 			"InternalName": "WatchTowerRotateStep",
-			"ClassNameSMG1": "WatchTowerRotateStep",
-			"ClassNameSMG2": "WatchTowerRotateStep",
 			"Name": "[Module] Honeyhive -- Giant Wood Windmill",
-			"Notes": "A giant wood windmill with four platforms that move along with the rotating frame.",
-			"Category": "stagepart",
-			"AreaShape": "Any",
-			"ListSMG1": "ObjInfo",
-			"ListSMG2": "ObjInfo",
-			"File": "Map",
-			"Games": 2,
-			"Progress": 2,
-			"IsUnused": false,
-			"IsLeftover": false
+			"Games": 3
 		}
     ],
     "Timestamp": 0,
     "Classes": [
 		{
 			"InternalName": "WatchTowerRotateStep",
-			"Name": "WatchTowerRotateStep",
 			"Notes": "A large rotating windmill with four platforms that move along with the windmill's frame. Unlike SMG1, the rotation speed can be changed through Obj_args now. It is also compatible with an optional cutscene setup.",
-			"Games": 2,
-			"Progress": 2,
+			"Games": 3,
 			"Parameters": {
 				"Obj_arg0": {
 					"Name": "Speed",
@@ -40,10 +27,7 @@
 					"Exclusives": []
 				},
 				"DemoCast": {
-					"Games": 2,
-					"Needed": false,
-					"Description": "Can take part in a cutscene. Its cutscene nerve action will make it start moving.",
-					"Exclusives": []
+					"Games": 3
 				}
 			}
 		}

@@ -4,19 +4,7 @@
     "Objects": [
         {
 			"InternalName": "BallBeamer",
-			"ClassNameSMG1": "BallBeamer",
-			"ClassNameSMG2": "BallBeamer",
-			"Name": "Ball Beamer",
-			"Notes": "A yellow enemy with a metal nut on its head that periodically emits spherical rings of electricity.",
-			"Category": "enemy",
-			"AreaShape": "Any",
-			"ListSMG1": "ObjInfo",
-			"ListSMG2": "ObjInfo",
-			"File": "Map",
-			"Games": 2,
-			"Progress": 2,
-			"IsUnused": false,
-			"IsLeftover": false
+			"Games": 3
 		}
     ],
     "Timestamp": 0,
@@ -29,40 +17,13 @@
 			"Progress": 2,
 			"Parameters": {
 				"Obj_arg0": {
-					"Name": "Ring Speed",
-					"Type": "Float",
-					"Games": 2,
-					"Needed": false,
-					"Description": "The rate at which the individual rings grow. Default is 12.",
-					"Values": [],
-					"Exclusives": []
+					"Games": 3
 				},
 				"Obj_arg1": {
-					"Name": "Ring Duration",
-					"Type": "Integer",
-					"Games": 2,
-					"Needed": false,
-					"Description": "The lifetime of an individual ring before it disappears. Default is 530.",
-					"Values": [],
-					"Exclusives": []
+					"Games": 3
 				},
 				"Obj_arg2": {
-					"Name": "Shadow Type",
-					"Type": "Integer",
-					"Games": 2,
-					"Needed": false,
-					"Description": "Specifies whether to use a special model for the shadow or not.",
-					"Values": [
-						{
-							"Value": "-1",
-							"Notes": "Use normal shadow"
-						},
-						{
-							"Value": "0",
-							"Notes": "Use JumpBeamerBeamShadow"
-						}
-					],
-					"Exclusives": []
+					"Games": 3
 				},
 				"Obj_arg3": {
 					"Name": "Color Frame",
@@ -101,16 +62,10 @@
 					"Exclusives": []
 				},
 				"SW_A": {
-					"Games": 2,
-					"Needed": false,
-					"Description": "If used, it will only be able to emit rings while this switch is activated.",
-					"Exclusives": []
+					"Games": 3
 				},
 				"SW_B": {
-					"Games": 2,
-					"Needed": false,
-					"Description": "If used, this object will be killed once this switch gets activated.",
-					"Exclusives": []
+					"Games": 3
 				}
 			}
 		}

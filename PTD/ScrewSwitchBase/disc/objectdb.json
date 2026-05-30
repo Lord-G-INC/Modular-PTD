@@ -4,140 +4,64 @@
     "Objects": [
         {
 			"InternalName": "ScrewSwitch",
-			"ClassNameSMG1": "ScrewSwitch",
-			"ClassNameSMG2": "ScrewSwitch",
 			"Name": "[Module] Blue Screw Switch",
-			"Notes": "A screw that can be activated by using a Spin Attack on it.",
-			"Category": "levelfeature",
-			"AreaShape": "Any",
-			"ListSMG1": "ObjInfo",
-			"ListSMG2": "ObjInfo",
-			"File": "Map",
-			"Games": 2,
-			"Progress": 2,
-			"IsUnused": false,
-			"IsLeftover": false
+			"Games": 3
 		},
 		{
 			"InternalName": "ScrewSwitchReverse",
-			"ClassNameSMG1": "ScrewSwitchReverse",
-			"ClassNameSMG2": "ScrewSwitchReverse",
 			"Name": "[Module] Yellow Screw Switch",
-			"Notes": "A screw that can be removed by using a Spin Attack on it.",
-			"Category": "levelfeature",
-			"AreaShape": "Any",
-			"ListSMG1": "ObjInfo",
-			"ListSMG2": "ObjInfo",
-			"File": "Map",
-			"Games": 2,
-			"Progress": 2,
-			"IsUnused": false,
-			"IsLeftover": false
+			"Games": 3
 		},
 		{
 			"InternalName": "ValveSwitch",
-			"ClassNameSMG1": "ValveSwitch",
-			"ClassNameSMG2": "ValveSwitch",
 			"Name": "[Module] Valve Switch",
-			"Notes": "A screw-like green valve that the player can spin on top of to bring it up or down to activate a switch.",
-			"Category": "levelfeature",
-			"AreaShape": "Any",
-			"ListSMG1": "ObjInfo",
-			"ListSMG2": "ObjInfo",
-			"File": "Map",
-			"Games": 2,
-			"Progress": 2,
-			"IsUnused": false,
-			"IsLeftover": false
+			"Games": 3
 		}
     ],
     "Timestamp": 0,
     "Classes": [
 		{
 			"InternalName": "ScrewSwitch",
-			"Name": "ScrewSwitch",
-			"Notes": "A blue screw that can be screwed into its base by using a Spin Attack on it. After that, it will activate a switch. It will be connected to the collision below.",
-			"Games": 2,
-			"Progress": 2,
+			"Games": 3,
 			"Parameters": {
 				"SW_A": {
-					"Games": 2,
-					"Needed": true,
-					"Description": "Gets activated after spinning.",
-					"Exclusives": []
+					"Games": 3
 				},
 				"SW_AWAKE": {
-					"Games": 2,
-					"Description": "Enables rendering and resumes updates when this switch is active.",
-					"Exclusives": []
+					"Games": 3
 				},
 				"DemoCast": {
-					"Games": 2,
-					"Needed": false,
-					"Description": "Can take part in a cutscene.",
-					"Exclusives": []
+					"Games": 3
 				}
 			}
 		},
 		{
 			"InternalName": "ScrewSwitchReverse",
-			"Name": "ScrewSwitchReverse",
-			"Notes": "A yellow screw that can be removed by using a Spin Attack on it. After that, it will activate a switch, and it will try to make the player jump off.",
-			"Games": 2,
-			"Progress": 2,
+			"Games": 3,
 			"Parameters": {
 				"Obj_arg0": {
-					"Name": "Force Jump?",
-					"Type": "Boolean",
-					"Games": 2,
-					"Needed": false,
-					"Description": "If set, it will force the player to jump off the screw after it disappears.",
-					"Values": [],
-					"Exclusives": []
+					"Games": 3
 				},
 				"Obj_arg7": {
-					"Name": "Shadow Length",
-					"Type": "Float",
-					"Games": 2,
-					"Needed": false,
-					"Description": "Sets the shadow drop length. Default is 1000.",
-					"Values": [],
-					"Exclusives": []
+					"Games": 3
 				},
 				"SW_A": {
-					"Games": 2,
-					"Needed": true,
-					"Description": "Gets activated after spinning.",
-					"Exclusives": []
+					"Games": 3
 				},
 				"SW_AWAKE": {
-					"Games": 2,
-					"Description": "Enables rendering and resumes updates when this switch is active.",
-					"Exclusives": []
+					"Games": 3
 				}
 			}
 		},
 		{
 			"InternalName": "ValveSwitch",
-			"Name": "ValveSwitch",
-			"Notes": "A green valve that can be screwed out of its base by using a Spin Attack on it. After that, it will activate a switch. It will be connected to the collision below.",
-			"Games": 2,
-			"Progress": 2,
+			"Games": 3,
 			"Parameters": {
 				"Obj_arg0": {
-					"Name": "Reverse Direction?",
-					"Type": "Boolean",
-					"Games": 2,
-					"Needed": false,
-					"Description": "If set, is has to be screwed into the ground instead.",
-					"Values": [],
-					"Exclusives": []
+					"Games": 3
 				},
 				"SW_A": {
-					"Games": 2,
-					"Needed": true,
-					"Description": "Gets activated after spinning.",
-					"Exclusives": []
+					"Games": 3
 				}
 			}
 		}
