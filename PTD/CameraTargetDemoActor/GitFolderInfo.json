@@ -1,0 +1,7 @@
+{
+  "Version": 1,
+  "Files": [
+    "include/Game/Camera/CameraTargetDemoActor.h",
+    "source/Game/Camera/CameraTargetDemoActor.cpp"
+  ]
+}

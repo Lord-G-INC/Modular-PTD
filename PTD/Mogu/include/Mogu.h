@@ -1,6 +1,8 @@
 #pragma once
 
-#include "MoguStone.h"
+#include "syati.h"
+
+class MoguStone;
 
 namespace pt {
 	class Mogu : public LiveActor {

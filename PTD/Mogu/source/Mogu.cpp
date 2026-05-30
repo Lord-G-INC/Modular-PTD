@@ -1,5 +1,7 @@
 ﻿#include "Mogu.h"
 
+#include "Game/Enemy/MoguStone.h"
+
 /*
 * Author: Aurum
 * Objects: Mogu
