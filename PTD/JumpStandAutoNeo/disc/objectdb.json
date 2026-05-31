@@ -1,0 +1,106 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+        {
+			"InternalName": "JumpStandAuto",
+			"Notes": "A spring that bounces the player into the air when jumping on it.",
+		}
+    ],
+    "Timestamp": 0,
+    "Classes": [
+		{
+			"InternalName": "JumpStandAuto",
+			"Games": 2,
+			"Parameters": {
+                "Obj_arg0": {
+					"Name": "Launch Force",
+					"Type": "Float",
+                    "Games": 2,
+					"Description": "The force to launch the player with. Default is 30."
+                },
+				"Obj_arg1": {
+					"Name": "Ground Pound Launch Force",
+					"Type": "Float",
+                    "Games": 2,
+					"Description": "The force to launch the player with when ground pounding. Default is Obj_arg0 + 5."
+                },
+				"Obj_arg2": {
+					"Name": "Color Frame",
+					"Type": "Integer",
+					"Games": 2,
+					"Description": "The color frame to be used. Default is 7.",
+					"Values": [
+						{
+							"Value": "0",
+							"Notes": "Red"
+						},
+						{
+							"Value": "1",
+							"Notes": "Green"
+						},
+						{
+							"Value": "2",
+							"Notes": "Blue"
+						},
+						{
+							"Value": "3",
+							"Notes": "Yellow"
+						},
+						{
+							"Value": "4",
+							"Notes": "Orange"
+						},
+						{
+							"Value": "5",
+							"Notes": "Pink"
+						},
+						{
+							"Value": "6",
+							"Notes": "Purple"
+						},
+						{
+							"Value": "7",
+							"Notes": "Vanilla"
+						},
+						{
+							"Value": "8",
+							"Notes": "Gray"
+						}
+					],
+					"Exclusives": []
+				},
+				"Obj_arg3": {
+					"Name": "Movement Speed",
+					"Type": "Float",
+                    "Games": 2,
+					"Description": "Sets the rate at which it moves on the path. Default is 10."
+                },
+				"Obj_arg4": {
+					"Name": "Stop When Bouncing?",
+					"Type": "Boolean",
+                    "Games": 2,
+					"Description": "If set while the trampoline is on a path, the object will stop when the player bounces on it, and begin moving again afterwards."
+                },
+				"Rail": {
+					"Games": 2,
+					"Needed": false,
+					"Description": "The optional path that it can move on.",
+					"Exclusives": []
+				},
+				"SW_A": {
+					"Games": 2,
+					"Needed": false,
+					"Description": "If used, the trampoline will not be usable while this switch is activated.",
+					"Exclusives": []
+				},
+				"SW_B": {
+					"Games": 2,
+					"Needed": false,
+					"Description": "Gets activated after the player bounces on it.",
+					"Exclusives": []
+				}
+			}
+		}
+    ]
+}

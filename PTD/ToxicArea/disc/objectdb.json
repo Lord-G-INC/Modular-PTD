@@ -1,0 +1,67 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+        {
+			"InternalName": "ToxicArea",
+			"ClassNameSMG1": "ToxicArea",
+			"ClassNameSMG2": "ToxicArea",
+			"Name": "[Module] Toxic Area",
+			"Notes": "An area that kills the player after a certain amount of time spent inside of it, similar to the toxic gas from Super Mario 64.",
+			"Category": "areas",
+			"AreaShape": "Any",
+			"ListSMG1": "AreaObjInfo",
+			"ListSMG2": "AreaObjInfo",
+			"File": "Map",
+			"Games": 2,
+			"Progress": 2,
+			"IsUnused": false,
+			"IsLeftover": false
+		}
+    ],
+    "Timestamp": 0,
+    "Classes": [
+		{
+			"InternalName": "ToxicArea",
+			"Name": "ToxicArea",
+			"Notes": "An area that will kill the player if they spend a configurable time inside of it. The player will have an air meter, and can restore their air by collecting coins or popping air bubbles.",
+			"Games": 2,
+			"Progress": 2,
+			"Parameters": {
+				"Obj_arg0": {
+					"Name": "Kill Timer",
+					"Type": "Float",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The time in frames it takes for the player to die inside this area. Default is 500.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg1": {
+					"Name": "Coin Restore Amount",
+					"Type": "Float",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The percentage of time to restore upon collecting a coin between 0 and 100. Default is 20.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg2": {
+					"Name": "Bubble Restore Amount",
+					"Type": "Float",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The percentage of time to restore upon popping an air bubble between 0 and 100. Default is 30.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"SW_A": {
+					"Games": 2,
+					"Needed": true,
+					"Description": "Enables the area if the switch is activated, and disables it when deactivated.",
+					"Exclusives": []
+				}
+			}
+		}
+    ]
+}

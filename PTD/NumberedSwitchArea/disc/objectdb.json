@@ -40,7 +40,7 @@
 				"SW_A": {
 					"Games": 2,
 					"Needed": true,
-					"Description": "Activates when the specified amount of child objects connected is in the area.",
+					"Description": "Activates when SW_B is activated the specified amount of times.",
 					"Exclusives": []
 				},
 				"SW_B": {

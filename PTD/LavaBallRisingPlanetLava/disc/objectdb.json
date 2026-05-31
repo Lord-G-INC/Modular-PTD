@@ -1,0 +1,104 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+        {
+			"InternalName": "LavaBallRisingPlanetLava",
+			"ClassNameSMG2": "ScaleMapObj",
+			"Name": "[Module] Melty Molten -- Lava Tide",
+			"Games": 3
+		}
+    ],
+    "Timestamp": 0,
+    "Classes": [
+		{
+			"InternalName": "ScaleMapObj",
+			"Name": "ScaleMapObj",
+			"Notes": "An object that can vary in scale with many settings.",
+			"Games": 2,
+			"Progress": 2,
+			"Parameters": {
+				"Obj_arg0": {
+					"Name": "Minimum Scale",
+					"Type": "Float",
+					"Games": 2,
+					"Needed": false,
+					"Description": "Specifies the lower bound for the scale. The value is divided by 1000 in the calculation. Default is 1000.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg1": {
+					"Name": "Maximum Scale",
+					"Type": "Float",
+					"Games": 2,
+					"Needed": false,
+					"Description": "Specifies the upper bound for the scale. The value is divided by 1000 in the calculation. Default is 1100.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg2": {
+					"Name": "Wait Delay",
+					"Type": "Integer",
+                    "Games": 2,
+					"Description": "The time in frames it scales again. Default is 120."
+                },
+                "Obj_arg3": {
+					"Name": "Small Up Time",
+					"Type": "Integer",
+                    "Games": 2,
+					"Description": "The time in frames it takes for it to reach the maximum scale. Default is 240."
+                },
+                "Obj_arg4": {
+					"Name": "Scale Down Time",
+					"Type": "Integer",
+                    "Games": 2,
+					"Description": "The time in frames it takes for it to reach the minimum scale. Default is 240."
+                },
+                "Obj_arg5": {
+					"Name": "Initial State",
+					"Type": "Integer",
+                    "Games": 2,
+					"Description": "Specifies its initial nerve state. Default is 0.",
+					"Values": [
+						{
+							"Value": "0",
+							"Notes": "Wait Small"
+						},
+						{
+							"Value": "1",
+							"Notes": "Scale Up"
+						},
+						{
+							"Value": "2",
+							"Notes": "Wait Large"
+						},
+						{
+							"Value": "3",
+							"Notes": "Scale Down"
+						}
+					]
+                },
+                "Obj_arg6": {
+					"Name": "Scale Once?",
+					"Type": "Boolean",
+                    "Games": 2,
+					"Description": "If set, it will only scale once."
+                },
+				"SW_APPEAR": {
+					"Games": 2
+				},
+                "SW_A": {
+                    "Games": 2,
+                    "Description": "If used, it will only change its size while this switch is activated."
+                },
+                "SW_B": {
+                    "Games": 2,
+                    "Description": "If used, it will only change its size while this switch is not activated."
+                },
+				"SW_AWAKE": {
+					"Games": 2
+				}
+			}
+		}
+    ]
+}

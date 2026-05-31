@@ -1,0 +1,233 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+        {
+			"InternalName": "ButtonSwitchArea",
+			"ClassNameSMG1": "ButtonSwitchArea",
+			"ClassNameSMG2": "ButtonSwitchArea",
+			"Name": "[Module] Button Switch Area",
+			"Notes": "An area that can activate its SW_A based on the controller inputs.",
+			"Category": "areas",
+			"AreaShape": "Any",
+			"ListSMG1": "AreaObjInfo",
+			"ListSMG2": "AreaObjInfo",
+			"File": "Map",
+			"Games": 2,
+			"Progress": 2,
+			"IsUnused": false,
+			"IsLeftover": false
+		}
+    ],
+    "Timestamp": 0,
+    "Classes": [
+		{
+			"InternalName": "ButtonSwitchArea",
+			"Name": "ButtonSwitchArea",
+			"Notes": "An area that can activate its SW_A based on the controller inputs.",
+			"Games": 2,
+			"Progress": 2,
+			"Parameters": {
+				"Obj_arg0": {
+					"Name": "Check Player 2?",
+					"Type": "Boolean",
+					"Games": 2,
+					"Needed": false,
+					"Description": "If set, the area will check for Player 2's inputs rather than Player 1.",
+					"Values": [
+						{
+							"Value": "0",
+							"Notes": "Check Player 1"
+						},
+						{
+							"Value": "1",
+							"Notes": "Check Player 2"
+						}
+					],
+					"Exclusives": []
+				},
+				"Obj_arg1": {
+					"Name": "Activation Mode",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The button mode to use. Default is 0.",
+					"Values": [
+						{
+							"Value": "0",
+							"Notes": "SW_A activates when the button is pressed, and deactivates when the button is released."
+						},
+						{
+							"Value": "1",
+							"Notes": "SW_A activates on press, then deactivates on the next frame."
+						},
+						{
+							"Value": "2",
+							"Notes": "SW_A activates on release, then deactivates on the next frame."
+						}
+					],
+					"Exclusives": []
+				},
+				"Obj_arg2": {
+					"Name": "Switch Condition",
+					"Type": "Bitfield",
+					"Games": 2,
+					"Needed": false,
+					"Description": "Defines which buttons need to be pressed in order for the switch to be activated/deactivated.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Any button is pressed"
+						},
+						{
+							"Value": "0",
+							"Notes": "No button is pressed"
+						},
+						{
+							"Value": "1",
+							"Notes": "DPad Left"
+						},
+						{
+							"Value": "2",
+							"Notes": "DPad Right"
+						},
+						{
+							"Value": "4",
+							"Notes": "DPad Down"
+						},
+						{
+							"Value": "8",
+							"Notes": "DPad Up"
+						},
+						{
+							"Value": "16",
+							"Notes": "Plus"
+						},
+						{
+							"Value": "256",
+							"Notes": "2"
+						},
+						{
+							"Value": "512",
+							"Notes": "1"
+						},
+						{
+							"Value": "1024",
+							"Notes": "B"
+						},
+						{
+							"Value": "2048",
+							"Notes": "A"
+						},
+						{
+							"Value": "4096",
+							"Notes": "Minus"
+						},
+						{
+							"Value": "8192",
+							"Notes": "Z"
+						},
+						{
+							"Value": "16384",
+							"Notes": "C"
+						},
+						{
+							"Value": "32768",
+							"Notes": "Home"
+						}
+					],
+					"Exclusives": []
+				},
+				"Obj_arg3": {
+					"Name": "Stick/Pointer Mode",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The stick/pointer mode to use.",
+					"Values": [
+						{
+							"Value": "-1",
+							"Notes": "Any stick/pointer values work"
+						},
+						{
+							"Value": "0",
+							"Notes": "Check stick X and Y"
+						},
+						{
+							"Value": "1",
+							"Notes": "Check stick X"
+						},
+						{
+							"Value": "2",
+							"Notes": "Check stick Y"
+						},
+						{
+							"Value": "3",
+							"Notes": "Check pointer X and Y"
+						},
+						{
+							"Value": "4",
+							"Notes": "Check pointer X"
+						},
+						{
+							"Value": "5",
+							"Notes": "Check pointer Y"
+						},
+						{
+							"Value": "6",
+							"Notes": "Check stick and pointer X and Y"
+						},
+						{
+							"Value": "7",
+							"Notes": "Check stick and pointer X"
+						},
+						{
+							"Value": "8",
+							"Notes": "Check stick and pointer Y"
+						}
+					],
+					"Exclusives": []
+				},
+				"Obj_arg4": {
+					"Name": "Stick/Pointer X Requirement",
+					"Type": "Float",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The X value of the stick/pointer to check for divided by 10. Default is 0.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg5": {
+					"Name": "Stick/Pointer Y Requirement",
+					"Type": "Float",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The Y value of the stick/pointer to check for divided by 10. Default is 0.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"Obj_arg6": {
+					"Name": "Stick/Pointer Rounding Precision",
+					"Type": "Float",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The rounding precision for the stick/pointer values divided by 10. Default is 1.",
+					"Values": [],
+					"Exclusives": []
+				},
+				"SW_A": {
+					"Games": 2,
+					"Needed": true,
+					"Description": "Activates when the condition is met.",
+					"Exclusives": []
+				},
+				"SW_B": {
+					"Games": 2,
+					"Needed": false,
+					"Description": "If set, the area will not be usable while this switch is activated.",
+					"Exclusives": []
+				}
+			}
+		}
+    ]
+}

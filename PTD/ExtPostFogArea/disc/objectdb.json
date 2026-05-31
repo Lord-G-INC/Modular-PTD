@@ -1,0 +1,24 @@
+{
+    "Categories": [],
+    "Objects": [],
+    "Timestamp": 0,
+    "Classes": [
+		{
+			"InternalName": "PostFogArea",
+			"Parameters": {
+				"Obj_arg2": {
+					"Description": "The alpha channel component. Ranges from 0 to 255 inclusive. Default is 255. This arg is ignored if Obj_arg7 is set."
+				},
+				"Obj_arg7": {
+					"Name": "Stars Required to Disappear",
+					"Type": "Integer",
+					"Games": 2,
+					"Needed": false,
+					"Description": "The amount of stars required for the fog to disappear entirely. The Alpha value will start at 127, and will decrease for each star collected.",
+					"Values": [],
+					"Exclusives": []
+				}
+			}
+		}
+    ]
+}

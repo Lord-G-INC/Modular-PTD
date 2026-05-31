@@ -1,0 +1,33 @@
+{
+    "Categories": [
+    ],
+    "Objects": [
+        {
+			"InternalName": "GCaptureBreakArea",
+			"ClassNameSMG1": "GCaptureBreakArea",
+			"ClassNameSMG2": "GCaptureBreakArea",
+			"Name": "[Module] Pull Star Escape Area",
+			"Notes": "An area that unbinds the player from a Pull Star when entered.",
+			"Category": "areas",
+			"AreaShape": "Any",
+			"ListSMG1": "AreaObjInfo",
+			"ListSMG2": "AreaObjInfo",
+			"File": "Map",
+			"Games": 2,
+			"Progress": 2,
+			"IsUnused": false,
+			"IsLeftover": false
+		}
+    ],
+    "Timestamp": 0,
+    "Classes": [
+		{
+			"InternalName": "GCaptureBreakArea",
+			"Name": "GCaptureBreakArea",
+			"Notes": "An area that unbinds the player from a Pull Star when entered.",
+			"Games": 2,
+			"Progress": 2,
+			"Parameters": {}
+		}
+    ]
+}
