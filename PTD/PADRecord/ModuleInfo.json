@@ -4,9 +4,7 @@
   "Description": "Aurum's Syati: PADRecord",
   "InstallDependencies": ["Syati_ObjectFactories", "Syati_CommonFunctionHooks", "Syati_Init"],
   "SupportedGames": [
-    "SB4E",
-    "SB4P",
-    "SB4J"
+    "SB4"
   ],
   "ModuleData" : [
     {

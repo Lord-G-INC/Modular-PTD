@@ -1,0 +1,16 @@
+{
+  "Name": "BattleShipElevator",
+  "Author": "shibbo and Evanbowl",
+  "Description": "My Syati Module is awesome!",
+  "ModuleData" : [
+    {
+      "NameObjFactory": [
+        {
+          "Name" : "BattleShipElevator",
+          "Function" : "createExtActor<BattleShipElevator>",
+          "Include" : "BattleShipElevator.h"
+        }
+      ]
+    }
+  ]
+}

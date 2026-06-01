@@ -17,7 +17,6 @@ class TamakoroExt : public Tamakoro {
 };
 
 class CoinBase;
-
 namespace RedCoinUtil {
     extern CoinBase* tryLinkToChildRedCoin(LiveActor* pSourceActor, const JMapInfoIter& rIter, s32 arg);
     extern bool tryAppearLinkedRedCoin(LiveActor* pSourceActor, const TVec3f& pPosition);

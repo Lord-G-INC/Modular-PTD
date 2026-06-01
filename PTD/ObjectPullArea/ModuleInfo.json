@@ -4,9 +4,7 @@
   "Description": "An area that when entered, allows objects to be pulled towards the player.",
   "InstallDependencies": ["Syati_ObjectFactories", "Syati_Init", "Syati_CommonFunctionHooks"],
   "SupportedGames": [
-    "SB4E",
-    "SB4P",
-    "SB4J"
+    "SB4"
   ],
   "ModuleData" : [
     {

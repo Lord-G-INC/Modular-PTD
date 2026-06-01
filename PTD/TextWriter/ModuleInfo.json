@@ -1,0 +1,19 @@
+{
+  "Name": "TextWriter",
+  "Author": "YourNameHere",
+  "Description": "My Syati Module is awesome!",
+    "SupportedGames": [
+    "SB4"
+  ],
+  "ModuleData" : [
+    {
+      "NameObjFactory": [
+        {
+          "Name" : "TextWriter",
+          "Function" : "createExtActor<TextWriter>",
+          "Include" : "TextWriter.h"
+        }
+      ]
+    }
+]
+}

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "syati.h"
+#include "ClipAreaDropScale.h"
 
 class ClipAreaDropLaser : public LiveActor {
 public: 
@@ -12,9 +13,13 @@ public:
     void exeWait();
     void exeMove();
     void incrementDrawCount();
+    bool appearClipAreaDropScale(const TVec3f& rPos, f32 arg, u32 shape);
+    void initHoleGroups(const JMapInfoIter& rIter);
     u32 getRgba(s32 railPoint);
 
-    TVec3f mDrawPoints[0x40];
+    DeriveActorGroup<ClipAreaDropScale>* mSphereHoleGroup;
+    DeriveActorGroup<ClipAreaDropScale>* mBoxHoleGroup;
+    TVec3f mDrawPoints[64];
     s32 mNumPointsToDraw;
     s32 mPointIndexToSkipDraw;
     s32 mDrawCount;

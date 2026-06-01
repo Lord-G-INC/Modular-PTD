@@ -294,16 +294,16 @@ namespace pt {
 	void funcTest(JUTConsole* pConsole, const char* pStr) {
 		const char* region = 0;
 
-		#ifdef USA
-			region = "USA";
-		#elif PAL
-			region = "PAL";
-		#elif JPN
-			region = "JPN";
-		#elif TWN
-			region = "TWN";
-		#elif KOR
-			region = "KOR";
+		#ifdef SB4E
+			region = "SB4E";
+		#elif SB4P
+			region = "SB4P";
+		#elif SB4J
+			region = "SB4J";
+		#elif SB4W
+			region = "SB4W";
+		#elif SB4K
+			region = "SB4K";
 		#endif
 
 		char binPath[35];

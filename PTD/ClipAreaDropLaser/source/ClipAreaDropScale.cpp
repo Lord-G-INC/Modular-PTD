@@ -1,9 +1,21 @@
 #include "ClipAreaDropScale.h"
 
-ClipAreaDropScale::ClipAreaDropScale(const char* pName, const char* pModel) : ClipArea(pName) {
-    _C0 = 0;
+ClipAreaDropScale::ClipAreaDropScale(const char* pName, u32 shape) : ClipArea(pName) {
     _C4 = 0.0f;
-    setShape(_C0 = new ClipAreaShapeSphere(pModel));
+    mShape = shape;
+
+    ClipAreaShape* pShape = 0;
+    
+    if (shape == 0) {
+        mSphere = new ClipAreaShapeSphere("VolumeSphere");
+        pShape = mSphere;
+    }
+    else if (shape == 1) {
+        mBox = new ClipAreaShapeBox("VolumeBoxSmall", 0);
+        pShape = mBox;
+    }
+
+    setShape(pShape);
 }
 
 void ClipAreaDropScale::init(const JMapInfoIter& rIter) {
@@ -16,7 +28,8 @@ void ClipAreaDropScale::init(const JMapInfoIter& rIter) {
 
 void ClipAreaDropScale::appear() {
     LiveActor::appear();
-    _C0->mRadius = 0.0f;
+
+    mSphere->mRadius = 0.0f;
     setNerve(&NrvClipAreaDropScale::ClipAreaDropScaleNrvWait::sInstance);
 }
 
@@ -40,7 +53,7 @@ void ClipAreaDropScale::exeWait() {
     else
         f = MR::calcNerveEaseInOutValue(this, 0x3C, 0xF0, _C4, 0.0);
 
-    _C0->mRadius = f;
+    mSphere->mRadius = f;
     
     if (MR::isGreaterStep(this, 240))
         kill();

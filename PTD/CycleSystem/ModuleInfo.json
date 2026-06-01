@@ -4,9 +4,7 @@
   "Description": "A controller for a repeatable cycle.",
   "InstallDependencies": ["Syati_ObjectFactories", "PTUtils"],
   "SupportedGames": [
-    "SB4E",
-    "SB4P",
-    "SB4J"
+    "SB4"
   ],
   "ModuleData": [
     {

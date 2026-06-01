@@ -2,7 +2,9 @@
   "Name": "Extended Stationed File List",
   "Author": "Evanbowl",
   "Description": "Extends the list of files that are always loaded in memory.",
-  "SupportedGames": [ "SB4" ],
+  "SupportedGames": [
+    "SB4"
+  ],
   "ModuleExtensionDefinition" : [
     {
       "Name" : "StationedFileEntry",

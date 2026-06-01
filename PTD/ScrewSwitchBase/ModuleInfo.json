@@ -3,9 +3,7 @@
   "Author": "Aurum",
   "Description": "The screwable screws from Toy Time Galaxy",
   "SupportedGames": [
-    "SB4E",
-    "SB4P",
-    "SB4J"
+    "SB4"
   ],
   "ModuleData": [
     {
