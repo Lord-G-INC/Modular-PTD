@@ -38,6 +38,16 @@ void RedCoin::control() {
     if (isNerve(&NrvCoin::CoinNrvGot::sInstance))
         MR::zeroVelocity(this);
 }
+const char* gTestAnims[] = {
+    "サーフィン",
+    "サーフィン（加速）",
+    "サーフィン傾き開始",
+    "サーフィン傾き開始（加速）",
+    "サーフィン落下",
+    "サーフィンジャンプ",
+    "サーフィンハイジャンプ",
+    "サーフィン着地"
+};
 
 bool RedCoin::requestGetCoin() {
     MR::emitEffect(this, "RedCoinGet");
@@ -50,6 +60,11 @@ bool RedCoin::requestGetCoin() {
     if (pController) {
         pController->startCountUp(this);
         MR::startSystemSE(pController->mHasAllRedCoins ? "SE_SY_RED_COIN_COMPLETE" : "SE_SY_RED_COIN", -1, -1);
+    }
+
+    if (pController->mNumCoins < 9) {
+        MR::startBckPlayerJ(gTestAnims[pController->mNumCoins-1]);
+        OSReport("Testing %s\n", gTestAnims[pController->mNumCoins-1]);
     }
     
     if (!mHasRewardedCoins && !MR::isGalaxyDarkCometAppearInCurrentStage() && pController) {
