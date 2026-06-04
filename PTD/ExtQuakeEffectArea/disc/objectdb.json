@@ -5,7 +5,7 @@
 			"InternalName": "QuakeEffectArea",
 			"ClassNameSMG1": "QuakeEffectArea",
 			"ClassNameSMG2": "QuakeEffectArea",
-			"Name": "Earthquake Area",
+			"Name": "[Module] Earthquake Area",
 			"Notes": "An area that periodically shakes the camera and plays a quaking sound effect while the player is inside it.",
 			"Category": "areas",
 			"AreaShape": "Any",
@@ -14,7 +14,7 @@
 			"File": "Map",
 			"Games": 4,
 			"Progress": 2
-		},
+		}
 	],
     "Timestamp": 0,
     "Classes": []

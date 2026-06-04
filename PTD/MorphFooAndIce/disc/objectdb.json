@@ -39,7 +39,7 @@
 			"File": "Map",
             "Games": 2,
 			"Progress": 2
-        },
+        }
     ],
     "Timestamp": 0,
     "Classes": [
@@ -48,7 +48,7 @@
 			"Games": 3,
 			"Parameters": {
 				"Obj_arg0": {
-					"Name": "Appearance Type",
+					"Name": "[Broken] Appearance Type",
 					"Type": "Integer",
 					"Games": 3,
 					"Needed": false,

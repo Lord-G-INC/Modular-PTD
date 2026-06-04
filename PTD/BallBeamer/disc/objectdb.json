@@ -4,6 +4,7 @@
     "Objects": [
         {
 			"InternalName": "BallBeamer",
+			"Name": "[Module] BallBeamer",
 			"Games": 3
 		}
     ],

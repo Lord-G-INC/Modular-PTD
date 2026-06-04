@@ -16,7 +16,7 @@
 			"Parameters": {
 				"Obj_arg0": {
 					"Games": 3
-				}
+				},
 				"SW_AWAKE": {
 					"Games": 2,
 					"Description": "Enables rendering and resumes updates when this switch is active.",
