@@ -37,7 +37,7 @@ void MoguStone::appear() {
 
 void MoguStone::kill() {
 	ModelObj::kill();
-	MR::emitEffect(this, "Break");
+	MR::tryEmitEffect(this, "Break");
 }
 
 void MoguStone::calcAndSetBaseMtx() {
