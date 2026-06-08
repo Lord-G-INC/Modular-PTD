@@ -178,11 +178,9 @@ namespace {
 	const static f32 hAddHeight = 200.0f;
 };  // namespace
 
-ThrowingIce::ThrowingIce(const char* pName) : MoguStone(pName, "IceManIce"), mPath(nullptr) {
+ThrowingIce::ThrowingIce(const char* pName, const char* pModel, s32 attackMsg) : MoguStone(pName, pModel), mAttackMsg(attackMsg) {
 	mPath = new ParabolicPath();
-	mScale.x = 1.3f;
-	mScale.y = 1.3f;
-	mScale.z = 1.3f;
+	mScale.setAll(1.3f);
 }
 
 void ThrowingIce::init(const JMapInfoIter& rIter) {
@@ -197,39 +195,25 @@ void ThrowingIce::init(const JMapInfoIter& rIter) {
 	makeActorDead();
 }
 
-void ThrowingIce::emitIce(const TVec3f& arg1, const TVec3f& arg2, f32 arg3, const TVec3f& arg4) {
-	mPath->initFromUpVectorAddHeight(arg1, arg2, -arg4, hAddHeight);
-	mSpeed = arg3;
-
-	TVec3f v2(arg2);
-	v2 -= arg1;
-	MR::vecKillElement(v2, mGravity, &mFrontVec);
-	MR::normalizeOrZero(&mFrontVec);
-	setNerve(&NrvMoguStone::NrvThrow::sInstance);
-	MR::emitEffect(this, "Smoke");
-}
-
-void ThrowingIce::doBehavior() {
-	if (MR::isFirstStep(this)) {
-		TVec3f v1;
-		PSVECCrossProduct(mFrontVec.toVecPtr(), mGravity.toVecPtr(), v1.toVecPtr());
-		mUpQuat.setRotate(v1, 0.25f);
-	}
-
-	f32 rate = MR::calcNerveRate(this, 101);
-	TVec3f v2;
-	mPath->calcPosition(&v2, rate);
-	TVec3f v3(v2);
-	v3 -= mTranslation;
-	mVelocity.set(v3);
-}
-
 void ThrowingIce::attackSensor(HitSensor* pSensor1, HitSensor* pSensor2) {
-	if (pSensor1 == getSensor("body") && MR::isSensorPlayer(pSensor2) &&
-		(MR::isPlayerElementModeIce() ? MR::sendMsgEnemyAttackStrong(pSensor2, pSensor1) : MR::sendMsgEnemyAttackFreeze(pSensor2, pSensor1))) {
-		MR::emitEffect(this, "Break");
-		MR::startSound(this, "SE_BM_ICEMERAKING_STONE_BREAK", -1, -1);
-		MR::deleteEffect(this, "Smoke");
+	if (pSensor1 == getSensor("body") && MR::isSensorPlayer(pSensor2)) {
+
+		if (mAttackMsg == ACTMES_ENEMY_ATTACK_FREEZE) {
+			if (MR::isPlayerElementModeIce()) {
+				if (!MR::sendMsgEnemyAttackStrong(pSensor2, pSensor1))
+					return;
+			}
+			else if (!MR::sendMsgEnemyAttackFreeze(pSensor2, pSensor1))
+				return;
+		}
+		else {
+			if (!pSensor2->receiveMessage(mAttackMsg, pSensor1))
+				return;
+		}
+
+		MR::tryEmitEffect(this, "Break");
+		MR::startActionSound(this, "BmIcemerakingStoneBreak", -1, -1, -1);
+		MR::tryDeleteEffect(this, "Smoke");
 		kill();
 	}
 }
@@ -247,8 +231,35 @@ bool ThrowingIce::receiveMsgPlayerAttack(u32 msg, HitSensor* pSensor1, HitSensor
 	return false;
 }
 
+void ThrowingIce::emitArc(const TVec3f& arg1, const TVec3f& arg2, f32 arg3, const TVec3f& arg4) {
+	mPath->initFromUpVectorAddHeight(arg1, arg2, -arg4, hAddHeight);
+	mSpeed = arg3;
+
+	TVec3f v2(arg2);
+	v2 -= arg1;
+	MR::vecKillElement(v2, mGravity, &mFrontVec);
+	MR::normalizeOrZero(&mFrontVec);
+	setNerve(&NrvMoguStone::NrvThrow::sInstance);
+	MR::tryEmitEffect(this, "Smoke");
+}
+
+void ThrowingIce::doBehavior() {
+	if (MR::isFirstStep(this)) {
+		TVec3f v1;
+		PSVECCrossProduct(mFrontVec.toVecPtr(), mGravity.toVecPtr(), v1.toVecPtr());
+		mUpQuat.setRotate(v1, 0.25f);
+	}
+
+	f32 rate = MR::calcNerveRate(this, 101);
+	TVec3f v2;
+	mPath->calcPosition(&v2, rate);
+	TVec3f v3(v2);
+	v3 -= mTranslation;
+	mVelocity.set(v3);
+}
+
 void ThrowingIce::startBreakSound() {
-	MR::startSound(this, "SE_BM_ICEMERAKING_STONE_BREAK", -1, -1);
+	MR::startActionSound(this, "BmIcemerakingStoneBreak", -1, -1, -1);
 }
 
 void ThrowingIce::startThrowLevelSound() {

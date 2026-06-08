@@ -39,7 +39,7 @@ class ParabolicPath;
 
 class ThrowingIce : public MoguStone {
 public:
-	ThrowingIce(const char*);
+	ThrowingIce(const char* pName, const char* pModel, s32 attackMsg);
 
 	virtual void init(const JMapInfoIter&);
 	virtual void attackSensor(HitSensor*, HitSensor*);
@@ -48,7 +48,8 @@ public:
 	virtual void startBreakSound();
 	virtual void startThrowLevelSound();
 
-	void emitIce(const TVec3f&, const TVec3f&, f32, const TVec3f&);
+	void emitArc(const TVec3f&, const TVec3f&, f32, const TVec3f&);
 
 	ParabolicPath* mPath;
+	s32 mAttackMsg;
 };
