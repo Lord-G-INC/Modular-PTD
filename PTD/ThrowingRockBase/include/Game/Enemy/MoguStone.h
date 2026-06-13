@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Game/LiveActor/ModelObj.h"
+#include "Game/Util/Functor.h"
 
 class MoguStone : public ModelObj {
 public:
@@ -21,10 +22,14 @@ public:
 	void emit(bool calcGravity, const TVec3f &rTranslation, const TVec3f &rFrontVec, f32 speed);
 	bool isTaken();
 
+	void setBreakCallback(const MR::FunctorBase& rFunctor);
+	void clearBreakCallback();
+
 	TQuat4f mRotateQuat;
 	TQuat4f mUpQuat;
 	TVec3f mFrontVec;
 	f32 mSpeed;
+	MR::FunctorBase* mBreakCallback;
 	bool mCalcGravity;
 };
 

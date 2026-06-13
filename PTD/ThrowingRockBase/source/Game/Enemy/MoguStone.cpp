@@ -17,6 +17,8 @@ MoguStone::MoguStone(const char *pName, const char *pModelName) : ModelObj(pName
 	mFrontVec.set(0.0f, 0.0f, 1.0f);
 	mSpeed = 0.0f;
 	mCalcGravity = true;
+
+	mBreakCallback = nullptr;
 }
 
 void MoguStone::init(const JMapInfoIter &rIter) {
@@ -38,6 +40,9 @@ void MoguStone::appear() {
 void MoguStone::kill() {
 	ModelObj::kill();
 	MR::tryEmitEffect(this, "Break");
+
+	if (mBreakCallback != nullptr)
+		mBreakCallback->operator()();
 }
 
 void MoguStone::calcAndSetBaseMtx() {
@@ -153,6 +158,14 @@ void MoguStone::emit(bool calcGravity, const TVec3f &rTranslation, const TVec3f 
 
 bool MoguStone::isTaken() {
 	return isNerve(&NrvMoguStone::NrvTaken::sInstance);
+}
+
+void MoguStone::setBreakCallback(const MR::FunctorBase& rFunctor) {
+	mBreakCallback = rFunctor.clone(nullptr);
+}
+
+void MoguStone::clearBreakCallback() {
+	mBreakCallback = nullptr;
 }
 
 namespace NrvMoguStone {
