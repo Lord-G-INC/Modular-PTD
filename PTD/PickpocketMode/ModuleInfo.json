@@ -1,0 +1,21 @@
+{
+  "Name": "PickpocketMode",
+  "Author": "Evanbowl",
+  "Description": "What the helly",
+    "SupportedGames": [
+    "SB4E",
+    "SB4J",
+    "SB4P"
+  ],
+    "ModuleData": [
+    {
+        "SceneObjHolder" : [
+        {
+          "Name" : "0x68",
+          "Function" : "PickpocketModeUtil::createPickpocketModeHolder",
+          "Include" : "PickpocketHolder.h"
+        }
+      ]
+    }
+  ]
+}
