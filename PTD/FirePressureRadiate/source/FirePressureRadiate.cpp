@@ -58,13 +58,7 @@ namespace pt {
 		MR::getJMapInfoArg2NoInit(rIter, &mRadiateTime);
 
 		// Setup joint controller for cannon rotation (Obj_arg0)
-		JointControlDelegator<FirePressureRadiate> *jointCtrl = new JointControlDelegator<FirePressureRadiate>();
-		jointCtrl->mObjPtr = this;
-		jointCtrl->mCalcJointMtxFunc = &FirePressureRadiate::calcJointCannon;
-		jointCtrl->mCalcJointMtxAfterChildFunc = NULL;
-
-		MR::setJointControllerParam(jointCtrl, this, "Cannon1");
-		mJointCtrl = jointCtrl;
+		mJointCtrl = MR::createJointDelegatorWithNullChildFunc(this, &FirePressureRadiate::calcJointCannon, "Cannon1");
 		MR::initJointTransform(this);
 
 		// Enable gravity calculation
