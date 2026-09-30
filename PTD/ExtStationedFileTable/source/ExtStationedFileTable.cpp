@@ -1,4 +1,5 @@
 #include "ModuleData_ExtStationedFileTable.h"
+#include "syati.h"
 
 #if defined TWN || defined KOR
     #define REGIONOFF 0x90
@@ -7,17 +8,17 @@
 #endif
 
 const char* createAndAddNewStationed() {
-    StationedFileInfoEntry* pEntry;
+    MR::StationedFileInfo* pEntry;
     asm("mr %0, r30" : "=r" (pEntry));
     
-    if (pEntry->pPath == 0 && pEntry->l2 != 9) {
+    if (pEntry->mFilePath == 0 && pEntry->mLoadType != 9) {
         pEntry = &cNewStationedFileEntries[0];
 
-        if (pEntry->l2 == 9)
+        if (pEntry->mLoadType == 9)
             return 0;
     }
 
-    return pEntry->pPath;
+    return pEntry->mFilePath;
 }
 
 kmWrite32(0x804CDF40 + REGIONOFF, PPC_CMPWI(3, 0));
@@ -25,17 +26,17 @@ kmCall(0x804CDF44 + REGIONOFF, createAndAddNewStationed);
 
 
 const char* loadNewResources() {
-    StationedFileInfoEntry* pEntry;
+    MR::StationedFileInfo* pEntry;
     asm("mr %0, r31" : "=r" (pEntry));
     
-    if (pEntry->pPath == 0 && pEntry->l2 != 9) {
+    if (pEntry->mFilePath == 0 && pEntry->mLoadType != 9) {
         pEntry = &cNewStationedFileEntries[0];
 
-        if (pEntry->l2 == 9)
+        if (pEntry->mLoadType == 9)
             return 0;
     }
 
-    return pEntry->pPath;
+    return pEntry->mFilePath;
 }
 
 kmWrite32(0x804CDE68 + REGIONOFF, PPC_CMPWI(3, 0));

@@ -11,14 +11,14 @@
       "CodeGenSource": "GEN_ExtStationedFileTable.h",
       "CodeGenDestination": "codebuild/ModuleData_ExtStationedFileTable.h",
       "Variables": [
-        "Type1",
-        "Type2",
+        "HeapType",
+        "LoadType",
         "Path"
       ],
       "CodeGenData": [
         {
           "ReplaceTargetName": "NewFileList",
-          "ReplaceFormatData": "    {{{0}, {1}, \"{2}\" }},"
+          "ReplaceFormatData": "    {{MR::StationedFileInfo::{0}, MR::StationedFileInfo::{1}, \"{2}\" }},"
         }
       ]
     }

@@ -1,6 +1,6 @@
-#include "Game/System/StationedArchiveLoader.h"
+#include "Game/System/StationedFileInfo.h"
 
-static StationedFileInfoEntry cNewStationedFileEntries[] = {
+static MR::StationedFileInfo cNewStationedFileEntries[] = {
 {{NewFileList}}
-    {0, 9, NULL}
+    {(MR::StationedFileInfo::HeapType)NULL, (MR::StationedFileInfo::LoadType)9, NULL}
 };
