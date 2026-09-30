@@ -16,6 +16,3 @@
 [submodule "Syati_ExtGameData"]
 	path = PTD/Syati_ExtGameData
 	url = https://www.github.com/SMGCommunity/Syati_ExtGameData
-[submodule "SMG2_SurfRay"]
-	path = PTD/SMG2_SurfRay
-	url = https://github.com/Evanbowl/SMG2_SurfRay
