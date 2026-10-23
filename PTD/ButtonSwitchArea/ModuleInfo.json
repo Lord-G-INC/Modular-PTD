@@ -2,7 +2,7 @@
   "Name": "ButtonSwitchArea",
   "Author": "Bavario",
   "Description": "An area that can activate its SW_A based on the controller inputs.",
-  "InstallDependencies": ["Syati_ObjectFactories", "ExtAreaObjMgr"],
+  "InstallDependencies": ["Syati_ObjectFactories"],
   "SupportedGames": [
     "SB4"
   ],
